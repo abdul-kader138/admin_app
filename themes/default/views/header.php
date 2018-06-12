@@ -328,7 +328,27 @@
 <?php
 if ($Owner || $Admin) {
     ?>
-
+    <li class="mm_employees">
+        <a class="dropmenu" href="#">
+            <i class="fa fa-heart-o"></i>
+            <span class="text"> <?= lang('Employee'); ?> </span>
+            <span class="chevron closed"></span>
+        </a>
+        <ul>
+            <li id="quotes_index">
+                <a class="submenu" href="<?= site_url('employees'); ?>">
+                    <i class="fa fa-plus-circle"></i>
+                    <span class="text"> <?= lang('add_employee'); ?></span>
+                </a>
+            </li>
+            <li id="quotes_add">
+                <a class="submenu" href="<?= site_url('quotes/add'); ?>">
+                    <i class="fa fa-plus-circle"></i>
+                    <span class="text"> <?= lang('add_quote'); ?></span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li class="mm_products">
         <a class="dropmenu" href="#">
             <i class="fa fa-barcode"></i>
@@ -663,6 +683,11 @@ if ($Owner || $Admin) {
                 <li id="system_settings_brands">
                     <a href="<?= site_url('system_settings/brands') ?>">
                         <i class="fa fa-th-list"></i><span class="text"> <?= lang('brands'); ?></span>
+                    </a>
+                </li>
+                <li id="system_settings_company">
+                    <a href="<?= site_url('system_settings/company') ?>">
+                        <i class="fa fa-th-list"></i><span class="text"> <?= lang('company'); ?></span>
                     </a>
                 </li>
                 <li id="system_settings_variants">

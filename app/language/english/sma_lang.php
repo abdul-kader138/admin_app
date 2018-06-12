@@ -533,3 +533,8 @@ $lang['product_details_search']              = "Product Detail Search";
 $lang['product_details']                     = "Product Details";
 $lang['product_reorder_report']              = "Product Reorder Details";
 $lang['product_reorder']                     = "Product Reorder";
+
+//Employee Setting
+
+$lang['employees']                      = "Employee";
+$lang['add_employee']                   = "Add Employee";

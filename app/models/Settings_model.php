@@ -703,4 +703,12 @@ class Settings_model extends CI_Model
         return false;
     }
 
+
+    public function addCompany($data)
+    {
+        if ($this->db->insert("company", $data)) {
+            return true;
+        }
+        return false;
+    }
 }

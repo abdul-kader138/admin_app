@@ -364,3 +364,18 @@ $lang['edit_price_on_sale']              = "Edit Price on Sale";
 $lang['login_logo']                      = "Login Logo";
 $lang['code_prefix']                     = "Product Code Prefix";
 $lang['inter_company_sale_price']        = "Price Group(Inter Company)";
+
+
+//company add
+
+
+$lang['add_company']                       = "Add Company";
+$lang['edit_company']                      = "Edit Company";
+$lang['delete_company']                    = "Delete Company";
+$lang['delete_company']                   = "Delete Company";
+$lang['import_company']                   = "Import Company";
+$lang['company_added']                     = "Company successfully added";
+$lang['company_added']                    = "Company successfully added";
+$lang['company_updated']                   = "Company successfully updated";
+$lang['company_deleted']                   = "Company successfully deleted";
+$lang['company_deleted']                  = "Company successfully deleted";

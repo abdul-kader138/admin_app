@@ -3698,4 +3698,92 @@ class system_settings extends MY_Controller
         }
     }
 
+
+//    add company
+    function company()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['company-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('company')));
+        $meta = array('page_title' => lang('company'), 'bc' => $bc);
+        $this->page_construct('settings/company', $meta, $this->data);
+    }
+
+    function getCompany()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['company-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        build  anchor
+        $edit_link='';
+        if ($this->Owner || $this->Admin || $get_permission['company-edit'])
+            $edit_link= '<a href="' . site_url("system_settings/edit_company/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_brand") . '"><i class="fa fa-edit"></i></a>';
+
+        $delete_link='';
+        if ($this->Owner || $this->Admin || $get_permission['company-delete'])
+
+            $delete_link = "&nbsp<a href='#' class='po' title='<b>" . lang("delete_company") . "</b>' data-content=\"<p>"
+                . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_company/$1') . "'>"
+                . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
+//
+        $this->load->library('datatables');
+        $this->datatables
+            ->select("id, code, name", FALSE)
+            ->from("company")
+            ->add_column("Actions", "<div class='text-center'>".$edit_link.$delete_link."</div>", "id");
+
+        echo $this->datatables->generate();
+    }
+
+
+
+    function add_company()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['company-add'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[company.name]|alpha_numeric_spaces');
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+        }
+//        elseif ($this->input->post('name')) {
+//            $this->session->set_flashdata('error', validation_errors());
+//            redirect("system_settings/add_company");
+//        }
+        $t=$this->form_validation->run();
+
+        if ($this->form_validation->run() == true && $this->settings_model->addCompany($data)) {
+            $this->session->set_flashdata('message', lang("company_added"));
+            redirect("system_settings/company");
+        } else {
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'system/add_company', $this->data);
+
+        }
+    }
 }
