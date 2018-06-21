@@ -6,7 +6,7 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('system_settings/getCompany') ?>',
+            'sAjaxSource': '<?= site_url('system_settings/getPackage') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -18,10 +18,10 @@
         });
     });
 </script>
-<?= form_open('system_settings/company_actions', 'id="action-form"') ?>
+<?= form_open('system_settings/package_actions', 'id="action-form"') ?>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i class="fa-fw fa fa-th-list"></i><?= lang('company'); ?></h2>
+        <h2 class="blue"><i class="fa-fw fa fa-th-list"></i><?= lang('package'); ?></h2>
 
         <div class="box-icon">
             <ul class="btn-tasks">
@@ -31,13 +31,13 @@
                     </a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li>
-                            <a href="<?php echo site_url('system_settings/add_company'); ?>" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i> <?= lang('add_company') ?>
+                            <a href="<?php echo site_url('system_settings/add_package'); ?>" data-toggle="modal" data-target="#myModal">
+                                <i class="fa fa-plus"></i> <?= lang('add_package') ?>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('system_settings/import_company'); ?>" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i> <?= lang('import_company') ?>
+                            <a href="<?php echo site_url('system_settings/import_package'); ?>" data-toggle="modal" data-target="#myModal">
+                                <i class="fa fa-plus"></i> <?= lang('import_package') ?>
                             </a>
                         </li>
                         <li>
@@ -53,7 +53,7 @@
                         <li class="divider"></li>
                         <li>
                             <a href="#" id="delete" data-action="delete">
-                                <i class="fa fa-trash-o"></i> <?= lang('delete_company') ?>
+                                <i class="fa fa-trash-o"></i> <?= lang('delete_package') ?>
                             </a>
                         </li>
                     </ul>
@@ -68,21 +68,21 @@
                 <div class="table-responsive">
                     <table id="BrandTable" class="table table-bordered table-hover table-striped">
                         <thead>
-                            <tr>
-                                <th style="min-width:30px; width: 30px; text-align: center;">
-                                    <input class="checkbox checkth" type="checkbox" name="check"/>
-                                </th>
-                                <th><?= lang("code"); ?></th>
-                                <th><?= lang("name"); ?></th>
-                                <th style="width:100px;"><?= lang("actions"); ?></th>
-                            </tr>
+                        <tr>
+                            <th style="min-width:30px; width: 30px; text-align: center;">
+                                <input class="checkbox checkth" type="checkbox" name="check"/>
+                            </th>
+                            <th><?= lang("code"); ?></th>
+                            <th><?= lang("name"); ?></th>
+                            <th style="width:100px;"><?= lang("actions"); ?></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="4" class="dataTables_empty">
-                                    <?= lang('loading_data_from_server') ?>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td colspan="4" class="dataTables_empty">
+                                <?= lang('loading_data_from_server') ?>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

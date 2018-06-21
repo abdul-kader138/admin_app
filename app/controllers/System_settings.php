@@ -849,6 +849,26 @@ class system_settings extends MY_Controller
                 'brand-edit' => $this->input->post('brand-edit'),
                 'brand-add' => $this->input->post('brand-add'),
                 'brand-delete' => $this->input->post('brand-delete'),
+
+                'company-index' => $this->input->post('company-index'),
+                'company-edit' => $this->input->post('company-edit'),
+                'company-add' => $this->input->post('company-add'),
+                'company-delete' => $this->input->post('company-delete'),
+
+                'designation-index' => $this->input->post('designation-index'),
+                'designation-edit' => $this->input->post('designation-edit'),
+                'designation-add' => $this->input->post('designation-add'),
+                'designation-delete' => $this->input->post('designation-delete'),
+
+                'operator-index' => $this->input->post('operator-index'),
+                'operator-edit' => $this->input->post('operator-edit'),
+                'operator-add' => $this->input->post('operator-add'),
+                'operator-delete' => $this->input->post('operator-delete'),
+
+                'package-index' => $this->input->post('package-index'),
+                'package-edit' => $this->input->post('package-edit'),
+                'package-add' => $this->input->post('package-add'),
+                'package-delete' => $this->input->post('package-delete'),
             );
 
             if (POS) {
@@ -857,6 +877,8 @@ class system_settings extends MY_Controller
 
             //$this->sma->print_arrays($data);
         }
+
+        $tt=$this->form_validation->run();
 
 
         if ($this->form_validation->run() == true && $this->settings_model->updatePermissions($id, $data)) {
@@ -3699,7 +3721,7 @@ class system_settings extends MY_Controller
     }
 
 
-//    add company
+//    company
     function company()
     {
         if(! $this->Owner && ! $this->Admin) {
@@ -3729,12 +3751,12 @@ class system_settings extends MY_Controller
 //        build  anchor
         $edit_link='';
         if ($this->Owner || $this->Admin || $get_permission['company-edit'])
-            $edit_link= '<a href="' . site_url("system_settings/edit_company/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_brand") . '"><i class="fa fa-edit"></i></a>';
+            $edit_link= '<a href="' . site_url("system_settings/edit_company/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_company") . '"><i class="fa fa-edit"></i></a>';
 
         $delete_link='';
         if ($this->Owner || $this->Admin || $get_permission['company-delete'])
 
-            $delete_link = "&nbsp<a href='#' class='po' title='<b>" . lang("delete_company") . "</b>' data-content=\"<p>"
+            $delete_link = "&nbsp<a href='#' class='po' title='" . lang("delete_company") . "' data-content=\"<p>"
                 . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_company/$1') . "'>"
                 . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
 //
@@ -3760,7 +3782,7 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]|alpha_numeric');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[company.name]|alpha_numeric_spaces');
 
         if ($this->form_validation->run() == true) {
@@ -3770,20 +3792,861 @@ class system_settings extends MY_Controller
                 'code' => $this->input->post('code'),
             );
         }
-//        elseif ($this->input->post('name')) {
-//            $this->session->set_flashdata('error', validation_errors());
-//            redirect("system_settings/add_company");
-//        }
-        $t=$this->form_validation->run();
-
+        elseif ($this->input->post('add_company')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/company");
+        }
         if ($this->form_validation->run() == true && $this->settings_model->addCompany($data)) {
             $this->session->set_flashdata('message', lang("company_added"));
             redirect("system_settings/company");
         } else {
             $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
             $this->data['modal_js'] = $this->site->modal_js();
-            $this->load->view($this->theme . 'system/add_company', $this->data);
+            $this->load->view($this->theme . 'settings/add_company', $this->data);
 
         }
     }
+
+    function edit_company($id = NULL)
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['company-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->form_validation->set_rules('name', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $company_details = $this->settings_model->getCompanyByID($id);
+        if ($this->input->post('name') != $company_details->name) {
+            $this->form_validation->set_rules('name', lang("name"), 'is_unique[company.name]');
+        }
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+
+        } elseif ($this->input->post('edit_company')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/company");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->updateCompany($id, $data)) {
+            $this->session->set_flashdata('message', lang("company_updated"));
+            redirect("system_settings/company");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['company'] = $company_details;
+            $this->load->view($this->theme . 'settings/edit_company', $this->data);
+
+        }
+    }
+
+    function delete_company($id = NULL)
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['company-delete'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        @todo
+//        Need to check product tagging before delete
+//        if ($this->settings_model->brandHasProducts($id)) {
+//            $this->session->set_flashdata('error', lang("brand_has_products"));
+//            redirect("system_settings/brands");
+//        }
+
+        if ($this->settings_model->deleteCompany($id)) {
+            echo lang("company_deleted");
+        }
+    }
+
+    function import_company()
+    {
+        if (!$this->Owner) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->load->helper('security');
+        $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
+
+        if ($this->form_validation->run() == true) {
+
+            if (isset($_FILES["userfile"])) {
+
+                $this->load->library('upload');
+                $config['upload_path'] = 'files/';
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = TRUE;
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect("system_settings/company");
+                }
+
+                $csv = $this->upload->file_name;
+
+                $arrResult = array();
+                $handle = fopen('files/' . $csv, "r");
+                if ($handle) {
+                    while (($row = fgetcsv($handle, 5000, ",")) !== FALSE) {
+                        $arrResult[] = $row;
+                    }
+                    fclose($handle);
+                }
+                $titles = array_shift($arrResult);
+                $keys = array('name', 'code');
+                $final = array();
+                foreach ($arrResult as $key => $value) {
+                    $final[] = array_combine($keys, $value);
+                }
+
+                foreach ($final as $csv_ct) {
+                    if ( ! $this->settings_model->getCompanyByName(trim($csv_ct['name']))) {
+                        $data[] = array(
+                            'code' => trim($csv_ct['code']),
+                            'name' => trim($csv_ct['name']),
+                        );
+                    }
+                }
+            }
+
+            // $this->sma->print_arrays($data);
+        }
+
+        if ($this->form_validation->run() == true && !empty($data) && $this->settings_model->addCompanies($data)) {
+            $this->session->set_flashdata('message', lang("company_added"));
+            redirect('system_settings/company');
+        } else {
+
+            $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['userfile'] = array('name' => 'userfile',
+                'id' => 'userfile',
+                'type' => 'text',
+                'value' => $this->form_validation->set_value('userfile')
+            );
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme.'settings/import_company', $this->data);
+
+        }
+    }
+
+    function company_actions()
+    {
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'delete') {
+
+                    if(! $this->Owner && ! $this->Admin) {
+                        $get_permission=$this->permission_details[0];
+                        if ((!$get_permission['company-delete'])) {
+                            $this->session->set_flashdata('warning', lang('access_denied'));
+                            redirect($_SERVER["HTTP_REFERER"]);
+                        }
+                    }
+
+                    foreach ($_POST['val'] as $id) {
+                        $this->settings_model->deletecompany($id);
+                    }
+                    $this->session->set_flashdata('message', lang("company_deleted"));
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+
+                if ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
+
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle(lang('company'));
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('name'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('code'));
+
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $brand = $this->settings_model->getCompanyByID($id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $brand->name);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $brand->code);
+                        $row++;
+                    }
+
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'companies_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', lang("no_record_selected"));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+
+
+//    company
+    function designation()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['designation-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('designation')));
+        $meta = array('page_title' => lang('designation'), 'bc' => $bc);
+        $this->page_construct('settings/designation', $meta, $this->data);
+    }
+
+    function getDesignation()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['designation-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        build  anchor
+        $edit_link='';
+        if ($this->Owner || $this->Admin || $get_permission['designation-edit'])
+            $edit_link= '<a href="' . site_url("system_settings/edit_designation/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_designation") . '"><i class="fa fa-edit"></i></a>';
+
+        $delete_link='';
+        if ($this->Owner || $this->Admin || $get_permission['designation-delete'])
+
+            $delete_link = "&nbsp<a href='#' class='po' title='" . lang("delete_designation") . "' data-content=\"<p>"
+                . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_designation/$1') . "'>"
+                . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
+//
+        $this->load->library('datatables');
+        $this->datatables
+            ->select("id, code, name", FALSE)
+            ->from("designations")
+            ->add_column("Actions", "<div class='text-center'>".$edit_link.$delete_link."</div>", "id");
+
+        echo $this->datatables->generate();
+    }
+
+
+
+    function add_designation()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['designation-add'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[designations.code]|alpha_numeric');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[designations.name]|alpha_numeric_spaces');
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+        }
+        elseif ($this->input->post('add_designation')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/designation");
+        }
+        if ($this->form_validation->run() == true && $this->settings_model->addDesignation($data)) {
+            $this->session->set_flashdata('message', lang("designation_added"));
+            redirect("system_settings/designation");
+        } else {
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'settings/add_designation', $this->data);
+
+        }
+    }
+
+    function edit_designation($id = NULL)
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['designation-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->form_validation->set_rules('name', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $designation_details = $this->settings_model->getDesignationByID($id);
+        if ($this->input->post('name') != $designation_details->name) {
+            $this->form_validation->set_rules('name', lang("name"), 'is_unique[designations.name]');
+        }
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+
+        } elseif ($this->input->post('edit_designation')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/designation");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->updateDesignation($id, $data)) {
+            $this->session->set_flashdata('message', lang("designation_updated"));
+            redirect("system_settings/designation");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['designation'] = $designation_details;
+            $this->load->view($this->theme . 'settings/edit_designation', $this->data);
+
+        }
+    }
+
+    function delete_designation($id = NULL)
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['designation-delete'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        @todo
+//        Need to check product tagging before delete
+//        if ($this->settings_model->brandHasProducts($id)) {
+//            $this->session->set_flashdata('error', lang("brand_has_products"));
+//            redirect("system_settings/brands");
+//        }
+
+        if ($this->settings_model->deleteDesignation($id)) {
+            echo lang("designation_deleted");
+        }
+    }
+
+    function import_designation()
+    {
+        if (!$this->Owner) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->load->helper('security');
+        $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
+
+        if ($this->form_validation->run() == true) {
+            if (isset($_FILES["userfile"])) {
+                $this->load->library('upload');
+                $config['upload_path'] = 'files/';
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = TRUE;
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect("system_settings/designation");
+                }
+
+                $csv = $this->upload->file_name;
+
+                $arrResult = array();
+                $handle = fopen('files/' . $csv, "r");
+                if ($handle) {
+                    while (($row = fgetcsv($handle, 5000, ",")) !== FALSE) {
+                        $arrResult[] = $row;
+                    }
+                    fclose($handle);
+                }
+                $titles = array_shift($arrResult);
+                $keys = array('name', 'code');
+                $final = array();
+                foreach ($arrResult as $key => $value) {
+                    $final[] = array_combine($keys, $value);
+                }
+
+                foreach ($final as $csv_ct) {
+                    if ( ! $this->settings_model->getDesignationByName(trim($csv_ct['name']))) {
+                        $data[] = array(
+                            'code' => trim($csv_ct['code']),
+                            'name' => trim($csv_ct['name']),
+                        );
+                    }
+                }
+            }
+
+        }
+
+        if ($this->form_validation->run() == true && !empty($data) && $this->settings_model->addDesignations($data)) {
+            $this->session->set_flashdata('message', lang("designation_added"));
+            redirect('system_settings/designation');
+        } else {
+
+            $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['userfile'] = array('name' => 'userfile',
+                'id' => 'userfile',
+                'type' => 'text',
+                'value' => $this->form_validation->set_value('userfile')
+            );
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme.'settings/import_designation', $this->data);
+
+        }
+    }
+
+    function designation_actions()
+    {
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'delete') {
+
+                    if(! $this->Owner && ! $this->Admin) {
+                        $get_permission=$this->permission_details[0];
+                        if ((!$get_permission['designation-delete'])) {
+                            $this->session->set_flashdata('warning', lang('access_denied'));
+                            redirect($_SERVER["HTTP_REFERER"]);
+                        }
+                    }
+
+                    foreach ($_POST['val'] as $id) {
+                        $this->settings_model->deleteDesignation($id);
+                    }
+                    $this->session->set_flashdata('message', lang("designation_deleted"));
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+
+                if ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
+
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle(lang('designation'));
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('name'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('code'));
+
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $brand = $this->settings_model->getDesignationByID($id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $brand->name);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $brand->code);
+                        $row++;
+                    }
+
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'designation_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', lang("no_record_selected"));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+
+    function package()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['package-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('package')));
+        $meta = array('page_title' => lang('package'), 'bc' => $bc);
+        $this->page_construct('settings/package', $meta, $this->data);
+    }
+
+    function getPackage()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['package-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        build  anchor
+        $edit_link='';
+        if ($this->Owner || $this->Admin || $get_permission['package-edit'])
+            $edit_link= '<a href="' . site_url("system_settings/edit_package/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_package") . '"><i class="fa fa-edit"></i></a>';
+
+        $delete_link='';
+        if ($this->Owner || $this->Admin || $get_permission['package-delete'])
+
+            $delete_link = "&nbsp<a href='#' class='po' title='" . lang("delete_package") . "' data-content=\"<p>"
+                . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_package/$1') . "'>"
+                . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
+//
+        $this->load->library('datatables');
+        $this->datatables
+            ->select("id, code, name", FALSE)
+            ->from("packages")
+            ->add_column("Actions", "<div class='text-center'>".$edit_link.$delete_link."</div>", "id");
+
+        echo $this->datatables->generate();
+    }
+
+
+    function add_package()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['package-add'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[packages.code]|alpha_numeric');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[packages.name]|alpha_numeric_spaces');
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+        }
+        elseif ($this->input->post('add_package')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/package");
+        }
+        if ($this->form_validation->run() == true && $this->settings_model->addPackage($data)) {
+            $this->session->set_flashdata('message', lang("package_added"));
+            redirect("system_settings/package");
+        } else {
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'settings/add_package', $this->data);
+
+        }
+    }
+
+    function edit_package($id = NULL)
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['package-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->form_validation->set_rules('name', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $package_details = $this->settings_model->getPackageByID($id);
+        if ($this->input->post('name') != $package_details->name) {
+            $this->form_validation->set_rules('name', lang("name"), 'is_unique[packages.name]');
+        }
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
+            );
+
+        } elseif ($this->input->post('edit_designation')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/package");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->updatePackage($id, $data)) {
+            $this->session->set_flashdata('message', lang("package_updated"));
+            redirect("system_settings/package");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['package'] = $package_details;
+            $this->load->view($this->theme . 'settings/edit_package', $this->data);
+
+        }
+    }
+
+    function delete_Package($id = NULL)
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['package-delete'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        @todo
+//        Need to check product tagging before delete
+//        if ($this->settings_model->brandHasProducts($id)) {
+//            $this->session->set_flashdata('error', lang("brand_has_products"));
+//            redirect("system_settings/brands");
+//        }
+
+        if ($this->settings_model->deletePackage($id)) {
+            echo lang("package_deleted");
+        }
+    }
+
+    function import_package()
+    {
+        if (!$this->Owner) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->load->helper('security');
+        $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
+
+        if ($this->form_validation->run() == true) {
+            if (isset($_FILES["userfile"])) {
+                $this->load->library('upload');
+                $config['upload_path'] = 'files/';
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = TRUE;
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect("system_settings/package");
+                }
+
+                $csv = $this->upload->file_name;
+
+                $arrResult = array();
+                $handle = fopen('files/' . $csv, "r");
+                if ($handle) {
+                    while (($row = fgetcsv($handle, 5000, ",")) !== FALSE) {
+                        $arrResult[] = $row;
+                    }
+                    fclose($handle);
+                }
+                $titles = array_shift($arrResult);
+                $keys = array('name', 'code');
+                $final = array();
+                foreach ($arrResult as $key => $value) {
+                    $final[] = array_combine($keys, $value);
+                }
+
+                foreach ($final as $csv_ct) {
+                    if ( ! $this->settings_model->getpPackageyName(trim($csv_ct['name']))) {
+                        $data[] = array(
+                            'code' => trim($csv_ct['code']),
+                            'name' => trim($csv_ct['name']),
+                        );
+                    }
+                }
+            }
+
+        }
+
+        if ($this->form_validation->run() == true && !empty($data) && $this->settings_model->addpPackages($data)) {
+            $this->session->set_flashdata('message', lang("package_added"));
+            redirect('system_settings/package');
+        } else {
+
+            $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['userfile'] = array('name' => 'userfile',
+                'id' => 'userfile',
+                'type' => 'text',
+                'value' => $this->form_validation->set_value('userfile')
+            );
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme.'settings/import_package', $this->data);
+
+        }
+    }
+
+    function package_actions()
+    {
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'delete') {
+
+                    if(! $this->Owner && ! $this->Admin) {
+                        $get_permission=$this->permission_details[0];
+                        if ((!$get_permission['package-delete'])) {
+                            $this->session->set_flashdata('warning', lang('access_denied'));
+                            redirect($_SERVER["HTTP_REFERER"]);
+                        }
+                    }
+
+                    foreach ($_POST['val'] as $id) {
+                        $this->settings_model->deletePackage($id);
+                    }
+                    $this->session->set_flashdata('message', lang("package_deleted"));
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+
+                if ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
+
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle(lang('package'));
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('name'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('code'));
+
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $brand = $this->settings_model->getPackageByID($id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $brand->name);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $brand->code);
+                        $row++;
+                    }
+
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'package_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', lang("no_record_selected"));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+
 }

@@ -538,3 +538,8 @@ $lang['product_reorder']                     = "Product Reorder";
 
 $lang['employees']                      = "Employee";
 $lang['add_employee']                   = "Add Employee";
+
+//Designation
+$lang['designation']                      = "Designation";
+$lang['operator']                         = "Operator";
+$lang['package']                          = "Package";

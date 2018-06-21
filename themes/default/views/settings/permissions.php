@@ -70,10 +70,10 @@
                                         <label for="products-barcode" class="padding05"><?= lang('print_barcodes') ?></label>
                                         <input type="checkbox" value="1" id="products-stock_count" class="checkbox" name="products-stock_count" <?php echo $p->{'products-stock_count'} ? "checked" : ''; ?>>
                                         <label for="products-stock_count" class="padding05"><?= lang('stock_counts') ?></label>
-                                        <input type="checkbox" value="1" id="products-reorder-details" class="checkbox" name="products-reorder-details" <?php echo $p->{'products-reorder_details'} ? "checked" : ''; ?>>
-                                        <label for="products-reorder-details" class="padding05"><?= lang('product_reorder_report') ?></label>
-                                        <input type="checkbox" value="1" id="products-details-search" class="checkbox" name="products-details-search" <?php echo $p->{'products-details_search'} ? "checked" : ''; ?>>
-                                        <label for="product_details_search" class="padding05"><?= lang('product_details_search') ?></label>
+<!--                                        <input type="checkbox" value="1" id="products-reorder-details" class="checkbox" name="products-reorder-details" --><?php //echo $p->{'products-reorder_details'} ? "checked" : ''; ?><!-->-->
+<!--                                        <label for="products-reorder-details" class="padding05">--><?//= lang('product_reorder_report') ?><!--</label>-->
+<!--                                        <input type="checkbox" value="1" id="products-details-search" class="checkbox" name="products-details-search" --><?php //echo $p->{'products-details_search'} ? "checked" : ''; ?><!-->-->
+<!--                                        <label for="product_details_search" class="padding05">--><?//= lang('product_details_search') ?><!--</label>-->
                                     </td>
                                 </tr>
 
@@ -275,7 +275,74 @@
                                     <td>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td><?= lang("company"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="company-index" <?php echo $p->{'company-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="company-add" <?php echo $p->{'company-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="company-edit" <?php echo $p->{'company-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="company-delete" <?php echo $p->{'company-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><?= lang("designation"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="designation-index" <?php echo $p->{'designation-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="designation-add" <?php echo $p->{'designation-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="designation-edit" <?php echo $p->{'designation-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="designation-delete" <?php echo $p->{'designation-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><?= lang("operator"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="operator-index" <?php echo $p->{'operator-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="operator-add" <?php echo $p->{'operator-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="operator-edit" <?php echo $p->{'operator-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="operator-delete" <?php echo $p->{'operator-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><?= lang("package"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="package-index" <?php echo $p->{'package-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="package-add" <?php echo $p->{'package-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="package-edit" <?php echo $p->{'package-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="package-delete" <?php echo $p->{'package-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td><?= lang("categories"); ?></td>
                                     <td class="text-center">

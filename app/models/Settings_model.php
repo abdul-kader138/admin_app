@@ -245,6 +245,7 @@ class Settings_model extends CI_Model
     public function updatePermissions($id, $data = array())
     {
         if ($this->db->update('permissions', $data, array('group_id' => $id)) && $this->db->update('users', array('show_price' => $data['products-price'], 'show_cost' => $data['products-cost']), array('group_id' => $id))) {
+//        if ($this->db->update('permissions', $data, array('group_id' => $id))) {
             return true;
         }
         return false;
@@ -707,6 +708,149 @@ class Settings_model extends CI_Model
     public function addCompany($data)
     {
         if ($this->db->insert("company", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getCompanyByID($id)
+    {
+        $q = $this->db->get_where('company', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateCompany($id, $data = array())
+    {
+        if ($this->db->update("company", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteCompany($id)
+    {
+        if ($this->db->delete("company", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getCompanyByName($name)
+    {
+        $q = $this->db->get_where('company', array('name' => $name), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addCompanies($data)
+    {
+        if ($this->db->insert_batch('company', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public function addDesignation($data)
+    {
+        if ($this->db->insert("designations", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getDesignationByID($id)
+    {
+        $q = $this->db->get_where('designations', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateDesignation($id, $data = array())
+    {
+        if ($this->db->update("designations", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteDesignation($id)
+    {
+        if ($this->db->delete("designations", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getDesignationByName($name)
+    {
+        $q = $this->db->get_where('designations', array('name' => $name), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addDesignations($data)
+    {
+        if ($this->db->insert_batch('designations', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function addPackage($data)
+    {
+        if ($this->db->insert("packages", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getPackageByID($id)
+    {
+        $q = $this->db->get_where('packages', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updatePackage($id, $data = array())
+    {
+        if ($this->db->update("packages", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deletePackage($id)
+    {
+        if ($this->db->delete("packages", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getPackageByName($name)
+    {
+        $q = $this->db->get_where('packages', array('name' => $name), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addPackages($data)
+    {
+        if ($this->db->insert_batch('packages', $data)) {
             return true;
         }
         return false;

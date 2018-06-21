@@ -372,10 +372,46 @@ $lang['inter_company_sale_price']        = "Price Group(Inter Company)";
 $lang['add_company']                       = "Add Company";
 $lang['edit_company']                      = "Edit Company";
 $lang['delete_company']                    = "Delete Company";
-$lang['delete_company']                   = "Delete Company";
 $lang['import_company']                   = "Import Company";
-$lang['company_added']                     = "Company successfully added";
-$lang['company_added']                    = "Company successfully added";
-$lang['company_updated']                   = "Company successfully updated";
-$lang['company_deleted']                   = "Company successfully deleted";
-$lang['company_deleted']                  = "Company successfully deleted";
+$lang['company_added']                     = "Company successfully added.";
+$lang['company_updated']                   = "Company successfully updated.";
+$lang['company_deleted']                   = "Company successfully deleted.";
+
+
+
+//designation add
+
+
+$lang['designation']                           = "Designation";
+$lang['add_designation']                       = "Add Designation";
+$lang['edit_designation']                      = "Edit Designation";
+$lang['delete_designation']                    = "Delete Designation";
+$lang['import_designation']                    = "Import Designation";
+$lang['designation_added']                     = "Designation successfully added.";
+$lang['designation_updated']                   = "Designation successfully updated.";
+$lang['designation_deleted']                   = "Designation successfully deleted.";
+
+//designation add
+
+
+$lang['package']                               = "Package";
+$lang['add_package']                           = "Add Package";
+$lang['edit_package']                          = "Edit Package";
+$lang['delete_package']                        = "Delete Package";
+$lang['import_package']                        = "Import Package";
+$lang['package_added']                         = "Package successfully added.";
+$lang['package_updated']                       = "Package successfully updated.";
+$lang['package_deleted']                       = "Package successfully deleted.";
+
+
+//designation add
+
+
+$lang['designation']                           = "Designation";
+$lang['add_designation']                       = "Add Designation";
+$lang['edit_designation']                      = "Edit Designation";
+$lang['delete_designation']                    = "Delete Designation";
+$lang['import_designation']                    = "Import Designation";
+$lang['designation_added']                     = "Designation successfully added.";
+$lang['designation_updated']                   = "Designation successfully updated.";
+$lang['designation_deleted']                   = "Designation successfully deleted.";
