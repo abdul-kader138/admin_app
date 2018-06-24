@@ -15,6 +15,12 @@
                     <div class="col-md-12">
                         <div class="col-md-5">
                             <div class="form-group">
+                                <?php echo lang('employee_id', 'employee_id'); ?>
+                                <div class="controls">
+                                    <?php echo form_input('employee_id', '', 'class="form-control" id="employee_id" required="required" pattern=".{3,10}"'); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <?php echo lang('name', 'name'); ?>
                                 <div class="controls">
                                     <?php echo form_input('name', '', 'class="form-control" id="name" required="required" pattern=".{3,10}"'); ?>

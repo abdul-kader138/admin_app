@@ -14,14 +14,14 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"bSortable": false, "mRender": checkbox}, null, null, {"bSortable": false}]
+            "aoColumns": [{"bSortable": false, "mRender": checkbox}, {"bSortable": false, "mRender": img_hl}, null, null,null,null,null, {"bSortable": false}]
         });
     });
 </script>
 <?= form_open('system_settings/operator_actions', 'id="action-form"') ?>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i class="fa-fw fa fa-th-list"></i><?= lang('operator'); ?></h2>
+        <h2 class="blue"><i class="fa-fw fa fa-th-list"></i><?= lang('operators'); ?></h2>
 
         <div class="box-icon">
             <ul class="btn-tasks">
@@ -72,14 +72,20 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
+                            <th style="min-width:40px; width: 40px; text-align: center;">
+                                <?= lang("image"); ?>
+                            </th>
                             <th><?= lang("code"); ?></th>
                             <th><?= lang("name"); ?></th>
+                            <th><?= lang("contact_person"); ?></th>
+                            <th><?= lang("contact_number"); ?></th>
+                            <th><?= lang("address"); ?></th>
                             <th style="width:100px;"><?= lang("actions"); ?></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="4" class="dataTables_empty">
+                            <td colspan="8" class="dataTables_empty">
                                 <?= lang('loading_data_from_server') ?>
                             </td>
                         </tr>

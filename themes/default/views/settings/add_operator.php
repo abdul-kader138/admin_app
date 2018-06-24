@@ -20,6 +20,23 @@
                     <?= lang('name', 'name'); ?>
                     <?= form_input('name', '', 'class="form-control" id="name" required="required"'); ?>
                 </div>
+                <div class="form-group">
+                    <?= lang('contact_person', 'contact_person'); ?>
+                    <?= form_input('contact_person', '', 'class="form-control" id="contact_person" '); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang('contact_number', 'contact_number'); ?>
+                    <?= form_input('contact_number', '', 'class="form-control" id="contact_number" '); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang('address', 'address'); ?>
+                    <?= form_input('address', '', 'class="form-control" id="address" required="required"'); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang("image", "image") ?>
+                    <input id="image" type="file" data-browse-label="<?= lang('browse'); ?>" name="userfile" data-show-upload="false" data-show-preview="false" class="form-control file">
+                </div>
+
             </div>
             <div class="modal-footer">
                 <?php echo form_submit('add_operator', lang('add_operator'), 'class="btn btn-primary"'); ?>

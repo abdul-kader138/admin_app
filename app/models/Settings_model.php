@@ -855,4 +855,55 @@ class Settings_model extends CI_Model
         }
         return false;
     }
+
+
+    public function addOperator($data)
+    {
+        if ($this->db->insert("operators", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getOperatorByID($id)
+    {
+        $q = $this->db->get_where('operators', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateOperator($id, $data = array())
+    {
+        if ($this->db->update("operators", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteOperator($id)
+    {
+        if ($this->db->delete("operators", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getOperatorByName($name)
+    {
+        $q = $this->db->get_where('operators', array('name' => $name), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addOperators($data)
+    {
+        if ($this->db->insert_batch('operators', $data)) {
+            return true;
+        }
+        return false;
+    }
 }

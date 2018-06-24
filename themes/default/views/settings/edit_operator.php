@@ -13,12 +13,29 @@
 
                 <div class="form-group">
                     <?= lang('code', 'code'); ?>
-                    <?= form_input('code', $operator->code, 'class="form-control" id="code" required="required"'); ?>
+                    <?= form_input('code', $operator->code, 'class="form-control" id="code"'); ?>
                 </div>
 
                 <div class="form-group">
                     <?= lang('name', 'name'); ?>
                     <?= form_input('name', $operator->name, 'class="form-control" id="name" required="required"'); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang('contact_person', 'contact_person'); ?>
+                    <?= form_input('contact_person', $operator->contact_person, 'class="form-control" id="contact_person" '); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang('contact_number', 'contact_number'); ?>
+                    <?= form_input('contact_number', $operator->contact_number, 'class="form-control" id="contact_number" '); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang('address', 'address'); ?>
+                    <?= form_input('address', $operator->contact_number, 'class="form-control" id="address" '); ?>
+                </div>
+                <div class="form-group">
+                    <?= lang("image", "image") ?>
+                    <input id="image" type="file" data-browse-label="<?= lang('browse'); ?>" name="userfile" data-show-upload="false" data-show-preview="false"
+                           class="form-control file">
                 </div>
                 <?php echo form_hidden('id', $operator->id); ?>
             </div>

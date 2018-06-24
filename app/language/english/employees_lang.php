@@ -7,8 +7,21 @@
  */
 
 
-$lang['employees']                      = "Employee";
-$lang['add_employee']                   = "Add Employee";
+$lang['list_employees']                   = "List Employees";
+$lang['employees']                        = "Employees";
+$lang['employee']                         = "Employee";
+$lang['employee_id']                      = "Employee ID";
+$lang['add_employee']                     = "Add Employee";
+$lang['edit_employee']                    = "Edit Employee";
+$lang['delete_employee']                  = "Delete Employee";
+$lang['delete_employees']                 = "Delete Employees";
+$lang['employee_added']                   = "Employee successfully added";
+$lang['employee_updated']                 = "Employee successfully updated";
+$lang['employee_deleted']                 = "Employee successfully deleted";
+$lang['employee_deleted']                 = "Employee successfully deleted";
+$lang['no_employee_selected']             = "No employee selected. Please select at least one employee.";
+
+
 $lang['name']                           = "Name";
 $lang['delete_customer']                = "Delete Customer";
 $lang['delete_customers']               = "Delete Customers";

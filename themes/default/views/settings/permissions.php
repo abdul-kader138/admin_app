@@ -70,10 +70,10 @@
                                         <label for="products-barcode" class="padding05"><?= lang('print_barcodes') ?></label>
                                         <input type="checkbox" value="1" id="products-stock_count" class="checkbox" name="products-stock_count" <?php echo $p->{'products-stock_count'} ? "checked" : ''; ?>>
                                         <label for="products-stock_count" class="padding05"><?= lang('stock_counts') ?></label>
-<!--                                        <input type="checkbox" value="1" id="products-reorder-details" class="checkbox" name="products-reorder-details" --><?php //echo $p->{'products-reorder_details'} ? "checked" : ''; ?><!-->-->
-<!--                                        <label for="products-reorder-details" class="padding05">--><?//= lang('product_reorder_report') ?><!--</label>-->
-<!--                                        <input type="checkbox" value="1" id="products-details-search" class="checkbox" name="products-details-search" --><?php //echo $p->{'products-details_search'} ? "checked" : ''; ?><!-->-->
-<!--                                        <label for="product_details_search" class="padding05">--><?//= lang('product_details_search') ?><!--</label>-->
+                                        <input type="checkbox" value="1" id="products-reorder-details" class="checkbox" name="products-reorder-details" <?php echo $p->{'products-reorder_details'} ? "checked" : ''; ?>>
+                                        <label for="products-reorder-details" class="padding05"><?= lang('product_reorder_report') ?></label>
+                                        <input type="checkbox" value="1" id="products-details-search" class="checkbox" name="products-details-search" <?php echo $p->{'products-details_search'} ? "checked" : ''; ?>>
+                                        <label for="product_details_search" class="padding05"><?= lang('product_details_search') ?></label>
                                     </td>
                                 </tr>
 

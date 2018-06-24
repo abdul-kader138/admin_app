@@ -379,19 +379,7 @@ $lang['company_deleted']                   = "Company successfully deleted.";
 
 
 
-//designation add
-
-
-$lang['designation']                           = "Designation";
-$lang['add_designation']                       = "Add Designation";
-$lang['edit_designation']                      = "Edit Designation";
-$lang['delete_designation']                    = "Delete Designation";
-$lang['import_designation']                    = "Import Designation";
-$lang['designation_added']                     = "Designation successfully added.";
-$lang['designation_updated']                   = "Designation successfully updated.";
-$lang['designation_deleted']                   = "Designation successfully deleted.";
-
-//designation add
+//package add
 
 
 $lang['package']                               = "Package";
@@ -415,3 +403,21 @@ $lang['import_designation']                    = "Import Designation";
 $lang['designation_added']                     = "Designation successfully added.";
 $lang['designation_updated']                   = "Designation successfully updated.";
 $lang['designation_deleted']                   = "Designation successfully deleted.";
+
+
+//operator add
+
+$lang['contact_person']                         = "Contact Person";
+$lang['contact_number']                         = "Contact Number";
+$lang['address']                                = "Address";
+$lang['operator']                               = "Operator";
+$lang['operators']                              = "Operators";
+$lang['operator']                               = "Operator";
+$lang['operator']                               = "Operator";
+$lang['add_operator']                           = "Add Operator";
+$lang['edit_operator']                          = "Edit Operator";
+$lang['delete_operator']                        = "Delete Operator";
+$lang['import_operator']                        = "Import Operator";
+$lang['operator_added']                         = "Operator successfully added.";
+$lang['operator_updated']                       = "Operator successfully updated.";
+$lang['operator_deleted']                       = "Operator successfully deleted.";

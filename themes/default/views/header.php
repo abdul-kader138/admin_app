@@ -606,6 +606,18 @@
                                                                     class="text"> <?= lang('new_user'); ?></span>
                                                         </a>
                                                     </li>
+                                                    <li id="employees_employees">
+                                                        <a class="submenu" href="<?= site_url('employees'); ?>">
+                                                            <i class="fa fa-users"></i><span
+                                                                    class="text"> <?= lang('list_employees'); ?></span>
+                                                        </a>
+                                                    </li>
+                                                    <li id="auth_create_user">
+                                                        <a class="submenu" href="<?= site_url('employees/add_employee'); ?>">
+                                                            <i class="fa fa-user-plus"></i><span
+                                                                    class="text"> <?= lang('add_employee'); ?></span>
+                                                        </a>
+                                                    </li>
                                                     <li id="billers_index">
                                                         <a class="submenu" href="<?= site_url('billers'); ?>">
                                                             <i class="fa fa-users"></i><span
