@@ -9,6 +9,7 @@
 
 $lang['list_employees']                   = "List Employees";
 $lang['employees']                        = "Employees";
+$lang['ceiling_limit']                        = "Ceiling Limit";
 $lang['employee']                         = "Employee";
 $lang['employee_id']                      = "Employee ID";
 $lang['add_employee']                     = "Add Employee";
@@ -23,6 +24,9 @@ $lang['no_employee_selected']             = "No employee selected. Please select
 
 
 $lang['name']                           = "Name";
+$lang['ceiling_amount']                 = "Ceiling Amount";
+$lang['mobile_no']                      = "Mobile No";
+$lang['service_start_date']             = "Service Start Date";
 $lang['delete_customer']                = "Delete Customer";
 $lang['delete_customers']               = "Delete Customers";
 $lang['customer_added']                 = "Customer successfully added";

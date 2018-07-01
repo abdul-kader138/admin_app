@@ -9,7 +9,7 @@
                 <p class="introtext"><?php echo lang('add_employee'); ?></p>
 
                 <?php $attrib = array('class' => 'form-horizontal', 'data-toggle' => 'validator', 'role' => 'form');
-                echo form_open("employees/create_employee", $attrib);
+                echo form_open("employees/add_employee", $attrib);
                 ?>
                 <div class="row">
                     <div class="col-md-12">
@@ -27,31 +27,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <?php echo lang('last_name', 'last_name'); ?>
-                                <div class="controls">
-                                    <?php echo form_input('last_name', '', 'class="form-control" id="last_name" required="required"'); ?>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <?= lang('gender', 'gender'); ?>
-                                <?php
-                                $ge[''] = array('male' => lang('male'), 'female' => lang('female'));
-                                echo form_dropdown('gender', $ge, (isset($_POST['gender']) ? $_POST['gender'] : ''), 'class="tip form-control" id="gender" data-placeholder="' . lang("select") . ' ' . lang("gender") . '" required="required"');
-                                ?>
-                            </div>
 
                             <div class="form-group">
-                                <?php echo lang('company', 'company'); ?>
+                                <?php echo lang('mobile_no', 'mobile_no'); ?>
                                 <div class="controls">
-                                    <?php echo form_input('company', '', 'class="form-control" id="company" required="required"'); ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <?php echo lang('phone', 'phone'); ?>
-                                <div class="controls">
-                                    <?php echo form_input('phone', '', 'class="form-control" id="phone" required="required"'); ?>
+                                    <?php echo form_input('mobile_number', '', 'class="form-control" id="mobile_number" required="required"'); ?>
                                 </div>
                             </div>
 
@@ -63,103 +43,73 @@
                                     <?php /* echo form_input('email', '', 'class="form-control" id="email" required="required"'); */ ?>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <?php echo lang('username', 'username'); ?>
+                                <?php echo lang('ceiling_limit', 'ceiling_limit'); ?>
                                 <div class="controls">
-                                    <input type="text" id="username" name="username" class="form-control"
-                                           required="required" pattern=".{4,20}"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <?php echo lang('password', 'password'); ?>
-                                <div class="controls">
-                                    <?php echo form_password('password', '', 'class="form-control tip" id="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-bv-regexp-message="'.lang('pasword_hint').'"'); ?>
-                                    <span class="help-block"><?= lang('pasword_hint') ?></span>
+                                    <?php echo form_input('ceiling_amount', '', 'class="form-control tip" id="ceiling_amount" required="required" '); ?>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <?php echo lang('confirm_password', 'confirm_password'); ?>
+                                <?php echo lang('service_start_date', 'service_start_date'); ?>
                                 <div class="controls">
-                                    <?php echo form_password('confirm_password', '', 'class="form-control" id="confirm_password" required="required" data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="' . lang('pw_not_same') . '"'); ?>
+                                    <?php echo form_input('service_start_date', '', 'class="form-control date" id="service_start_date" required="required" '); ?>
                                 </div>
                             </div>
 
                         </div>
                         <div class="col-md-5 col-md-offset-1">
+                            <div class="form-group">
+                                <?= lang("designation", "designation"); ?>
+                                <?php
+                                $bl[""] = lang('select') . ' ' . lang('designation');
+                                foreach ($designations as $designation) {
+                                    $bl[$designation->id] = $designation->name;
+                                }
+                                echo form_dropdown('designation_id', $bl, (isset($_POST['designation_id']) ? $_POST['designation_id'] : ''), ' id="designation_id" required="required" class="form-control select" style="width:100%;"');
+                                ?>
+                            </div>
+                            <div class="form-group">
+                                <?= lang("company", "company"); ?>
+                                <?php
+                                $b2[""] = lang('select') . ' ' . lang('company');
+                                foreach ($companies as $company) {
+                                    $b2[$company->id] = $company->name;
+                                }
+                                echo form_dropdown('company_id', $b2, (isset($_POST['company_id']) ? $_POST['company_id'] : ''), 'id="company_id" required="required" class="form-control select" style="width:100%;"');
+                                ?>
+                            </div>
+                            <div class="form-group">
+                                <?= lang("operator", "operator"); ?>
+                                <?php
+                                $b3[""] = lang('select') . ' ' . lang('operator');
+                                foreach ($operators as $operator) {
+                                    $b3[$operator->id] = $operator->name;
+                                }
+                                echo form_dropdown('operator_id', $b3, (isset($_POST['operator_id']) ? $_POST['operator_id'] : ''), 'id="operator_id" required="required" class="form-control select" style="width:100%;"');
+                                ?>
+                            </div>
 
+                            <div class="form-group">
+                                <?= lang("package", "package"); ?>
+                                <?php
+                                $b4[""] = lang('select') . ' ' . lang('package');
+                                foreach ($packages as $package) {
+                                    $b4[$package->id] = $package->name;
+                                }
+                                echo form_dropdown('package_id', $b4, (isset($_POST['package_id']) ? $_POST['package_id'] : ''), 'id="package_id" required="required" class="form-control select" style="width:100%;"');
+                                ?>
+                            </div>
                             <div class="form-group">
                                 <?= lang('status', 'status'); ?>
                                 <?php
                                 $opt = array(1 => lang('active'), 0 => lang('inactive'));
-                                echo form_dropdown('status', $opt, (isset($_POST['status']) ? $_POST['status'] : ''), 'id="status" required="required" class="form-control select" style="width:100%;"');
-                                ?>
-                            </div>
-                            <div class="form-group">
-                                <?= lang("group", "group"); ?>
-                                <?php
-                                foreach ($groups as $group) {
-                                    if ($group['name'] != 'customer' && $group['name'] != 'supplier') {
-                                        $gp[$group['id']] = $group['name'];
-                                    }
-                                }
-                                echo form_dropdown('group', $gp, (isset($_POST['group']) ? $_POST['group'] : ''), 'id="group" required="required" class="form-control select" style="width:100%;"');
+                                echo form_dropdown('active', $opt, (isset($_POST['active']) ? $_POST['active'] : ''), 'id="active" required="required" class="form-control select" style="width:100%;"');
                                 ?>
                             </div>
 
                             <div class="clearfix"></div>
-                            <div class="no">
-                                <div class="form-group">
-                                    <?= lang("biller", "biller"); ?>
-                                    <?php
-                                    $bl[""] = lang('select').' '.lang('biller');
-                                    foreach ($billers as $biller) {
-                                        $bl[$biller->id] = $biller->company != '-' ? $biller->company : $biller->name;
-                                    }
-                                    echo form_dropdown('biller', $bl, (isset($_POST['biller']) ? $_POST['biller'] : ''), 'id="biller" class="form-control select" style="width:100%;"');
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <?= lang("warehouse", "warehouse"); ?>
-                                    <?php
-                                    $wh[''] = lang('select').' '.lang('warehouse');
-                                    foreach ($warehouses as $warehouse) {
-                                        $wh[$warehouse->id] = $warehouse->name;
-                                    }
-                                    echo form_dropdown('warehouse', $wh, (isset($_POST['warehouse']) ? $_POST['warehouse'] : ''), 'id="warehouse" class="form-control select" style="width:100%;" ');
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <?= lang("view_right", "view_right"); ?>
-                                    <?php
-                                    $vropts = array(1 => lang('all_records'), 0 => lang('own_records'));
-                                    echo form_dropdown('view_right', $vropts, (isset($_POST['view_right']) ? $_POST['view_right'] : 1), 'id="view_right" class="form-control select" style="width:100%;"');
-                                    ?>
-                                </div>
-                                <div class="form-group">
-                                    <?= lang("edit_right", "edit_right"); ?>
-                                    <?php
-                                    $opts = array(1 => lang('yes'), 0 => lang('no'));
-                                    echo form_dropdown('edit_right', $opts, (isset($_POST['edit_right']) ? $_POST['edit_right'] : 0), 'id="edit_right" class="form-control select" style="width:100%;"');
-                                    ?>
-                                </div>
-                                <div class="form-group">
-                                    <?= lang("allow_discount", "allow_discount"); ?>
-                                    <?= form_dropdown('allow_discount', $opts, (isset($_POST['allow_discount']) ? $_POST['allow_discount'] : 0), 'id="allow_discount" class="form-control select" style="width:100%;"'); ?>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <label class="checkbox" for="notify">
-                                        <input type="checkbox" name="notify" value="1" id="notify" checked="checked"/>
-                                        <?= lang('notify_user_by_email') ?>
-                                    </label>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
 
                         </div>
                     </div>

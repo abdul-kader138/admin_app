@@ -344,6 +344,23 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><?= lang("employees"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-index" <?php echo $p->{'employees-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-add" <?php echo $p->{'employees-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-edit" <?php echo $p->{'employees-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-delete" <?php echo $p->{'employees-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td><?= lang("categories"); ?></td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="category-index" <?php echo $p->{'category-index'} ? "checked" : ''; ?>>

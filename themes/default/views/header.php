@@ -202,44 +202,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="btn bdarkblue tip" id="attendance" title="<span><?= lang('attendance') ?></span>"
-                           data-placement="bottom" data-html="true" href="<?= site_url('time_scheduler') ?>"
-                           data-toggle="modal"
-                           data-target="#attendanceModal">
-                            <i class="fa fa-clock-o"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown hidden-xs">
-                        <a class="btn tip" title="<?= lang('language') ?>" data-placement="bottom"
-                           data-toggle="dropdown"
-                           href="#">
-                            <img src="<?= base_url('assets/images/' . $Settings->user_language . '.png'); ?>" alt="">
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <?php
-                            $scanned_lang_dir = array_map(function ($path) {
-                                return basename($path);
-                            }, glob(APPPATH . 'language/*', GLOB_ONLYDIR));
-                            foreach ($scanned_lang_dir as $entry) {
-                                ?>
-                                <li>
-                                    <a href="<?= site_url('welcome/language/' . $entry); ?>">
-                                        <img src="<?= base_url(); ?>assets/images/<?= $entry; ?>.png"
-                                             class="language-img">
-                                        &nbsp;&nbsp;<?= ucwords($entry); ?>
-                                    </a>
-                                </li>
-                            <?php } ?>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="<?= site_url('welcome/toggle_rtl') ?>">
-                                    <i class="fa fa-align-<?= $Settings->user_rtl ? 'right' : 'left'; ?>"></i>
-                                    <?= lang('toggle_alignment') ?>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     <?php if ($Owner && $Settings->update) { ?>
                         <li class="dropdown hidden-sm">
                             <a class="btn blightOrange tip" title="<?= lang('update_available') ?>"
@@ -275,7 +237,7 @@
                             </ul>
                         </li>
                     <?php } ?>
-                    <?php if (POS) { ?>
+                    <?php if (POS && $GP['pos-index']) { ?>
                         <li class="dropdown hidden-xs">
                             <a class="btn bdarkGreen tip" title="<?= lang('pos') ?>" data-placement="bottom"
                                href="<?= site_url('pos') ?>">
@@ -310,14 +272,14 @@
                             </a>
                         </li>
                     <?php } ?>
-                    <li class="dropdown">
-                        <a class="btn bdarkblue tip" id="attendance" title="<span>Day End Report</span>"
-                           data-placement="bottom" data-html="true" href="<?= site_url('sales/day_end_report') ?>"
-                           data-toggle="modal"
-                           data-target="#dayReportModal">
-                            <i class="fa fa-th"></i>
-                        </a>
-                    </li>
+<!--                    <li class="dropdown">-->
+<!--                        <a class="btn bdarkblue tip" id="attendance" title="<span>Day End Report</span>"-->
+<!--                           data-placement="bottom" data-html="true" href="--><?//= site_url('sales/day_end_report') ?><!--"-->
+<!--                           data-toggle="modal"-->
+<!--                           data-target="#dayReportModal">-->
+<!--                            <i class="fa fa-th"></i>-->
+<!--                        </a>-->
+<!--                    </li>-->
                 </ul>
             </div>
         </div>
@@ -348,16 +310,16 @@
                                                 <span class="chevron closed"></span>
                                             </a>
                                             <ul>
-                                                <li id="quotes_index">
+                                                <li id="employees_index">
                                                     <a class="submenu" href="<?= site_url('employees'); ?>">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                        <span class="text"> <?= lang('add_employee'); ?></span>
+                                                        <i class="fa fa-users"></i><span
+                                                                class="text"> <?= lang('list_employees'); ?></span>
                                                     </a>
                                                 </li>
-                                                <li id="quotes_add">
-                                                    <a class="submenu" href="<?= site_url('quotes/add'); ?>">
-                                                        <i class="fa fa-plus-circle"></i>
-                                                        <span class="text"> <?= lang('add_quote'); ?></span>
+                                                <li id="employees_add_employee">
+                                                    <a class="submenu" href="<?= site_url('employees/add_employee'); ?>">
+                                                        <i class="fa fa-user-plus"></i><span
+                                                                class="text"> <?= lang('add_employee'); ?></span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -606,18 +568,7 @@
                                                                     class="text"> <?= lang('new_user'); ?></span>
                                                         </a>
                                                     </li>
-                                                    <li id="employees_employees">
-                                                        <a class="submenu" href="<?= site_url('employees'); ?>">
-                                                            <i class="fa fa-users"></i><span
-                                                                    class="text"> <?= lang('list_employees'); ?></span>
-                                                        </a>
-                                                    </li>
-                                                    <li id="auth_create_user">
-                                                        <a class="submenu" href="<?= site_url('employees/add_employee'); ?>">
-                                                            <i class="fa fa-user-plus"></i><span
-                                                                    class="text"> <?= lang('add_employee'); ?></span>
-                                                        </a>
-                                                    </li>
+
                                                     <li id="billers_index">
                                                         <a class="submenu" href="<?= site_url('billers'); ?>">
                                                             <i class="fa fa-users"></i><span
@@ -1167,6 +1118,31 @@
                                             </li>
                                         <?php } ?>
 
+                                        <?php if ($GP['employees-index'] || $GP['employees-add'] || $GP['employees-edit'] || $GP['employees-delete']) { ?>
+                                            <li class="mm_employees">
+                                                <a class="dropmenu" href="#">
+                                                    <i class="fa fa-user"></i>
+                                                    <span class="text"> <?= lang('employees'); ?> </span>
+                                                    <span class="chevron closed"></span>
+                                                </a>
+                                                <ul>
+                                                    <li id="employees_index">
+                                                        <a class="submenu" href="<?= site_url('employees'); ?>">
+                                                            <i class="fa fa-heart-o"></i><span
+                                                                    class="text"> <?= lang('list_employees'); ?></span>
+                                                        </a>
+                                                    </li>
+                                                    <?php if ($GP['employees-add']) { ?>
+                                                        <li id="sales_add">
+                                                            <a class="submenu" href="<?= site_url('employees/add_employee'); ?>">
+                                                                <i class="fa fa-plus-circle"></i><span
+                                                                        class="text"> <?= lang('add_employee'); ?></span>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </li>
+                                        <?php } ?>
                                         <?php if ($GP['purchases-index'] || $GP['purchases-add'] || $GP['purchases-expenses']) { ?>
                                             <li class="mm_purchases">
                                                 <a class="dropmenu" href="#">

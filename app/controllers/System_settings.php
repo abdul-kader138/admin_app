@@ -869,6 +869,11 @@ class system_settings extends MY_Controller
                 'package-edit' => $this->input->post('package-edit'),
                 'package-add' => $this->input->post('package-add'),
                 'package-delete' => $this->input->post('package-delete'),
+
+                'employees-index' => $this->input->post('employees-index'),
+                'employees-edit' => $this->input->post('employees-edit'),
+                'employees-add' => $this->input->post('employees-add'),
+                'employees-delete' => $this->input->post('employees-delete'),
             );
 
             if (POS) {

@@ -62,7 +62,7 @@
                                                                                   data-placement="left"
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                        <li><a href="<?= site_url('employees/create_employee'); ?>"><i
+                        <li><a href="<?= site_url('employees/add_employee'); ?>"><i
                                     class="fa fa-plus-circle"></i> <?= lang("add_employee"); ?></a></li>
                         <li><a href="#" id="excel" data-action="export_excel"><i
                                     class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?></a></li>
@@ -93,10 +93,10 @@
                             </th>
                             <th class="col-xs-2"><?php echo lang('employee_id'); ?></th>
                             <th class="col-xs-2"><?php echo lang('name'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('company_id'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('operator_id'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('package_id'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('mobile_number'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('company'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('operator'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('package'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('phone'); ?></th>
                             <th class="col-xs-1"><?php echo lang('ceiling_amount'); ?></th>
                             <th style="width:100px;"><?php echo lang('status'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
@@ -104,7 +104,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="9" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="10" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
