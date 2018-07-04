@@ -322,6 +322,12 @@
                                                                 class="text"> <?= lang('add_employee'); ?></span>
                                                     </a>
                                                 </li>
+                                                <li id="employees_employee_by_csv">
+                                                    <a class="submenu" href="<?= site_url('employees/employee_by_csv'); ?>">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                        <span class="text"> <?= lang('add_employee_by_csv'); ?></span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="mm_products">

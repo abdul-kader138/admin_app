@@ -544,3 +544,4 @@ $lang['list_employees']                 = "List Employees";
 $lang['designation']                      = "Designation";
 $lang['operator']                         = "Operator";
 $lang['package']                          = "Package";
+$lang['add_employee_by_csv']            = "Add Employee By CSV";

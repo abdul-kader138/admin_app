@@ -17,17 +17,19 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null, null,null, {"mRender": user_status}, {"bSortable": false}]
+            }, null, null, null, null, null, null,null,null, null,{"mRender": user_status}, {"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('employee_id');?>]", filter_type: "text", data: []},
+            {column_number: 1, filter_default_label: "[<?=lang('employee');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('company_id');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('operator_id');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('package_id');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('mobile_number');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('package');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
             {column_number: 7, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('credit_limit');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('service_start_date');?>]", filter_type: "text", data: []},
             {
-                column_number: 8, select_type: 'select2',
+                column_number: 9, select_type: 'select2',
                 select_type_options: {
                     placeholder: '<?=lang('status');?>',
                     width: '100%',
@@ -98,13 +100,15 @@
                             <th class="col-xs-1"><?php echo lang('package'); ?></th>
                             <th class="col-xs-1"><?php echo lang('phone'); ?></th>
                             <th class="col-xs-1"><?php echo lang('ceiling_amount'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('credit_limit'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('service_start_date'); ?></th>
                             <th style="width:100px;"><?php echo lang('status'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="10" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="11" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -112,6 +116,8 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -137,14 +143,5 @@
         <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
     </div>
     <?= form_close() ?>
-
-    <script language="javascript">
-        $(document).ready(function () {
-            $('#set_admin').click(function () {
-                $('#usr-form-btn').trigger('click');
-            });
-
-        });
-    </script>
 
 <?php } ?>
