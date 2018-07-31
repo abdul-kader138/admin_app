@@ -358,6 +358,23 @@
                                         <input type="checkbox" value="1" class="checkbox" name="employees-delete" <?php echo $p->{'employees-delete'} ? "checked" : ''; ?>>
                                     </td>
                                     <td>
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-employee_by_csv" <?php echo $p->{'employees-employee_by_csv'} ? "checked" : ''; ?>>
+                                        <label for="customers-deposits" class="padding05"><?= lang('add_employee_by_csv') ?></label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><?= lang("bills"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-bill_index" <?php echo $p->{'employees-bill_index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-bill_add" <?php echo $p->{'employees-bill_add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-bill_delete" <?php echo $p->{'employees-bill_delete'} ? "checked" : ''; ?>>
                                     </td>
                                 </tr>
                                 <tr>

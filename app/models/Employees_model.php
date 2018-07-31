@@ -124,4 +124,72 @@ class Employees_model extends CI_Model
         }
         return false;
     }
+
+    public function getEmployeeByCodeAndMobile($id,$number)
+    {
+        $q = $this->db->get_where('employees', array('employee_id' => $id,'mobile_number'=>$number), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+    public function getBillByMonthAndYear($month,$year,$operator_id)
+    {
+        $q = $this->db->get_where('bills', array('month' => $month,'year'=>$year,'operator_id'=>$operator_id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addBills($data)
+    {
+        if ($this->db->insert_batch('bills', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteBill($id)
+    {
+        if ($this->db->delete('bills', array('reference_no' => $id)))  return true;
+        else return FALSE;
+    }
+
+
+    public function getAllBillDetails($ref)
+    {
+        $this->db->select('bills.*,employees.name as nam,packages.name as p_name')
+            ->join('employees', 'employees.employee_id=bills.employee_id', 'left')
+            ->join('packages', 'packages.id=employees.package_id', 'left');
+//            ->join('tax_rates', 'tax_rates.id=purchase_items.tax_rate_id', 'left')
+//            ->group_by('purchase_items.id')
+//            ->order_by('id', 'asc');
+        $q = $this->db->get_where('bills', array('reference_no' => $ref));
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getPurchaseByID($id)
+    {
+        $q = $this->db->get_where('purchases', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getOperatorByID($id) {
+        $q = $this->db->get_where('operators', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
 }

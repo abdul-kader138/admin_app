@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <?php echo lang('mobile_no', 'mobile_no'); ?>
                                 <div class="controls">
-                                    <?php echo form_input('mobile_number',  (isset($_POST['mobile_number']) ? $_POST['mobile_number'] : ''), 'class="form-control" id="mobile_number" required="required"'); ?>
+                                    <?php echo form_input('mobile_number',  (isset($_POST['mobile_number']) ? $_POST['mobile_number'] : ''), 'class="form-control" pattern="(?=\d)(?=[0-9]).{10,11}" id="mobile_number" required="required"'); ?>
                                 </div>
                             </div>
 
@@ -101,7 +101,7 @@
                                 ?>
                             </div>
                             <div class="form-group">
-                                <?php echo lang('service_start_date', 'service_start_date'); ?>
+                                <?php echo lang('service_start_date_f', 'service_start_date_f'); ?>
                                 <div class="controls">
                                     <?php echo form_input('service_start_date', (isset($_POST['service_start_date']) ? $_POST['service_start_date'] : ''), 'class="form-control date" id="service_start_date" required="required" '); ?>
                                 </div>

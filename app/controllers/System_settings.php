@@ -874,6 +874,13 @@ class system_settings extends MY_Controller
                 'employees-edit' => $this->input->post('employees-edit'),
                 'employees-add' => $this->input->post('employees-add'),
                 'employees-delete' => $this->input->post('employees-delete'),
+                'employees-employee_by_csv' => $this->input->post('employees-employee_by_csv'),
+
+
+
+                'employees-bill_index' => $this->input->post('employees-bill_index'),
+                'employees-bill_add' => $this->input->post('employees-bill_add'),
+                'employees-bill_delete' => $this->input->post('employees-bill_delete'),
             );
 
             if (POS) {
@@ -4408,7 +4415,7 @@ class system_settings extends MY_Controller
         }
 
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[packages.code]|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[packages.name]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[packages.name]');
 
         if ($this->form_validation->run() == true) {
 
@@ -4443,7 +4450,7 @@ class system_settings extends MY_Controller
             }
         }
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $package_details = $this->settings_model->getPackageByID($id);
         if ($this->input->post('name') != $package_details->name) {
             $this->form_validation->set_rules('name', lang("name"), 'is_unique[packages.name]');
@@ -4714,8 +4721,8 @@ class system_settings extends MY_Controller
         }
 
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[operators.code]|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
-        $this->form_validation->set_rules('address', lang("address"), 'trim|required|is_unique[operators.address]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]');
+        $this->form_validation->set_rules('address', lang("address"), 'trim|required');
 //        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
 
         if ($this->form_validation->run() == true) {
@@ -4790,8 +4797,8 @@ class system_settings extends MY_Controller
             }
         }
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
-        $this->form_validation->set_rules('address', lang("address"), 'trim|required|is_unique[operators.address]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('address', lang("address"), 'trim|required');
 //        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
 
         $operator_details = $this->settings_model->getOperatorByID($id);

@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <?= lang('address', 'address'); ?>
-                    <?= form_input('address', $operator->contact_number, 'class="form-control" id="address" '); ?>
+                    <?= form_input('address', $operator->address, 'class="form-control" id="address" '); ?>
                 </div>
                 <div class="form-group">
                     <?= lang("image", "image") ?>

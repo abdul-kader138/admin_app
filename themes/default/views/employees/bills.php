@@ -7,7 +7,7 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('employees/getEmployees') ?>',
+            'sAjaxSource': '<?= site_url('employees/getBills') ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -18,28 +18,14 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null, null,null,null, null,{"mRender": employee_status}, {"bSortable": false}]
+            }, null, null, null, null, null, null,null]
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('employee');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('package');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('credit_limit');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('service_start_date');?>]", filter_type: "text", data: []},
-            {
-                column_number: 9, select_type: 'select2',
-                select_type_options: {
-                    placeholder: '<?=lang('status');?>',
-                    width: '100%',
-                    style: 'width:100%;',
-                    minimumResultsForSearch: -1,
-                    allowClear: true
-                },
-                data: [{value: '1', label: '<?=lang('active');?>'}, {value: '0', label: '<?=lang('inactive');?>'}]
-            }
+            {column_number: 1, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('total_ceiling_amount');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('total_usage_amount');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('total_dues_amount');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('month');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('year');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -52,11 +38,11 @@
         text-align: center;
     }</style>
 <?php if ($Owner) {
-    echo form_open('employees/employees_actions', 'id="action-form"');
+    echo form_open('employees/bills_actions', 'id="action-form"');
 } ?>
 <div class="box">
     <div class="box-header">
-        <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('employees'); ?></h2>
+        <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('bills'); ?></h2>
 
         <div class="box-icon">
             <ul class="btn-tasks">
@@ -94,40 +80,32 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th class="col-xs-2"><?php echo lang('employee_id'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('name'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('company'); ?></th>
                             <th class="col-xs-2"><?php echo lang('operator'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('package'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('phone'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('ceiling_amount'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('credit_limit'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('service_start_date'); ?></th>
-                            <th style="width:100px;"><?php echo lang('status'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('total_ceiling_amount'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('total_usage_amount'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('total_dues_amount'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('month'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('year'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="11" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="8" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
                         <tr class="active">
                             <th style="min-width:30px; width: 30px; text-align: center;">
-                                <input class="checkbox checkft" type="checkbox" name="check"/>
+                                <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th style="width:100px;"></th>
-                            <th style="width:85px;"><?= lang("actions"); ?></th>
+                            <th class="col-xs-2"><?php echo lang('operator'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('total_ceiling_amount'); ?></th>
+                            <th class="col-xs-2"><?php echo lang('total_usage_amount'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('total_dues_amount'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('month'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('year'); ?></th>
+                            <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
                         </tfoot>
                     </table>
@@ -147,12 +125,3 @@
 
 <?php } ?>
 
-<script type="application/javascript">
-
-    function employee_status(x) {
-        var y = x.split("__");
-        return y[0] == 1 ?
-            '<span class="label label-success"><i class="fa fa-check"></i> '+lang['active']+'</span>' :
-            '<span class="label label-danger"><i class="fa fa-times"></i> '+lang['inactive']+'</span>';
-    }
-</script>
