@@ -100,8 +100,10 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|is_unique[employees.mobile_number]|regex_match[/^[0-9]{10,11}$/]');
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email|is_unique[employees.email]');
-        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
+        $this->form_validation->set_rules('email', lang("email"), 'trim|valid_email|is_unique[employees.email]');
+//        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email|is_unique[employees.email]');
+//        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
+        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
         $this->form_validation->set_rules('active', lang("active"), 'trim|required');
         $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required|numeric|is_natural_no_zero');
 
@@ -167,8 +169,10 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email');
-        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
+//        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', lang("email"), 'trim|valid_email');
+        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
+//        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
         $this->form_validation->set_rules('active', lang("active"), 'trim|required');
 
 

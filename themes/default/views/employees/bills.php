@@ -45,24 +45,9 @@
         <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('bills'); ?></h2>
 
         <div class="box-icon">
-            <ul class="btn-tasks">
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon fa fa-tasks tip"
-                                                                                  data-placement="left"
-                                                                                  title="<?= lang("actions") ?>"></i></a>
-                    <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                        <li><a href="<?= site_url('employees/add_employee'); ?>"><i
-                                    class="fa fa-plus-circle"></i> <?= lang("add_employee"); ?></a></li>
-                        <li><a href="#" id="excel" data-action="export_excel"><i
-                                    class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?></a></li>
-                        <li><a href="#" id="pdf" data-action="export_pdf"><i
-                                    class="fa fa-file-pdf-o"></i> <?= lang('export_to_pdf') ?></a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" class="bpo" title="<b><?= $this->lang->line("delete_employees") ?></b>"
-                               data-content="<p><?= lang('r_u_sure') ?></p><button type='button' class='btn btn-danger' id='delete' data-action='delete'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button>"
-                               data-html="true" data-placement="left"><i
-                                    class="fa fa-trash-o"></i> <?= lang('delete_employees') ?></a></li>
-                    </ul>
+
+
+<!--            add ul later-->
                 </li>
             </ul>
         </div>

@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <?php echo lang('email', 'email'); ?>
                                 <div class="controls">
-                                    <?php  echo form_input('email', (isset($_POST['email']) ? $_POST['email'] : ''), 'class="form-control" id="email" required="required"'); ?>
+                                    <?php  echo form_input('email', (isset($_POST['email']) ? $_POST['email'] : ''), 'class="form-control" id="email"  '); ?>
                                 </div>
                             </div>
 
