@@ -18,12 +18,11 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null, null,null]
+            }, null, null, null, null, null, null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('total_ceiling_amount');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('total_usage_amount');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('total_dues_amount');?>]", filter_type: "text", data: []},
             {column_number: 5, filter_default_label: "[<?=lang('month');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('year');?>]", filter_type: "text", data: []},
         ], "footer");
@@ -68,7 +67,6 @@
                             <th class="col-xs-2"><?php echo lang('operator'); ?></th>
                             <th class="col-xs-2"><?php echo lang('total_ceiling_amount'); ?></th>
                             <th class="col-xs-2"><?php echo lang('total_usage_amount'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('total_dues_amount'); ?></th>
                             <th class="col-xs-1"><?php echo lang('month'); ?></th>
                             <th class="col-xs-1"><?php echo lang('year'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
@@ -76,7 +74,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="8" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="7" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -87,7 +85,6 @@
                             <th class="col-xs-2"><?php echo lang('operator'); ?></th>
                             <th class="col-xs-2"><?php echo lang('total_ceiling_amount'); ?></th>
                             <th class="col-xs-2"><?php echo lang('total_usage_amount'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('total_dues_amount'); ?></th>
                             <th class="col-xs-1"><?php echo lang('month'); ?></th>
                             <th class="col-xs-1"><?php echo lang('year'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>

@@ -192,4 +192,22 @@ class Employees_model extends CI_Model
         return FALSE;
     }
 
+    public function getALlEmployeeDetails($id)
+    {
+        $this->db->select('employees.*,company.name as c_name, operators.name as o_name, packages.name as p_name')
+            ->join('company', 'employees.company_id=company.id', 'left')
+            ->join('operators', 'employees.operator_id=operators.id', 'left')
+            ->join('packages', 'employees.package_id=packages.id', 'left')
+            ->join('designations', 'employees.designation_id=designations.id', 'left')
+            ->group_by('employees.id')
+            ->order_by('id', 'asc');
+
+        $q = $this->db->get_where('employees', array('employees.id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+
+    }
+
 }

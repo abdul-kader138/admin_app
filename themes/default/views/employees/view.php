@@ -72,6 +72,8 @@
                         $dues = 0;
                         $usage = 0;
                         foreach ($rows as $row):
+                            $row_dues=0;
+                            if( $row->usage_amount > $row->ceiling_amount ) $row_dues= $row->dues;
                             ?>
                             <tr>
                                 <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
@@ -80,12 +82,12 @@
                                 <td style="vertical-align:middle;">   <?= $row->mobile_number; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->ceiling_amount; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->usage_amount; ?></td>
-                                <td style="vertical-align:right;">    <?= $row->dues; ?></td>
+                                <td style="vertical-align:right;">    <?= $row_dues; ?></td>
                             </tr>
                             <?php
                             $total = $total + $row->ceiling_amount;
                             $usage = $usage + $row->usage_amount;
-                            $dues = $dues + $row->dues;
+                            if($row->ceiling_amount < $row->usage_amount) $dues = $dues + $row->dues;
                             $r++;
                         endforeach;
                         if ($return_rows) {

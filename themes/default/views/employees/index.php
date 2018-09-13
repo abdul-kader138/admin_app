@@ -51,9 +51,9 @@
     .table td:nth-child(8) {
         text-align: center;
     }</style>
-<?php if ($Owner) {
+<?php //if ($Owner) {
     echo form_open('employees/employees_actions', 'id="action-form"');
-} ?>
+//} ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-users"></i><?= lang('employees'); ?></h2>
@@ -138,14 +138,14 @@
         </div>
     </div>
 </div>
-<?php if ($Owner) { ?>
+<?php //if ($Owner) { ?>
     <div style="display: none;">
         <input type="hidden" name="form_action" value="" id="form_action"/>
         <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
     </div>
     <?= form_close() ?>
 
-<?php } ?>
+<?php// } ?>
 
 <script type="application/javascript">
 

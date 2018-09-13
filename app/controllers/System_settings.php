@@ -3795,7 +3795,7 @@ class system_settings extends MY_Controller
         }
 
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[company.name]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[company.name]');
 
         if ($this->form_validation->run() == true) {
 
@@ -3830,7 +3830,7 @@ class system_settings extends MY_Controller
             }
         }
         $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $company_details = $this->settings_model->getCompanyByID($id);
         if ($this->input->post('name') != $company_details->name) {
             $this->form_validation->set_rules('name', lang("name"), 'is_unique[company.name]');

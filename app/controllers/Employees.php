@@ -77,7 +77,7 @@ class Employees extends MY_Controller
             ->group_by('employees.id')
             ->edit_column('active', '$1__$2', 'active, id')
             ->add_column("Actions", $action, "id");
-            echo $this->datatables->generate();
+        echo $this->datatables->generate();
     }
 
     function add_employee()
@@ -97,36 +97,41 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('operator_id', lang("operator_id"), 'trim|required');
         $this->form_validation->set_rules('package_id', lang("package_id"), 'trim|required');
-        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|is_unique[employees.mobile_number]|regex_match[/^[0-9]{10,11}$/]');
+        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|is_unique[employees.mobile_number]|regex_match[/^[0-9]{10,14}$/]');
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        $this->form_validation->set_rules('email', lang("email"), 'trim|valid_email|is_unique[employees.email]');
+        //$this->form_validation->set_rules('email', lang("email"), 'trim|valid_email|is_unique[employees.email]');
 //        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email|is_unique[employees.email]');
 //        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
         $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
         $this->form_validation->set_rules('active', lang("active"), 'trim|required');
         $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required|numeric|is_natural_no_zero');
 
-
         if ($this->form_validation->run() == true) {
+            $email=null;
+            if ($this->input->post('id')) $email=$this->input->post('email');
             $service_start_date= (string) $this->input->post('service_start_date');
+			$actual_date="";
+			if($service_start_date != ""){
             $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
             $actual_date= date('Y-m-d', strtotime($new_service_start_date));
-        $data = array(
-            'employee_id' => $this->input->post('employee_id'),
-            'designation_id' => $this->input->post('designation_id'),
-            'company_id' => $this->input->post('company_id'),
-            'operator_id' => $this->input->post('operator_id'),
-            'package_id' => $this->input->post('package_id'),
-            'email' => $this->input->post('email'),
-            'mobile_number' => $this->input->post('mobile_number'),
-            'ceiling_amount' => $this->input->post('ceiling_amount'),
-            'credit_limit' => $this->input->post('credit_limit'),
-            'name' => $this->input->post('name'),
-            'service_start_date' => $actual_date,
-            'active' => $this->input->post('active'),
-        );
+			}
+            $data = array(
+                'employee_id' => $this->input->post('employee_id'),
+                'designation_id' => $this->input->post('designation_id'),
+                'company_id' => $this->input->post('company_id'),
+                'operator_id' => $this->input->post('operator_id'),
+                'package_id' => $this->input->post('package_id'),
+                'email' => $email,
+                'mobile_number' => $this->input->post('mobile_number'),
+                'ceiling_amount' => $this->input->post('ceiling_amount'),
+                'credit_limit' => $this->input->post('credit_limit'),
+                'name' => $this->input->post('name'),
+                'service_start_date' => $actual_date,
+                'active' => $this->input->post('active'),
+            );
         }
+
         if ($this->form_validation->run() == true && $this->employees_model->addEmployee($data)) {
             $this->session->set_flashdata('message', lang("employee_added"));
             redirect("employees/index");
@@ -165,29 +170,34 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('operator_id', lang("operator_id"), 'trim|required');
         $this->form_validation->set_rules('package_id', lang("package_id"), 'trim|required');
-        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|regex_match[/^[0-9]{10,11}$/]');
+        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|regex_match[/^[0-9]{10,14}$/]');
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
 //        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email');
-        $this->form_validation->set_rules('email', lang("email"), 'trim|valid_email');
+        //    $this->form_validation->set_rules('email', lang("email"), 'trim');
         $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
 //        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
         $this->form_validation->set_rules('active', lang("active"), 'trim|required');
 
 
 
-        if ($this->form_validation->run() == true) {
-            $service_start_date= (string) $this->input->post('service_start_date');
+       if ($this->form_validation->run() == true) {
+           $email=null;
+           if ($this->input->post('id')) $email=$this->input->post('email');
+               $service_start_date= (string) $this->input->post('service_start_date');
+            $actual_date="";
+			if($service_start_date != ""){
             $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
             $actual_date= date('Y-m-d', strtotime($new_service_start_date));
+			}
             $data = array(
                 'employee_id' => $this->input->post('employee_id'),
                 'designation_id' => $this->input->post('designation_id'),
                 'company_id' => $this->input->post('company_id'),
                 'operator_id' => $this->input->post('operator_id'),
                 'package_id' => $this->input->post('package_id'),
-                'email' => $this->input->post('email'),
+                'email' => $email,
                 'mobile_number' => $this->input->post('mobile_number'),
                 'ceiling_amount' => $this->input->post('ceiling_amount'),
                 'credit_limit' => $this->input->post('credit_limit'),
@@ -303,34 +313,34 @@ class Employees extends MY_Controller
                 foreach ($final as $csv_pr) {
                     if (isset($csv_pr['designation_code']) && isset($csv_pr['employee_id']) && isset($csv_pr['name'])) {
 
-                            $designation_details = $this->employees_model->getDesignationByCode($csv_pr['designation_code']);
-                                if (!$designation_details) {
-                                    $this->session->set_flashdata('error', lang("designation_code") . " ( " .$csv_pr['designation_code'] . " ). " . "not found");
-                                    redirect($_SERVER["HTTP_REFERER"]);
-                                }
+                        $designation_details = $this->employees_model->getDesignationByCode($csv_pr['designation_code']);
+                        if (!$designation_details) {
+                            $this->session->set_flashdata('error', lang("designation_code") . " ( " .$csv_pr['designation_code'] . " ). " . "not found");
+                            redirect($_SERVER["HTTP_REFERER"]);
+                        }
                         $service_start_date= (string) $csv_pr['service_start_date'];
                         $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
                         $actual_date= date('Y-m-d', strtotime($new_service_start_date));
 
-                                $employees[] = array(
-                                    'employee_id' =>$csv_pr['employee_id'],
-                                    'designation_id' =>$designation_details->id,
-                                    'company_id' => $company_id,
-                                    'operator_id' => $operator_id,
-                                    'package_id' => $package_id,
-                                    'email' => $csv_pr['email'],
-                                    'mobile_number' => $csv_pr['mobile_no'],
-                                    'ceiling_amount' => $csv_pr['ceiling_amount'],
-                                    'credit_limit' => $csv_pr['credit_limit'],
-                                    'name' => $csv_pr['name'],
-                                    'service_start_date' =>$actual_date,
-                                    'active' => 1,
-                                );
-                            }
+                        $employees[] = array(
+                            'employee_id' =>$csv_pr['employee_id'],
+                            'designation_id' =>$designation_details->id,
+                            'company_id' => $company_id,
+                            'operator_id' => $operator_id,
+                            'package_id' => $package_id,
+                            'email' => $csv_pr['email'],
+                            'mobile_number' => $csv_pr['mobile_no'],
+                            'ceiling_amount' => $csv_pr['ceiling_amount'],
+                            'credit_limit' => $csv_pr['credit_limit'],
+                            'name' => $csv_pr['name'],
+                            'service_start_date' =>$actual_date,
+                            'active' => 1,
+                        );
                     }
-
                 }
+
             }
+        }
 
 
         if ($this->form_validation->run() == true && $this->employees_model->addEmployees($employees)) {
@@ -352,121 +362,107 @@ class Employees extends MY_Controller
     }
 
     function Employees_actions($wh = NULL) {
-//        if (!$this->Owner && !$this->GP['bulk_actions']) {
-//            $this->session->set_flashdata('warning', lang('access_denied'));
-//            redirect($_SERVER["HTTP_REFERER"]);
-//        }
+      if (!$this->Owner && !$this->GP['bulk_actions']) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'delete') {
+
+                    $this->sma->checkPermissions('delete');
+                    foreach ($_POST['val'] as $id) {
+                        $this->employees_model->deleteEmployee($id);
+                    }
+                    $this->session->set_flashdata('message', $this->lang->line("employee_deleted"));
+                    redirect($_SERVER["HTTP_REFERER"]);
+                } elseif ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
+
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle('Employees');
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('employee_id'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('name'));
+                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('company_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('operator_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('package_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('mobile_no'));
+                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('ceiling_amount'));
+                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('credit_limit'));
+                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('service_start_date'));
+                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('status'));
 //
-//        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
-//
-//        if ($this->form_validation->run() == true) {
-//
-//            if (!empty($_POST['val'])) {
-//                if ($this->input->post('form_action') == 'delete') {
-//
-//                    $this->sma->checkPermissions('delete');
-//                    foreach ($_POST['val'] as $id) {
-//                        $this->employees_model->deleteEmployee($id);
-//                    }
-//                    $this->session->set_flashdata('message', $this->lang->line("employee_deleted"));
-//                    redirect($_SERVER["HTTP_REFERER"]);
-//                } elseif ($this->input->post('form_action') == 'export_excel' || $this->input->post('form_action') == 'export_pdf') {
-//
-//                    $this->load->library('excel');
-//                    $this->excel->setActiveSheetIndex(0);
-//                    $this->excel->getActiveSheet()->setTitle('Employees');
-//                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('employee_id'));
-//                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('name'));
-//                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('company_name'));
-//                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('operator_name'));
-//                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('package_name'));
-//                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('mobile_no'));
-//                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('ceiling_amount'));
-//                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('credit_limit'));
-//                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('service_start_date'));
-//                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('status'));
-////
-//                    $row = 2;
-//                    foreach ($_POST['val'] as $id) {
-//                        $employee = $this->employees_model->getEmployeeById($id);
-//                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $employee->employee_id);
-//                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $product->code);
-//                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $product->barcode_symbology);
-//                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, ($brand ? $brand->name : ''));
-//                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $product->category_code);
-//                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $base_unit);
-//                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $sale_unit);
-//                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $purchase_unit);
-//                        if ($this->Owner || $this->Admin || $this->session->userdata('show_cost')) {
-//                            $this->excel->getActiveSheet()->SetCellValue('I' . $row, $product->cost);
-//                        }
-//                        if ($this->Owner || $this->Admin || $this->session->userdata('show_price')) {
-//                            $this->excel->getActiveSheet()->SetCellValue('J' . $row, $product->price);
-//                        }
-//                        $this->excel->getActiveSheet()->SetCellValue('K' . $row, $product->alert_quantity);
-//                        $this->excel->getActiveSheet()->SetCellValue('L' . $row, $product->tax_rate_name);
-//                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $product->tax_method ? lang('exclusive') : lang('inclusive'));
-//                        $this->excel->getActiveSheet()->SetCellValue('N' . $row, $product->image);
-//                        $this->excel->getActiveSheet()->SetCellValue('O' . $row, $product->subcategory_code);
-//                        $this->excel->getActiveSheet()->SetCellValue('P' . $row, $product_variants);
-//                        $this->excel->getActiveSheet()->SetCellValue('Q' . $row, $product->cf1);
-//                        $this->excel->getActiveSheet()->SetCellValue('R' . $row, $product->cf2);
-//                        $this->excel->getActiveSheet()->SetCellValue('S' . $row, $product->cf3);
-//                        $this->excel->getActiveSheet()->SetCellValue('T' . $row, $product->cf4);
-//                        $this->excel->getActiveSheet()->SetCellValue('U' . $row, $product->cf5);
-//                        $this->excel->getActiveSheet()->SetCellValue('V' . $row, $product->cf6);
-//                        $this->excel->getActiveSheet()->SetCellValue('W' . $row, $quantity);
-//                        $row++;
-//                    }
-//
-//                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
-//                    $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
-//                    $this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
-//                    $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-//                    $this->excel->getActiveSheet()->getColumnDimension('N')->setWidth(40);
-//                    $this->excel->getActiveSheet()->getColumnDimension('O')->setWidth(30);
-//                    $this->excel->getActiveSheet()->getColumnDimension('P')->setWidth(30);
-//                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-//                    $filename = 'products_' . date('Y_m_d_H_i_s');
-//                    if ($this->input->post('form_action') == 'export_pdf') {
-//                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
-//                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
-//                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-//                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
-//                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
-//                        $rendererLibrary = 'MPDF';
-//                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
-//                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
-//                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
-//                                PHP_EOL . ' as appropriate for your directory structure');
-//                        }
-//
-//                        header('Content-Type: application/pdf');
-//                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
-//                        header('Cache-Control: max-age=0');
-//
-//                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
-//                        return $objWriter->save('php://output');
-//                    }
-//                    if ($this->input->post('form_action') == 'export_excel') {
-//                        header('Content-Type: application/vnd.ms-excel');
-//                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
-//                        header('Cache-Control: max-age=0');
-//
-//                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
-//                        return $objWriter->save('php://output');
-//                    }
-//
-//                    redirect($_SERVER["HTTP_REFERER"]);
-//                }
-//            } else {
-//                $this->session->set_flashdata('error', $this->lang->line("no_product_selected"));
-//                redirect($_SERVER["HTTP_REFERER"]);
-//            }
-//        } else {
-//            $this->session->set_flashdata('error', validation_errors());
-//            redirect($_SERVER["HTTP_REFERER"]);
-//        }
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $employees = $this->employees_model->getALlEmployeeDetails($id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $employees->employee_id);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $employees->name);
+                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $employees->c_name);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $employees ? $employees->o_name : '');
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $employees->p_name);
+                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $employees->mobile_number);
+                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $employees->ceiling_amount);
+                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $employees->credit_limit);
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $employees->service_start_date);
+                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $employees->active = 1 ? 'Active' : 'Inactive');
+                        $row++;
+                    }
+
+                    $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+                    $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(50);
+                    $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('F')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('G')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('H')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('I')->setWidth(30);
+                    $this->excel->getActiveSheet()->getColumnDimension('J')->setWidth(30);
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'employees_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line("no_product_selected"));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
     }
 
 
@@ -502,6 +498,7 @@ class Employees extends MY_Controller
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('delete_bill') . "</a>";
         $detail_link = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details'));
+        $detail_link_company = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details'));
         $action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
@@ -513,7 +510,7 @@ class Employees extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,sum(" . $this->db->dbprefix('bills') . ".usage_amount) as u_amount,sum(" . $this->db->dbprefix('bills') . ".dues) as due," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
+            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,sum(" . $this->db->dbprefix('bills') . ".usage_amount) as u_amount," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
             ->from("bills")
             ->join('operators', 'bills.operator_id=operators.id', 'left')
             ->group_by('bills.month')
@@ -690,7 +687,7 @@ class Employees extends MY_Controller
 
     public function pdf($bill_id = null, $view = null, $save_bufffer = null)
     {
-        $this->sma->checkPermissions();
+        //$this->sma->checkPermissions();
 
         if ($this->input->get('id')) {
             $bill_id = $this->input->get('id');
