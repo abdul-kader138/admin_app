@@ -195,7 +195,7 @@ function row_status($x)
                     </a>
                 </div>
             <?php } ?>
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

@@ -547,3 +547,13 @@ $lang['package']                          = "Package";
 $lang['add_employee_by_csv']             = "Add Employee By CSV";
 $lang['bill_upload']                    = "Bill Upload By CSV";
 $lang['bills']                          = "Bills";
+$lang['bill_details']                   = "Bill Details";
+
+
+//Employee Setting
+
+$lang['guard']                          = "Guard";
+$lang['guards']                         = "Guards";
+$lang['add_guard']                      = "Add Guard";
+$lang['edit_guard']                      = "Edit Guard";
+$lang['list_guards']                  = "List Guards";

@@ -3874,4 +3874,20 @@ class Reports extends MY_Controller {
         }
     }
 
+    function company_bill() {
+      //  $this->sma->checkPermissions('sales');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['companies'] = $this->reports_model->getAllCompanies();
+        $this->data['packages'] = $this->reports_model->getAllPackages();
+        $this->data['operators'] = $this->site->getAllOperators();
+        $this->data['users'] = $this->reports_model->getStaff();
+        $this->data['warehouses'] = $this->site->getAllWarehouses();
+        $this->data['billers'] = $this->site->getAllCompanies('biller');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('sales_report')));
+        $meta = array('page_title' => lang('sales_report'), 'bc' => $bc);
+        $this->page_construct('reports/company_bill', $meta, $this->data);
+    }
+
+
+
 }

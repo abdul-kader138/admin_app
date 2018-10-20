@@ -111,11 +111,11 @@ class Employees extends MY_Controller
             $email=null;
             if ($this->input->post('id')) $email=$this->input->post('email');
             $service_start_date= (string) $this->input->post('service_start_date');
-			$actual_date="";
-			if($service_start_date != ""){
-            $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
-            $actual_date= date('Y-m-d', strtotime($new_service_start_date));
-			}
+            $actual_date="";
+            if($service_start_date != ""){
+                $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
+                $actual_date= date('Y-m-d', strtotime($new_service_start_date));
+            }
             $data = array(
                 'employee_id' => $this->input->post('employee_id'),
                 'designation_id' => $this->input->post('designation_id'),
@@ -182,15 +182,15 @@ class Employees extends MY_Controller
 
 
 
-       if ($this->form_validation->run() == true) {
-           $email=null;
-           if ($this->input->post('id')) $email=$this->input->post('email');
-               $service_start_date= (string) $this->input->post('service_start_date');
+        if ($this->form_validation->run() == true) {
+            $email=null;
+            if ($this->input->post('id')) $email=$this->input->post('email');
+            $service_start_date= (string) $this->input->post('service_start_date');
             $actual_date="";
-			if($service_start_date != ""){
-            $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
-            $actual_date= date('Y-m-d', strtotime($new_service_start_date));
-			}
+            if($service_start_date != ""){
+                $new_service_start_date= date('d-m-Y', strtotime($service_start_date));
+                $actual_date= date('Y-m-d', strtotime($new_service_start_date));
+            }
             $data = array(
                 'employee_id' => $this->input->post('employee_id'),
                 'designation_id' => $this->input->post('designation_id'),
@@ -362,7 +362,7 @@ class Employees extends MY_Controller
     }
 
     function Employees_actions($wh = NULL) {
-      if (!$this->Owner && !$this->GP['bulk_actions']) {
+        if (!$this->Owner && !$this->GP['bulk_actions']) {
             $this->session->set_flashdata('warning', lang('access_denied'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
@@ -498,7 +498,7 @@ class Employees extends MY_Controller
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('delete_bill') . "</a>";
         $detail_link = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details'));
-        $detail_link_company = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details'));
+        $detail_link_company = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details_company'));
         $action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>

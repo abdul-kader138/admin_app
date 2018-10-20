@@ -343,6 +343,27 @@ if ($Owner || $Admin) {
             </li>
         </ul>
     </li>
+    <li class="mm_guard">
+        <a class="dropmenu" href="#">
+            <i class="fa fa-heart-o"></i>
+            <span class="text"> <?= lang('Guard'); ?> </span>
+            <span class="chevron closed"></span>
+        </a>
+        <ul>
+            <li id="guard_index">
+                <a class="submenu" href="<?= site_url('guard'); ?>">
+                    <i class="fa fa-users"></i><span
+                        class="text"> <?= lang('list_guards'); ?></span>
+                </a>
+            </li>
+            <li id="guard_add_guard">
+                <a class="submenu" href="<?= site_url('guard/add_guard'); ?>">
+                    <i class="fa fa-user-plus"></i><span
+                        class="text"> <?= lang('add_guard'); ?></span>
+                </a>
+            </li>
+            </ul>
+    </li>
     <li class="mm_products">
         <a class="dropmenu" href="#">
             <i class="fa fa-barcode"></i>
@@ -944,6 +965,12 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('Time Schedule Report'); ?></span>
                 </a>
             </li>
+            <li id="reports_bill_details">
+                <a href="<?= site_url('reports/bill_details') ?>">
+                    <i class="fa fa-calendar"></i><span
+                        class="text"> <?= lang('bill_details'); ?></span>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -1541,6 +1568,13 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php } ?>
+
+                <li id="reports_daily_purchases">
+                    <a href="<?= site_url('reports/bill_details') ?>">
+                        <i class="fa fa-calendar-o"></i><span
+                            class="text"> <?= lang('bill_details'); ?></span>
+                    </a>
+                </li>
             </ul>
         </li>
     <?php } ?>
