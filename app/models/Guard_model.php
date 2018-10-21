@@ -111,4 +111,30 @@ class Guard_model extends CI_Model
         return FALSE;
 
     }
+
+
+    public function getGuardDetails($id)
+    {
+        $this->db->select('guards.employee_id,guards.name as nam,guards.mobile_number, guards.dob,(floor(datediff(curdate(),dob) / 365)) as age,guards.present_weight as weight,height_feet,height_inch, joining_date,guards.active')
+            ->join('company', 'guards.company_id=company.id', 'left')
+            ->join('designations', 'guards.designation_id=designations.id', 'left')
+            ->group_by('guards.id')
+            ->order_by('guards.id', 'asc');
+
+        $q = $this->db->get_where('guards', array('guards.employee_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+
+    }
+
+
+    public function addWeightDetails($data)
+    {
+        if ($this->db->insert_batch('weight_details', $data)) {
+            return true;
+        }
+        return false;
+    }
 } 

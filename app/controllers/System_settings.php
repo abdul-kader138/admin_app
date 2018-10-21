@@ -881,6 +881,12 @@ class system_settings extends MY_Controller
                 'employees-bill_index' => $this->input->post('employees-bill_index'),
                 'employees-bill_add' => $this->input->post('employees-bill_add'),
                 'employees-bill_delete' => $this->input->post('employees-bill_delete'),
+
+                'guard-index' => $this->input->post('guard-index'),
+                'guard-edit' => $this->input->post('guard-edit'),
+                'guard-add' => $this->input->post('guard-add'),
+                'guard-delete' => $this->input->post('guard-delete'),
+                'guard-weight_upload' => $this->input->post('guard-weight_upload'),
             );
 
             if (POS) {

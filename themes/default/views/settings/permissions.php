@@ -396,6 +396,26 @@
                                 </tr>
 
                                 <tr>
+                                    <td><?= lang("guards"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="guard-index" <?php echo $p->{'guard-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="guard-add" <?php echo $p->{'guard-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="guard-edit" <?php echo $p->{'guard-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="guard-delete" <?php echo $p->{'guard-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" value="1" class="checkbox" name="guard-weight_upload" <?php echo $p->{'guard-weight_upload'} ? "checked" : ''; ?>>
+                                        <label for="customers-deposits" class="padding05"><?= lang('weight_upload') ?></label>
+                                    </td>
+                                </tr>
+
+                                <tr>
                                     <td><?= lang("reports"); ?></td>
                                     <td colspan="5">
                                         <span style="inline-block">

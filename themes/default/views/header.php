@@ -362,6 +362,12 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_guard'); ?></span>
                 </a>
             </li>
+            <li id="guard_bill_add">
+                <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
+                    <i class="fa fa-plus-circle"></i><span
+                        class="text"> <?= lang('weight_upload'); ?></span>
+                </a>
+            </li>
             </ul>
     </li>
     <li class="mm_products">
@@ -1221,6 +1227,46 @@ if ($Owner || $Admin) {
             </ul>
         </li>
     <?php } ?>
+
+    <?php if ($GP['guard-index'] || $GP['guard-add'] || $GP['guard-edit'] ||
+        $GP['guard-delete']) {
+        ?>
+        <li class="mm_guard">
+            <a class="dropmenu" href="#">
+                <i class="fa fa-user"></i>
+                <span class="text"> <?= lang('guard'); ?> </span>
+                <span class="chevron closed"></span>
+            </a>
+            <ul>
+                <?php if ($GP['guard-index']) { ?>
+                    <li id="guard_index">
+                        <a class="submenu" href="<?= site_url('guard'); ?>">
+                            <i class="fa fa-heart-o"></i><span
+                                class="text"> <?= lang('list_guards'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['guard-add']) { ?>
+                    <li id="guard_add">
+                        <a class="submenu" href="<?= site_url('guard/add_guard'); ?>">
+                            <i class="fa fa-plus-circle"></i><span
+                                class="text"> <?= lang('add_guard'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['guard-weight_upload']) { ?>
+                    <li id="guard_bill_add">
+                        <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
+                            <i class="fa fa-plus-circle"></i><span
+                                class="text"> <?= lang('weight_upload'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
+    <?php } ?>
+
+
     <?php if ($GP['purchases-index'] || $GP['purchases-add'] || $GP['purchases-expenses']) { ?>
         <li class="mm_purchases">
             <a class="dropmenu" href="#">

@@ -20,3 +20,5 @@ $lang['employee_id']           = "Employee ID";
 $lang['edit_guard']            = "Edit Guard";
 $lang['delete_guard']          = "Delete Guard";
 $lang['no_product_selected']   = "No product selected";
+$lang['start_date']            = "Date(To)";
+$lang['end_date']              = "Date(From)";

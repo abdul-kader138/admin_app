@@ -178,7 +178,7 @@ class Guard extends MY_Controller
         $this->form_validation->set_rules('height_feet', lang("height_feet"), 'trim|required');
         $this->form_validation->set_rules('height_inch', lang("height_inch"), 'trim|required');
         $this->form_validation->set_rules('present_weight', lang("height_inch"), 'trim|required');
-        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|is_unique[guards.mobile_number]|regex_match[/^[0-9]{10,14}$/]');
+        $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $this->form_validation->set_rules('dob', lang("service_start_date"), 'trim|required');
         $this->form_validation->set_rules('joining_date', lang("service_start_date"), 'trim|required');
@@ -360,7 +360,396 @@ class Guard extends MY_Controller
         }
     }
 
+    public function weight_upload()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['guard-weight_upload'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
+        $this->form_validation->set_message('is_natural_no_zero', lang("no_zero_required"));
+        $this->form_validation->set_rules('year', lang("year"), 'trim|required');
+        $this->form_validation->set_rules('month', lang("month"), 'trim|required');
+        $this->form_validation->set_rules('start_date', lang("start_date"), 'trim|required');
+        $this->form_validation->set_rules('end_date', lang("end_date"), 'trim|required');
 
+        if ($this->form_validation->run() == true) {
+
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+            $start_date= (string) $this->input->post('start_date');;
+            $end_date= (string) $this->input->post('end_date');;
+            $new_start_date= date('d-m-Y', strtotime($start_date));
+            $new_end_date= date('d-m-Y', strtotime($end_date));
+            $new_start_date= date('Y-m-d', strtotime($new_start_date));
+            $new_end_date= date('Y-m-d', strtotime($new_end_date));
+
+            if (isset($_FILES["userfile"])) {
+
+                $this->load->library('upload');
+
+                $config['upload_path'] = $this->digital_upload_path;
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = true;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect("guard/weight_upload");
+                }
+
+                $csv = $this->upload->file_name;
+                $data['attachment'] = $csv;
+
+                $arrResult = array();
+                $handle = fopen($this->digital_upload_path . $csv, "r");
+                if ($handle) {
+                    while (($row = fgetcsv($handle, 1000, ",")) !== false) {
+                        $arrResult[] = $row;
+                    }
+                    fclose($handle);
+                }
+                $titles = array_shift($arrResult);
+
+                $keys = array('employee_code','weight');
+                $final = array();
+                foreach ($arrResult as $key => $value) {
+                    $final[] = array_combine($keys, $value);
+                }
+                $rw = 2;
+
+                foreach ($final as $csv_pr) {
+                    if (isset($csv_pr['employee_code']) && isset($csv_pr['weight'])) {
+
+                        $guard_details = $this->guard_model->getGuardDetails($csv_pr['employee_code']);
+//                        $bill_details = $this->guard_model->getBillByMonthAndYear($month,$year,$operator_id);
+//                        if ($guard_details) {
+//                            $this->session->set_flashdata('error', lang("bill_already_exist"));
+//                            redirect($_SERVER["HTTP_REFERER"]);
+//                        }
+
+                        $height=$guard_details->height_feet.".".$guard_details->height_inch;
+
+                        if($guard_details->age <=30) $min_max_weight= $this->uPTo30Years($height);
+                        if($guard_details->age > 30 && $guard_details->age <=40) $min_max_weight= $this->from31To40Years($height);
+                        if($guard_details->age > 40 && $guard_details->age <=50) $min_max_weight= $this->from41To50Years($height);
+                        if($guard_details->age > 50) $min_max_weight= $this->Over50Years($height);
+
+                        $standard_weight=$min_max_weight['max'];
+                        if($csv_pr['weight'] <= $min_max_weight['min'] ) $standard_weight=$min_max_weight['min'];
+
+//                        $employee_details = $this->guard_model->getEmployeeByCodeAndMobile($csv_pr['employee_code'],$csv_pr['mobile_no']);
+//                        if (!$employee_details) {
+//                            $this->session->set_flashdata('error', lang("employee_code") . " ( " .$csv_pr['employee_code'] . " ). " . "not found");
+//                            redirect($_SERVER["HTTP_REFERER"]);
+//                        }
+
+                        $bills[] = array(
+                            'employee_id' =>$csv_pr['employee_code'],
+                            'reference_no' => ($year."_".$month),
+                            'year' => $year,
+                            'month' => $month,
+                            'start_date' => $new_start_date,
+                            'end_date' => $new_end_date,
+                            'standard_weight' => $standard_weight,
+                            'current_weight' => $csv_pr['weight'],
+                        );
+                    }
+                }
+
+            }
+        }
+
+
+//        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run() == true && $this->guard_model->addWeightDetails($bills)) {
+            $this->session->set_flashdata('message', lang("bill_added"));
+            redirect("guard/index");
+        } else {
+
+            $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+
+            $this->data['companies'] = $this->guard_model->getAllCompanies();
+            $this->data['operators'] = $this->guard_model->getAllOperators();
+            $this->data['packages'] = $this->guard_model->getAllPackages();
+
+            $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('guard'), 'page' => lang('guard')), array('link' => '#', 'page' => lang('weight_upload')));
+            $meta = array('page_title' => lang('weight_upload'), 'bc' => $bc);
+            $this->page_construct('guard/weight_upload', $meta, $this->data);
+
+        }
+    }
+
+
+
+    function uPTo30Years($height)
+    {
+        $ageDetails[] = array();
+        switch ($height) {
+            case ($height == '5.2') :
+                $ageDetails['min'] = 47;
+                $ageDetails['max'] = 62;
+                break;
+            case ($height == '5.3') :
+                $ageDetails['min'] = 49;
+                $ageDetails['max'] = 64;
+                break;
+            case ($height == '5.4') :
+                $ageDetails['min'] = 50;
+                $ageDetails['max'] = 66;
+                break;
+            case ($height == '5.5') :
+                $ageDetails['min'] = 52;
+                $ageDetails['max'] = 68;
+                break;
+            case ($height == '5.6') :
+                $ageDetails['min'] = 53;
+                $ageDetails['max'] = 70;
+                break;
+            case ($height == '5.7') :
+                $ageDetails['min'] = 55;
+                $ageDetails['max'] = 72;
+                break;
+            case ($height == '5.8') :
+                $ageDetails['min'] = 57;
+                $ageDetails['max'] = 75;
+                break;
+            case ($height == '5.9') :
+                $ageDetails['min'] = 58;
+                $ageDetails['max'] = 77;
+                break;
+            case ($height == '5.10') :
+                $ageDetails['min'] = 60;
+                $ageDetails['max'] = 79;
+                break;
+            case ($height == '5.11') :
+                $ageDetails['min'] = 62;
+                $ageDetails['max'] = 81;
+                break;
+            case ($height == '6') :
+                $ageDetails['min'] = 64;
+                $ageDetails['max'] = 84;
+                break;
+            case ($height == '6.1') :
+                $ageDetails['min'] = 65;
+                $ageDetails['max'] = 86;
+                break;
+            case ($height == '6.2') :
+                $ageDetails['min'] = 67;
+                $ageDetails['max'] = 88;
+                break;
+            default:
+                $ageDetails['min'] = 0;
+                $ageDetails['max'] = 0;
+        }
+
+        return $ageDetails;
+    }
+
+
+
+    function from31To40Years($height)
+    {
+        $ageDetails[] = array();
+        switch ($height) {
+            case ($height == '5.2') :
+                $ageDetails['min'] = 47;
+                $ageDetails['max'] = 66;
+                break;
+            case ($height == '5.3') :
+                $ageDetails['min'] = 49;
+                $ageDetails['max'] = 68;
+                break;
+            case ($height == '5.4') :
+                $ageDetails['min'] = 50;
+                $ageDetails['max'] = 70;
+                break;
+            case ($height == '5.5') :
+                $ageDetails['min'] = 52;
+                $ageDetails['max'] = 72;
+                break;
+            case ($height == '5.6') :
+                $ageDetails['min'] = 53;
+                $ageDetails['max'] = 74;
+                break;
+            case ($height == '5.7') :
+                $ageDetails['min'] = 55;
+                $ageDetails['max'] = 77;
+                break;
+            case ($height == '5.8') :
+                $ageDetails['min'] = 57;
+                $ageDetails['max'] = 79;
+                break;
+            case ($height == '5.9') :
+                $ageDetails['min'] = 58;
+                $ageDetails['max'] = 81;
+                break;
+            case ($height == '5.10') :
+                $ageDetails['min'] = 60;
+                $ageDetails['max'] = 84;
+                break;
+            case ($height == '5.11') :
+                $ageDetails['min'] = 62;
+                $ageDetails['max'] = 86;
+                break;
+            case ($height == '6') :
+                $ageDetails['min'] = 64;
+                $ageDetails['max'] = 89;
+                break;
+            case ($height == '6.1') :
+                $ageDetails['min'] = 65;
+                $ageDetails['max'] = 91;
+                break;
+            case ($height == '6.2') :
+                $ageDetails['min'] = 67;
+                $ageDetails['max'] = 94;
+                break;
+            default:
+                $ageDetails['min'] = 0;
+                $ageDetails['max'] = 0;
+        }
+
+        return $ageDetails;
+    }
+
+
+
+    function from41To50Years($height)
+    {
+        $ageDetails[] = array();
+        switch ($height) {
+            case ($height == '5.2') :
+                $ageDetails['min'] = 47;
+                $ageDetails['max'] = 67;
+                break;
+            case ($height == '5.3') :
+                $ageDetails['min'] = 49;
+                $ageDetails['max'] = 69;
+                break;
+            case ($height == '5.4') :
+                $ageDetails['min'] = 50;
+                $ageDetails['max'] = 71;
+                break;
+            case ($height == '5.5') :
+                $ageDetails['min'] = 52;
+                $ageDetails['max'] = 74;
+                break;
+            case ($height == '5.6') :
+                $ageDetails['min'] = 53;
+                $ageDetails['max'] = 76;
+                break;
+            case ($height == '5.7') :
+                $ageDetails['min'] = 55;
+                $ageDetails['max'] = 78;
+                break;
+            case ($height == '5.8') :
+                $ageDetails['min'] = 57;
+                $ageDetails['max'] = 81;
+                break;
+            case ($height == '5.9') :
+                $ageDetails['min'] = 58;
+                $ageDetails['max'] = 83;
+                break;
+            case ($height == '5.10') :
+                $ageDetails['min'] = 60;
+                $ageDetails['max'] = 85;
+                break;
+            case ($height == '5.11') :
+                $ageDetails['min'] = 62;
+                $ageDetails['max'] = 88;
+                break;
+            case ($height == '6') :
+                $ageDetails['min'] = 64;
+                $ageDetails['max'] = 90;
+                break;
+            case ($height == '6.1') :
+                $ageDetails['min'] = 65;
+                $ageDetails['max'] = 93;
+                break;
+            case ($height == '6.2') :
+                $ageDetails['min'] = 67;
+                $ageDetails['max'] = 95;
+                break;
+            default:
+                $ageDetails['min'] = 0;
+                $ageDetails['max'] = 0;
+        }
+
+        return $ageDetails;
+    }
+
+
+    function Over50Years($height)
+    {
+        $ageDetails[] = array();
+        switch ($height) {
+            case ($height == '5.2') :
+                $ageDetails['min'] = 47;
+                $ageDetails['max'] = 68;
+                break;
+            case ($height == '5.3') :
+                $ageDetails['min'] = 49;
+                $ageDetails['max'] = 70;
+                break;
+            case ($height == '5.4') :
+                $ageDetails['min'] = 50;
+                $ageDetails['max'] = 73;
+                break;
+            case ($height == '5.5') :
+                $ageDetails['min'] = 52;
+                $ageDetails['max'] = 75;
+                break;
+            case ($height == '5.6') :
+                $ageDetails['min'] = 53;
+                $ageDetails['max'] = 77;
+                break;
+            case ($height == '5.7') :
+                $ageDetails['min'] = 55;
+                $ageDetails['max'] = 80;
+                break;
+            case ($height == '5.8') :
+                $ageDetails['min'] = 57;
+                $ageDetails['max'] = 82;
+                break;
+            case ($height == '5.9') :
+                $ageDetails['min'] = 58;
+                $ageDetails['max'] = 84;
+                break;
+            case ($height == '5.10') :
+                $ageDetails['min'] = 60;
+                $ageDetails['max'] = 87;
+                break;
+            case ($height == '5.11') :
+                $ageDetails['min'] = 62;
+                $ageDetails['max'] = 89;
+                break;
+            case ($height == '6') :
+                $ageDetails['min'] = 64;
+                $ageDetails['max'] = 92;
+                break;
+            case ($height == '6.1') :
+                $ageDetails['min'] = 65;
+                $ageDetails['max'] = 95;
+                break;
+            case ($height == '6.2') :
+                $ageDetails['min'] = 67;
+                $ageDetails['max'] = 97;
+                break;
+            default:
+                $ageDetails['min'] = 0;
+                $ageDetails['max'] = 0;
+        }
+
+        return $ageDetails;
+    }
 
 
 
