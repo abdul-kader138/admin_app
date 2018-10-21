@@ -556,4 +556,5 @@ $lang['guard']                          = "Guard";
 $lang['guards']                         = "Guards";
 $lang['add_guard']                      = "Add Guard";
 $lang['edit_guard']                      = "Edit Guard";
+$lang['edit_guard']                      = "Delete Guard";
 $lang['list_guards']                  = "List Guards";

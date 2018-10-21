@@ -17,3 +17,6 @@ $lang['guard_added']           = "Guard successfully added";
 $lang['guard_updated']         = "Guard successfully updated";
 $lang['guard_deleted']         = "Guard successfully deleted";
 $lang['employee_id']           = "Employee ID";
+$lang['edit_guard']            = "Edit Guard";
+$lang['delete_guard']          = "Delete Guard";
+$lang['no_product_selected']   = "No product selected";

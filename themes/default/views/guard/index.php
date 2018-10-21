@@ -20,19 +20,18 @@
                 "mRender": checkbox
             }, null, null, null, null,null,null, null,null,null, null,{"mRender": employee_status}, {"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('employee');?>]", filter_type: "text", data: []},
+            {column_number: 1, filter_default_label: "[<?=lang('Employee ID');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('designation');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('dob');?>]", filter_type: "text", data: []},
-            {column_number: 11, filter_default_label: "[<?=lang('dob');?>]", filter_type: "text", data: []},
-            {column_number: 12, filter_default_label: "[<?=lang('joining_date');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('designation');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('dob');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('age');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('weight');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('height');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('joining_date');?>]", filter_type: "text", data: []},
             {
-                column_number: 13, select_type: 'select2',
+                column_number: 11, select_type: 'select2',
                 select_type_options: {
                     placeholder: '<?=lang('status');?>',
                     width: '100%',
@@ -54,7 +53,7 @@
         text-align: center;
     }</style>
 <?php //if ($Owner) {
-echo form_open('employees/employees_actions', 'id="action-form"');
+echo form_open('guard/guard_actions', 'id="action-form"');
 //} ?>
 <div class="box">
     <div class="box-header">
@@ -67,8 +66,8 @@ echo form_open('employees/employees_actions', 'id="action-form"');
                                                                                   data-placement="left"
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-                        <li><a href="<?= site_url('employees/add_employee'); ?>"><i
-                                    class="fa fa-plus-circle"></i> <?= lang("add_employee"); ?></a></li>
+                        <li><a href="<?= site_url('guard/add_guard'); ?>"><i
+                                    class="fa fa-plus-circle"></i> <?= lang("add_guard"); ?></a></li>
                         <li><a href="#" id="excel" data-action="export_excel"><i
                                     class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?></a></li>
                         <li><a href="#" id="pdf" data-action="export_pdf"><i
@@ -106,9 +105,6 @@ echo form_open('employees/employees_actions', 'id="action-form"');
                             <th class="col-xs-1"><?php echo lang('Weight'); ?></th>
                             <th class="col-xs-1"><?php echo lang('Height'); ?></th>
                             <th class="col-xs-1"><?php echo lang('Joining Date'); ?></th>
-<!--                            <th class="col-xs-1">--><?php //echo lang('ceiling_amount'); ?><!--</th>-->
-<!--                            <th class="col-xs-1">--><?php //echo lang('credit_limit'); ?><!--</th>-->
-<!--                            <th class="col-xs-1">--><?php //echo lang('service_start_date'); ?><!--</th>-->
                             <th style="width:100px;"><?php echo lang('status'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
@@ -134,9 +130,6 @@ echo form_open('employees/employees_actions', 'id="action-form"');
                             <th></th>
                             <th></th>
                             <th></th>
-<!--                            <th></th>-->
-<!--                            <th></th>-->
-<!--                            <th style="width:100px;"></th>-->
                             <th style="width:85px;"><?= lang("actions"); ?></th>
                         </tr>
                         </tfoot>
