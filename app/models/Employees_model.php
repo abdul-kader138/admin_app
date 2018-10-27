@@ -125,9 +125,9 @@ class Employees_model extends CI_Model
         return false;
     }
 
-    public function getEmployeeByCodeAndMobile($id,$number)
+    public function getEmployeeByMobile($id,$number)
     {
-        $q = $this->db->get_where('employees', array('employee_id' => $id,'mobile_number'=>$number), 1);
+        $q = $this->db->get_where('employees', array('mobile_number'=>$number), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }
@@ -208,6 +208,22 @@ class Employees_model extends CI_Model
         }
         return FALSE;
 
+    }
+
+    public function getAllBillDetailsForUpload($ref)
+    {
+        $this->db->select('bills.*,employees.name as nam,packages.name as p_name')
+            ->join('employees', 'employees.employee_id=bills.employee_id', 'left')
+            ->join('packages', 'packages.id=employees.package_id', 'left')
+            ->like('bills.employee_id', 'PG', 'after');
+        $q = $this->db->get_where('bills', array('reference_no' => $ref));
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
     }
 
 }

@@ -92,9 +92,12 @@
                                 <?php $r = 1;
                                 $col = 6;
                                 $total = 0;
-                                $dues = 0;
+                                $total_dues = 0;
                                 $usage = 0;
                                 foreach ($rows as $row):
+                                    $dues=0;
+                                    $dues_amount=($row->ceiling_amount -$row->usage_amount);
+                                    if($dues_amount < 0) $dues=abs($dues_amount);
                                     ?>
                                     <tr>
                                         <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
@@ -103,12 +106,12 @@
                                         <td style="vertical-align:middle;">   <?= $row->mobile_number; ?></td>
                                         <td style="vertical-align:middle;">   <?= $row->ceiling_amount; ?></td>
                                         <td style="vertical-align:middle;">   <?= $row->usage_amount; ?></td>
-                                        <td style="vertical-align:right;">    <?= $row->dues; ?></td>
+                                        <td style="vertical-align:right;">    <?= $dues; ?></td>
                                     </tr>
                                     <?php
                                     $total = $total + $row->ceiling_amount;
                                     $usage = $usage + $row->usage_amount;
-                                    $dues = $dues + $row->dues;
+                                    $total_dues = $total_dues + $dues;
                                     $r++;
                                 endforeach;
                                 if ($return_rows) {
@@ -170,7 +173,7 @@
                                         (<?= $default_currency->code; ?>)
                                     </td>
                                     <td style="text-align:right; font-weight:bold;">
-                                        <?= $this->sma->formatMoney($dues); ?>
+                                        <?= $this->sma->formatMoney($total_dues); ?>
                                     </td>
                                 </tr>
 

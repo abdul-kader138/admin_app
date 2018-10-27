@@ -589,7 +589,7 @@ class Employees extends MY_Controller
                 $rw = 2;
 
                 foreach ($final as $csv_pr) {
-                    if (isset($csv_pr['employee_code']) && isset($csv_pr['mobile_no']) && isset($csv_pr['usage_amount'])) {
+                    if (isset($csv_pr['mobile_no']) && isset($csv_pr['usage_amount'])) {
 
                         $bill_details = $this->employees_model->getBillByMonthAndYear($month,$year,$operator_id);
                         if ($bill_details) {
@@ -597,7 +597,7 @@ class Employees extends MY_Controller
                             redirect($_SERVER["HTTP_REFERER"]);
                         }
 
-                        $employee_details = $this->employees_model->getEmployeeByCodeAndMobile($csv_pr['employee_code'],$csv_pr['mobile_no']);
+                        $employee_details = $this->employees_model->getEmployeeByMobile($csv_pr['employee_code'],$csv_pr['mobile_no']);
                         if (!$employee_details) {
                             $this->session->set_flashdata('error', lang("employee_code") . " ( " .$csv_pr['employee_code'] . " ). " . "not found");
                             redirect($_SERVER["HTTP_REFERER"]);
@@ -748,6 +748,48 @@ class Employees extends MY_Controller
             $this->sma->generate_pdf($html, $name,null,$footer);
         }
 
+    }
+
+
+    function xls($bill_id=null){
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+        $this->load->library('excel');
+        $this->excel->setActiveSheetIndex(0);
+        $this->excel->getActiveSheet()->setTitle(lang('bill'));
+        $this->excel->getActiveSheet()->SetCellValue('A1', lang('emp_id'));
+        $this->excel->getActiveSheet()->SetCellValue('B1', lang('mobile_number'));
+        $this->excel->getActiveSheet()->SetCellValue('C1', lang('dues_amount'));
+        $row = 2;
+
+        $bill_items = $this->employees_model->getAllBillDetailsForUpload($bill_id);
+        foreach ($bill_items as $bill_item) {
+            $dues_amount=($bill_item->ceiling_amount - $bill_item->usage_amount);
+            if($dues_amount < 0){
+                $this->excel->getActiveSheet()->SetCellValue('A' . $row,  $bill_item->employee_id);
+                $this->excel->getActiveSheet()->SetCellValue('B' . $row, $bill_item->mobile_number);
+                $this->excel->getActiveSheet()->SetCellValue('C' . $row, abs($bill_item->ceiling_amount - $bill_item->usage_amount));
+            }
+
+            $row++;
+        }
+
+        $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $filename = 'bills_' . date('Y_m_d_H_i_s');
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+            header('Cache-Control: max-age=0');
+
+            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+
+            return $objWriter->save('php://output');
     }
 
 

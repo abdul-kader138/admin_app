@@ -73,7 +73,7 @@
                         $usage = 0;
                         foreach ($rows as $row):
                             $row_dues=0;
-                            if( $row->usage_amount > $row->ceiling_amount ) $row_dues= $row->dues;
+                            if( $row->usage_amount > $row->ceiling_amount ) $row_dues= abs( $row->ceiling_amount -$row->usage_amount);
                             ?>
                             <tr>
                                 <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
@@ -87,7 +87,7 @@
                             <?php
                             $total = $total + $row->ceiling_amount;
                             $usage = $usage + $row->usage_amount;
-                            if($row->ceiling_amount < $row->usage_amount) $dues = $dues + $row->dues;
+                            if($row->ceiling_amount < $row->usage_amount) $dues = $dues + abs( $row->ceiling_amount -$row->usage_amount);
                             $r++;
                         endforeach;
                         if ($return_rows) {
@@ -182,6 +182,11 @@
                             <i class="fa fa-download"></i> <span class="hidden-sm hidden-xs"><?= lang('pdf') ?></span>
                         </a>
                     </div>
+                <div class="btn-group">
+                    <a href="<?= site_url('employees/xls/' . $id) ?>" class="tip btn btn-success" title="<?= lang('download_xls') ?>">
+                        <i class="fa fa-download"></i> <span class="hidden-sm hidden-xs"><?= lang('xls') ?></span>
+                    </a>
+                </div>
                 </div>
             </div>
         <?php } ?>

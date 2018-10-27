@@ -3800,7 +3800,7 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[company.code]');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[company.name]');
 
         if ($this->form_validation->run() == true) {
@@ -3835,7 +3835,7 @@ class system_settings extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $company_details = $this->settings_model->getCompanyByID($id);
         if ($this->input->post('name') != $company_details->name) {
@@ -4113,8 +4113,8 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[designations.code]|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[designations.name]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[designations.code]');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[designations.name]');
 
         if ($this->form_validation->run() == true) {
 
@@ -4148,8 +4148,8 @@ class system_settings extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $designation_details = $this->settings_model->getDesignationByID($id);
         if ($this->input->post('name') != $designation_details->name) {
             $this->form_validation->set_rules('name', lang("name"), 'is_unique[designations.name]');
@@ -4420,7 +4420,7 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[packages.code]|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[packages.code]');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[packages.name]');
 
         if ($this->form_validation->run() == true) {
@@ -4455,7 +4455,7 @@ class system_settings extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $package_details = $this->settings_model->getPackageByID($id);
         if ($this->input->post('name') != $package_details->name) {
@@ -4726,7 +4726,7 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[operators.code]|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required|is_unique[operators.code]');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]');
         $this->form_validation->set_rules('address', lang("address"), 'trim|required');
 //        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
@@ -4802,7 +4802,7 @@ class system_settings extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $this->form_validation->set_rules('code', lang("code"), 'trim|required|alpha_numeric');
+        $this->form_validation->set_rules('code', lang("code"), 'trim|required');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $this->form_validation->set_rules('address', lang("address"), 'trim|required');
 //        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
