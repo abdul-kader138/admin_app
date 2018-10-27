@@ -226,4 +226,19 @@ class Employees_model extends CI_Model
         return FALSE;
     }
 
+    public function getAllBillDetailsForUploadAll($ref)
+    {
+        $this->db->select('bills.*,employees.name as nam,packages.name as p_name')
+            ->join('employees', 'employees.employee_id=bills.employee_id', 'left')
+            ->join('packages', 'packages.id=employees.package_id', 'left');
+        $q = $this->db->get_where('bills', array('reference_no' => $ref));
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
 }

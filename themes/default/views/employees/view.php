@@ -184,7 +184,12 @@
                     </div>
                 <div class="btn-group">
                     <a href="<?= site_url('employees/xls/' . $id) ?>" class="tip btn btn-success" title="<?= lang('download_xls') ?>">
-                        <i class="fa fa-download"></i> <span class="hidden-sm hidden-xs"><?= lang('xls') ?></span>
+                        <i class="fa fa-download"></i> <span class="hidden-sm hidden-xs">XLS For Payroll</span>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="<?= site_url('employees/xls_all/' . $id) ?>" class="tip btn btn-success" title="<?= lang('download_xls') ?>">
+                        <i class="fa fa-download"></i> <span class="hidden-sm hidden-xs">XLS For All</span>
                     </a>
                 </div>
                 </div>

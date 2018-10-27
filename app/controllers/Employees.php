@@ -751,6 +751,51 @@ class Employees extends MY_Controller
     }
 
 
+    function xls_all($bill_id=null){
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+        $this->load->library('excel');
+        $this->excel->setActiveSheetIndex(0);
+        $this->excel->getActiveSheet()->setTitle(lang('bill'));
+        $this->excel->getActiveSheet()->SetCellValue('A1', lang('emp_id'));
+        $this->excel->getActiveSheet()->SetCellValue('B1', lang('name'));
+        $this->excel->getActiveSheet()->SetCellValue('C1', lang('package_name'));
+        $this->excel->getActiveSheet()->SetCellValue('D1', lang('mobile_number'));
+        $this->excel->getActiveSheet()->SetCellValue('E1', lang('ceiling_amount'));
+        $this->excel->getActiveSheet()->SetCellValue('F1', lang('usage_amount'));
+        $row = 2;
+
+        $bill_items = $this->employees_model->getAllBillDetailsForUploadAll($bill_id);
+        foreach ($bill_items as $bill_item) {
+            $dues_amount=($bill_item->ceiling_amount - $bill_item->usage_amount);
+                $this->excel->getActiveSheet()->SetCellValue('A' . $row,  $bill_item->employee_id);
+                $this->excel->getActiveSheet()->SetCellValue('B' . $row,  $bill_item->nam);
+                $this->excel->getActiveSheet()->SetCellValue('C' . $row,  $bill_item->p_name);
+                $this->excel->getActiveSheet()->SetCellValue('D' . $row, $bill_item->mobile_number);
+                $this->excel->getActiveSheet()->SetCellValue('E' . $row, $bill_item->ceiling_amount);
+                $this->excel->getActiveSheet()->SetCellValue('F' . $row, $bill_item->usage_amount);
+            $row++;
+        }
+
+        $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+        $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $filename = 'bills_' . date('Y_m_d_H_i_s');
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+            header('Cache-Control: max-age=0');
+
+            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+
+            return $objWriter->save('php://output');
+    }
+
+
     function xls($bill_id=null){
         if ($this->input->get('id')) {
             $bill_id = $this->input->get('id');
@@ -783,14 +828,13 @@ class Employees extends MY_Controller
         $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
         $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
         $filename = 'bills_' . date('Y_m_d_H_i_s');
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
-            header('Cache-Control: max-age=0');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+        header('Cache-Control: max-age=0');
 
-            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
 
-            return $objWriter->save('php://output');
+        return $objWriter->save('php://output');
     }
-
 
 }
