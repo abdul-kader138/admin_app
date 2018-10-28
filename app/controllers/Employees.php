@@ -581,7 +581,7 @@ class Employees extends MY_Controller
                 }
                 $titles = array_shift($arrResult);
 
-                $keys = array('employee_code','mobile_no', 'usage_amount');
+                $keys = array('mobile_no', 'usage_amount');
                 $final = array();
                 foreach ($arrResult as $key => $value) {
                     $final[] = array_combine($keys, $value);
@@ -599,12 +599,14 @@ class Employees extends MY_Controller
 
                         $employee_details = $this->employees_model->getEmployeeByMobile($csv_pr['employee_code'],$csv_pr['mobile_no']);
                         if (!$employee_details) {
-                            $this->session->set_flashdata('error', lang("employee_code") . " ( " .$csv_pr['employee_code'] . " ). " . "not found");
+                            $this->session->set_flashdata('error', lang("mobile_number") . " ( " .$csv_pr['mobile_no'] . " ). " . "not found");
                             redirect($_SERVER["HTTP_REFERER"]);
                         }
+                        $dues=0;
+                        if($employee_details->ceiling_amount < $csv_pr['usage_amount']) $dues=abs(((float)$employee_details->ceiling_amount) -((float)$csv_pr['usage_amount']));
 
                         $bills[] = array(
-                            'employee_id' =>$csv_pr['employee_code'],
+                            'employee_id' => $employee_details->employee_id,
                             'reference_no' => ($year."_".$month),
                             'year' => $year,
                             'month' => $month,
@@ -614,7 +616,7 @@ class Employees extends MY_Controller
                             'mobile_number' => $csv_pr['mobile_no'],
                             'ceiling_amount' => $employee_details->ceiling_amount,
                             'usage_amount' => $csv_pr['usage_amount'],
-                            'dues' =>number_format(((float)$employee_details->ceiling_amount) -((float)$csv_pr['usage_amount'])),
+                            'dues' => $dues,
                         );
                     }
                 }

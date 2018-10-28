@@ -71,7 +71,7 @@
                                 File</a>
                             <span class="text-warning"><?php echo $this->lang->line("csv1"); ?></span><br>
                             <?php echo $this->lang->line("csv2"); ?> <span
-                                class="text-info">( <?= lang("Employee Code") . ', ' . lang("mobile_no") . ', ' . lang("usage_amount"); ?>
+                                class="text-info">( <?= lang("mobile_no") . ', ' . lang("usage_amount"); ?>
                                 )</span> <?php echo $this->lang->line("csv3"); ?><br>
                             <!--                                <strong>-->
                             <? //= sprintf(lang('x_col_required'), 'All'); ?><!--</strong>-->
