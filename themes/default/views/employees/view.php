@@ -58,6 +58,7 @@
                         <tr>
                             <th><?= lang("no"); ?></th>
                             <th><?= lang("name");?></th>
+                            <th><?= lang("designation");?></th>
                             <th><?= lang("package_name");?></th>
                             <th><?= lang("mobile_no"); ?></th>
                             <th><?= lang("ceiling_amount"); ?></th>
@@ -67,10 +68,11 @@
                         </thead>
                         <tbody>
                         <?php $r = 1;
-                        $col = 6;
+                        $col = 7;
                         $total = 0;
                         $dues = 0;
                         $usage = 0;
+                        var_dump($rows[0]->p_name);
                         foreach ($rows as $row):
                             $row_dues=0;
                             if( $row->usage_amount > $row->ceiling_amount ) $row_dues= abs( $row->ceiling_amount -$row->usage_amount);
@@ -78,6 +80,7 @@
                             <tr>
                                 <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
                                 <td style="vertical-align:middle;"><?= $row->nam; ?></td>
+                                <td style="vertical-align:middle;">  <?= $row->d_name; ?></td>
                                 <td style="vertical-align:middle;">  <?= $row->p_name; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->mobile_number; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->ceiling_amount; ?></td>

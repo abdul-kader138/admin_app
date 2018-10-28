@@ -22,15 +22,15 @@
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('employee');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('package');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('credit_limit');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('service_start_date');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('designation');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('company');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('operator');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('package');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('ceiling_amount');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('credit_limit');?>]", filter_type: "text", data: []},
             {
-                column_number: 9, select_type: 'select2',
+                column_number: 10, select_type: 'select2',
                 select_type_options: {
                     placeholder: '<?=lang('status');?>',
                     width: '100%',
@@ -96,13 +96,13 @@
                             </th>
                             <th class="col-xs-2"><?php echo lang('employee_id'); ?></th>
                             <th class="col-xs-2"><?php echo lang('name'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('designation'); ?></th>
                             <th class="col-xs-2"><?php echo lang('company'); ?></th>
                             <th class="col-xs-2"><?php echo lang('operator'); ?></th>
                             <th class="col-xs-1"><?php echo lang('package'); ?></th>
                             <th class="col-xs-1"><?php echo lang('phone'); ?></th>
                             <th class="col-xs-1"><?php echo lang('ceiling_amount'); ?></th>
                             <th class="col-xs-1"><?php echo lang('credit_limit'); ?></th>
-                            <th class="col-xs-1"><?php echo lang('service_start_date'); ?></th>
                             <th style="width:100px;"><?php echo lang('status'); ?></th>
                             <th style="width:80px;"><?php echo lang('actions'); ?></th>
                         </tr>
