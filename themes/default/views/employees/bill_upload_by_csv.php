@@ -30,6 +30,19 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+
+                            <div class="form-group">
+                                <?= lang("package", "package"); ?>
+                                <?php
+                                $b4[""] = lang('select') . ' ' . lang('package');
+                                foreach ($packages as $package) {
+                                    $b4[$package->id] = $package->name;
+                                }
+                                echo form_dropdown('package_id', $b4, (isset($_POST['package_id']) ? $_POST['package_id'] : ''), 'id="package_id" required="required" class="form-control select" style="width:100%;"');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <?= lang("month", "month"); ?>
                                 <?php
@@ -39,15 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <?= lang("year", "year"); ?>
-                                <?php
-                                $opt = array(2016 => "2016", 2017 => "2017", 2018 => "2018", 2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
-                                echo form_dropdown('year', $opt, (isset($_POST['year']) ? $_POST['year'] : ''), 'id="year" required="required" class="form-control input-tip select" style="width:100%;"');
-                                ?>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-lg-12">
                         <div class="col-sm-4">
@@ -60,6 +65,15 @@
                             <div class="form-group">
                                 <?= lang("end_date", "end_date"); ?>
                                 <?php echo form_input('end_date', (isset($_POST['end_date']) ? $_POST['end_date'] : ""), 'class="form-control date" required="required" id="end_date"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("year", "year"); ?>
+                                <?php
+                                $opt = array(2016 => "2016", 2017 => "2017", 2018 => "2018", 2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
+                                echo form_dropdown('year', $opt, (isset($_POST['year']) ? $_POST['year'] : ''), 'id="year" required="required" class="form-control input-tip select" style="width:100%;"');
+                                ?>
                             </div>
                         </div>
                     </div>

@@ -133,9 +133,9 @@ class Employees_model extends CI_Model
         }
         return FALSE;
     }
-    public function getBillByMonthAndYear($month,$year,$operator_id)
+    public function getBillByMonthAndYear($month,$year,$operator_id,$package_id)
     {
-        $q = $this->db->get_where('bills', array('month' => $month,'year'=>$year,'operator_id'=>$operator_id), 1);
+        $q = $this->db->get_where('bills', array('month' => $month,'year'=>$year,'operator_id'=>$operator_id,'package_id'=>$package_id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }

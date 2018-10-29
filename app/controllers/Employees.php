@@ -510,9 +510,10 @@ class Employees extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,sum(" . $this->db->dbprefix('bills') . ".usage_amount) as u_amount," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
+            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,".$this->db->dbprefix('packages') . ".name as pa_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,sum(" . $this->db->dbprefix('bills') . ".usage_amount) as u_amount," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
             ->from("bills")
             ->join('operators', 'bills.operator_id=operators.id', 'left')
+            ->join('packages', 'bills.package_id=packages.id', 'left')
             ->group_by('bills.month')
             ->group_by('bills.year')
             ->edit_column('active', '$1__$2', 'active, id')
@@ -543,6 +544,7 @@ class Employees extends MY_Controller
 
             $month = $this->input->post('month');
             $operator_id = $this->input->post('operator_id');
+            $package_id = $this->input->post('package_id');
             $year = $this->input->post('year');
             $start_date= (string) $this->input->post('start_date');;
             $end_date= (string) $this->input->post('end_date');;
@@ -591,7 +593,7 @@ class Employees extends MY_Controller
                 foreach ($final as $csv_pr) {
                     if (isset($csv_pr['mobile_no']) && isset($csv_pr['usage_amount'])) {
 
-                        $bill_details = $this->employees_model->getBillByMonthAndYear($month,$year,$operator_id);
+                        $bill_details = $this->employees_model->getBillByMonthAndYear($month,$year,$operator_id,$package_id);
                         if ($bill_details) {
                             $this->session->set_flashdata('error', lang("bill_already_exist"));
                             redirect($_SERVER["HTTP_REFERER"]);
@@ -613,6 +615,7 @@ class Employees extends MY_Controller
                                 'year' => $year,
                                 'month' => $month,
                                 'operator_id' => $operator_id,
+                                'package_id' => $package_id,
                                 'start_date' => $new_start_date,
                                 'end_date' => $new_end_date,
                                 'mobile_number' => $csv_pr['mobile_no'],
@@ -712,7 +715,7 @@ class Employees extends MY_Controller
 
                     <p style="text-transform: capitalize;">
 
-                    <p style="border-top: 1px solid #000;">Reviewed By</p>
+                    <p style="border-top: 1px solid #000;">Prepared By</p>
                 </div>
             </td>
 
@@ -720,7 +723,7 @@ class Employees extends MY_Controller
                 <div style="float:left; margin:5px 15px">
                     <p>&nbsp;</p>
 
-                    <p style="border-top: 1px solid #000;">Chief Financial Officer</p>
+                    <p style="border-top: 1px solid #000;">Checked By</p>
                 </div>
             </td>
 
@@ -730,7 +733,16 @@ class Employees extends MY_Controller
                 <div style="float:left; margin:5px 15px">
                     <p>&nbsp;</p>
 
-                    <p style="border-top: 1px solid #000;">MD Sir</p>
+                    <p style="border-top: 1px solid #000;">Verified By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Approved By</p>
                 </div>
             </td>
 
@@ -830,7 +842,7 @@ class Employees extends MY_Controller
                 $this->excel->getActiveSheet()->SetCellValue('A' . $row,  $bill_item->employee_id);
                 $this->excel->getActiveSheet()->SetCellValue('B' . $row, $bill_item->mobile_number);
                 $this->excel->getActiveSheet()->SetCellValue('C' . $row, abs($bill_item->ceiling_amount - $bill_item->usage_amount));
-                $row++;
+//                $row++;
             }
             $row++;
 
