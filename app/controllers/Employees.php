@@ -510,12 +510,13 @@ class Employees extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,".$this->db->dbprefix('packages') . ".name as pa_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,sum(" . $this->db->dbprefix('bills') . ".usage_amount) as u_amount," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
+            ->select($this->db->dbprefix('bills') . ".reference_no as id, ".$this->db->dbprefix('operators') . ".name as op_name,".$this->db->dbprefix('packages') . ".name as pa_name,sum(" . $this->db->dbprefix('bills') . ".ceiling_amount) as c_amount,round(sum(" . $this->db->dbprefix('bills') . ".usage_amount),2) as u_amount," . $this->db->dbprefix('bills') . ".month," . $this->db->dbprefix('bills') . ".year")
             ->from("bills")
             ->join('operators', 'bills.operator_id=operators.id', 'left')
             ->join('packages', 'bills.package_id=packages.id', 'left')
             ->group_by('bills.month')
             ->group_by('bills.year')
+            ->group_by('bills.reference_no')
             ->edit_column('active', '$1__$2', 'active, id')
             ->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
@@ -611,7 +612,7 @@ class Employees extends MY_Controller
 
                             $bills[] = array(
                                 'employee_id' => $employee_details->employee_id,
-                                'reference_no' => ($year."_".$month),
+                                'reference_no' => ($year."_".$month."_".$operator_id."_".$package_id),
                                 'year' => $year,
                                 'month' => $month,
                                 'operator_id' => $operator_id,

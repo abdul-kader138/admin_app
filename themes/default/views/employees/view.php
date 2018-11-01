@@ -17,7 +17,7 @@
                     <img src="<?= base_url() . 'assets/uploads/logos/' . $Settings->logo; ?>"
                          alt="<?= $Settings->site_name; ?>">
                 </div>
-                <div class="well well-sm">
+                <div class="well well-sm" style="border-style: solid;background-color: #9faab7;">
 
                     <div class="col-xs-5 border-right">
 <!--                        <div class="col-xs-2"><i class="fa fa-3x fa-th"></i></div>-->
@@ -72,7 +72,6 @@
                         $total = 0;
                         $dues = 0;
                         $usage = 0;
-                        var_dump($rows[0]->p_name);
                         foreach ($rows as $row):
                             $row_dues=0;
                             if( $row->usage_amount > $row->ceiling_amount ) $row_dues= abs( $row->ceiling_amount -$row->usage_amount);
@@ -85,7 +84,7 @@
                                 <td style="vertical-align:middle;">   <?= $row->mobile_number; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->ceiling_amount; ?></td>
                                 <td style="vertical-align:middle;">   <?= $row->usage_amount; ?></td>
-                                <td style="vertical-align:right;">    <?= $row_dues; ?></td>
+                                <td style="vertical-align:right;">    <?= round($row_dues,2); ?></td>
                             </tr>
                             <?php
                             $total = $total + $row->ceiling_amount;

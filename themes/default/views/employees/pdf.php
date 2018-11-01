@@ -20,6 +20,17 @@
         .table td {
             padding: 4px;
         }
+
+        table.table-bordered{
+            border:1px solid #000000;
+            margin-top:20px;
+        }
+        table.table-bordered > thead > tr > th{
+            border:1px solid #000000;
+        }
+        table.table-bordered > tbody > tr > td{
+            border:1px solid #000000;
+        }
     </style>
 </head>
 
@@ -44,9 +55,9 @@
                             <img src="<?= base_url() . 'assets/uploads/logos/' . $Settings->logo; ?>"
                                  alt="<?= $Settings->site_name; ?>">
                         </div>
-                        <div class="well well-sm">
+                        <div class="well well-sm" style="border: 1px;color: #000810;">
 
-                            <div class="col-xs-5 border-right">
+                            <div class="col-xs-5 border-right" >
                                 <!--                        <div class="col-xs-2"><i class="fa fa-3x fa-th"></i></div>-->
                                 <div class="col-xs-10">
                                     <h2 class=""><?= $Settings->site_name; ?></h2>
@@ -109,12 +120,12 @@
                                         <td style="vertical-align:middle;">   <?= $row->mobile_number; ?></td>
                                         <td style="vertical-align:middle;">   <?= $row->ceiling_amount; ?></td>
                                         <td style="vertical-align:middle;">   <?= $row->usage_amount; ?></td>
-                                        <td style="vertical-align:right;">    <?= $dues; ?></td>
+                                        <td style="vertical-align:right;">    <?= round($row->dues,2); ?></td>
                                     </tr>
                                     <?php
                                     $total = $total + $row->ceiling_amount;
                                     $usage = $usage + $row->usage_amount;
-                                    $total_dues = $total_dues + $dues;
+                                    $total_dues = $total_dues + $row->dues;
                                     $r++;
                                 endforeach;
                                 if ($return_rows) {
