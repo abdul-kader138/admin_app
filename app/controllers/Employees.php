@@ -790,6 +790,7 @@ class Employees extends MY_Controller
         $this->excel->getActiveSheet()->SetCellValue('F1', lang('mobile_number'));
         $this->excel->getActiveSheet()->SetCellValue('G1', lang('ceiling_amount'));
         $this->excel->getActiveSheet()->SetCellValue('H1', lang('usage_amount'));
+        $this->excel->getActiveSheet()->SetCellValue('I1', lang('dues'));
         $row = 2;
 
         $bill_items = $this->employees_model->getAllBillDetailsForUploadAll($bill_id);
@@ -802,7 +803,8 @@ class Employees extends MY_Controller
             $this->excel->getActiveSheet()->SetCellValue('E' . $row,  $bill_item->p_name);
             $this->excel->getActiveSheet()->SetCellValue('F' . $row, $bill_item->mobile_number);
             $this->excel->getActiveSheet()->SetCellValue('G' . $row, $bill_item->ceiling_amount);
-            $this->excel->getActiveSheet()->SetCellValue('G' . $row, $bill_item->usage_amount);
+            $this->excel->getActiveSheet()->SetCellValue('H' . $row, $bill_item->usage_amount);
+            $this->excel->getActiveSheet()->SetCellValue('I' . $row, $bill_item->dues);
             $row++;
         }
 
