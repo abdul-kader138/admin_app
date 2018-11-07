@@ -40,6 +40,7 @@
         <div class="box">
             <div class="box-header">
                 <h2 class="blue" style="text-align: center"><i class="fa-fw fa fa-file"></i><?= lang("Mobile Bill For : ").(($supplier->name) ? $supplier->name : "All Company"); ?></h2>
+                <h3 class="blue" style="text-align: center"><i class="fa-fw fa fa-file"></i><?= lang("For The Month Of ").(($month) ? $month : "").",".(($year) ? $year : ""); ?></h3>
 
             </div>
             <div class="box-content">

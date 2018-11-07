@@ -30,18 +30,15 @@ if ($this->input->post('company')) {
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
-              //  nRow.id = aData[9];
-                // nRow.className = (aData[5] > 0) ? "invoice_link2" : "invoice_link2 warning";
                 return nRow;
             },
-//            "aoColumns": [{"mRender": fld}, null, null, null,null,null,null,null],
             "aoColumns": [null, null,null, null, null,null,null,null,null],
             "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                 var gtotal = 0, paid = 0, balance = 0;
                 for (var i = 0; i < aaData.length; i++) {
-                    gtotal += parseFloat(aaData[aiDisplay[i]][6]);
-                    paid += parseFloat(aaData[aiDisplay[i]][7]);
-                    balance += parseFloat(aaData[aiDisplay[i]][8]);
+                    if(aaData[aiDisplay[i]][6]) gtotal += parseFloat(aaData[aiDisplay[i]][6]);
+                    if(aaData[aiDisplay[i]][7]) paid += parseFloat(aaData[aiDisplay[i]][7]);
+                    if(aaData[aiDisplay[i]][8]) balance += parseFloat(aaData[aiDisplay[i]][8]);
                 }
                 var nCells = nRow.getElementsByTagName('th');
                 nCells[6].innerHTML = currencyFormat(parseFloat(gtotal));
@@ -49,11 +46,6 @@ if ($this->input->post('company')) {
                 nCells[8].innerHTML = currencyFormat(parseFloat(balance));
             }
         }).fnSetFilteringDelay().dtFilter([
-//            {column_number: 0, filter_default_label: "[<?//=lang('date');?>// (yyyy-mm-dd)]", filter_type: "text", data: []},
-//            {column_number: 1, filter_default_label: "[<?//=lang('reference_no');?>//]", filter_type: "text", data: []},
-//            {column_number: 2, filter_default_label: "[<?//=lang('biller');?>//]", filter_type: "text", data: []},
-//            {column_number: 3, filter_default_label: "[<?//=lang('customer');?>//]", filter_type: "text", data: []},
-//            {column_number: 8, filter_default_label: "[<?//=lang('payment_status');?>//]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>

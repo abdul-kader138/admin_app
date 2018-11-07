@@ -3983,6 +3983,8 @@ class Reports extends MY_Controller {
     </table>';
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $info = $this->reports_model->getAllBillDetailsForCompany($company,$year,$month);
+        $this->data['month'] = $month;
+        $this->data['year'] = $year;
         $this->data['rows'] = $info;
         $this->data['supplier'] = $this->reports_model->getCompanyByName($company);
 //        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
