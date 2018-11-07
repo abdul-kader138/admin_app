@@ -656,4 +656,45 @@ class Reports_model extends CI_Model
         return FALSE;
     }
 
+
+    public function getAllBillDetailsForCompany($company=NULL,$year=NULL,$month=NULL)
+    {
+        $this->db->select('bills.*,employees.id as ids,employees.name as nam,packages.name as p_name,designations.name as d_name,company.name as c_name')
+            ->join('employees', 'employees.employee_id=bills.employee_id', 'left')
+            ->join('company', 'employees.company_id=company.id', 'left')
+            ->join('designations', 'employees.designation_id=designations.id', 'left')
+            ->join('packages', 'packages.id=employees.package_id', 'left');
+        if ($company) {
+            $this->db->where('company.id', $company);
+        }
+//        $q = $this->db->get_where('bills', array('year' => $year,'month' => $month,));
+
+        if ($company) {
+            $this->db->where('company.id', $company);
+        }
+        $q = $this->db->get_where('bills', array('year' => $year,'month' => $month,));
+//        if ($year) {
+//            $this->db->where('bills.year', $year);
+//        }
+//        if ($month) {
+//            $this->db->where('bills.month', $month);
+//        }
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+    public function getCompanyByName($name)
+    {
+        $q = $this->db->get_where('company', array('id' => $name), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+
 }

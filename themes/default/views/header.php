@@ -272,15 +272,7 @@
             </a>
         </li>
     <?php } ?>
-    <!--                    <li class="dropdown">-->
-    <!--                        <a class="btn bdarkblue tip" id="attendance" title="<span>Day End Report</span>"-->
-    <!--                           data-placement="bottom" data-html="true" href="-->
-    <? //= site_url('sales/day_end_report') ?><!--"-->
-    <!--                           data-toggle="modal"-->
-    <!--                           data-target="#dayReportModal">-->
-    <!--                            <i class="fa fa-th"></i>-->
-    <!--                        </a>-->
-    <!--                    </li>-->
+
 </ul>
 </div>
 </div>
@@ -971,10 +963,10 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('Time Schedule Report'); ?></span>
                 </a>
             </li>
-            <li id="reports_bill_details">
-                <a href="<?= site_url('reports/bill_details') ?>">
-                    <i class="fa fa-calendar"></i><span
-                        class="text"> <?= lang('bill_details'); ?></span>
+            <li id="reports_company_bill_details">
+                <a href="<?= site_url('reports/company_bill_details') ?>">
+                    <i class="fa fa-tasks"></i><span
+                        class="text"> <?= lang('company_bill_details'); ?></span>
                 </a>
             </li>
         </ul>
@@ -1390,7 +1382,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['reports-quantity_alerts'] || $GP['reports-expiry_alerts'] || $GP['reports-products'] || $GP['reports-monthly_sales'] || $GP['reports-sales'] || $GP['reports-payments'] || $GP['reports-purchases'] || $GP['reports-customers'] || $GP['reports-suppliers'] || $GP['reports-expenses']) { ?>
+    <?php if ($GP['reports-quantity_alerts'] || $GP['reports-company_bill_details'] || $GP['reports-expiry_alerts'] || $GP['reports-products'] || $GP['reports-monthly_sales'] || $GP['reports-sales'] || $GP['reports-payments'] || $GP['reports-purchases'] || $GP['reports-customers'] || $GP['reports-suppliers'] || $GP['reports-expenses']) { ?>
         <li class="mm_reports">
             <a class="dropmenu" href="#">
                 <i class="fa fa-bar-chart-o"></i>
@@ -1495,8 +1487,21 @@ if ($Owner || $Admin) {
                                 class="text"> <?= lang('sales_margin_report'); ?></span>
                         </a>
                     </li>
+                <?php }?>
+
                 <?php
-                }
+               if ($GP['reports-company_bill_details']) { ?>
+                <li id="reports_company_bill_details">
+                <a href="<?= site_url('reports/company_bill_details') ?>">
+                    <i class="fa fa-calendar-o"></i><span
+                        class="text"> <?= lang('company_bill_details'); ?></span>
+                </a>
+              </li>
+              <?php } ?>
+                <?php
+
+                //
+
                 if ($GP['reports-payments']) {
                     ?>
                     <li id="reports_payments">
@@ -1615,12 +1620,6 @@ if ($Owner || $Admin) {
                     </li>
                 <?php } ?>
 
-                <li id="reports_daily_purchases">
-                    <a href="<?= site_url('reports/bill_details') ?>">
-                        <i class="fa fa-calendar-o"></i><span
-                            class="text"> <?= lang('bill_details'); ?></span>
-                    </a>
-                </li>
             </ul>
         </li>
     <?php } ?>

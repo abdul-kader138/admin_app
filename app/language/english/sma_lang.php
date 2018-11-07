@@ -548,6 +548,8 @@ $lang['add_employee_by_csv']             = "Add Employee By CSV";
 $lang['bill_upload']                    = "Bill Upload By CSV";
 $lang['bills']                          = "Bills";
 $lang['bill_details']                   = "Bill Details";
+$lang['company_bill_details']           = "Company Wise Bill Details";
+$lang['reports-company_bill_details']           = "Company Wise Bill Details";
 
 
 //Employee Setting

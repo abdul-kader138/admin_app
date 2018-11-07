@@ -864,4 +864,79 @@ class Employees extends MY_Controller
         return $objWriter->save('php://output');
     }
 
+    public function company_wise_pdf($company_id = null, $year = null, $month = null)
+    {
+        //$this->sma->checkPermissions();
+
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+
+        $footer=' <table width="100%">
+        <tr>
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="text-transform: capitalize;">
+
+                    <p style="border-top: 1px solid #000;">Prepared By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Checked By</p>
+                </div>
+            </td>
+
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Verified By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Approved By</p>
+                </div>
+            </td>
+
+        </tr>
+    </table>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $info = $this->employees_model->getAllBillDetails($bill_id);
+        $this->data['id'] = $bill_id;
+        $this->data['rows'] = $info;
+        $this->data['supplier'] = $this->employees_model->getOperatorByID($info[0]->operator_id);
+        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+        $name = $this->lang->line("bills") . "_" . str_replace('/', '_', $bill_id) . ".pdf";
+        $html = $this->load->view($this->theme . 'employees/pdf', $this->data, true);
+        if (! $this->Settings->barcode_img) {
+            $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
+        }
+        if ($view) {
+            $this->load->view($this->theme . 'employees/pdf', $this->data);
+        } elseif ($save_bufffer) {
+            return $this->sma->generate_pdf($html, $name, $save_bufffer);
+        } else {
+            $this->sma->generate_pdf($html, $name,null,$footer);
+        }
+
+    }
+
+
 }

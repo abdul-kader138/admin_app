@@ -17,7 +17,7 @@
                             <div class="form-group">
                                 <?php echo lang('employee_id', 'employee_id'); ?>
                                 <div class="controls">
-                                    <?php echo form_input('employee_id', $employee->employee_id, 'class="form-control" id="employee_id" required="required" pattern=".{3,10}"'); ?>
+                                    <?php echo form_input('employee_id', $employee->employee_id, 'class="form-control" id="employee_id" required="required" readonly pattern=".{3,10}"'); ?>
                                 </div>
                             </div>
                             <div class="form-group">
