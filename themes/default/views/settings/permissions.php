@@ -478,6 +478,10 @@
                                             <input type="checkbox" value="1" class="checkbox" id="reports-company_bill_details" name="reports-company_bill_details" <?php echo $p->{'reports-company_bill_details'} ? "checked" : ''; ?>>
                                             <label for="sales" class="padding05"><?= lang('reports-company_bill_details') ?></label>
                                         </span>
+                                         <span style="inline-block">
+                                            <input type="checkbox" value="1" class="checkbox" id="reports-company_wise_bill" name="reports-company_wise_bill" <?php echo $p->{'reports-company_wise_bill'} ? "checked" : ''; ?>>
+                                            <label for="sales" class="padding05"><?= lang('reports-company_wise_bill') ?></label>
+                                        </span>
                                     </td>
                                 </tr>
 

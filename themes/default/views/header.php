@@ -969,6 +969,12 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('company_bill_details'); ?></span>
                 </a>
             </li>
+            <li id="reports_company_wise_bill">
+                <a href="<?= site_url('reports/company_wise_bill') ?>">
+                    <i class="fa fa-tasks"></i><span
+                        class="text"> <?= lang('company_wise_bill'); ?></span>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -1498,6 +1504,15 @@ if ($Owner || $Admin) {
                 </a>
               </li>
               <?php } ?>
+                <?php
+        if ($GP['reports-company_wise_bill']) { ?>
+        <li id="reports_company_wise_bill">
+            <a href="<?= site_url('reports/company_wise_bill') ?>">
+                <i class="fa fa-calendar-o"></i><span
+                    class="text"> <?= lang('company_wise_bill'); ?></span>
+            </a>
+        </li>
+        <?php } ?>
                 <?php
 
                 //

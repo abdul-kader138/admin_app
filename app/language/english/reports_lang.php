@@ -112,3 +112,4 @@ $lang['total_ceiling_amount']           = "Total Ceiling Amount";
 $lang['total_usage_amount']             = "Total Usage Amount";
 $lang['usage_amount']                   = "Usage Amount";
 $lang['total_dues_amount']              = "Total Dues Amount";
+$lang['company_wise_bill']              = "Company Wise Bill Summary";

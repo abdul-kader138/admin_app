@@ -621,6 +621,8 @@ class Employees extends MY_Controller
                                 'end_date' => $new_end_date,
                                 'mobile_number' => $csv_pr['mobile_no'],
                                 'ceiling_amount' => $employee_details->ceiling_amount,
+                                'company_id' => $employee_details->company_id,
+                                'designation_id' => $employee_details->designation_id,
                                 'usage_amount' => $csv_pr['usage_amount'],
                                 'dues' => $dues,
                             );
@@ -937,6 +939,8 @@ class Employees extends MY_Controller
         }
 
     }
+
+
 
 
 }

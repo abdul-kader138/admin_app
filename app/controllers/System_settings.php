@@ -839,6 +839,7 @@ class system_settings extends MY_Controller
                 'reports-daily_purchases' => $this->input->post('reports-daily_purchases'),
                 'reports-monthly_purchases' => $this->input->post('reports-monthly_purchases'),
                 'reports-company_bill_details' => $this->input->post('reports-company_bill_details'),
+                'reports-company_wise_bill' => $this->input->post('reports-company_wise_bill'),
                 'products-stock_count' => $this->input->post('products-stock_count'),
                 'edit_price' => $this->input->post('edit_price'),
 //                a.kader

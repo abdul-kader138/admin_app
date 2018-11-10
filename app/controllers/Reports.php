@@ -3893,8 +3893,6 @@ class Reports extends MY_Controller {
         $this->sma->checkPermissions();
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['companies'] = $this->reports_model->getAllCompanies();
-        $this->data['warehouses'] = $this->site->getAllWarehouses();
-        $this->data['billers'] = $this->site->getAllCompanies('biller');
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('company_bill_report')));
         $meta = array('page_title' => lang('company_bill_report'), 'bc' => $bc);
         $this->page_construct('reports/company_bill_details', $meta, $this->data);
@@ -3918,13 +3916,13 @@ class Reports extends MY_Controller {
                 ->join('packages', 'packages.id=employees.package_id', 'left');
 
         if ($company) {
-            $this->db->where('company.id', $company);
+            $this->datatables->where('company.id', $company);
         }
         if ($month) {
-            $this->db->where('bills.month', $month);
+            $this->datatables->where('bills.month', $month);
         }
         if ($year) {
-            $this->db->where('bills.year', $year);
+            $this->datatables->where('bills.year', $year);
         }
 
             echo $this->datatables->generate();
@@ -3990,6 +3988,113 @@ class Reports extends MY_Controller {
 //        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
         $name = $this->lang->line("bills") . "_" . str_replace('/', '_', now()) . ".pdf";
         $html = $this->load->view($this->theme . 'reports/company_bill_pdf', $this->data, true);
+        if (! $this->Settings->barcode_img) {
+            $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
+        }
+        if ($view) {
+            $this->load->view($this->theme . 'employees/pdf', $this->data);
+        } elseif ($save_bufffer) {
+            return $this->sma->generate_pdf($html, $name, $save_bufffer);
+        } else {
+            $this->sma->generate_pdf($html, $name,null,$footer);
+        }
+
+    }
+
+
+    function company_wise_bill(){
+        $this->sma->checkPermissions();
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['companies'] = $this->reports_model->getAllCompanies();
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('reports'), 'page' => lang('reports')), array('link' => '#', 'page' => lang('company_wise_bill')));
+        $meta = array('page_title' => lang('company_wise_bill'), 'bc' => $bc);
+        $this->page_construct('reports/company_wise_bill', $meta, $this->data);
+    }
+
+    function getCompanyBillSummary($pdf = NULL, $xls = NULL) {
+        $this->sma->checkPermissions('company_wise_bill', TRUE);
+        $company = $this->input->get('company') ? $this->input->get('company') : NULL;
+        $month = $this->input->get('month') ? $this->input->get('month') : NULL;
+        $year = $this->input->get('year') ? $this->input->get('year') : NULL;
+
+
+
+        $this->load->library('datatables');
+        $this->datatables->select("{$this->db->dbprefix('company')}.name as cname,sum({$this->db->dbprefix('bills')}.ceiling_amount) as camt, round(sum({$this->db->dbprefix('bills')}.usage_amount),2) as uamt,{$this->db->dbprefix('bills')}.employee_id,{$this->db->dbprefix('employees')}.company_id",false)
+            ->from('bills')
+            ->join('employees', 'employees.employee_id=bills.employee_id', 'inner')
+            ->join('company', 'employees.company_id=company.id', 'inner')
+            ->group_by('company.id');
+
+        if ($month) {
+            $this->datatables->where('bills.month', $month);
+        }
+        if ($year) {
+            $this->datatables->where('bills.year', $year);
+        }
+        $this->datatables->unset_column('');
+
+        echo $this->datatables->generate();
+    }
+
+
+
+    public function company_wise_summary_pdf($company_id = null, $year = null, $month = null)
+    {
+        $this->sma->checkPermissions('company_wise_bill',TRUE);
+        $view = null; $save_bufffer = null;
+
+        $month = $this->input->get('month') ? $this->input->get('month') : NULL;
+        $year = $this->input->get('year') ? $this->input->get('year') : NULL;
+
+        $footer=' <table width="100%">
+        <tr>
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="text-transform: capitalize;">
+
+                    <p style="border-top: 1px solid #000;">Prepared By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Checked By</p>
+                </div>
+            </td>
+
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Verified By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Approved By</p>
+                </div>
+            </td>
+
+        </tr>
+    </table>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $info = $this->reports_model->getAllBillSummaryForCompany($year,$month);
+        $this->data['month'] = $month;
+        $this->data['year'] = $year;
+        $this->data['rows'] = $info;
+        $name = $this->lang->line("bills") . "_" . str_replace('/', '_', now()) . ".pdf";
+        $html = $this->load->view($this->theme . 'reports/company_wise_bill_pdf', $this->data, true);
         if (! $this->Settings->barcode_img) {
             $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
         }

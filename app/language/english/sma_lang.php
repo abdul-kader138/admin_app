@@ -541,23 +541,25 @@ $lang['add_employee']                   = "Add Employee";
 $lang['list_employees']                 = "List Employees";
 
 //Designation
-$lang['designation']                      = "Designation";
-$lang['operator']                         = "Operator";
-$lang['package']                          = "Package";
-$lang['add_employee_by_csv']             = "Add Employee By CSV";
+$lang['designation']                    = "Designation";
+$lang['operator']                       = "Operator";
+$lang['package']                        = "Package";
+$lang['add_employee_by_csv']            = "Add Employee By CSV";
 $lang['bill_upload']                    = "Bill Upload By CSV";
 $lang['bills']                          = "Bills";
 $lang['bill_details']                   = "Bill Details";
 $lang['company_bill_details']           = "Company Wise Bill Details";
-$lang['reports-company_bill_details']           = "Company Wise Bill Details";
+$lang['company_wise_bill']              = "Company Wise Bill Summary";
+$lang['reports-company_bill_details']   = "Company Wise Bill Details";
+$lang['reports-company_wise_bill']      = "Company Wise Bill Summary";
 
 
 //Employee Setting
 
-$lang['guard']                          = "Guard";
-$lang['guards']                         = "Guards";
-$lang['add_guard']                      = "Add Guard";
+$lang['guard']                           = "Guard";
+$lang['guards']                          = "Guards";
+$lang['add_guard']                       = "Add Guard";
 $lang['edit_guard']                      = "Edit Guard";
 $lang['edit_guard']                      = "Delete Guard";
-$lang['list_guards']                  = "List Guards";
-$lang['weight_upload']                    = "Weight Upload By CSV";
+$lang['list_guards']                     = "List Guards";
+$lang['weight_upload']                   = "Weight Upload By CSV";

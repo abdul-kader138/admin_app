@@ -667,18 +667,11 @@ class Reports_model extends CI_Model
         if ($company) {
             $this->db->where('company.id', $company);
         }
-//        $q = $this->db->get_where('bills', array('year' => $year,'month' => $month,));
 
         if ($company) {
             $this->db->where('company.id', $company);
         }
         $q = $this->db->get_where('bills', array('year' => $year,'month' => $month,));
-//        if ($year) {
-//            $this->db->where('bills.year', $year);
-//        }
-//        if ($month) {
-//            $this->db->where('bills.month', $month);
-//        }
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
                 $data[] = $row;
@@ -697,4 +690,29 @@ class Reports_model extends CI_Model
     }
 
 
+    public function getAllBillSummaryForCompany($year=NULL,$month=NULL)
+    {
+//        $this->db->select("{$this->db->dbprefix('company')}.name as c_name,sum({$this->db->dbprefix('bills')}.ceiling_amount) as camt, sum({$this->db->dbprefix('bills')}.usage_amount) as uamt,{$this->db->dbprefix('bills')}.employee_id,{$this->db->dbprefix('employees')}.company_id",false)
+        $this->db->select("sum({$this->db->dbprefix('bills')}.ceiling_amount) as camt, sum({$this->db->dbprefix('bills')}.usage_amount) as uamt")
+            ->from('bills');
+//            ->join('employees', 'employees.employee_id=bills.employee_id', 'inner')
+//            ->join('company', 'employees.company_id=company.id', 'inner')
+//            ->group_by('company.id');
+
+        if ($month) {
+            $this->db->where('bills.month', $month);
+        }
+        if ($month) {
+            $this->db->where('bills.year', $year);
+        }
+//        $this->db->group_by("company.id");
+        $q = $this->db->get_where('bills', array('year' => $year,'month' => $month,));
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
 }
