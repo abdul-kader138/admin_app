@@ -51,14 +51,15 @@
                             <table class="table table-bordered table-hover table-striped print-table order-table">
                                 <thead>
                                 <tr>
-<!--                                    <th>--><?//= lang("company"); ?><!--</th>-->
+                                    <th><?= lang("SL"); ?></th>
+                                    <th><?= lang("company"); ?></th>
                                     <th><?= lang("ceiling_amount"); ?></th>
                                     <th><?= lang("usage_amount"); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php $r = 1;
-                                $col = 2;
+                                $col = 3;
                                 $total = 0;
                                 $total_dues = 0;
                                 $usage = 0;
@@ -67,9 +68,9 @@
                                     ?>
                                     <tr>
                                         <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
-<!--                                        <td style="vertical-align:middle;">--><?//= $row->c_name; ?><!--</td>-->
-                                        <td style="vertical-align:middle;">   <?= $row->camt; ?></td>
-                                        <td style="vertical-align:middle;">   <?= $row->uamt; ?></td>
+                                        <td style="text-align:Left;"><?= $row->c_name; ?></td>
+                                        <td style="text-align:right;">   <?= $row->camt; ?></td>
+                                        <td style="text-align:right">   <?= $row->uamt; ?></td>
                                     </tr>
                                     <?php
                                     $total = $total + $row->camt;
@@ -84,7 +85,7 @@
                                         style="text-align:right; font-weight:bold;"><?= lang("total_ceiling_amount"); ?>
                                         (<?= $default_currency->code; ?>)
                                     </td>
-                                    <td style="text-align:right; padding-right:10px; font-weight:bold;">
+                                    <td style="text-align:right; font-weight:bold;">
                                         <?= $this->sma->formatMoney($total); ?>
                                     </td>
                                 </tr>

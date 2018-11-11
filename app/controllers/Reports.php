@@ -3986,18 +3986,12 @@ class Reports extends MY_Controller {
         $this->data['rows'] = $info;
         $this->data['supplier'] = $this->reports_model->getCompanyByName($company);
 //        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
-        $name = $this->lang->line("bills") . "_" . str_replace('/', '_', now()) . ".pdf";
+        $name = $this->lang->line("company_bill_details") . "_" . str_replace('/', '_', now()) . ".pdf";
         $html = $this->load->view($this->theme . 'reports/company_bill_pdf', $this->data, true);
         if (! $this->Settings->barcode_img) {
             $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
         }
-        if ($view) {
-            $this->load->view($this->theme . 'employees/pdf', $this->data);
-        } elseif ($save_bufffer) {
-            return $this->sma->generate_pdf($html, $name, $save_bufffer);
-        } else {
             $this->sma->generate_pdf($html, $name,null,$footer);
-        }
 
     }
 
@@ -4093,18 +4087,9 @@ class Reports extends MY_Controller {
         $this->data['month'] = $month;
         $this->data['year'] = $year;
         $this->data['rows'] = $info;
-        $name = $this->lang->line("bills") . "_" . str_replace('/', '_', now()) . ".pdf";
-        $html = $this->load->view($this->theme . 'reports/company_wise_bill_pdf', $this->data, true);
-        if (! $this->Settings->barcode_img) {
-            $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
-        }
-        if ($view) {
-            $this->load->view($this->theme . 'employees/pdf', $this->data);
-        } elseif ($save_bufffer) {
-            return $this->sma->generate_pdf($html, $name, $save_bufffer);
-        } else {
-            $this->sma->generate_pdf($html, $name,null,$footer);
-        }
+        $name = $this->lang->line("company_wise_summary") . "_" . str_replace('/', '_', now()) . ".pdf";
+        $html = $this->load->view($this->theme . 'reports/company_wise_summary_pdf', $this->data, true);
+        $this->sma->generate_pdf($html, $name,null,$footer);
 
     }
 
