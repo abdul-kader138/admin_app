@@ -121,7 +121,7 @@ if ($this->input->post('company')) {
                             <div class="form-group">
                                 <?= lang("month", "month"); ?>
                                 <?php
-//                              /  $opt[""] = lang('select').' '.lang('month');
+                                $opt[""] = lang('select').' '.lang('month');
                                 $opt = array("January" => "January", "February" => "February", "March" => "March", "April" => "April", "May" => "May", "June" => "June", "July" => "July", "August" => "August", "September" => "September", "October" => "October", "November" => "November", "December" => "December");
                                 echo form_dropdown('month', $opt, (isset($_POST['month']) ? $_POST['month'] : ''), 'id="month"  required="required" class="form-control input-tip select" style="width:100%;"');
                                 ?>
@@ -132,7 +132,7 @@ if ($this->input->post('company')) {
                                 <div class="form-group">
                                     <?= lang("year", "year"); ?>
                                     <?php
-//                                    $opt[""] = lang('select').' '.lang('year');
+                                   $opt[""] = lang('select').' '.lang('year');
                                     $opt = array(2016 => "2016", 2017 => "2017", 2018 => "2018", 2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
                                     echo form_dropdown('year', $opt, (isset($_POST['year']) ? $_POST['year'] : ''), 'id="year" required="required" class="form-control input-tip select" style="width:100%;"');
                                     ?>

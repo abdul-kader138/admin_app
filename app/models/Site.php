@@ -1071,4 +1071,30 @@ class Site extends CI_Model
     public function getInterCompanyPriceGroup($ref) {
         return $this->Settings->internal_price_group;
     }
+
+    public function getAllCompany()
+    {
+        $q = $this->db->get("company");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getAllDocType()
+    {
+        $q = $this->db->get("doctype");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+
 }

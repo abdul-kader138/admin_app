@@ -362,6 +362,28 @@ if ($Owner || $Admin) {
             </li>
             </ul>
     </li>
+
+    <li class="mm_document">
+        <a class="dropmenu" href="#">
+            <i class="fa fa-list-alt"></i>
+            <span class="text"> <?= lang('document'); ?> </span>
+            <span class="chevron closed"></span>
+        </a>
+        <ul>
+            <li id="document_index">
+                <a class="submenu" href="<?= site_url('document'); ?>">
+                    <i class="fa fa-list-alt"></i><span
+                        class="text"> <?= lang('list_document'); ?></span>
+                </a>
+            </li>
+            <li id="document_add_document">
+                <a class="submenu" href="<?= site_url('document/add'); ?>">
+                    <i class="fa fa-plus"></i><span
+                        class="text"> <?= lang('add_document'); ?></span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li class="mm_products">
         <a class="dropmenu" href="#">
             <i class="fa fa-barcode"></i>
@@ -749,6 +771,12 @@ if ($Owner || $Admin) {
                     <a href="<?= site_url('system_settings/designation') ?>">
                         <i class="fa fa-th-list"></i><span
                             class="text"> <?= lang('designation'); ?></span>
+                    </a>
+                </li>
+                <li id="system_settings_designation">
+                    <a href="<?= site_url('system_settings/doctype') ?>">
+                        <i class="fa fa-th-list"></i><span
+                            class="text"> <?= lang('doc_type'); ?></span>
                     </a>
                 </li>
                 <li id="system_settings_operator">
@@ -1264,6 +1292,38 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
+    <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] ||
+//        $GP['document-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
+        $GP['document-delete']
+    ) {
+        ?>
+        <li class="mm_document">
+            <a class="dropmenu" href="#">
+                <i class="fa fa-list-alt"></i>
+                <span class="text"> <?= lang('document'); ?> </span>
+                <span class="chevron closed"></span>
+            </a>
+            <ul>
+                <?php if ($GP['document-index']) { ?>
+                    <li id="document_index">
+                        <a class="submenu" href="<?= site_url('document'); ?>">
+                            <i class="fa fa-list-alt"></i><span
+                                class="text"> <?= lang('list_document'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['document-add']) { ?>
+                    <li id="document_add">
+                        <a class="submenu" href="<?= site_url('document/add'); ?>">
+                            <i class="fa fa-plus"></i><span
+                                class="text"> <?= lang('add_document'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
+    <?php } ?>
+
 
     <?php if ($GP['purchases-index'] || $GP['purchases-add'] || $GP['purchases-expenses']) { ?>
         <li class="mm_purchases">
@@ -1590,7 +1650,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index']) { ?>
+    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index'] || $GP['doctype-index']) { ?>
         <li class="mm_system_settings">
             <a class="dropmenu" href="#">
                 <i class="fa fa-cog"></i>
@@ -1634,7 +1694,15 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php } ?>
-
+                <?php if ($GP['doctype-index']) { ?>
+                    <li id="mm-doctype-index">
+                        <a class="submenu"
+                           href="<?= site_url('system_settings/doctype'); ?>">
+                            <i class="fa fa-th"></i><span
+                                class="text"> <?= lang('doc_type'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
         </li>
     <?php } ?>

@@ -563,3 +563,15 @@ $lang['edit_guard']                      = "Edit Guard";
 $lang['edit_guard']                      = "Delete Guard";
 $lang['list_guards']                     = "List Guards";
 $lang['weight_upload']                   = "Weight Upload By CSV";
+
+
+//Document
+
+$lang['document']                   = "Document";
+$lang['add_document']               = "Add Document";
+$lang['list_document']              = "List Document";
+
+
+$lang['doc_type']                       = "Document Type";
+$lang['doc_type_add']                   = "Add Document Type";
+$lang['doc_type_edit']                  = "Edit Document Type";

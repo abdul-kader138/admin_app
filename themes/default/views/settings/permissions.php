@@ -326,6 +326,24 @@
                                     <td>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td><?= lang("document"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-index" <?php echo $p->{'document-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-add" <?php echo $p->{'document-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-edit" <?php echo $p->{'document-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-delete" <?php echo $p->{'document-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td><?= lang("package"); ?></td>
                                     <td class="text-center">
@@ -339,6 +357,23 @@
                                     </td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="package-delete" <?php echo $p->{'package-delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><?= lang("doc_type"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="doctype-index" <?php echo $p->{'doctype-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="doctype-add" <?php echo $p->{'doctype-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="doctype-edit" <?php echo $p->{'doctype-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="doctype-delete" <?php echo $p->{'doctype-delete'} ? "checked" : ''; ?>>
                                     </td>
                                     <td>
                                     </td>

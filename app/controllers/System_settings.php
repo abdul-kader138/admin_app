@@ -889,6 +889,17 @@ class system_settings extends MY_Controller
                 'guard-add' => $this->input->post('guard-add'),
                 'guard-delete' => $this->input->post('guard-delete'),
                 'guard-weight_upload' => $this->input->post('guard-weight_upload'),
+
+
+                'document-index' => $this->input->post('document-index'),
+                'document-edit' => $this->input->post('document-edit'),
+                'document-add' => $this->input->post('document-add'),
+                'document-delete' => $this->input->post('document-delete'),
+                'doctype-index' => $this->input->post('doctype-index'),
+                'doctype-edit' => $this->input->post('doctype-edit'),
+                'doctype-add' => $this->input->post('doctype-add'),
+                'doctype-delete' => $this->input->post('doctype-delete'),
+
             );
 
             if (POS) {
@@ -5031,6 +5042,158 @@ class system_settings extends MY_Controller
         } else {
             $this->session->set_flashdata('error', validation_errors());
             redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+
+    function doctype()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['doctype-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('doc_type')));
+        $meta = array('page_title' => lang('operator'), 'bc' => $bc);
+        $this->page_construct('settings/doctype', $meta, $this->data);
+    }
+
+    function getDoctype()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['doctype-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        build  anchor
+        $edit_link='';
+        if ($this->Owner || $this->Admin || $get_permission['doctype-edit'])
+            $edit_link= '<a href="' . site_url("system_settings/edit_doctype/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("edit_operator") . '"><i class="fa fa-edit"></i></a>';
+
+        $delete_link='';
+        if ($this->Owner || $this->Admin || $get_permission['doctype-delete'])
+
+            $delete_link = "&nbsp<a href='#' class='po' title='<b>" . lang("delete_operator") . "</b>' data-content=\"<p>"
+                . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_doctype/$1') . "'>"
+                . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
+//
+        $this->load->library('datatables');
+        $this->datatables
+            ->select("id, name,description", FALSE)
+            ->from("doctype")
+            ->add_column("Actions", "<div class='text-center'>".$edit_link.$delete_link."</div>", "id");
+
+        echo $this->datatables->generate();
+    }
+
+
+    function add_doctype()
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['operator-add'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[doctype.name]');
+        $this->form_validation->set_rules('description', lang("description"), 'trim|required');
+//        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[operators.name]|alpha_numeric_spaces');
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'description' => $this->input->post('description'),
+            );
+
+        } elseif ($this->input->post('add_brand')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/doctype");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->addDoctype($data)) {
+            $this->session->set_flashdata('message', lang("doctype_added"));
+            redirect("system_settings/doctype");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'settings/add_doctype', $this->data);
+
+        }
+    }
+
+
+    function edit_doctype($id = NULL)
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['doctype-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('description', lang("description"), 'trim|required');
+
+        $docType_details = $this->settings_model->getDoctypeByID($id);
+
+        if ($this->form_validation->run() == true) {
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'description' => $this->input->post('description'),
+            );
+
+        } elseif ($this->input->post('edit_doctype')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/edit_doctype");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->updateDoctype($id, $data)) {
+            $this->session->set_flashdata('message', lang("doctype_updated"));
+            redirect("system_settings/doctype");
+        } else {
+
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->data['doc'] = $docType_details;
+            $this->load->view($this->theme . 'settings/edit_doctype', $this->data);
+
+        }
+    }
+
+    function delete_doctype($id = NULL)
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $get_permission=$this->permission_details[0];
+            if ((!$get_permission['doctype-delete'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+//        @todo
+//        Need to check product tagging before delete
+//        if ($this->settings_model->brandHasProducts($id)) {
+//            $this->session->set_flashdata('error', lang("brand_has_products"));
+//            redirect("system_settings/brands");
+//        }
+
+        if ($this->settings_model->deleteDoctype($id)) {
+            echo lang("doctype_deleted");
         }
     }
 

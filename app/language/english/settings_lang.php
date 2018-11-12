@@ -421,3 +421,15 @@ $lang['import_operator']                        = "Import Operator";
 $lang['operator_added']                         = "Operator successfully added.";
 $lang['operator_updated']                       = "Operator successfully updated.";
 $lang['operator_deleted']                       = "Operator successfully deleted.";
+
+
+$lang['doc_type']                               = "Document Type";
+$lang['description']                            = "Description";
+
+$lang['doc_type']                              = "Document Type";
+$lang['doc_type_add']                          = "Add Document Type";
+$lang['doc_type_delete']                       = "Delete Document Type";
+$lang['doc_type_edit']                         = "Edit Document Type";
+$lang['doctype_added']                         = "Document Type successfully added.";
+$lang['doctype_updated']                       = "Document Type successfully updated.";
+$lang['doctype_deleted']                       = "Document Type successfully deleted.";

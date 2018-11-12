@@ -906,4 +906,38 @@ class Settings_model extends CI_Model
         }
         return false;
     }
+
+    public function addDoctype($data)
+    {
+        if ($this->db->insert("doctype", $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getDoctypeByID($id)
+    {
+        $q = $this->db->get_where('doctype', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateDoctype($id, $data = array())
+    {
+        if ($this->db->update("doctype", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteDoctype($id)
+    {
+        if ($this->db->delete("doctype", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
 }
