@@ -847,6 +847,15 @@ function pqFormat(x) {
 function checkbox(x) {
     return '<div class="text-center"><input class="checkbox multi-select" type="checkbox" name="val[]" value="' + x + '" /></div>';
 }
+
+function download(x) {
+    if(x){
+        var res = x.split("#351#");
+        console.log(res);
+        return '<div class="text-center"><a href="'+site.base_url+ res[0] + '" download>'+res[1]+'</a></div>';
+    }
+    else return "<b>No Attachment Available</b>";
+}
 function decode_html(value){
     return $('<div/>').html(value).text();
 }

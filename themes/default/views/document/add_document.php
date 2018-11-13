@@ -53,7 +53,7 @@
 <p class="introtext"><?php echo lang('enter_info'); ?></p>
 <?php
 $attrib = array('data-toggle' => 'validator', 'role' => 'form');
-echo form_open_multipart("document/add_document", $attrib);
+echo form_open_multipart("document/add", $attrib);
 
 ?>
 <div class="row">
@@ -124,7 +124,6 @@ echo form_open_multipart("document/add_document", $attrib);
             <div class="form-group">
                 <?= lang("other_info", "other_info"); ?>
                 <?php echo form_textarea('other_info', (isset($_POST['other_info']) ? $_POST['other_info'] : ""), 'class="form-control" id="other_info" style="margin-top: 10px; height: 100px;"'); ?>
-
             </div>
         </div>
 

@@ -22,3 +22,11 @@ $lang['pending']            = "Pending";
 $lang['new']                = "New";
 $lang['other_info']         = "Other Information";
 $lang['doc_type']           = "Document Type";
+
+$lang['doc_add']                          = "Add Document";
+$lang['doc_delete']                       = "Delete Document";
+$lang['doc_edit']                         = "Edit Document";
+$lang['doc_added']                        = "Document successfully added.";
+$lang['doc_updated']                      = "Document successfully updated.";
+$lang['doc_deleted']                      = "Document successfully deleted.";
+
