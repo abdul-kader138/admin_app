@@ -163,9 +163,6 @@ class Employees_model extends CI_Model
             ->join('employees', 'employees.employee_id=bills.employee_id', 'left')
             ->join('packages', 'packages.id=employees.package_id', 'left')
             ->join('designations', 'designations.id=employees.designation_id', 'left');
-//            ->join('tax_rates', 'tax_rates.id=purchase_items.tax_rate_id', 'left')
-//            ->group_by('purchase_items.id')
-//            ->order_by('id', 'asc');
         $q = $this->db->get_where('bills', array('reference_no' => $ref));
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {

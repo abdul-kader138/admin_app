@@ -941,6 +941,11 @@ class system_settings extends MY_Controller
                 'doctype-edit' => $this->input->post('doctype-edit'),
                 'doctype-add' => $this->input->post('doctype-add'),
                 'doctype-delete' => $this->input->post('doctype-delete'),
+                'document-doc_movement_list' => $this->input->post('document-doc_movement_list'),
+                'document-add_movement' => $this->input->post('document-add_movement'),
+                'document-edit_movement' => $this->input->post('document-edit_movement'),
+                'document-delete_movement' => $this->input->post('document-delete_movement'),
+
 
             );
 
@@ -5099,7 +5104,7 @@ class system_settings extends MY_Controller
         }
         $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('doc_type')));
-        $meta = array('page_title' => lang('operator'), 'bc' => $bc);
+        $meta = array('page_title' => lang('doc_type'), 'bc' => $bc);
         $this->page_construct('settings/doctype', $meta, $this->data);
     }
 

@@ -575,3 +575,12 @@ $lang['list_document']              = "List Document";
 $lang['doc_type']                       = "Document Type";
 $lang['doc_type_add']                   = "Add Document Type";
 $lang['doc_type_edit']                  = "Edit Document Type";
+
+
+
+$lang['doc_movement']                   = "Document Movement";
+$lang['doc_movement_list']              = "List Document Movement";
+$lang['add_movement']                   = "Add Document Movement";
+$lang['edit_movement']                  = "Edit Document Movement";
+$lang['delete_movement']                = "Delete Document Movement";
+

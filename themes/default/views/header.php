@@ -382,6 +382,18 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_document'); ?></span>
                 </a>
             </li>
+            <li id="document_doc_movement_list">
+                <a class="submenu" href="<?= site_url('document/doc_movement_list'); ?>">
+                    <i class="fa fa-plus"></i><span
+                        class="text"> <?= lang('doc_movement_list'); ?></span>
+                </a>
+            </li>
+            <li id="document_add_movement">
+                <a class="submenu" href="<?= site_url('document/add_movement'); ?>">
+                    <i class="fa fa-plus"></i><span
+                        class="text"> <?= lang('add_movement'); ?></span>
+                </a>
+            </li>
         </ul>
     </li>
     <li class="mm_products">
@@ -1320,6 +1332,22 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php } ?>
+                <?php if ($GP['document-doc_movement_list']) { ?>
+                    <li id="document_doc_movement_list">
+                        <a class="submenu" href="<?= site_url('document/doc_movement_list'); ?>">
+                            <i class="fa fa-list-alt"></i><span
+                                class="text"> <?= lang('doc_movement_list'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['document-add_movement']) { ?>
+                    <li id="document_add_movement">
+                        <a class="submenu" href="<?= site_url('document/add_movement'); ?>">
+                            <i class="fa fa-plus"></i><span
+                                class="text"> <?= lang('add_movement'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
         </li>
     <?php } ?>
@@ -1650,7 +1678,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index'] || $GP['doctype-index'] || $GP['backups_index']) { ?>
+    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index'] || $GP['doctype-index'] || $GP['backups_index' ]) { ?>
         <li class="mm_system_settings">
             <a class="dropmenu" href="#">
                 <i class="fa fa-cog"></i>

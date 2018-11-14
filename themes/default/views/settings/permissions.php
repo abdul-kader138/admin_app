@@ -345,6 +345,23 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><?= lang("doc_movement"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-doc_movement_list" <?php echo $p->{'document-doc_movement_list'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-add_movement" <?php echo $p->{'document-add_movement'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-edit_movement" <?php echo $p->{'document-edit_movement'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-delete_movement" <?php echo $p->{'document-delete_movement'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td><?= lang("package"); ?></td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="package-index" <?php echo $p->{'package-index'} ? "checked" : ''; ?>>

@@ -1096,5 +1096,27 @@ class Site extends CI_Model
         return FALSE;
     }
 
+    public function getAllDoc()
+    {
+        $q = $this->db->get("documents");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
 
+    public function getAllEmployees()
+    {
+        $q = $this->db->get("employees");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
 }

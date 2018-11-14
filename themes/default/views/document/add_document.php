@@ -83,7 +83,7 @@ echo form_open_multipart("document/add", $attrib);
             ?>
         </div>
     </div>
-
+    <div class="clearfix"></div>
 <div class="col-sm-4">
     <div class="form-group">
         <?= lang("document_status", "document_status"); ?>
