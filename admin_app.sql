@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2018 at 08:34 AM
+-- Generation Time: Nov 14, 2018 at 12:33 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -94,6 +94,40 @@ INSERT INTO `sma_adjustment_items` (`id`, `adjustment_id`, `product_id`, `option
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sma_bills`
+--
+
+CREATE TABLE `sma_bills` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `employee_id` varchar(100) NOT NULL,
+  `operator_id` int(11) NOT NULL,
+  `mobile_number` varchar(13) NOT NULL,
+  `usage_amount` varchar(100) NOT NULL,
+  `dues` varchar(100) DEFAULT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `year` varchar(10) NOT NULL,
+  `month` varchar(20) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `ceiling_amount` varchar(100) DEFAULT NULL,
+  `reference_no` varchar(100) NOT NULL,
+  `package_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `designation_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_bills`
+--
+
+INSERT INTO `sma_bills` (`id`, `employee_id`, `operator_id`, `mobile_number`, `usage_amount`, `dues`, `created_by`, `year`, `month`, `start_date`, `end_date`, `created_date`, `ceiling_amount`, `reference_no`, `package_id`, `company_id`, `designation_id`) VALUES
+(2301, 'PFL000005', 65, '1713245352', '0.29', '0', NULL, '2020', 'November', '2018-01-11', '2018-10-11', NULL, '300', '2020_November_65_13', 13, 12, 339),
+(2302, 'PG000253', 65, '1700706604', '0.41', '0', NULL, '2020', 'November', '2018-01-11', '2018-10-11', NULL, '500', '2020_November_65_13', 13, 29, 504);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sma_brands`
 --
 
@@ -112,8 +146,6 @@ INSERT INTO `sma_brands` (`id`, `code`, `name`, `image`) VALUES
 (1, '', 'Intel', ''),
 (2, '', 'Artic Silver', ''),
 (3, '', 'Gateway', ''),
-(4, 'Acer', 'Acer', 'a2d509b4d6c4eb4e06af1721fac7671e.jpg'),
-(5, '', 'Generic Manufacturer', ''),
 (6, '', 'Kingston', ''),
 (7, '', 'Promounts', ''),
 (8, '', 'Lacie', ''),
@@ -151,7 +183,6 @@ INSERT INTO `sma_brands` (`id`, `code`, `name`, `image`) VALUES
 (40, '', 'Olympus', ''),
 (41, '', 'Archos', ''),
 (42, '', 'Toshiba', ''),
-(43, '', 'Airlink', ''),
 (44, '', 'OCZ', ''),
 (45, '', 'TechCraft', ''),
 (46, '', 'American Power Conversion', ''),
@@ -166,7 +197,8 @@ INSERT INTO `sma_brands` (`id`, `code`, `name`, `image`) VALUES
 (56, '', 'VTECH', ''),
 (57, '', 'Fuji', ''),
 (58, 'G1', 'General', NULL),
-(59, 'Test', 'Test', NULL);
+(59, 'Test', 'Test', NULL),
+(60, 'xsdfdaf', 'fsdfsd111111111', 'd55b50a3e604c551d1a457d353480065.png');
 
 -- --------------------------------------------------------
 
@@ -459,6 +491,14 @@ CREATE TABLE `sma_combo_items` (
   `quantity` decimal(12,4) NOT NULL,
   `unit_price` decimal(25,4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_combo_items`
+--
+
+INSERT INTO `sma_combo_items` (`id`, `product_id`, `item_code`, `quantity`, `unit_price`) VALUES
+(1, 27199, '48395', '1.0000', '220.0000'),
+(2, 27199, '48398', '1.0000', '450.0000');
 
 -- --------------------------------------------------------
 
@@ -809,7 +849,7 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (307, 4, 'supplier', 0, '', 'YT  ', 'YT  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (308, 4, 'supplier', 0, '', 'ZEMEL HOLDING INC  ', 'ZEMEL HOLDING INC  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (309, 4, 'supplier', 0, '', 'Zenith Laser Plus Inc.  ', 'Zenith Laser Plus Inc.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(310, 3, 'customer', 1, 'General', 'Tanveer Oils Ltd', 'Tanveer Oils Ltd', '', 'H-15,R-34,Gulshan-1,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1787694479', 'tol@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, 2, 'Partner Price', NULL, NULL, NULL, '0.00'),
+(310, 3, 'customer', 1, 'General', 'Tanveer Oils Ltd', 'Tanveer Oils Ltd', '', 'H-15,R-34,Gulshan-1,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1787694479', 'tol@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, 2, 'Partner Price', NULL, NULL, NULL, '100.00'),
 (311, 3, 'customer', 1, 'General', 'Others', 'Others', '', '05,Mohakhali C/A,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1787688674', 'others@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 7, '5000.00'),
 (312, 3, 'customer', 1, 'General', '1413870 Ontario Ltd.', '1413870 Ontario Ltd.', '', 'Mohakhali,', 'Toronto', 'Ont.', '', 'Canada', '1781870371', 'b@b.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 8, '40000.00'),
 (313, 3, 'customer', 0, 'General', '1501351 ONTARIO INC (FREDDI)  ', '1501351 ONTARIO INC (FREDDI)  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '4169037493', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -824,7 +864,7 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (322, 3, 'customer', 0, 'General', '2313061 Ontario INC.  ', '2313061 Ontario INC.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (323, 3, 'customer', 0, 'General', '2386077 Ontario Inc  ', '2386077 Ontario Inc  ', '', '5B-20 Burk Oak Avenue   Markham On      ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (324, 3, 'customer', 0, 'General', '2419470 Ontario Ltd (Chatime Vaughan)  ', '2419470 Ontario Ltd (Chatime Vaughan)  ', '', '3175 Rutherford unit 31   Vaughan; On.      ', 'Toronto', 'Ont.', '', 'Canada', '4163204988', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(325, 3, 'customer', 0, 'General', '2449523 Ontario Inc. O/A OASIS FLOORING  ', '2449523 Ontario Inc. O/A OASIS FLOORING  ', '', '   1868 Dundas St E  Mississauga 04 L4X 1L9 Canada', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(325, 3, 'customer', 1, 'General', 'Tanveer Oils Ltd', 'Tanveer Oils Ltd', '', 'H-15,R-34,Gulshan-1,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1787694479', 'tol@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 0, '500000.00'),
 (326, 3, 'customer', 0, 'General', '2456835 Ontario Inc.  ', '2456835 Ontario Inc.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (327, 3, 'customer', 0, 'General', '2m Electronics  ', '2m Electronics  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (328, 3, 'customer', 0, 'General', '360 Video Surveillance  ', '360 Video Surveillance  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'randy@1st-impression.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -967,9 +1007,9 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (465, 3, 'customer', 0, 'General', 'BroadConnect Telecom  ', 'BroadConnect Telecom  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (466, 3, 'customer', 0, 'General', 'Broker Financial Group Inc  ', 'Broker Financial Group Inc  ', '', '7270 Woodbine Ave   Markham; On      ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (467, 3, 'customer', 0, 'General', 'Brs Consulting  ', 'Brs Consulting  ', '', '255 DUNCAN HILL RD         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(468, 3, 'customer', 0, 'General', 'Bruce (CP Rail)  ', 'Bruce (CP Rail)  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
+(468, 3, 'customer', 0, 'General', 'Bruce (CP Rail)  ', 'Bruce (CP Rail)  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(469, 3, 'customer', 0, 'General', 'bsmw', 'bsmw', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
 INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`, `customer_group_name`, `name`, `company`, `vat_no`, `address`, `city`, `state`, `postal_code`, `country`, `phone`, `email`, `credit_limit`, `credit_term`, `invoice_footer`, `payment_term`, `logo`, `award_points`, `deposit_amount`, `price_group_id`, `price_group_name`, `vat_reg`, `gst_reg`, `credit_enjoy_days`, `customer_credit_limit`) VALUES
-(469, 3, 'customer', 0, 'General', 'bsmw', 'bsmw', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (470, 3, 'customer', 0, 'General', 'BSMW  ', 'BSMW  ', '', '7270 Woodbine Ave., Suite 301    Markham 04 L3R4B9 Canada', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (471, 3, 'customer', 0, 'General', 'Business Minding  ', 'Business Minding  ', '', '121 Irene Mount   Markham; Ontario      ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'briansharpy@comcast.net  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (472, 3, 'customer', 0, 'General', 'Bynde ` Margot  ', 'Bynde ` Margot  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -1047,8 +1087,8 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (544, 3, 'customer', 0, 'General', 'Computer Wisper  ', 'Computer Wisper  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'ksum@atatechnology.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (545, 3, 'customer', 0, 'General', 'Computronet Inc  ', 'Computronet Inc  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'Qixian.Hu@gmail.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (546, 3, 'customer', 0, 'General', 'Concept Printers Inc  ', 'Concept Printers Inc  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(547, 3, 'customer', 0, 'General', 'Concord Hardware (Woodbine)  ', 'Concord Hardware (Woodbine)  ', '', '   7310 Woodbine ave. Unit 5      ', 'Toronto', 'Ont.', '', 'Canada', '9054799844', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(548, 3, 'customer', 0, 'General', 'Concord Hardware Ltd  ', 'Concord Hardware Ltd  ', '', '34 Bowes Rd- Concord         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(547, 3, 'customer', 1, 'General', 'Others', 'Others', '', '05,Mohakhali C/A,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1787688674', 'others@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 0, '100.00'),
+(548, 3, 'customer', 1, 'General', 'Bond-007', 'PG', '', 'Mohakhali,', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1781870371', 'b@b.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 0, '5000.00'),
 (549, 3, 'customer', 0, 'General', 'Constant Controls LTD.  ', 'Constant Controls LTD.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'kubalan@gmail.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (550, 3, 'customer', 0, 'General', 'Continental legal  ', 'Continental legal  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (551, 3, 'customer', 0, 'General', 'Conversys Media  ', 'Conversys Media  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -1190,9 +1230,9 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (687, 3, 'customer', 0, 'General', 'Faith Miracle Temp Inc  ', 'Faith Miracle Temp Inc  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (688, 3, 'customer', 0, 'General', 'Falcon Precision LTD  ', 'Falcon Precision LTD  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (689, 3, 'customer', 0, 'General', 'farid', 'farid', '', '     Canada', 'Toronto', 'Ont.', '', 'Canada', '6477065106', '', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(690, 3, 'customer', 0, 'General', 'Fazly Thowfeek  ', 'Fazly Thowfeek  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
+(690, 3, 'customer', 0, 'General', 'Fazly Thowfeek  ', 'Fazly Thowfeek  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(691, 3, 'customer', 0, 'General', 'Fet Computers  ', 'Fet Computers  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'info@ccomputers.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
 INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`, `customer_group_name`, `name`, `company`, `vat_no`, `address`, `city`, `state`, `postal_code`, `country`, `phone`, `email`, `credit_limit`, `credit_term`, `invoice_footer`, `payment_term`, `logo`, `award_points`, `deposit_amount`, `price_group_id`, `price_group_name`, `vat_reg`, `gst_reg`, `credit_enjoy_days`, `customer_credit_limit`) VALUES
-(691, 3, 'customer', 0, 'General', 'Fet Computers  ', 'Fet Computers  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'info@ccomputers.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (692, 3, 'customer', 0, 'General', 'Fifty One Design  ', 'Fifty One Design  ', '', '101 Amber St. Units 7 & 8   Markham; On.      ', 'Toronto', 'Ont.', '', 'Canada', '9054757795', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (693, 3, 'customer', 0, 'General', 'Filbitron  ', 'Filbitron  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (694, 3, 'customer', 0, 'General', 'Film.Ca Inc.  ', 'Film.Ca Inc.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -1409,9 +1449,9 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (905, 3, 'customer', 0, 'General', 'Jrs Institute  ', 'Jrs Institute  ', '', '4168 FINCH AVE E- #G61         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (906, 3, 'customer', 0, 'General', 'Jude Anthonipillai  ', 'Jude Anthonipillai  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'mario@telax.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (907, 3, 'customer', 0, 'General', 'JV Clothing  ', 'JV Clothing  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'info@modcom.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(908, 3, 'customer', 0, 'General', 'K-Soft Computer  ', 'K-Soft Computer  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
+(908, 3, 'customer', 0, 'General', 'K-Soft Computer  ', 'K-Soft Computer  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(909, 3, 'customer', 0, 'General', 'K.K Company  ', 'K.K Company  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00');
 INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`, `customer_group_name`, `name`, `company`, `vat_no`, `address`, `city`, `state`, `postal_code`, `country`, `phone`, `email`, `credit_limit`, `credit_term`, `invoice_footer`, `payment_term`, `logo`, `award_points`, `deposit_amount`, `price_group_id`, `price_group_name`, `vat_reg`, `gst_reg`, `credit_enjoy_days`, `customer_credit_limit`) VALUES
-(909, 3, 'customer', 0, 'General', 'K.K Company  ', 'K.K Company  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (910, 3, 'customer', 0, 'General', 'Kaimera Media Inc.   ', 'Kaimera Media Inc.   ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (911, 3, 'customer', 0, 'General', 'KALYVIA GREEK RESTAURANT   ', 'KALYVIA GREEK RESTAURANT   ', '', '420 DANFORTH AVENUE       ', 'Toronto', 'Ont.', '', 'Canada', '416-463-3333  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (912, 3, 'customer', 0, 'General', 'Kamisori Inc  ', 'Kamisori Inc  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -1672,7 +1712,7 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (1166, 3, 'customer', 0, 'General', 'Peter & Henson  ', 'Peter & Henson  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'jennifer@stoddardsilencers.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (1167, 3, 'customer', 0, 'General', 'Peter (Concord Hardware Markham)  ', 'Peter (Concord Hardware Markham)  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (1168, 3, 'customer', 0, 'General', 'Peter (Medix)  ', 'Peter (Medix)  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', 'gta.mec@gmail.com  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(1169, 3, 'customer', 0, 'General', 'Peter @ Concord  ', 'Peter @ Concord  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
+(1169, 3, 'customer', 1, 'General', 'ACI Limited', 'ACI Limited', '', '245,Tejgaon I/A,Dhaka-1212', 'Dhaka', 'Dhaka', '1212', 'Bangladesh', '1712264814', 'tol1@test.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, 0, '100.00'),
 (1170, 3, 'customer', 0, 'General', 'Peter De Souza  ', 'Peter De Souza  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '647-403-4152  ', 'krish@iwigroup.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (1171, 3, 'customer', 0, 'General', 'PETER DSOUZA  ', 'PETER DSOUZA  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '6474034152', 'satheesh@medixschool.ca;info@modcom.ca  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
 (1172, 3, 'customer', 0, 'General', 'Peter Summer  ', 'Peter Summer  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '4164186657', '  ', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
@@ -2015,7 +2055,7 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (1508, 3, 'customer', 0, 'General', 'Voyzant Inc.   ', 'Voyzant Inc.   ', '', '7100 Woodbine Ave; Suite 102   Markham; On      ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1509, 3, 'customer', 0, 'General', 'W7 Offices Inc.', 'W7 Offices Inc.', '', '     Canada', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1510, 3, 'customer', 0, 'General', 'walk', 'walk', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
-(1511, 3, 'customer', 0, 'General', 'Walk-in-customer', 'Walk-in-customer', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
+(1511, 3, 'customer', 0, 'General', 'Walk-in-customer', 'Walk-in-customer', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '500.00'),
 (1512, 3, 'customer', 0, 'General', 'walkin', 'walkin', '', '     ', 'Toronto', 'Ont.', '', 'Canada', '', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1513, 3, 'customer', 0, 'General', 'Web Solutions  ', 'Web Solutions  ', '', '20A-400 Esna Park Drive   Markham; Om      ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1514, 3, 'customer', 0, 'General', 'WEDO', 'WEDO', '', '     Canada', 'Toronto', 'Ont.', '', 'Canada', '4162709245', '', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
@@ -2058,7 +2098,56 @@ INSERT INTO `sma_companies` (`id`, `group_id`, `group_name`, `customer_group_id`
 (1551, 3, 'customer', 0, 'General', 'Zeal Networks Canada Inc.  ', 'Zeal Networks Canada Inc.  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1552, 3, 'customer', 0, 'General', 'ZENITH LASER PLUS INC  ', 'ZENITH LASER PLUS INC  ', '', '         ', 'Toronto', 'Ont.', '', 'Canada', '  ', '  ', 0, 0, '', 0, '', 0, '0.0000', 0, '', '', '', NULL, '0.00'),
 (1553, 4, 'supplier', NULL, NULL, 'Dummy(For Stock In)', 'Dummy(For Stock In)', '', 'A', 'B', 'C', '', 'Canada', '111111111111', 'dummy@dummy.com', 0, 0, NULL, 0, 'logo.png', 0, NULL, NULL, NULL, NULL, NULL, NULL, '0.00'),
-(999999, NULL, 'biller', NULL, NULL, 'Modcom IT Solutions', 'Modcom IT Solutions', NULL, '7310 Woodbine ave. unit 6', 'Markham', 'Ont.', 'L3R1A4', 'Canada', '905-258-0333', 'sales@modcom.ca', NULL, NULL, '', 0, 'Final_Logo_small-pos_2.jpg', 0, NULL, NULL, NULL, '5235235235', '123552522', NULL, '0.00');
+(999999, NULL, 'biller', NULL, NULL, 'Modcom IT Solutions', 'Modcom IT Solutions', NULL, '7310 Woodbine ave. unit 6', 'Markham', 'Ont.', 'L3R1A4', 'Canada', '905-258-0333', 'sales@modcom.ca', NULL, NULL, '', 0, 'fresh_mart_Logo_resiz.jpg', 0, NULL, NULL, NULL, '5235235235', '123552522', NULL, '0.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_company`
+--
+
+CREATE TABLE `sma_company` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_company`
+--
+
+INSERT INTO `sma_company` (`id`, `code`, `name`) VALUES
+(11, 'PC-1', 'PPL (Feed Division)'),
+(12, 'PC-2', 'Paragon Feed Ltd. (UFL)'),
+(13, 'PC-3', 'Chittagong Feed Ltd.'),
+(14, 'PC-4', 'Jessore Feed Ltd.'),
+(15, 'PC-5', 'JFL D?cor\n Footware'),
+(16, 'PC-6', 'Paragon Poultry Ltd. (Hatchery)'),
+(17, 'PC-7', 'PPL (Horticulture Project)'),
+(18, 'PC-8', 'Dairy Farm'),
+(19, 'PC-9', 'PPL (Commercial), Haluaghat'),
+(20, 'PC-10', 'Bistro Central'),
+(21, 'PC-11', 'Fresh Mart'),
+(22, 'PC-12', 'Aqua Breeders Ltd'),
+(23, 'PC-13', 'Chittagong Chicks Ltd.'),
+(24, 'PC-14', 'Denm Poultry Complex'),
+(25, 'PC-15', 'PPL (Sagordighi)'),
+(26, 'PC-16', 'PPL (Layer)'),
+(27, 'PC-17', 'PAL (GP)'),
+(28, 'PC-18', 'Usha Poultry Ltd'),
+(29, 'PC-19', 'PAL (CF)'),
+(30, 'PC-20', 'Paragon Agro Ltd. (CF)'),
+(31, 'PC-21', 'Rangpur Poultry Ltd.'),
+(32, 'PC-22', 'Rangpur Poultry Ltd. (Feed Division)'),
+(33, 'PC-23', 'Paragon Poultry Ltd. (Chamiadi Project)'),
+(34, 'PC-24', 'Poultry Care Lab'),
+(35, 'PC-25', 'JFL (Fish Hatchery)'),
+(36, 'PC-26', 'MPC'),
+(37, 'PC-27', 'PPFL'),
+(38, 'PC-28', 'PCR Lab'),
+(39, 'PC-29', 'Tea Estate'),
+(40, 'PC-30', 'PEL'),
+(41, 'PC-31', 'Paragnn\n House');
 
 -- --------------------------------------------------------
 
@@ -2094,24 +2183,12 @@ INSERT INTO `sma_costing` (`id`, `date`, `product_id`, `sale_item_id`, `sale_id`
 (3, '2017-03-31', 30, 3, 3, 8, '1.0000', '88.4956', '100.0000', '88.4956', '100.0000', '0.0000', 1, 0, NULL),
 (4, '2017-04-03', 6, 4, 4, 4, '2.0000', '1279.0000', '1445.2700', '2299.9900', '2598.9900', '0.0000', 1, 0, NULL),
 (5, '2017-05-01', 7, 5, 5, 6, '1.0000', '350.0000', '395.5000', '14.9900', '16.9400', '4.0000', 1, 0, NULL),
-(6, '2017-06-01', 7, 6, 6, 6, '1.0000', '350.0000', '395.5000', '14.9900', '16.9400', '3.0000', 1, 0, NULL),
 (7, '2017-08-12', 70, 7, 7, 9, '1.0000', '317.5600', '358.8400', '499.9900', '564.9900', '4.0000', 1, 0, NULL),
 (10, '2017-09-23', 7, 10, 9, 5, '2.0000', '319.2900', '360.8000', '14.9900', '16.9400', '3.0000', 1, 0, NULL),
 (11, '2017-10-05', 7, 11, 8, 5, '1.0000', '319.2900', '360.8000', '14.9900', '16.9400', '3.0000', 1, 0, NULL),
-(12, '2017-10-05', 7, 12, 10, 5, '1.0000', '319.2900', '360.8000', '14.9900', '16.9400', '2.0000', 1, 0, NULL),
-(13, '2018-03-13', 754, 13, 11, 15, '1.0000', '75.5200', '85.3400', '89.9900', '101.6900', '9.0000', 1, 0, NULL),
-(14, '2018-03-13', 314, 14, 11, 13, '1.0000', '40.0000', '45.2000', '69.9900', '79.0900', '0.0000', 1, 0, NULL),
-(15, '2018-03-30', 600, 15, 12, 17, '1.0000', '122.3500', '138.2600', '155.0000', '175.1500', '0.0000', 1, 0, NULL),
-(16, '2018-03-30', 713, 16, 12, 16, '0.0000', '20.0000', '22.6000', '25.0000', '28.2500', '0.0000', 1, 0, NULL),
-(17, '2018-03-30', 754, 18, 14, 15, '1.0000', '75.5200', '85.3400', '89.9900', '101.6900', '8.0000', 1, 0, NULL),
-(18, '2018-03-30', 754, 19, 15, 15, '1.0000', '75.5200', '85.3400', '89.9900', '101.6900', '7.0000', 1, 0, NULL),
 (19, '2018-03-30', 70, 20, 16, 9, '1.0000', '317.5600', '358.8400', '330.9900', '374.0200', '3.0000', 1, 0, NULL),
 (20, '2018-03-31', 754, 21, 17, 15, '1.0000', '75.5200', '85.3400', '89.9900', '101.6900', '4.0000', 1, 0, NULL),
-(21, '2018-04-01', 754, 22, 18, 15, '3.0000', '75.5200', '85.3400', '80.0000', '90.4000', '1.0000', 1, 0, NULL),
 (22, '2018-04-01', 754, 23, 19, 15, '1.0000', '75.5200', '85.3400', '90.0000', '101.7000', '0.0000', 1, 0, NULL),
-(23, '2018-04-01', 7, 24, 20, 5, '2.0000', '319.2900', '360.8000', '14.9900', '16.9400', '0.0000', 1, 0, NULL),
-(24, '2018-04-01', 70, 25, 21, 9, '1.0000', '317.5600', '358.8400', '330.9900', '374.0200', '2.0000', 1, 0, NULL),
-(28, '2018-04-01', 12215, 29, 22, 20, '1.0000', '0.0000', '0.0000', '85.0000', '96.0500', '99.0000', 1, 0, NULL),
 (29, '2018-04-01', 70, 30, 23, 9, '1.0000', '317.5600', '358.8400', '330.9900', '374.0200', '1.0000', 1, 0, NULL),
 (30, '2018-04-01', 70, 31, 24, 9, '1.0000', '317.5600', '358.8400', '330.9900', '374.0200', '0.0000', 1, 0, NULL),
 (31, '2018-04-01', 12215, 32, 25, 20, '1.0000', '0.0000', '0.0000', '85.0000', '96.0500', '98.0000', 1, 0, NULL),
@@ -2143,7 +2220,16 @@ INSERT INTO `sma_costing` (`id`, `date`, `product_id`, `sale_item_id`, `sale_id`
 (66, '2018-06-04', 27213, 67, 52, 14332, '1.0000', '99.5700', '112.5141', '174.9900', '197.7400', '2.0000', 1, 0, NULL),
 (67, '2018-06-04', 27218, 68, 53, 14337, '0.0000', '64.9900', '73.4387', '89.9900', '101.6900', '2.0000', 1, 0, NULL),
 (68, '2018-06-05', 27215, 70, 55, 14334, '1.0000', '39.5000', '44.6350', '59.9900', '67.7900', '0.0000', 1, 0, NULL),
-(69, '2018-06-05', 27197, 71, 56, 14316, '1.0000', '43.0000', '48.5900', '89.9900', '101.6900', '7.0000', 1, 0, NULL);
+(69, '2018-06-05', 27197, 71, 56, 14316, '1.0000', '43.0000', '48.5900', '89.9900', '101.6900', '7.0000', 1, 0, NULL),
+(70, '2018-09-26', 27186, 1, 1, 3, '5.0000', '65.0000', '73.4500', '194.6900', '220.0000', '25.0000', 1, 0, NULL),
+(71, '2018-09-26', 27183, 1, 1, 4, '5.0000', '70.0000', '79.1000', '398.2300', '450.0000', '20.0000', 1, 0, NULL),
+(72, '2018-10-01', 27183, 2, 2, 5, '1.0000', '70.0000', '79.1000', '0.0000', '0.0000', '49.0000', 1, 0, NULL),
+(73, '2018-10-01', 27183, 3, 3, 5, '1.0000', '70.0000', '79.1000', '0.0000', '0.0000', '48.0000', 1, 0, NULL),
+(74, '2018-10-01', 27183, 4, 4, 5, '1.0000', '70.0000', '79.1000', '80.0000', '90.4000', '47.0000', 1, 0, NULL),
+(75, '2018-10-01', 27183, 5, 5, 5, '1.0000', '70.0000', '79.1000', '80.0000', '90.4000', '46.0000', 1, 0, NULL),
+(77, '2018-10-03', 27183, 7, 7, 5, '1.0000', '70.0000', '79.1000', '80.0000', '90.4000', '45.0000', 1, 0, NULL),
+(78, '2018-10-03', 27183, 8, 8, 5, '1.0000', '70.0000', '79.1000', '80.0000', '90.4000', '44.0000', 1, 0, NULL),
+(79, '2018-10-03', 27183, 9, 9, 5, '1.0000', '70.0000', '79.1000', '80.0000', '90.4000', '43.0000', 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -2164,7 +2250,8 @@ CREATE TABLE `sma_currencies` (
 --
 
 INSERT INTO `sma_currencies` (`id`, `code`, `name`, `rate`, `auto_update`) VALUES
-(3, '$', 'Canadian', '1.0000', 0);
+(3, '$', 'Canadian', '1.0000', 0),
+(4, 'BDT', 'Bangladeshi Taka', '1.0000', 0);
 
 -- --------------------------------------------------------
 
@@ -2258,6 +2345,1079 @@ CREATE TABLE `sma_deposits` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sma_designations`
+--
+
+CREATE TABLE `sma_designations` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_designations`
+--
+
+INSERT INTO `sma_designations` (`id`, `code`, `name`) VALUES
+(315, 'PGD1', 'Pocket Router'),
+(316, 'PGD2', 'DGM (BD)'),
+(317, 'PGD3', 'DGM (SC)'),
+(318, 'PGD4', 'DGM (Marketing)'),
+(319, 'PGD5', 'AGM (Sales)'),
+(320, 'PGD6', 'AGM (Maintenance)'),
+(321, 'PGD7', 'AGM (Flour Mill)'),
+(322, 'PGD8', 'Manager (Plant)'),
+(323, 'PGD9', 'Manager (Purchase)'),
+(324, 'PGD10', 'Asst. Manager (Transport)'),
+(325, 'PGD11', 'Engr. (Maintenance)'),
+(326, 'PGD12', 'Doctor'),
+(327, 'PGD13', 'Engineer (Civil)'),
+(328, 'PGD14', 'Sr. Officer (Sales)'),
+(329, 'PGD15', 'Asst. Mgr. (TVI)'),
+(330, 'PGD16', 'Sr. Officer (Treasury)'),
+(331, 'PGD17', 'Officer (Security)'),
+(332, 'PGD18', 'Officer (HR & Admin)'),
+(333, 'PGD19', 'Officer (Accounts)'),
+(334, 'PGD20', 'Officer (Cash)'),
+(335, 'PGD21', 'Officer (IT)'),
+(336, 'PGD22', 'Officer (Store)'),
+(337, 'PGD23', 'Asst. Officer (HR & Admin)'),
+(338, 'PGD24', 'Asst. Officer (Acct)'),
+(339, 'PGD25', 'Asst. Officer (QC)'),
+(340, 'PGD26', 'Asst. Officer (Qc & Prod.)'),
+(341, 'PGD27', 'Asst. Officer (Acct.)'),
+(342, 'PGD28', 'Asst. Officer (Mktg.)'),
+(343, 'PGD29', 'Asst. Officer (S&M)'),
+(344, 'PGD30', 'Asst. Engineer (Automobiles)'),
+(345, 'PGD31', 'Sr. Supervisor (Security)'),
+(346, 'PGD32', 'Internet'),
+(347, 'PGD33', 'Supervisor (Production)'),
+(348, 'PGD34', 'Asst. Officer (Construction)'),
+(349, 'PGD35', 'Officer (Audit)'),
+(350, 'PGD36', 'Show Room Incahrge'),
+(351, 'PGD37', 'Show Room Assistant'),
+(352, 'PGD38', 'Narsindi Depot'),
+(353, 'PGD39', 'Driver'),
+(354, 'PGD40', 'Peon'),
+(355, 'PGD41', 'Cook'),
+(356, 'PGD42', 'Supervisor'),
+(357, 'PGD43', 'Asst. Supervisor'),
+(358, 'PGD44', 'Guard (Meghna Ghat)'),
+(359, 'PGD45', 'Guard'),
+(360, 'PGD46', 'Asst. Supervisor'),
+(361, 'PGD47', 'Supervisor'),
+(362, 'PGD48', 'COO'),
+(363, 'PGD49', 'AGM (Marketing)'),
+(364, 'PGD50', 'DGM (Feed Mills)'),
+(365, 'PGD51', 'DGM (Commercial)'),
+(366, 'PGD52', 'Deputy Manager (TVI)'),
+(367, 'PGD53', 'Asst. Manager (Accounts)'),
+(368, 'PGD54', 'Asst. Manager (Engr.)'),
+(369, 'PGD55', 'Sr. Officer (Store)'),
+(370, 'PGD56', 'Sr. Officer -Sales'),
+(371, 'PGD57', 'Sr. Officer - Commercial'),
+(372, 'PGD58', 'Sr. Eng. (Project)'),
+(373, 'PGD59', 'Sr. Officer (Accounts)'),
+(374, 'PGD60', 'Office Assistant (Comm.)'),
+(375, 'PGD61', 'Office Assistant (Transport)'),
+(376, 'PGD62', 'Officer (QC)'),
+(377, 'PGD63', 'Engineer (Civil)'),
+(378, 'PGD64', 'Accounts Officer-Factory'),
+(379, 'PGD65', 'Engineer -Plant'),
+(380, 'PGD66', 'Sales Representative'),
+(381, 'PGD67', 'Sales Officer'),
+(382, 'PGD68', 'Store Officer'),
+(383, 'PGD69', 'Cleaner'),
+(384, 'PGD70', 'GM (P&O)'),
+(385, 'PGD71', 'Manager (IT)'),
+(386, 'PGD72', 'AGM (Corp. Finance)'),
+(387, 'PGD73', 'In-charge (Maintenance)'),
+(388, 'PGD74', 'Feed Sales'),
+(389, 'PGD75', 'Asst. Manager (H & A)'),
+(390, 'PGD76', 'Asst. Officer (H & A)'),
+(391, 'PGD77', 'Officer ( Security)'),
+(392, 'PGD78', 'Officer (Costing)'),
+(393, 'PGD79', 'Officer (Accounts) Factory'),
+(394, 'PGD80', 'Asst. Officer  Purchase)'),
+(395, 'PGD81', 'Officer (Commercial)'),
+(396, 'PGD82', 'Asst. Officer (Sales)'),
+(397, 'PGD83', 'Asst. Officer (QC), CFL'),
+(398, 'PGD84', 'Driver'),
+(399, 'PGD85', 'Asst. Officer (Store)'),
+(400, 'PGD86', 'Manager (Treasure)'),
+(401, 'PGD87', 'AGM (Corporate Accounting)'),
+(402, 'PGD88', 'Asst. Manager'),
+(403, 'PGD89', 'Nutritionist'),
+(404, 'PGD90', 'Engineer (Plant)'),
+(405, 'PGD91', 'Asst. Mgr. (Tech. Cordinator)'),
+(406, 'PGD92', 'Sr. Officer (Costing)'),
+(407, 'PGD93', 'Officer (Nutrition)'),
+(408, 'PGD94', 'Officer (HR)'),
+(409, 'PGD95', 'Officer (QC)'),
+(410, 'PGD96', 'Engineer'),
+(411, 'PGD97', 'Consultant'),
+(412, 'PGD98', 'Asst. Officer (IT)'),
+(413, 'PGD99', 'Asst. Officer (Production)'),
+(414, 'PGD100', 'Asst. Officer (Accounts'),
+(415, 'PGD101', 'Office Asst. (Depot)'),
+(416, 'PGD102', 'Asst. Officer (TS)'),
+(417, 'PGD103', 'Officer (Marketing)'),
+(418, 'PGD104', 'Officer (Aqua)'),
+(419, 'PGD105', 'Officer (TS)'),
+(420, 'PGD106', 'Sales & Accounts'),
+(421, 'PGD107', 'DGM (Hatchery)'),
+(422, 'PGD108', 'AGM (HR & Admin)'),
+(423, 'PGD109', 'AGM (Farms)'),
+(424, 'PGD110', 'Manager (Brd-1,2)'),
+(425, 'PGD111', 'Deputy Manager (Accounts)'),
+(426, 'PGD112', 'Officer (Production)'),
+(427, 'PGD113', 'Engineer (Maintenance)'),
+(428, 'PGD114', 'Sr. Officer (Credit Control)'),
+(429, 'PGD115', 'Asst. Mgr.  (Production)'),
+(430, 'PGD116', 'Officer (Technical)'),
+(431, 'PGD117', 'Asst. Officer (Accounts)'),
+(432, 'PGD118', 'Supervisor (Hatchery)'),
+(433, 'PGD119', 'Messenger'),
+(434, 'PGD120', 'Technician'),
+(435, 'PGD121', 'Hatchery'),
+(436, 'PGD122', 'Driver (Car)'),
+(437, 'PGD123', 'Guard (Kanun Valley)'),
+(438, 'PGD124', 'Officer (Agriculture)'),
+(439, 'PGD125', 'Asst. Officer- Dairy Firm'),
+(440, 'PGD126', 'Asst. Officer (Horticulture)'),
+(441, 'PGD127', 'Officer (Farm)'),
+(442, 'PGD128', 'A.O( Acct. & Admin)'),
+(443, 'PGD129', 'AGM (P & E)'),
+(444, 'PGD130', 'Asst. Mgr. (Production)'),
+(445, 'PGD131', 'Engineer (Electronic & Maint.)'),
+(446, 'PGD132', 'Supervisor ( Operation)'),
+(447, 'PGD133', 'Officer (Purchase)'),
+(448, 'PGD134', 'Supervisor (Bistro)'),
+(449, 'PGD135', 'Floor In-charge'),
+(450, 'PGD136', 'Hot line Number'),
+(451, 'PGD137', 'Sr. Zonal Manager'),
+(452, 'PGD138', 'Manager (Accounts)'),
+(453, 'PGD139', 'Incharge-JFL (H)'),
+(454, 'PGD140', 'Manager (Farms)'),
+(455, 'PGD141', 'Sr. Officer (Production)'),
+(456, 'PGD142', 'Asst. Officer (Accounts)'),
+(457, 'PGD143', 'Engineer'),
+(458, 'PGD144', 'Store Supervisor'),
+(459, 'PGD145', 'Engr. (Maintenance)'),
+(460, 'PGD146', 'Asst. Officer (Acct. & Sales)'),
+(461, 'PGD147', 'Asst. Mgr. (Farm)'),
+(462, 'PGD148', 'Officer ( Accounts)'),
+(463, 'PGD149', 'Officer ( Admin)'),
+(464, 'PGD150', 'Officer (Accounts)'),
+(465, 'PGD151', 'Receptionist'),
+(466, 'PGD152', 'Asst. Mgr. (Farms)'),
+(467, 'PGD153', 'Site Engineer'),
+(468, 'PGD154', 'Manager (Comm. Layer)'),
+(469, 'PGD155', 'Asst. Engineer'),
+(470, 'PGD156', 'Sexer'),
+(471, 'PGD157', 'Manager (Farm)'),
+(472, 'PGD158', 'Office'),
+(473, 'PGD159', 'Tech. Generator'),
+(474, 'PGD160', 'Superviser'),
+(475, 'PGD161', 'Store Keeper'),
+(476, 'PGD162', 'Security Supervisor'),
+(477, 'PGD163', 'Asst. Manger (Sales & Mktg.)'),
+(478, 'PGD164', 'Sr. Officer (Prod.), Sreepur'),
+(479, 'PGD165', 'Asst. Mgr. (Sales)'),
+(480, 'PGD166', 'Officer (Land)'),
+(481, 'PGD167', 'Asst. Officer (Purchase)'),
+(482, 'PGD168', 'Supervisor (Hatchery)'),
+(483, 'PGD169', 'Asst. Technician (Health)'),
+(484, 'PGD170', 'COO (CF)'),
+(485, 'PGD171', 'Sales Manager -K A/c (CF)'),
+(486, 'PGD172', 'Asst. Manager (Tatka)'),
+(487, 'PGD173', 'Asst. Manager (Distr.)'),
+(488, 'PGD174', 'Asst. Manager (SC-CF)'),
+(489, 'PGD175', 'Sr. Sales Officer'),
+(490, 'PGD176', 'Sr. Officer'),
+(491, 'PGD177', 'Officer Sales Administration'),
+(492, 'PGD178', 'Sr. Officer (P&FP)'),
+(493, 'PGD179', 'Officer (Sales Co-ordi.)'),
+(494, 'PGD180', 'Officer (Management Trainee)'),
+(495, 'PGD181', 'Area Sales Manager'),
+(496, 'PGD182', 'Regional Sales Manager'),
+(497, 'PGD183', 'Asst. Manager (Maintenance)'),
+(498, 'PGD184', 'Officer (Acct. & Admin)'),
+(499, 'PGD185', 'Asst. Officer (Accounts'),
+(500, 'PGD186', 'Officer (Customer Service)'),
+(501, 'PGD187', 'ASM (Key Accts)'),
+(502, 'PGD188', 'Graphics Designer'),
+(503, 'PGD189', 'Store Assistant'),
+(504, 'PGD190', 'Officer (Sales)'),
+(505, 'PGD191', 'SR (Retail)'),
+(506, 'PGD192', 'SR'),
+(507, 'PGD193', 'Depot Incharge'),
+(508, 'PGD194', 'Delivery Man'),
+(509, 'PGD195', 'Helper'),
+(510, 'PGD196', 'Manager, Kiosk Operation'),
+(511, 'PGD197', 'Manager (Acct. & Fianace)'),
+(512, 'PGD198', 'Incharge (Plant)'),
+(513, 'PGD199', 'Brand Manager (CF)'),
+(514, 'PGD200', 'Coordination Officer'),
+(515, 'PGD201', 'Officer (Software Deve.)'),
+(516, 'PGD202', 'Asst.Officer (Acct.)'),
+(517, 'PGD203', 'Supervisor-Production'),
+(518, 'PGD204', 'Officer (Social Media-IT)'),
+(519, 'PGD205', 'Officer- Purchase'),
+(520, 'PGD206', 'Asst. P/S Officer'),
+(521, 'PGD207', 'Guard (Dimla)'),
+(522, 'PGD208', 'Deputy Manager (IT)'),
+(523, 'PGD209', 'Engineer- Maintenance'),
+(524, 'PGD210', 'Sr. Officer (IT)'),
+(525, 'PGD211', 'Asst.Officer (Acct.-FD)'),
+(526, 'PGD212', 'Supervisor (security)'),
+(527, 'PGD213', 'Sr. Mgr. (Farms)'),
+(528, 'PGD214', 'Shed Supervisor'),
+(529, 'PGD215', 'Supervisor (Egg)'),
+(530, 'PGD216', 'Production'),
+(531, 'PGD217', 'Generator'),
+(532, 'PGD218', 'Canteen'),
+(533, 'PGD219', 'Incharge'),
+(534, 'PGD220', 'Veterinary Surgeon'),
+(535, 'PGD221', 'Officer (Microbiology)'),
+(536, 'PGD222', 'Asst. Chemist'),
+(537, 'PGD223', 'Front Desk/Messenger'),
+(538, 'PGD224', 'Receptionist & Acct.'),
+(539, 'PGD225', 'Guard'),
+(540, 'PGD226', 'Manager (Fish Hatchery)'),
+(541, 'PGD227', 'Sr. Officer (Fish Farm)'),
+(542, 'PGD228', 'Manager (Factory)'),
+(543, 'PGD229', 'AO (Purchase)'),
+(544, 'PGD230', 'Asst. Purchase Officer'),
+(545, 'PGD231', 'Asst. Officer (A/C)'),
+(546, 'PGD232', 'Asst. Officer (Store & Acct.)'),
+(547, 'PGD233', 'Quality Controller'),
+(548, 'PGD234', 'CFO'),
+(549, 'PGD235', 'Sr. Manager (Operations)'),
+(550, 'PGD236', 'Sr. Manager (Factory)'),
+(551, 'PGD237', 'Asst. Manager (Mkt)'),
+(552, 'PGD238', 'Officer (TVI)'),
+(553, 'PGD239', 'Sr. Officer (Logistics)'),
+(554, 'PGD240', 'Sr. Officer (Mktg.)'),
+(555, 'PGD241', 'Officer (Banking)'),
+(556, 'PGD242', 'Officer (Pay Roll & Compensation)'),
+(557, 'PGD243', 'Officer (Mktg-PPFL)'),
+(558, 'PGD244', 'Officer (Sales)-PPFL'),
+(559, 'PGD245', 'Manager (Production & Admin)'),
+(560, 'PGD246', 'Manager (Production)'),
+(561, 'PGD247', 'Asst. Manager (FIBC)'),
+(562, 'PGD248', 'Sr. Officer (Accounts & VAT)'),
+(563, 'PGD249', 'Office Asst. (Store)'),
+(564, 'PGD250', 'Asst. Officer (PPFL)'),
+(565, 'PGD251', 'Shift Incharge (Finishing)'),
+(566, 'PGD252', 'Manager (Tea Estate)'),
+(567, 'PGD253', 'Head Office Clerk'),
+(568, 'PGD254', 'Asst. Manager'),
+(569, 'PGD255', 'Factory Clerk'),
+(570, 'PGD256', 'Engineer (Project)'),
+(571, 'PGD257', 'Mananger (Production)'),
+(572, 'PGD258', 'Sub- Asst. Engineer'),
+(573, 'PGD259', 'Officer (Admin)'),
+(574, 'PGD260', 'Asst. Officer (HR& Admin)'),
+(575, 'PGD261', 'Managing Editor (FH)'),
+(576, 'PGD262', 'Asst. Officer (FH)'),
+(577, 'PGD263', 'MD House'),
+(578, 'PGD264', 'Technician- HO'),
+(579, 'PGD265', 'CareTaker (MD House)'),
+(580, 'PGD266', 'Supervisor (Housekeeping)'),
+(581, 'PGD267', 'Manager (Poultry & FF)'),
+(582, 'PGD268', 'Asst. Mgr. (MKtg.)'),
+(583, 'PGD269', 'Regional Sales Mgr.'),
+(584, 'PGD270', 'Officer (Mktg.)'),
+(585, 'PGD271', 'O.A (Deport- Barishal)'),
+(586, 'PGD272', 'A.O (Deport- Mymen.)'),
+(587, 'PGD273', 'O.A (B-Baria- Depot)'),
+(588, 'PGD274', 'Asst. Officer (Depot)'),
+(589, 'PGD275', 'O.A (Depot)'),
+(590, 'PGD276', 'Officer (Mktg)'),
+(591, 'PGD277', 'O. A (Depot)'),
+(592, 'PGD278', 'A.O (Depot)'),
+(593, 'PGD279', 'Asst.Manager (MKT)'),
+(594, 'PGD280', 'Asst. Manager (Mkt.)'),
+(595, 'PGD281', 'Regional Sales Manager'),
+(596, 'PGD282', 'Sr. Officer (Mktg. Zone In.)'),
+(597, 'PGD283', 'Officer (Mktg. Zone Incharge)'),
+(598, 'PGD284', 'Sr. Officer (Marketing)'),
+(599, 'PGD285', 'Asst. Officer (Marketing)'),
+(600, 'PGD286', 'Officer (Marketing)'),
+(601, 'PGD287', 'Asst. Officer (Marketing)'),
+(602, 'PGD288', 'Asst. Officer (Bogra- Depot)'),
+(603, 'PGD289', 'Asst. Sales- (Ctg.- Depot)'),
+(604, 'PGD290', 'Asst. Sales (Sylhet- Depot)'),
+(605, 'PGD291', 'Manager (Aqua feed)'),
+(606, 'PGD292', 'Asst. Manager (TS.)'),
+(607, 'PGD293', 'Sr. Officer (Mkt.)'),
+(608, 'PGD294', 'Officer (Marketing'),
+(609, 'PGD295', 'Asst. Officer (Comilla-Depot)'),
+(610, 'PGD296', 'Asst. Officer (Hazigonj-Depot)'),
+(611, 'PGD297', 'Asst. Officer (Sales & Mktg.)'),
+(612, 'PGD298', 'Asst. Officer (TS- Aqua)'),
+(613, 'PGD299', 'Asst. Manager \n(Marketing Co-ordination)'),
+(614, 'PGD300', 'Asst. Manager (Zone Incharge)'),
+(615, 'PGD301', 'Offcer (TS)'),
+(616, 'PGD302', 'A.O (Mktg.-Fish)'),
+(617, 'PGD303', 'A.O (Mktg.)'),
+(618, 'PGD304', 'Marketing Asst.'),
+(619, 'PGD305', 'A.O (Mktg. Fish)'),
+(620, 'PGD306', 'Asst. Depot (Cox Bazar)'),
+(621, 'PGD307', 'Asst. Officer (Depot-Comilla)'),
+(622, 'PGD308', 'Office Assistant (Depot)'),
+(623, 'PGD309', 'Vehicle'),
+(624, 'PGD310', 'Chief Coordinator'),
+(625, 'PGD311', 'Stock');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_doctype`
+--
+
+CREATE TABLE `sma_doctype` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_doctype`
+--
+
+INSERT INTO `sma_doctype` (`id`, `name`, `description`) VALUES
+(68, 'Trade License', 'Trade License'),
+(69, 'Environment Certificate', 'Environment Certificate');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_documents`
+--
+
+CREATE TABLE `sma_documents` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `reference_no` varchar(100) DEFAULT NULL,
+  `company_id` int(11) NOT NULL,
+  `status_id` varchar(150) NOT NULL,
+  `doctype_id` varchar(100) NOT NULL,
+  `other_info` varchar(500) DEFAULT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `attachment_name` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_documents`
+--
+
+INSERT INTO `sma_documents` (`id`, `name`, `reference_no`, `company_id`, `status_id`, `doctype_id`, `other_info`, `created_by`, `url`, `created_date`, `attachment_name`) VALUES
+(2317, 'gsdgs', 'dgdsgds', 14, 'updated', '69', '', 3, 'assets/uploads/document/Bistro_New_Menu.pdf', '2018-11-14 06:15:04', 'Bistro_New_Menu.pdf'),
+(2318, 'vvcncbxbx xbsb xbhdbs', 'RQ-0001', 16, 'new', '69', 'other_info', 3, NULL, '2018-11-14 04:10:46', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_document_movement`
+--
+
+CREATE TABLE `sma_document_movement` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `reference_no` varchar(200) DEFAULT NULL,
+  `document_id` int(11) NOT NULL,
+  `application_type` varchar(200) NOT NULL,
+  `responsible_person` varchar(200) NOT NULL,
+  `processing_fees` varchar(13) DEFAULT NULL,
+  `notification_date` date NOT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `expire_date` date NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_date` date DEFAULT NULL,
+  `other_info` varchar(500) DEFAULT NULL,
+  `attachment_name` varchar(500) DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_employees`
+--
+
+CREATE TABLE `sma_employees` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `employee_id` varchar(100) NOT NULL,
+  `designation_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `operator_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `mobile_number` varchar(13) NOT NULL,
+  `ceiling_amount` varchar(100) NOT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_date` date DEFAULT NULL,
+  `service_start_date` date DEFAULT NULL,
+  `active` tinyint(1) DEFAULT '1',
+  `email` varchar(50) DEFAULT NULL,
+  `credit_limit` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_employees`
+--
+
+INSERT INTO `sma_employees` (`id`, `employee_id`, `designation_id`, `company_id`, `operator_id`, `package_id`, `mobile_number`, `ceiling_amount`, `created_by`, `name`, `created_date`, `updated_by`, `updated_date`, `service_start_date`, `active`, `email`, `credit_limit`) VALUES
+(20, 'PG000129', 577, 11, 65, 13, '1711526902', '10000', NULL, 'Moshiur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '20000'),
+(22, 'PG000129 (2)', 626, 11, 66, 13, '1841526902', '1000', NULL, 'Moshiur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(23, 'PG000129 (3)', 626, 11, 66, 13, '1844221350', '1000', NULL, 'Moshiur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(24, 'PG000128', 627, 11, 65, 13, '1711535642', '2500', NULL, 'Yasmin Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '5000'),
+(25, 'PG000272', 624, 11, 65, 13, '1711561199', '5000', NULL, 'Manzoor Elahi', NULL, NULL, NULL, '2017-01-01', 1, NULL, '10000'),
+(26, 'PG000200', 627, 11, 65, 13, '1711526219', '2500', NULL, 'Mehran Rahman', NULL, NULL, NULL, '2017-01-01', 1, NULL, '5000'),
+(31, 'PPL (FD)- 07', 577, 11, 65, 13, '1713361924', '2000', NULL, 'Maliha Rahman', NULL, NULL, NULL, '2018-01-01', 1, 'maliha@paragon.com.bd', '4000'),
+(33, 'PG000120', 316, 11, 65, 13, '1711825538', '2000', NULL, 'Sarwar Hossain Shaheen', NULL, NULL, NULL, '1969-12-31', 1, 'shaheen@paragon.com.bd', '4000'),
+(34, 'PG000032', 317, 11, 65, 13, '1713361902', '2000', NULL, 'Mohammad Atiqur Rahman', NULL, NULL, NULL, '1969-12-31', 1, 'atiq@paragongroup-bd.com', '4000'),
+(35, 'PG000032 (2)', 317, 11, 65, 13, '1841361902', '2000', NULL, 'Mohammad Atiqur Rahman', NULL, NULL, NULL, '1969-12-31', 1, 'atiq@paragon.com.bd', '4000'),
+(38, 'PG000097 (1)', 319, 11, 64, 13, '1926673922', '2000', NULL, 'Shymol Chakraborty', NULL, NULL, NULL, '1969-12-31', 1, 'Shymol@paragon.com.bd', '4000'),
+(40, 'PG000097 (2)', 319, 11, 65, 13, '1711679056', '2000', NULL, 'Shymol Chakraborty', NULL, NULL, NULL, '1969-12-31', 1, 'Shay@paragon.com.bd', '4000'),
+(41, 'PG000098', 497, 11, 65, 13, '1713361917', '1000', NULL, 'Bepen Chandray Ray', NULL, NULL, NULL, '1969-12-31', 1, 'bepen@paragon.com.bd', '2000'),
+(46, 'PG000413', 321, 11, 65, 13, '1844221351', '1000', NULL, 'Md. Selim Reza', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(47, 'PPLF000001', 322, 11, 65, 13, '1713361937', '2000', NULL, 'Mrinal Kati Deb', NULL, NULL, NULL, '0000-00-00', 1, 'Mrinal@paragon.com.bd', '4000'),
+(49, 'PG000259', 323, 11, 65, 13, '1711630516', '1800', NULL, 'Sohelur Rahman', NULL, NULL, NULL, '0000-00-00', 1, 'sohel@paragon.com.bd', '3600'),
+(53, 'PPLF000071', 324, 11, 65, 13, '1904118555', '800', NULL, 'Md. Mostafa', NULL, NULL, NULL, '0000-00-00', 1, 'mostafa@paragon.com.bd', '1600'),
+(58, 'PG000040', 410, 11, 65, 13, '1713361935', '600', NULL, 'Murshed Ahamed', NULL, NULL, NULL, '0000-00-00', 1, 'murshed@paragon.com.bd', '1200'),
+(61, 'PG000064', 427, 11, 65, 13, '1708465389', '300', NULL, 'Shohidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(62, 'PPLF000002', 410, 11, 65, 13, '1729061543', '500', NULL, 'Md. Rafiqul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(63, 'PPLF000003', 325, 11, 65, 13, '1730020079', '300', NULL, 'Sukanta Biswas', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(64, 'PPLF000013', 427, 11, 64, 13, '1914203678', '300', NULL, 'Wakil Ahmed', NULL, NULL, NULL, '0000-00-00', 1, 'wakil@paragon.com.bd', '600'),
+(65, 'PG000271', 326, 11, 65, 13, '1718146115', '500', NULL, 'Dr. Al Beruni Khan', NULL, NULL, NULL, '0000-00-00', 1, 'alberunikhan@agmail.com', '1000'),
+(66, 'CFL000030', 327, 11, 66, 13, '1844142356', '300', NULL, 'Nazim Uddin', NULL, NULL, NULL, '0000-00-00', 1, 'nazim@paragon.com.bd', '600'),
+(67, 'PG000099', 479, 11, 65, 13, '1713361901', '1700', NULL, 'Sakhawat Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'saki@paragon.com.bd', '3400'),
+(68, 'CFL000006', 329, 11, 65, 13, '1713361928', '1000', NULL, 'Md. Asaduzzaman', NULL, NULL, NULL, '0000-00-00', 1, 'asaduzzaman@pargaon.com.bd', '2000'),
+(69, 'PG000023', 373, 11, 64, 13, '1926673959', '600', NULL, 'Md. Jakir Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'jakir@paragon.com.bd', '1200'),
+(70, 'PG000086', 332, 11, 65, 13, '1713361990', '1000', NULL, 'SKD Sushanta', NULL, NULL, NULL, '0000-00-00', 1, 'shusanta@paragon.com.bd', '2000'),
+(71, 'PG000006', 333, 11, 65, 13, '1713361987', '800', NULL, 'Suvonkar Majumdar', NULL, NULL, NULL, '0000-00-00', 1, 'suvonkar@paragon.com.bd', '1600'),
+(72, 'PG000008', 373, 11, 65, 13, '1713361926', '600', NULL, 'Yousuf Ali', NULL, NULL, NULL, '0000-00-00', 1, 'yousuf@paragon.com.bd', '1200'),
+(73, 'PG000014', 334, 11, 65, 13, '1713361920', '900', NULL, 'Abu Hanif Khan', NULL, NULL, NULL, '0000-00-00', 1, 'hanif@paragon.com.bd', '1800'),
+(74, 'JFL000010', 335, 11, 65, 13, '1713361931', '500', NULL, 'Ripon Kumar Das', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(75, 'PPLF000009', 373, 11, 64, 13, '1926673901', '300', NULL, 'Md. Wahab Howlader', NULL, NULL, NULL, '0000-00-00', 1, 'wahab@paragon.com.bd', '600'),
+(78, 'PPLF000008', 336, 11, 65, 13, '1713361939', '500', NULL, 'Rafiqul Islam Dhalli', NULL, NULL, NULL, '0000-00-00', 1, 'rafiqul.pplfd@paragon.com.bd', '1000'),
+(79, 'PPLF000014', 369, 11, 64, 13, '1907488019', '500', NULL, 'Akkas Ali', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(80, 'PG000016', 333, 11, 65, 13, '1713361988', '500', NULL, 'Shanaj Sultana', NULL, NULL, NULL, '0000-00-00', 1, 'shanaj@paragon.com.bd', '1000'),
+(81, 'PPLF000032', 337, 11, 66, 13, '1844142387', '300', NULL, 'Md. Helal Uddin', NULL, NULL, NULL, '0000-00-00', 1, 'helal@paragon.com.bd', '600'),
+(82, 'PPLF000021', 338, 11, 66, 13, '1844160406', '300', NULL, 'Md. Tuhin Islam', NULL, NULL, NULL, '0000-00-00', 1, 'tuhin@paragon.com.bd', '600'),
+(83, 'PG000105', 339, 11, 64, 13, '1926673944', '500', NULL, 'Julfiker Haider', NULL, NULL, NULL, '0000-00-00', 1, 'julfiker@paragon.com.bd', '1000'),
+(84, 'PPLF000050', 339, 11, 64, 13, '1904118553', '300', NULL, 'Md. Asif Iqbal', NULL, NULL, NULL, '0000-00-00', 1, 'asif@paragon.com.bd', '600'),
+(85, 'PPLF000029', 340, 11, 64, 13, '1904118554', '300', NULL, 'Md. Aminul Islam', NULL, NULL, NULL, '0000-00-00', 1, 'aminul@paragon.com.bd', '600'),
+(86, 'PG000376', 338, 11, 64, 13, '1944466246', '500', NULL, 'Md. Gias Uddin', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(87, 'PG000421', 342, 11, 66, 13, '1847324157', '900', NULL, 'T.M. Ashiqur Rahman', NULL, NULL, NULL, '0000-00-00', 1, 'ashiqur@paragon.com.bd', '1800'),
+(88, 'PG000393', 343, 11, 64, 13, '1944466243', '500', NULL, 'Md. Maniruzzaman', NULL, NULL, NULL, '0000-00-00', 1, 'Maniruzzaman@paragon.com.bd', '1000'),
+(89, 'PPLF000062', 344, 14, 64, 13, '1904118559', '300', NULL, 'Md. Mehede Hasan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(90, 'PG000090', 345, 11, 64, 13, '1944466231', '300', NULL, 'Md. Azhar Ali Khan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(91, 'PPLF000011', 504, 11, 65, 13, '1711621198', '2000', NULL, 'Afjal Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'afjal@paragon.com.bd', '4000'),
+(92, 'PPLF000017', 336, 11, 64, 13, '1904118550', '300', NULL, 'Md. Abbas Uddin', NULL, NULL, NULL, '0000-00-00', 1, ' Abbas@paragon.com.bd', '600'),
+(93, 'PPLF000015', 336, 11, 64, 13, '1904118551', '300', NULL, 'Habibur Rahman Dewan', NULL, NULL, NULL, '0000-00-00', 1, 'Habibur@paragon.com.bd', '600'),
+(94, 'CFL000034', 348, 11, 66, 13, '1847324170', '300', NULL, 'Bashirul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(95, 'PG000541', 349, 11, 65, 13, '1711630519', '300', NULL, 'Md. Asaduzzaman', NULL, NULL, NULL, '0000-00-00', 1, 'Asaduzzaman@paragon.com.bd', '600'),
+(96, 'PPLF000019', 350, 11, 66, 13, '1844142355', '1300', NULL, 'Ful Mia Sarker', NULL, NULL, NULL, '0000-00-00', 1, 'Ful@paragon.com.bd', '2600'),
+(97, 'PG000218', 353, 11, 64, 13, '1907488013', '200', NULL, 'Md. Sohrab Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(98, 'PG000229', 353, 11, 64, 13, '1907488014', '200', NULL, 'Biplob Prodhan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(100, 'PG000225', 353, 11, 64, 13, '1907488015', '200', NULL, 'Mohammad Hanif', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(101, 'PG000095', 354, 11, 65, 15, '1770973165', '100', NULL, 'Bahauddin Ahmed', NULL, NULL, NULL, '0000-00-00', 1, 'Bahauddin', '200'),
+(102, 'PG000054', 353, 11, 64, 13, '1907488002', '300', NULL, 'Md. Akhter Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(103, 'PG000044', 355, 11, 65, 15, '1775558929', '100', NULL, 'Md. Anis', NULL, NULL, NULL, '0000-00-00', 1, 'aniscook@paragon.com.bd', '200'),
+(104, 'PS000015', 526, 11, 65, 15, '1759567170', '200', NULL, 'Md. Altab Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(105, 'PG000227', 526, 11, 65, 15, '1794313862', '400', NULL, 'Md. Jahirul Islam', NULL, NULL, NULL, '0000-00-00', 1, 'Jahirulsecurity@paragon.com.bd', '800'),
+(106, 'PG000096', 362, 12, 65, 13, '1713015405', '5000', NULL, 'Shohel Ibne Sattar', NULL, NULL, NULL, '0000-00-00', 1, 'shohelsattar@paragongroup-bd.com', '10000'),
+(107, 'PG000096 (2)', 362, 12, 65, 13, '1711679055', '60', NULL, 'Shohel Ibne Sattar', NULL, NULL, NULL, '0000-00-00', 1, 'shohelsattar@paragon.com.bd', '120'),
+(108, 'PG000142', 364, 12, 65, 13, '1713361945', '2000', NULL, 'Mohammad Abdul Karim Sarker', NULL, NULL, NULL, '0000-00-00', 1, 'karim@paragon.com.bd', '4000'),
+(109, 'PG000066', 365, 12, 65, 13, '1713361904', '3000', NULL, 'Gowtom Chandra Mazumder', NULL, NULL, NULL, '0000-00-00', 1, 'gautom@paragongroup-bd.co m', '6000'),
+(110, 'PG000230', 366, 12, 66, 13, '1844142391', '900', NULL, 'Md. Mizanur Rahman', NULL, NULL, NULL, '0000-00-00', 1, 'mizanur@paragon.com.bd', '1800'),
+(111, 'PG000010', 367, 12, 65, 13, '1713361911', '1000', NULL, 'Sahadat Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'shahadat@paragon.com.bd', '2000'),
+(112, 'PG000033', 368, 12, 65, 13, '1713361925', '1000', NULL, 'Rayhan Kabir', NULL, NULL, NULL, '0000-00-00', 1, 'Rayhan@paragon.com.bd', '2000'),
+(113, 'PG000034', 369, 12, 66, 13, '1844142378', '300', NULL, 'A.K.M Mir Jumla', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(114, 'PG0000034', 370, 12, 65, 13, '1713361912', '700', NULL, 'Abhijeet Barua', NULL, NULL, NULL, '0000-00-00', 1, 'abhijeet@paragon.com.bd', '1400'),
+(115, 'PG000067', 371, 12, 66, 13, '1844142377', '1500', NULL, 'Akber Kabir Jony', NULL, NULL, NULL, '0000-00-00', 1, 'akber@paragon.com.bd', '3000'),
+(117, 'DPC000010', 372, 12, 65, 13, '1729061502', '500', NULL, 'Md. Harun-or-Rashid', NULL, NULL, NULL, '0000-00-00', 1, 'harndpc@paragon.com.bd', '1000'),
+(118, 'PG000026', 373, 12, 64, 13, '1926673951', '800', NULL, 'Rubel Saha', NULL, NULL, NULL, '0000-00-00', 1, 'rubel@paragon.com.bd', '1600'),
+(119, 'PG000015', 349, 12, 64, 13, '1926673953', '500', NULL, 'Mithun Kumer Shaha', NULL, NULL, NULL, '0000-00-00', 1, 'mithun@paragon.com.bd', '1000'),
+(120, 'PG000133', 524, 12, 66, 13, '1844142390', '750', NULL, 'Asfakul Arefin', NULL, NULL, NULL, '0000-00-00', 1, 'asfakul@paragon.com.bd', '1500'),
+(121, 'PG000072', 544, 12, 66, 13, '1844142357', '700', NULL, 'Amit Kumar', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1400'),
+(122, 'PG000042', 375, 12, 66, 13, '1844142358', '500', NULL, 'Abdus Samad Morull', NULL, NULL, NULL, '0000-00-00', 1, 'samad@paragon.com.bd', '1000'),
+(123, 'PFL000005', 339, 12, 65, 13, '1713245352', '300', NULL, 'Md. Mahamudunobi', NULL, NULL, NULL, '1969-12-31', 0, NULL, '600'),
+(124, 'PFL000027', 327, 12, 65, 13, '1729061498', '500', NULL, 'Md. Imran Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'imran@paragon.com.bd', '1000'),
+(125, 'PFL000003', 393, 13, 65, 13, '1713361944', '900', NULL, 'Tapan Kumer Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(126, 'PFL000001', 379, 12, 65, 13, '1713361986', '600', NULL, 'Md. Mosharraf Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'mosharraf@paragon.com.bd', '1200'),
+(127, 'PG000335', 636, 21, 64, 13, '1944466239', '300', NULL, 'Md. Rejaul Karim', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(131, 'PFL000006', 444, 12, 64, 13, '1926673902', '500', NULL, 'Mohammad Golam Kader', NULL, NULL, NULL, '0000-00-00', 1, 'golam@paragon.com.bd', '1000'),
+(132, 'PFL000004', 336, 12, 65, 13, '1729061535', '500', NULL, 'Nur Muhammad', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(133, 'PG000280', 354, 12, 65, 15, '1727777755', '100', NULL, 'Pronab Sangma', NULL, NULL, NULL, '0000-00-00', 1, 'pronob@paragon.com.bd', '200'),
+(134, 'PG000181', 354, 12, 65, 15, '1754753376', '100', NULL, 'Md. Fakrul Islam Shanto', NULL, NULL, NULL, '0000-00-00', 1, 'shanto@paragon.com.bd', '200'),
+(135, 'PG000091', 383, 12, 64, 15, '1996203305', '100', NULL, 'Md. Arman Ali', NULL, NULL, NULL, '0000-00-00', 1, 'arman@paragon.com.bd', '200'),
+(137, 'PG000093', 383, 12, 64, 15, '1792116241', '100', NULL, 'Rubel Islam', NULL, NULL, NULL, '0000-00-00', 1, 'rubelcleaner@paragon.com.bd', '200'),
+(138, 'PG000092', 383, 12, 66, 15, '1625047298', '100', NULL, 'Mustafa Mia', NULL, NULL, NULL, '0000-00-00', 1, 'mustafa@paragon.com.bd', '200'),
+(140, 'MDHOUSE 0001', 383, 12, 65, 15, '1777263028', '100', NULL, 'Rejaul Karim, MD House', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(142, 'PG000294', 383, 12, 64, 15, '1930463649', '100', NULL, 'Babul Sheikh', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(143, 'PG000053', 353, 12, 64, 13, '1926673913', '150', NULL, 'Md. Emdadul Hoque', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(144, 'PG000328', 353, 12, 64, 13, '1907488005', '150', NULL, 'Aynal Hoque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(145, 'PS000006', 476, 12, 65, 15, '1727142181', '200', NULL, 'Khalilur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(146, 'PG000081', 384, 13, 65, 13, '1713245355', '1500', NULL, 'Major M Bazlul Karim (Retd)', NULL, NULL, NULL, '0000-00-00', 1, 'bazlul.karim@paragongroup-bd.com', '3000'),
+(147, 'PG000060', 385, 13, 65, 13, '1713361930', '1000', NULL, 'Sirajul Majid Mamun', NULL, NULL, NULL, '0000-00-00', 1, 'mamum@paragongroup-bd.com', '2000'),
+(149, 'CFL000001', 512, 13, 65, 13, '1713361951', '1200', NULL, 'Mrinal Chakrabartty', NULL, NULL, NULL, '0000-00-00', 1, 'manager.cfl@paragongroup-bd.com', '2400'),
+(150, 'CFL Feed Sales', 388, 13, 65, 13, '1713361952', '900', NULL, 'Feed Sales Number', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(151, 'PG000083', 389, 13, 65, 13, '1713361906', '600', NULL, 'Husne Jahan Arzu', NULL, NULL, NULL, '0000-00-00', 1, 'arzu@paragon.com.bd', '1200'),
+(152, 'PG000256', 337, 13, 65, 13, '1713361932', '700', NULL, 'Shazzad Hossain', NULL, NULL, NULL, '0000-00-00', 1, 'shajjad@paragon.com.bd', '1400'),
+(153, 'PG000138', 337, 13, 66, 13, '1844142392', '600', NULL, 'Ali Imam', NULL, NULL, NULL, '0000-00-00', 1, 'ali@paragon.com.bd', '1200'),
+(154, 'PG000085', 331, 13, 65, 13, '1713361938', '1000', NULL, 'Farid Ahmed', NULL, NULL, NULL, '0000-00-00', 1, 'farid@paragon.com.bd', '2000'),
+(155, 'PG000137', 392, 13, 64, 13, '1926673956', '500', NULL, 'Sujit Chandra Roy', NULL, NULL, NULL, '0000-00-00', 1, 'sujit@paragon.com.bd', '1000'),
+(156, 'PG000019', 333, 13, 64, 13, '1926673957', '500', NULL, 'Mohammed Arif Salauddin', NULL, NULL, NULL, '0000-00-00', 1, 'arif@paragon.com.bd', '1000'),
+(157, 'PG000025', 333, 13, 65, 13, '1708465385', '800', NULL, 'Riaz Md. Ariful Islam', NULL, NULL, NULL, '0000-00-00', 1, 'riaz@paragon.com.bd', '1600'),
+(158, 'PG000488', 417, 13, 66, 13, '1847324155', '300', NULL, 'Md. Jahidul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(159, 'CFL000026', 333, 13, 64, 13, '1926673904', '300', NULL, 'Md. Miraz Uddin', NULL, NULL, NULL, '0000-00-00', 1, 'miraz@paragon.com.bd', '600'),
+(160, 'PG000068', 447, 13, 64, 13, '1926673903', '1000', NULL, 'Al Mamunur Rashid', NULL, NULL, NULL, '0000-00-00', 1, 'almamun@paragon.com.bd', '2000'),
+(161, 'PG000041', 544, 13, 66, 13, '1844142359', '500', NULL, 'Md. Farid Ahmed Mridha', NULL, NULL, NULL, '0000-00-00', 1, 'farid@pargon.com.bd', '1000'),
+(162, 'CFL000007', 396, 13, 66, 13, '1844160412', '300', NULL, 'Md. Shahabuddin', NULL, NULL, NULL, '0000-00-00', 1, 'Shahabuddin@paragon.com.bd', '600'),
+(163, 'CFL000027', 340, 13, 65, 13, '1713245354', '300', NULL, 'Nayeem Md. Sibgatullah', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(164, 'PG000059', 353, 13, 64, 13, '1907488006', '150', NULL, 'Md. Jalil', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(166, 'CFL000014', 336, 32, 65, 13, '1729061536', '300', NULL, 'Mohammad Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(167, 'PG000057', 353, 13, 64, 13, '1907488007', '150', NULL, 'Md. Anwar Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(168, 'PG000182', 353, 13, 64, 13, '1907488008', '200', NULL, 'Abdul Aziz Howlader', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(169, 'CFL000012', 399, 13, 65, 13, '1729061537', '300', NULL, 'Md. Emnanur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(170, 'CFL000028', 399, 13, 65, 13, '1729061538', '200', NULL, 'Md. Abdul Mazid', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(171, 'PG000363', 383, 12, 64, 15, '1954763108', '100', NULL, 'Md. Riaz Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(172, 'PG000003', 400, 14, 65, 13, '1711824478', '1500', NULL, 'Md. Atiar Rahaman Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(173, 'PG000002', 401, 14, 65, 13, '1711806547', '1500', NULL, 'S.M. Salim Raza', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(174, 'JFL000001', 322, 12, 65, 13, '1713361947', '1000', NULL, 'Kamal Ahmed', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(175, 'PG000420', 402, 14, 65, 13, '1729061501', '300', NULL, 'Mohammad Jahir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(176, 'PG000109', 403, 14, 65, 13, '1713245351', '500', NULL, 'Shamol Kumar Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(177, 'JFL000042', 404, 14, 64, 13, '1944466240', '1000', NULL, 'MD GOLAM RABBANI', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(178, 'PG000061', 405, 14, 66, 13, '1844142361', '300', NULL, 'Md. Akhtarul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(179, 'PG000005', 330, 14, 64, 13, '1926673905', '800', NULL, 'Md. Abdul Hye', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(180, 'PG000196', 406, 14, 64, 13, '1926673958', '500', NULL, 'Mohammad Dipu Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(181, 'PG000394', 407, 14, 65, 13, '1729061513', '500', NULL, 'Shyam Sundar Achergee', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(182, 'PG000087', 332, 14, 65, 13, '1713361903', '700', NULL, 'Md. Samsul Arefin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1400'),
+(183, 'PG000022', 333, 14, 65, 13, '1713361910', '600', NULL, 'Jahanara Akter', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(184, 'JFL000017', 376, 14, 64, 13, '1926673909', '600', NULL, 'Rashidul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(185, 'JFL000002', 336, 14, 65, 13, '1729061539', '500', NULL, 'Md. Waheduzzaman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(186, 'PG000069', 395, 14, 66, 13, '1844142362', '1100', NULL, 'Zulfiker Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2200'),
+(187, 'PG000257', 337, 14, 66, 13, '1844160405', '500', NULL, 'Tahmid Jarif', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(188, 'PG000172', 396, 14, 64, 13, '1944466238', '500', NULL, 'Md. Delwar Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(189, 'JFL000016', 410, 14, 66, 13, '1847324168', '600', NULL, 'Md. Azizul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(190, 'PG000065', 335, 14, 64, 13, '1926673906', '300', NULL, 'Md. Mujahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(191, 'JFL000018', 413, 14, 64, 13, '1926673908', '500', NULL, 'Sakhawat Hosen', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(192, 'JFL000029', 338, 14, 64, 13, '1926673907', '500', NULL, 'Md. Al Amin Khandokar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(193, 'PG000516', 415, 32, 66, 13, '1844221363', '300', NULL, 'Md. Saddam Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(194, 'PG000515', 342, 32, 66, 13, '1847293208', '900', NULL, 'Raihan Mahmud', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(195, 'PG000507', 342, 32, 66, 13, '1847293207', '900', NULL, 'Md. Arifin Chowdhury', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(196, 'PG000430', 415, 32, 66, 13, '1847284920', '300', NULL, 'Md. Rubel Rana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(197, 'PG000533', 415, 32, 66, 13, '1844221355', '900', NULL, 'Uzzal Sarder', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(198, 'PG000508', 588, 14, 66, 13, '1847293204', '300', NULL, 'Shahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(199, 'PG000498', 599, 32, 66, 13, '1847293202', '900', NULL, 'Syed Shahanewaz Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(200, 'PG000530', 588, 32, 66, 13, '1847284921', '300', NULL, 'Md. Nibir Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(201, 'PG000532', 588, 32, 66, 13, '1847284913', '300', NULL, 'Md. Rakib Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(202, 'PG000537', 621, 32, 66, 13, '1847293200', '300', NULL, 'Samsur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(203, 'PG000534', 419, 32, 66, 13, '1847284911', '900', NULL, 'Md. Nazrul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(204, 'PG000497', 419, 32, 66, 13, '1844160448', '900', NULL, 'Dr. Kamalesh Bepray', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(205, 'PG000418', 620, 32, 66, 13, '1844160447', '300', NULL, 'Mofazzal Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(206, 'PG000502', 417, 32, 66, 13, '1844160446', '900', NULL, 'Md. Rabiul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(207, 'PG000495', 618, 32, 66, 13, '1844160445', '900', NULL, 'Foysal Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(208, 'PG000538', 342, 32, 66, 13, '1844160443', '900', NULL, 'Drubo Kumar Ghosh', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(209, 'PG000505', 419, 32, 66, 13, '1844160423', '900', NULL, 'Md. Ashique Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(210, 'PG000416', 415, 14, 66, 13, '1847324156', '300', NULL, 'Md.Shuvo Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(211, 'PG000540', 419, 32, 66, 13, '1844160422', '900', NULL, 'Md. Abdullah Al Shaber', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(212, 'PG000503', 419, 32, 66, 13, '1844160421', '900', NULL, 'Md. Nazrul Islam Abir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(213, 'PG000550', 419, 32, 66, 13, '1844160420', '900', NULL, 'Md. Mosharaf Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(214, 'PG000612', 342, 14, 66, 13, '1844160419', '900', NULL, 'Zihad Akbar', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(215, 'PG000485', 416, 14, 66, 13, '1844142305', '300', NULL, 'Md. Hasan Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(216, 'PG000525', 419, 32, 66, 13, '1844160418', '900', NULL, 'Md. Murshed Munna', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(217, 'PG000518', 417, 14, 66, 13, '1844142346', '900', NULL, 'Md. Rifaz Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(218, 'PG000542', 418, 14, 66, 13, '1847324160', '900', NULL, 'A.M.M Borhan Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(219, 'PG000543', 419, 14, 66, 13, '1847324159', '900', NULL, 'Sajal Chandra Shil', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(220, 'PG000147', 598, 16, 66, 13, '1844142315', '1000', NULL, 'Md. Sanwar Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(221, 'PG000451', 551, 16, 66, 13, '1844142310', '1200', NULL, 'Md. Mustafizur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(222, 'JFL000004', 388, 14, 65, 13, '1713361948', '1200', NULL, 'Khan Tarek Mahmud', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(223, 'PG000417', 415, 14, 66, 13, '1847284915', '300', NULL, 'Anwar Shikdar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(224, 'JFL000048', 327, 14, 65, 13, '1729061499', '300', NULL, 'Arifujjaman Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(225, 'PG000414', 415, 14, 66, 13, '1844221362', '300', NULL, 'Md. Liton Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(226, 'Unknown22', 612, 11, 66, 13, '1844221366', '900', NULL, 'Md. Hashem Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(227, 'PG000427', 419, 14, 66, 13, '1844221365', '900', NULL, 'Rifatul Erfan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(228, 'PG000236', 353, 14, 64, 13, '1907488003', '200', NULL, 'Md. Shah Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(229, 'PG000226', 353, 14, 64, 13, '1907488009', '200', NULL, 'Md. Bashar Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(230, 'PG000058', 353, 14, 64, 13, '1907488010', '150', NULL, 'Md. Rafik', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(231, 'PPLH000001', 421, 16, 65, 13, '1714056622', '2500', NULL, 'A.K.M Habibur Rahman (Biplob)', NULL, NULL, NULL, '0000-00-00', 1, NULL, '5000'),
+(232, 'PG000082', 422, 16, 65, 13, '1713361946', '1500', NULL, 'Mohammad Tuhirul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(233, 'PPLH000004', 423, 16, 64, 13, '1926673964', '500', NULL, 'Khairuzzaman Shameem', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(234, 'PPLH000029', 424, 42, 64, 13, '1926673965', '600', NULL, 'Hamim Uddin', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(235, 'PG000426', 419, 14, 66, 13, '1844221364', '900', NULL, 'Kanak Chandra Rudra', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(236, 'PG000009', 425, 16, 65, 13, '1713361907', '1000', NULL, 'Prosengit Saha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(237, 'PPLH000019', 410, 16, 64, 13, '1926673950', '300', NULL, 'Md. Mynul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(238, 'PG000511', 417, 14, 66, 13, '1844142383', '900', NULL, 'Md. Rashed Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(239, 'PG000513', 416, 14, 66, 13, '1847293213', '900', NULL, 'Azizul Hakum Sohel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(240, 'PG000547', 342, 14, 66, 13, '1844160433', '900', NULL, 'Md. Kamruzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(241, 'PG000459', 342, 14, 66, 13, '1844160430', '900', NULL, 'Md. Zakir Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(242, 'PG000212', 611, 14, 64, 13, '1944466244', '1000', NULL, 'Md. Samsul Alam Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(243, 'PG000548', 588, 14, 66, 13, '1844142399', '300', NULL, 'Md. Ashraful Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(244, 'PPLC000023', 426, 16, 65, 13, '1729061503', '300', NULL, 'Md. Jahangir Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(245, 'PPLH000017', 427, 16, 65, 13, '1847324169', '200', NULL, 'Md. Sohel Rana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(246, 'PPLH000003', 427, 16, 64, 13, '1926673966', '400', NULL, 'Mahmudul Haider (Engr.)', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(247, 'PG000490', 417, 14, 66, 13, '1844142398', '300', NULL, 'Swapan Chandra Sarker', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(248, 'PPLH000018', 327, 16, 65, 13, '1713361992', '1600', NULL, 'Majharul Islam (Engr.)', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3200'),
+(249, 'PG000089', 331, 16, 65, 13, '1711824479', '1000', NULL, 'Kabir Uddin Talukdar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(250, 'PG000013', 428, 16, 64, 13, '1926673910', '900', NULL, 'MAM Toriqul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(251, 'PPLH000020', 373, 16, 64, 13, '1926673967', '400', NULL, 'MD. Hasanur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(252, 'PPLH000022', 429, 16, 64, 13, '1926673968', '300', NULL, 'Rupam Kanti Nath', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(253, 'PG000519', 417, 14, 66, 13, '1844142345', '900', NULL, 'Muhammad Mosharaf Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(254, 'PG000462', 342, 14, 66, 13, '1844142340', '900', NULL, 'Md. Mirajul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(255, 'PG000468', 342, 14, 66, 13, '1844142339', '900', NULL, 'Abdullah Al Mamun', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(256, 'PG000467', 342, 14, 66, 13, '1844142338', '900', NULL, 'Monish Choudhury', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(257, 'PG000461', 417, 14, 66, 13, '1844142325', '900', NULL, 'Shaikh Md. Monirul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(258, 'PG000152', 554, 14, 66, 13, '1844142320', '1000', NULL, 'Md. Rofi Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(259, 'PG000150', 554, 14, 66, 13, '1844142316', '1000', NULL, 'Habibur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(260, 'PG000149', 598, 14, 66, 13, '1844142314', '1000', NULL, 'Md. Joynal Abedin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(261, 'PG000158', 606, 14, 66, 13, '1844142309', '1200', NULL, 'Mainul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(262, 'PG000398', 605, 14, 66, 13, '1844142302', '1500', NULL, 'Md. Ismail Hossain Bhuiyian', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(263, 'PG000501', 342, 13, 66, 13, '1844142333', '900', NULL, 'Md. Ariful Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(264, 'PG000499', 342, 13, 66, 13, '1847293201', '900', NULL, 'Pulak Chakraborty', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(265, 'PG000531', 588, 13, 66, 13, '1847284922', '900', NULL, 'Md. Nur Alom Kobir Mondol', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(266, 'PG000545', 599, 13, 66, 13, '1844160432', '900', NULL, 'Md. Razu Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(267, 'PG000474', 342, 13, 66, 13, '1844160437', '900', NULL, 'Md. Abul Kalam Azad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(268, 'PG000478', 599, 13, 66, 13, '1844160436', '900', NULL, 'Md. Tofazzael Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(269, 'PG000460', 419, 13, 66, 13, '1844160427', '900', NULL, 'Md. Firoj Mahmud', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(270, 'PG000535', 588, 13, 66, 13, '1847284919', '300', NULL, 'Kamrul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(271, 'PG000471', 603, 13, 66, 13, '1844142360', '800', NULL, 'Naruzzaman Dhali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(272, 'PG000457', 602, 13, 66, 13, '1844142397', '300', NULL, 'Md. Abu Basar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(273, 'PG000464', 342, 13, 66, 13, '1844142343', '900', NULL, 'Md. Mofazzel Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(274, 'PG000255', 430, 16, 64, 13, '1944466229', '1000', NULL, 'Dr. Nawroj Mehadi', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(275, 'PG000070', 395, 16, 64, 13, '1926673963', '1000', NULL, 'Razu Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(276, 'PG000029', 431, 16, 64, 13, '1926673952', '500', NULL, 'Md. Mahbub Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(277, 'PPLH000042', 337, 16, 64, 13, '1944466232', '300', NULL, 'Saiful Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(278, 'PPLH000023', 432, 16, 65, 15, '1718526325', '400', NULL, 'Moniruzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(279, 'PPLH000009', 433, 16, 65, 13, '1729061545', '200', NULL, 'D.M Jahirul islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(280, 'PG000121', 434, 16, 64, 13, '1944466226', '300', NULL, 'Md. Borhan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(281, 'PG000049', 436, 16, 65, 13, '1711630526', '300', NULL, 'Delwar Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(282, 'PG000050', 436, 16, 64, 13, '1907488011', '500', NULL, 'Md. Humayun Kabir', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(283, 'PG000055', 353, 16, 64, 13, '1907488012', '150', NULL, 'Md. Bashir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(284, 'PG000045', 434, 16, 64, 13, '1933002261', '200', NULL, 'Md. Firoz Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(285, 'PG000170', 584, 13, 66, 13, '1844142329', '900', NULL, 'Taiful Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(286, 'PG000469', 554, 13, 66, 13, '1844142323', '1000', NULL, 'Kamruzzaman Mukul', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(287, 'PG000500', 342, 12, 66, 13, '1847293203', '900', NULL, 'Md. Rashed Mahmud', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(288, 'PG000529', 415, 12, 66, 13, '1847284923', '300', NULL, 'Rubel Khandokar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(289, 'PG000528', 415, 12, 66, 13, '1847284918', '300', NULL, 'Sabuj Kumar Adhikari', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(290, 'PG000476', 342, 12, 66, 13, '1844160435', '900', NULL, 'Md. Zahir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(291, 'PG000475', 342, 12, 66, 13, '1844160431', '900', NULL, 'Md. Anowar Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(292, 'PG000494', 342, 12, 66, 13, '1844142337', '900', NULL, 'Ariful Hoque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(293, 'PG000456', 584, 12, 66, 13, '1844142324', '900', NULL, 'Md. Shaiful Alam Siddiki', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(294, 'PG000465', 342, 12, 66, 13, '1844142341', '900', NULL, 'Azizur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(295, 'PPL000019', 439, 17, 66, 13, '1847324171', '500', NULL, 'Md. Sohel Rana', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(296, 'PG000373', 440, 17, 64, 13, '1944466241', '300', NULL, 'Tarin Farhana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(297, 'UDF000001', 441, 18, 65, 13, '1708465390', '300', NULL, 'Dr. Md. Mazedul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(298, 'UDF000002', 442, 18, 64, 13, '1944466237', '300', NULL, 'Md. Rajeeb Ali', NULL, NULL, NULL, '0000-00-00', 0, NULL, '600'),
+(299, 'PG000169', 417, 12, 66, 13, '1844142328', '900', NULL, 'Khan Sipan Ibn Siraj', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(300, 'PPLH000036', 444, 19, 64, 13, '1847324167', '600', NULL, 'Huzzatul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(301, 'PPLC000024', 426, 19, 65, 13, '1729061504', '300', NULL, 'Md. Rakibul Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(302, 'HALU000001', 382, 19, 65, 13, '1729061506', '300', NULL, 'Md. Babul Akter', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(303, 'HALU000002', 333, 19, 65, 13, '1729061507', '300', NULL, 'Md. Ashraful Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(304, 'PG000453', 596, 12, 66, 13, '1844142327', '1000', NULL, 'Md. Ashrafuzzaman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(305, 'PG000154', 551, 12, 66, 13, '1844142313', '1200', NULL, 'Biplab Kumar Adhikary', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(306, 'PG000159', 551, 12, 66, 13, '1844142311', '1200', NULL, 'Monjurul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(307, 'HALU000006', 445, 19, 65, 13, '1729061508', '300', NULL, 'Refat Ahamed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(308, 'PG000161', 551, 12, 66, 13, '1844142303', '1200', NULL, 'Bipod Vonjon Biswas', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(309, 'HALU000003', 426, 19, 65, 13, '1729061509', '300', NULL, 'Md. Salekuzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(310, 'PG000388', 448, 20, 64, 13, '1944466242', '300', NULL, 'Md. Towfiqur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(311, 'PG000171', 417, 11, 66, 13, '1844142330', '900', NULL, 'Md. Tofazzel Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(312, 'PG000285', 447, 20, 64, 13, '1926673916', '300', NULL, 'Md. Shibli Sadek', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(313, 'PG000527', 415, 11, 66, 13, '1847284917', '300', NULL, 'Md. Masudur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(314, 'PG000520', 415, 11, 66, 13, '1847284916', '300', NULL, 'Sumon Mia', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(315, 'PG000536', 415, 11, 66, 13, '1847284914', '300', NULL, 'Mohinur Sheikh', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(316, 'PG000450', 449, 21, 66, 13, '1844160401', '300', NULL, 'Nipun Ghagra', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(317, 'PG000450-2', 450, 21, 64, 13, '1928228822', '300', NULL, 'Nipun Ghagra', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(318, 'ABL000006', 451, 22, 65, 13, '1713361909', '600', NULL, 'Ronjit Kumar Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(319, 'PG000445', 452, 22, 64, 13, '1944466225', '1500', NULL, 'Mohammad Wazed Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(320, 'JFL000030', 453, 14, 64, 13, '1933002262', '600', NULL, 'Md. Maynul Islam Khan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(321, 'ABL000001', 454, 22, 65, 13, '1713361916', '600', NULL, 'Md. Sazzad Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(322, 'RFL000001', 542, 36, 65, 13, '1713361936', '900', NULL, 'Md Abdur Razzak', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(323, 'RFL000001-02', 542, 36, 66, 13, '1844221369', '1000', NULL, 'Md Abdur Razzak', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(324, 'MPC000006', 394, 36, 66, 13, '1844142367', '300', NULL, 'Md. Jiaur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(325, 'MPC000002', 394, 36, 66, 13, '1844142369', '300', NULL, 'Md. Mostafizur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(326, 'ABL000002', 455, 22, 65, 13, '1713361913', '600', NULL, 'Dr.Golam Sarower', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(327, 'MPC000005', 338, 36, 66, 13, '1844142370', '500', NULL, 'Md. Abdul Wahab Talukdar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(328, 'ABL000009', 414, 22, 65, 13, '1713361989', '200', NULL, 'Ahad Khandakar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(329, 'MPC000004', 399, 36, 64, 13, '1944466228', '300', NULL, 'Md. Faruk Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(330, 'MPC000007', 546, 36, 64, 13, '1904118557', '300', NULL, 'Md. Lotfor Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(331, 'ABL000004', 410, 22, 65, 13, '1700706607', '200', NULL, 'Md. Mizanur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(332, 'MPC000003', 356, 36, 65, 15, '1729876038', '200', NULL, 'Md. Abul Kashem', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(333, 'ABL000010', 427, 22, 65, 13, '1700706608', '200', NULL, 'Uttam Kumar Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(334, 'ABL000008', 399, 22, 65, 15, '1743392257', '200', NULL, 'Md. Mahfuzar Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(335, 'PG000360', 548, 37, 65, 13, '1713361929', '3000', NULL, 'Aminul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '6000'),
+(336, 'CCL000001', 426, 23, 65, 13, '1713361941', '800', NULL, 'Abdul Matin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(337, 'PG000348', 549, 37, 65, 13, '1713361908', '1000', NULL, 'Md. Iqbal Hossen', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(338, 'PPLH000035', 426, 23, 64, 13, '1926673925', '300', NULL, 'Muhammad Mahfuz', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(339, 'CCL000002', 469, 23, 64, 13, '1926673924', '300', NULL, 'Md. Zahid Hossain    ', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(340, 'CCL000015', 460, 23, 66, 13, '1841361952', '300', NULL, 'Md. Abdus Salam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(341, 'DPC000001', 461, 24, 65, 13, '1713361918', '1000', NULL, 'Syed Md. Alif Nur', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(342, 'DPC000012', 426, 24, 65, 13, '1729061540', '300', NULL, 'Md. Zubaer-ul-Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(343, 'DPC000006', 462, 24, 64, 13, '1926673926', '300', NULL, 'Sree Soman Chondra Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(344, 'DPC000011', 463, 24, 64, 13, '1926673927', '200', NULL, 'Md. Mesba Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(345, 'PG000071', 395, 24, 64, 13, '1926673954', '1000', NULL, 'Md. Shakil Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(346, 'DPC000013', 399, 24, 64, 13, '1944466230', '300', NULL, 'Md. Motaleb Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(347, 'Maniruzzaman', 465, 24, 64, 13, '1907488028', '200', NULL, 'Md. Maniruzzaman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(348, 'PPLC000007', 466, 25, 66, 13, '1844160409', '1000', NULL, 'Dr. Md. Ziaul Hoque Jewel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(349, 'PPLH000058', 426, 25, 66, 13, '1844160411', '300', NULL, 'Fancy Biswas Juwel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(350, 'SAGO000008', 410, 25, 66, 13, '1844160413', '300', NULL, 'S.M. Fazla Rabbi Rana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(351, 'CFL000015', 431, 25, 66, 13, '1844160410', '300', NULL, 'Md. Tajul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(352, 'SAGO000003', 399, 25, 66, 13, '1844160414', '300', NULL, 'Md. Kayser Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(353, 'HALU000004', 467, 25, 65, 13, '1729061500', '300', NULL, 'Md. Sumon Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(354, 'PPL.LD-2609', 468, 26, 65, 13, '1713361927', '600', NULL, 'Md. Zahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(355, 'PPLL000006', 426, 26, 65, 13, '1729061510', '300', NULL, 'Shariful Alam Sarker', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(356, 'PPLL000019', 426, 26, 65, 13, '1729061511', '200', NULL, 'Iqbal Mahmud', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(357, 'PPLL000018', 469, 26, 65, 13, '1729061512', '200', NULL, 'Muhammad Nazmun Shakib', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(358, 'PG000521', 415, 11, 66, 13, '1847284912', '300', NULL, 'Md. Golap Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(359, 'PG000429', 419, 11, 66, 13, '1844221368', '900', NULL, 'Samsuzzaman Sumon', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(360, 'PG000592', 644, 11, 66, 13, '1844221367', '900', NULL, 'Md. Jabir Al Mehedi', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(361, 'PG000415', 419, 11, 66, 13, '1844221358', '900', NULL, 'Dr. Alamin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(362, 'PG000423', 419, 11, 66, 13, '1844221357', '900', NULL, 'Dr. Amarij', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(363, 'PG000424', 419, 11, 66, 13, '1844221356', '900', NULL, 'Md. Asadujjaman Selim', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(364, 'PG000422', 419, 11, 66, 13, '1844221354', '900', NULL, 'Md. Khabbab Bin Harun', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(365, 'PG000504', 419, 11, 66, 13, '1847284910', '900', NULL, 'Md. Obaydul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(366, 'PG000602', 419, 11, 66, 13, '1844142312', '900', NULL, 'Md. Mohiuddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(367, 'PG000512', 419, 11, 66, 13, '1847293212', '900', NULL, 'Ashish Kumar Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(368, 'PG000510', 419, 11, 66, 13, '1847293211', '900', NULL, 'Md. Khademul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(369, 'PG000480', 342, 11, 66, 13, '1844160439', '900', NULL, 'Sajedur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(370, 'PG000482', 417, 11, 66, 13, '1844160424', '900', NULL, 'Md. Tuhinur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(371, 'PG000486', 342, 11, 66, 13, '1844160441', '900', NULL, 'Kingkan Mondal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(372, 'PG000549', 342, 11, 66, 13, '1847293206', '900', NULL, 'Md. Jahidul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(373, 'PPFL000001', 559, 37, 65, 13, '1713361919', '300', NULL, 'H.A.I.Md.Iqbal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(374, 'PPFL000002', 550, 37, 65, 13, '1730013156', '1500', NULL, 'Md. Habibur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(375, 'PPFL000003', 562, 37, 66, 13, '1844142388', '500', NULL, 'Md. Lutfor Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(376, 'PPFL000006', 560, 37, 65, 13, '1708465394', '300', NULL, 'Md. Khalilur Rahaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(377, 'PG000038', 553, 37, 66, 13, '1844142379', '500', NULL, 'Mr. Ratan kumar Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(378, 'PG000261', 555, 37, 66, 13, '1844142393', '600', NULL, 'Md. Rahim Bhuyaan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(379, 'PG000075', 551, 37, 65, 13, '1730020078', '1700', NULL, 'Mr. Bablu Sarder', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3400'),
+(380, 'PG000262', 552, 37, 66, 13, '1844142394', '1000', NULL, 'A.N.M Rayhan Kabir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(381, 'PG000027', 556, 37, 64, 13, '1926673948', '800', NULL, 'Shamsul Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(382, 'PG000079', 557, 37, 66, 13, '1844142373', '600', NULL, 'Ashif Iquebal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(383, 'PG000238', 342, 37, 66, 13, '1844142374', '400', NULL, 'Md. Firoj Alom', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(384, 'PPFL000013', 561, 37, 64, 13, '1926673949', '300', NULL, 'Md. Abul Hasnat', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(385, 'PPFL000044', 565, 37, 65, 13, '1708465395', '300', NULL, 'Md. Dulal Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(386, 'PPFL000047', 565, 37, 65, 13, '1700706617', '300', NULL, 'Md. Shariful Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(387, 'PPFL000026', 563, 37, 65, 13, '1748104850', '300', NULL, 'Md. Anisur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(388, 'PG000078', 395, 37, 66, 13, '1844142375', '1000', NULL, 'Md. Nazmul Hoque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(389, 'PPFL000050', 336, 37, 65, 13, '1700706618', '300', NULL, 'Md. Julfiker Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(390, 'PG000446', 564, 37, 66, 13, '1847324162', '300', NULL, 'Anwer Jahan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(391, 'PG000107', 419, 38, 64, 13, '1926673940', '600', NULL, 'Md. Zahid Hossain    ', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(392, 'PEL000036', 570, 40, 64, 13, '1926673911', '500', NULL, 'Rumman Iqbal Rony', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(393, 'PEL000002', 560, 40, 64, 13, '1926673912', '500', NULL, 'Moniruzzaman dulal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(394, 'PEL000035', 573, 44, 64, 13, '1926673915', '1000', NULL, 'Md. Naseek Imtiaz Chow.', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(395, 'PEL000029', 337, 30, 64, 13, '1926673914', '500', NULL, 'Md. Nurul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(396, 'PEL000037', 373, 44, 64, 13, '1907488000', '500', NULL, 'Md. Tasrin Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(397, 'PG000112', 576, 12, 66, 13, '1844142380', '400', NULL, 'M A Nayeem', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(398, 'PG000043', 578, 41, 66, 13, '1844142376', '300', NULL, 'Younus Pathan Jalal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(399, 'PG000139', 581, 11, 66, 13, '1844142301', '1500', NULL, 'Samiran Dey', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(400, 'PG000155', 551, 11, 66, 13, '1844142307', '1200', NULL, 'Kazi Md. Shahnewaj', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(401, 'PG000419', 342, 11, 66, 13, '1844142321', '900', NULL, 'Md. Lutfor Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(402, 'PG000146', 554, 11, 66, 13, '1844142319', '1000', NULL, 'Liton Chandra Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(403, 'PG000455', 419, 11, 66, 13, '1844142306', '900', NULL, 'Md. Sayduzzaman  Jewel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(404, 'PG000432', 415, 11, 66, 13, '1844221361', '300', NULL, 'Selim Miah', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(405, 'PG000425', 415, 11, 66, 13, '1844221360', '300', NULL, 'Ahsan Habib', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(406, 'PG000493', 417, 11, 66, 13, '1844160426', '900', NULL, 'Abdullah Al Amin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(407, 'PG000492', 419, 11, 66, 13, '1844160417', '900', NULL, 'Abdur Razzak', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(408, 'PG000479', 342, 11, 66, 13, '1844160434', '900', NULL, 'Sukdeb kumar Paul', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(409, 'PG000514', 415, 11, 66, 13, '1844221359', '300', NULL, 'Aminul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(410, 'PG000487', 342, 11, 66, 13, '1844160440', '900', NULL, 'Md. Hamidur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(411, 'PG000463', 342, 11, 66, 13, '1844160429', '900', NULL, 'Subroto Chakroborty', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(412, 'PG000544', 342, 11, 66, 13, '1844160428', '900', NULL, 'Md. Farukuzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(413, 'PG000007', 367, 27, 65, 13, '1713361949', '1000', NULL, 'Subas Chandra Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(414, 'PG000035', 333, 27, 65, 13, '1713361950', '1000', NULL, 'Md. Juel Mia Sarker', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(415, 'PG000444', 631, 29, 65, 13, '1787688670', '1500', NULL, 'Md. Mujibur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(416, 'PG000278', 485, 29, 65, 13, '1787688672', '1500', NULL, 'Md. Bashir Ahmed Chowdhury', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(417, 'PG000115', 486, 29, 65, 13, '1713361914', '600', NULL, 'Baki Billah', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(418, 'PG000246', 487, 29, 65, 13, '1766698291', '1500', NULL, 'Jagadish Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(419, 'PG000132', 488, 29, 65, 13, '1787688674', '1200', NULL, 'Md. Shamsul Islam Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(420, 'PG000204', 491, 29, 65, 13, '1787688673', '1000', NULL, 'Sheikh Sayed Hasan Siddique', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(421, 'PNFP000021', 492, 29, 65, 13, '1766698293', '500', NULL, 'Md. Raisul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(422, 'RFL000013', 340, 32, 64, 13, '1926673900', '300', NULL, 'Md. Abdul Kayum', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(423, 'PNFP000003', 497, 29, 65, 13, '1766698285', '1000', NULL, 'Md. Abdus Salam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000');
+INSERT INTO `sma_employees` (`id`, `employee_id`, `designation_id`, `company_id`, `operator_id`, `package_id`, `mobile_number`, `ceiling_amount`, `created_by`, `name`, `created_date`, `updated_by`, `updated_date`, `service_start_date`, `active`, `email`, `credit_limit`) VALUES
+(424, 'PNFP000005', 373, 29, 65, 13, '1787688675', '1200', NULL, 'Shajedul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(425, 'RFL000017', 340, 32, 64, 13, '1926673928', '300', NULL, 'Md. Mahaubul Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(426, 'GP000006', 471, 27, 65, 13, '1708465380', '600', NULL, 'Md. Abdulla - Al - Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(427, 'PG000441', 513, 29, 65, 13, '1787688671', '1500', NULL, 'Shafiqul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(428, 'GP000007', 333, 27, 65, 13, '1708465381', '300', NULL, 'S.M.Salahuddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(429, 'PG000210', 501, 29, 65, 13, '1766698283', '1000', NULL, 'Md. Rayhan Talukder', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(430, 'GP000008', 426, 27, 65, 13, '1708465382', '500', NULL, 'Tapon Singha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(431, 'PG000037', 447, 27, 65, 13, '1713361921', '700', NULL, 'Md. Rabiul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1400'),
+(432, 'PG000269', 496, 29, 65, 13, '1766698280', '1500', NULL, 'Md. Ashraful Islam Majumder', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(433, 'PG000231', 500, 29, 65, 13, '1787688677', '300', NULL, 'Ayesha Ferdors', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(434, 'GP0000012', 410, 27, 65, 13, '1708465392', '300', NULL, 'Md. Mahabubur Rahman Bhuiyan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(435, 'PG000221', 341, 29, 65, 13, '1766698288', '500', NULL, 'Mr. Gobinda Sarker', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(436, 'PG000448', 430, 27, 64, 13, '1907488001', '300', NULL, 'Md. Yahya', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(437, 'GP000021', 347, 27, 65, 15, '1728363127', '200', NULL, 'Mohammad Nasir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(438, 'PG000101', 477, 28, 65, 13, '1713361900', '2000', NULL, 'Abdul Hannan Dewan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '4000'),
+(439, 'SREE000002', 478, 42, 65, 13, '1711630523', '500', NULL, 'Md. Nazmul Hoq Mondal', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(440, 'PS000014', 476, 11, 65, 15, '1737547409', '200', NULL, 'Ashiq', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(441, 'PS000017', 634, 11, 65, 15, '1737849026', '200', NULL, 'Nesdar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(442, 'PS000016', 526, 11, 65, 15, '1722387095', '200', NULL, 'Monirul', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(443, 'PG000223', 526, 11, 65, 15, '1718304483', '400', NULL, 'Md. Mahbubur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(444, 'PG000163', 594, 11, 66, 13, '1844142304', '1200', NULL, 'Anowar Hossain Miah', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2400'),
+(445, 'PG000173', 342, 11, 66, 13, '1844142331', '900', NULL, 'Rajib Ahmed', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(446, 'PG000458', 589, 11, 66, 13, '1844142395', '300', NULL, 'Sohel Sheikh', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(447, 'PG000470', 587, 11, 66, 13, '1844142382', '600', NULL, 'Md. Atiqul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(448, 'PG000484', 417, 11, 66, 13, '1844160425', '900', NULL, 'Sk. Samim Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(449, 'PG000489', 419, 11, 66, 13, '1844160416', '900', NULL, 'Md. Ahasan Habib', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(450, 'PS000039', 476, 14, 65, 15, '1720535890', '200', NULL, 'Jashim', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(451, 'PS000038', 476, 27, 65, 15, '1774724745', '200', NULL, 'Mofazzal', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(452, 'PS000037', 476, 32, 65, 15, '1748884718', '200', NULL, 'Monjurul Alam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(453, 'PS000036', 359, 34, 66, 15, '1636516143', '100', NULL, 'Rafiq', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(454, 'PS000035', 437, 18, 65, 15, '1720419859', '100', NULL, 'Akkas Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(455, 'PS000034', 359, 11, 65, 15, '1747614225', '100', NULL, 'Morsalin', NULL, NULL, NULL, '1969-12-31', 0, NULL, '100'),
+(456, 'PS000033', 359, 11, 65, 15, '1737070296', '100', NULL, 'Toil Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(457, 'PS000032', 476, 36, 65, 15, '1726467023', '200', NULL, 'Abdus Sobhan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(458, 'PS000031', 476, 22, 65, 15, '1721080221', '200', NULL, 'Shahalam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(459, 'PS000030', 476, 36, 65, 15, '1732884469', '200', NULL, 'Naimul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(460, 'PS000029', 476, 32, 65, 15, '1727274524', '200', NULL, 'Mr. Porimol', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(461, 'PS000028', 476, 31, 65, 15, '1745622388', '200', NULL, 'Md. Shahid', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(462, 'PS000027', 476, 31, 65, 15, '1783823779', '200', NULL, 'Shahidul', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(463, 'PS000026', 476, 14, 65, 15, '1790191817', '200', NULL, 'Abdul Latif', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(464, 'PS000025', 476, 19, 65, 15, '1724451381', '200', NULL, 'Shahidul', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(465, 'PS000024', 476, 25, 65, 15, '1716917652', '200', NULL, 'Md. Shamsu', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(466, 'PS000023', 356, 33, 65, 15, '1727593297', '200', NULL, 'Basher', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(467, 'PS000022', 476, 33, 65, 15, '1714993105', '200', NULL, 'Md. Nasir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(468, 'PS000021', 476, 37, 65, 15, '1728592834', '200', NULL, 'Shajedur', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(469, 'PS000020', 476, 16, 64, 13, '1718820133', '200', NULL, 'Hanef', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(470, 'PS000005', 476, 12, 64, 15, '1910635272', '200', NULL, 'Nabir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(471, 'PS000019', 357, 16, 65, 15, '1788592581', '200', NULL, 'Md. Jahangir Alom', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(472, 'PS000007', 476, 12, 64, 15, '1938859404', '200', NULL, 'Kamal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(473, 'PS000018', 476, 16, 65, 15, '1712297185', '200', NULL, 'Abdur Rouf', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(474, 'PS000008', 476, 12, 65, 15, '1710587370', '200', NULL, 'Shahin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(475, 'PS000013', 476, 24, 65, 15, '1734787222', '200', NULL, 'Alamgir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(476, 'PS000012', 476, 42, 65, 15, '1729625805', '200', NULL, 'Shadatul', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(477, 'PS000011', 476, 28, 66, 15, '1815239649', '200', NULL, 'Zakir', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(478, 'PS000010', 476, 28, 65, 15, '1731843941', '200', NULL, 'Arshad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(479, 'UPL000016', 373, 28, 65, 13, '1713361940', '1000', NULL, 'Md. Shahjahan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(480, 'PS000009', 476, 18, 66, 15, '1836071131', '200', NULL, 'Ruhul Amin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(481, 'PS000004', 476, 27, 65, 15, '1788886084', '200', NULL, 'Rafik', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(482, 'PS000003', 476, 27, 65, 15, '1722783643', '200', NULL, 'Hamid', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(483, 'PS000002', 476, 13, 65, 15, '1772181927', '200', NULL, 'Rejaul Karim', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(484, 'PS000001', 476, 13, 65, 15, '1731822833', '200', NULL, 'Abdur Rob', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(485, 'FF000029', 632, 33, 65, 15, '1771015067', '100', NULL, 'Brooder House - 1', NULL, NULL, NULL, '1969-12-31', 1, NULL, '100'),
+(486, 'FF000030', 632, 33, 65, 15, '1771015068', '100', NULL, 'Brooder House - 2', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(487, 'FF000031', 632, 33, 65, 15, '1771015069', '100', NULL, 'Brooder House - 3', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(488, 'FF000032', 632, 33, 65, 15, '1778512201', '100', NULL, 'Grower House - 1', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(489, 'FF000033', 632, 33, 65, 15, '1778512202', '100', NULL, 'Grower House - 2', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(490, 'FF000034', 632, 33, 65, 15, '1778512203', '100', NULL, 'Grower House - 3', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(491, 'FF000035', 632, 33, 65, 15, '1778512204', '100', NULL, 'Grower House - 4', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(492, 'FF000036', 632, 33, 65, 15, '1778512205', '100', NULL, 'Grower House - 5', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(493, 'FF000037', 632, 33, 65, 15, '1781270816', '100', NULL, 'Generator Staff', NULL, NULL, NULL, '1969-12-31', 1, NULL, '100'),
+(494, 'FF000028', 632, 31, 65, 15, '1786917448', '100', NULL, 'Shed - 8', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(495, 'FF000027', 632, 31, 65, 15, '1786917457', '100', NULL, 'Shed - 7', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(496, 'FF000026', 632, 31, 65, 15, '1787962564', '100', NULL, 'Shed - 6', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(497, 'FF000025', 632, 31, 65, 15, '1787962563', '100', NULL, 'Shed - 5', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(498, 'FF000024', 632, 31, 65, 15, '1785350742', '100', NULL, 'Shed - 4', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(499, 'PG000609', 417, 12, 66, 13, '1844142308', '900', NULL, 'Muhammaded Shakawat Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(500, 'FF000023', 632, 31, 65, 15, '1761482676', '100', NULL, 'Shed - 3', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(501, 'FF000022', 632, 31, 65, 15, '1787962562', '100', NULL, 'Shed - 2', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(502, 'FF000021', 632, 31, 65, 15, '1787962561', '100', NULL, 'Shed - 1', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(503, 'FF000020', 632, 27, 65, 15, '1778018906', '50', NULL, 'LGP - Prod - 02', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(504, 'FF000019', 632, 27, 65, 15, '1778018905', '50', NULL, 'LGP - Prod - 01', NULL, NULL, NULL, '1969-12-31', 1, NULL, '50'),
+(505, 'FF000018', 632, 27, 65, 15, '1778018904', '50', NULL, 'Breeder - 2', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(506, 'FF000017', 632, 27, 65, 15, '1778018903', '50', NULL, 'Breeder - 01', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(507, 'FF000015', 632, 27, 65, 15, '1778018901', '50', NULL, 'Hatchery Side', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(508, 'FF000016', 632, 27, 65, 15, '1778018902', '50', NULL, 'Grower Side', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(509, 'FF000014', 632, 27, 65, 13, '1711823299', '300', NULL, 'GP Farm', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(510, 'FF000013', 632, 25, 65, 15, '1772764465', '100', NULL, 'Production House', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(511, 'FF000012', 632, 25, 65, 15, '1739703886', '100', NULL, 'Grower House', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(512, 'PG00060', 417, 12, 66, 13, '1844142317', '900', NULL, 'Md. Sobuz Perves', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(513, 'FF000011', 632, 24, 65, 15, '1735552114', '100', NULL, 'Shed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(514, 'FF000010', 632, 24, 65, 15, '1727665580', '100', NULL, 'Shed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(515, 'FF000009', 632, 24, 65, 15, '1706691624', '100', NULL, 'Shed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(516, 'FF000008', 632, 24, 65, 15, '1775692463', '100', NULL, 'Shed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(517, 'FF000007', 632, 22, 65, 15, '1793836783', '300', NULL, 'Hatchery', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(518, 'FF000006', 632, 22, 65, 15, '1793836630', '50', NULL, 'Shed=06', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(519, 'FF000005', 632, 22, 65, 15, '1786724164', '50', NULL, 'Shed=05', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(520, 'FF000004', 632, 22, 65, 15, '1786724149', '50', NULL, 'Shed=04', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(521, 'FF000003', 632, 22, 65, 15, '1786724148', '50', NULL, 'Shed=03', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(522, 'FF000002', 632, 22, 65, 15, '1786724146', '50', NULL, 'Shed=02', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(523, 'FF000001', 632, 22, 65, 15, '1786819636', '50', NULL, 'Shed=01', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(524, 'VT000001', 633, 11, 66, 13, '1844025193', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(525, 'VT000002', 633, 11, 66, 13, '1844025164', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(526, 'VT000003', 633, 11, 66, 13, '1844025169', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(527, 'VT000004', 633, 11, 66, 13, '1844025168', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(528, 'VT000005', 633, 11, 66, 13, '1844025875', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(529, 'VT000006', 633, 11, 66, 13, '1844025872', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(530, 'VT000007', 633, 11, 66, 13, '1844025163', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(531, 'VT000008', 633, 11, 66, 13, '1844025871', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(532, 'VT000009', 633, 11, 66, 13, '1844025194', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(533, 'VT000010', 633, 11, 66, 13, '1844025167', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(534, 'VT000011', 633, 11, 66, 13, '1844025315', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(535, 'VT000012', 633, 11, 66, 13, '1844025873', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(536, 'VT000013', 633, 11, 66, 13, '1844025166', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(537, 'VT000014', 633, 11, 66, 13, '1844025165', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(538, 'VT000015', 633, 11, 66, 13, '1844025874', '1', NULL, 'VTS', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1'),
+(539, 'PG000239', 353, 27, 64, 13, '1907488017', '200', NULL, 'Md. Shamim', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(540, 'PG000051', 436, 27, 65, 13, '1729061541', '300', NULL, 'Abu Yousuf', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(541, 'PG000605', 635, 14, 65, 13, '1711630520', '1500', NULL, 'Md. Rois Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(542, 'PG000020', 333, 24, 65, 13, '1730007752', '600', NULL, 'Md. Abul Kalam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(543, 'SREE000006', 469, 42, 65, 13, '1729061524', '200', NULL, 'Abdul Wahid', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(544, 'SREE000001', 338, 42, 65, 13, '1729061522', '200', NULL, 'Md. Lablu Mia', NULL, NULL, NULL, '1969-12-31', 1, NULL, '400'),
+(545, 'PG000389', 396, 14, 65, 13, '1711630524', '1400', NULL, 'Kabir Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2800'),
+(546, 'PPLH000097', 438, 17, 66, 13, '1844142363', '500', NULL, 'Md. Shahinur Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(547, 'PG000114', 637, 28, 65, 13, '1713361905', '600', NULL, 'Chandan Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(548, 'PG000383', 522, 32, 66, 13, '1847293222', '1000', NULL, 'Md. Akhtarul Islam Ranis', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(549, 'RFL000004', 523, 32, 66, 13, '1844160407', '300', NULL, 'Md. Kawsar Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(550, 'PG000358', 524, 32, 64, 13, '1904118556', '700', NULL, 'Md. Faridul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1400'),
+(551, 'RFL000016', 338, 32, 64, 13, '1907488004', '300', NULL, 'A.K.M. Mehedi Hasan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(552, 'PG000361', 353, 32, 65, 15, '1760832482', '200', NULL, 'Emran Khan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(553, 'PG000012', 333, 28, 66, 13, '1844142364', '300', NULL, 'Md. Rafiqul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(554, 'PG000584', 328, 29, 65, 13, '1766698281', '800', NULL, 'Azizul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(555, 'PG000039', 394, 28, 66, 13, '1844142365', '700', NULL, 'Jamir Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1400'),
+(556, 'PNFP000031', 490, 29, 65, 13, '1766698292', '500', NULL, 'S M Ziaul Anwar', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(557, 'PG000240', 493, 29, 65, 13, '1766698299', '600', NULL, 'Md. Mostafizur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(558, 'PG000304', 494, 29, 65, 13, '1766698298', '800', NULL, 'Abhishek Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(559, 'UPL000008', 432, 28, 65, 15, '1719830467', '200', NULL, 'Abdul Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(560, 'PG000036', 502, 29, 65, 15, '1926673923', '500', NULL, 'Swapan Kumar Mistry', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(561, 'PG000207', 503, 29, 64, 13, '1926673961', '300', NULL, 'Md. Mushfik Rahim Shujon', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(562, 'PG000242', 504, 29, 65, 13, '1700706603', '500', NULL, 'Belal Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '500'),
+(563, 'PG000553', 483, 28, 66, 13, '1847324158', '300', NULL, 'Md. Atikur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(564, 'PG000253', 504, 29, 65, 13, '1700706604', '500', NULL, 'Md. Aminul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '500'),
+(565, 'PG000296', 396, 29, 65, 13, '1700706605', '500', NULL, 'Md. Fardin Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '500'),
+(566, 'PG000323', 380, 29, 65, 15, '1715672242', '500', NULL, 'Dewan Ashraful Alam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '500'),
+(567, 'PG000179', 380, 29, 65, 13, '1700706606', '500', NULL, 'Sopen Chandra Das', NULL, NULL, NULL, '1969-12-31', 1, NULL, '500'),
+(568, 'RFL000020', 333, 32, 65, 13, '1713361915', '1000', NULL, 'Shohelur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(569, 'PG000324', 396, 29, 65, 13, '1729061517', '500', NULL, 'Tauhidul Islam', NULL, NULL, NULL, '1969-12-31', 1, NULL, '500'),
+(570, 'PG000599', 380, 29, 65, 13, '1729061518', '300', NULL, 'Md. Abul Kalam Azad', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(571, 'PG000264', 380, 29, 65, 13, '1729061519', '300', NULL, 'Atikur Rahaman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(572, 'PG000595', 380, 29, 65, 13, '1729061520', '300', NULL, 'Md. Akbor Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(573, 'PG000341', 507, 29, 66, 13, '1847324174', '300', NULL, 'Md. Shahidur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(574, 'PG000589', 347, 29, 66, 15, '1833222444', '300', NULL, 'Md. Yasin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(575, 'PNFP000027', 535, 29, 65, 13, '1787688676', '400', NULL, 'Bijay Mallick', NULL, NULL, NULL, '0000-00-00', 1, NULL, '800'),
+(576, 'PNFP000034', 638, 29, 65, 13, '1766698284', '800', NULL, 'Syed Shihab Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(577, 'PG000203', 354, 29, 66, 15, '1881800580', '150', NULL, 'Md. Nasir Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(578, 'PG000249', 353, 29, 64, 13, '1907488020', '200', NULL, 'Md. Monir Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(579, 'PG000117', 353, 29, 64, 13, '1907488022', '200', NULL, 'Md. Hannan', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(580, 'PNFP000018', 353, 29, 64, 13, '1907488026', '200', NULL, 'Md. Musa', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(581, 'PNFP000017', 353, 29, 66, 15, '1626958769', '200', NULL, 'Abdul Razzak Mridha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(582, 'PG000206', 383, 29, 64, 15, '1986115283', '150', NULL, 'Md. Azizul Haque', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(583, 'PG000193', 508, 29, 66, 15, '1840759911', '150', NULL, 'Tofayel Ahmmad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(584, 'PG000594', 508, 29, 64, 15, '1993473241', '150', NULL, 'Md. Motiyar Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(585, 'PG000366', 508, 29, 64, 15, '1988932572', '150', NULL, 'Md. Mafizul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(586, 'PG000365', 508, 29, 65, 15, '1757210142', '150', NULL, 'Md. Rasel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(587, 'PG000399', 508, 29, 64, 15, '1993735381', '150', NULL, 'Md. Rakib Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(588, 'PG000374', 508, 29, 65, 15, '1777876936', '150', NULL, 'Md. Alam Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(589, 'PG000410', 508, 29, 65, 15, '1788279660', '150', NULL, 'Md. Milon Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(590, 'RPL000007', 327, 31, 65, 13, '1713361942', '500', NULL, 'Md. Tariquzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(591, 'RPL000001', 471, 31, 65, 13, '1713361922', '600', NULL, 'Md. Mezbah Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(592, 'PPLC000001', 550, 33, 65, 13, '1713361991', '1500', NULL, 'Md. Soukat Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '3000'),
+(593, 'PG000018', 333, 33, 64, 13, '1926673955', '700', NULL, 'Abdullah Al-Muhit', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1400'),
+(594, 'PPLC000006', 333, 33, 64, 13, '1926673938', '300', NULL, 'Md. Ziaur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(595, 'PPLC000005', 336, 33, 66, 13, '1844142368', '300', NULL, 'Md. Hasan Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(596, 'PG000108', 639, 31, 64, 13, '1926673934', '800', NULL, 'Md. Ali Haider', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(597, 'PPLC000011', 529, 33, 64, 15, '1947411340', '200', NULL, 'Jahangir Alom', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(598, 'RPL000008', 475, 31, 64, 13, '1926673937', '300', NULL, 'Md. Mozaffar Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(599, 'RPL000015', 426, 31, 64, 13, '1944466227', '300', NULL, 'Md. Abdur Rahim Azad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(600, 'PG000351', 640, 31, 65, 13, '1713361934', '600', NULL, 'Abdul Kader', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(601, 'PG000140', 504, 31, 64, 13, '1926673935', '500', NULL, 'Musfika Sharmin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(602, 'RPL000006', 431, 31, 66, 13, '1844142366', '300', NULL, 'Md. Shamimul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(603, 'PCL000009', 535, 34, 64, 13, '1944466235', '300', NULL, 'Dr. Shafayat Zamil', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(604, 'RPL000011', 357, 31, 65, 15, '01713777024', '200', NULL, 'Md. Harun Or Rashad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(605, 'PG000233', 396, 31, 64, 13, '1926673936', '500', NULL, 'Aysha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(606, 'PCL000012', 433, 34, 64, 13, '1926673933', '300', NULL, 'Fazle Rabbi', NULL, NULL, NULL, '1969-12-31', 1, NULL, '300'),
+(607, 'PCL000008', 538, 34, 64, 13, '1926673945', '500', NULL, 'Shuvo Acharjee', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(608, 'PG000349', 519, 31, 64, 13, '1944466236', '300', NULL, 'Md. Munzurul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(609, 'RPL000019', 641, 32, 65, 13, '1729061497', '300', NULL, 'Shah Golam Moued', NULL, NULL, NULL, '1969-12-31', 1, NULL, '600'),
+(610, 'MPC000001', 533, 36, 64, 13, '1926673947', '500', NULL, 'Emran Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '500'),
+(611, 'PCL000006', 534, 34, 64, 13, '1926673942', '500', NULL, 'Nazmunnaher Khatun', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(612, 'PPLF000068', 536, 34, 64, 13, '1944466234', '300', NULL, 'Jahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(613, 'PG000076', 490, 37, 66, 13, '1844142371', '1000', NULL, 'Rakibuddawla Mondal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(614, 'PG000074', 363, 37, 66, 13, '1844160415', '2000', NULL, 'Mr. Rajwanul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '4000'),
+(615, 'PG000509', 496, 11, 66, 13, '1847293210', '1000', NULL, 'Shafiquel Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(616, 'JFL000051', 337, 14, 66, 13, '1847324172', '300', NULL, 'Bellal Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(617, 'JFLC0001', 411, 14, 65, 13, '1729061526', '800', NULL, 'Md. Robiul Karim', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(618, 'HTE000001', 566, 39, 65, 13, '1729061527', '600', NULL, 'Shahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(619, 'HTE000002', 567, 39, 65, 13, '1729061528', '300', NULL, 'Swaroj Kurmi', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(620, 'HTE000003', 642, 39, 65, 13, '1729061529', '600', NULL, 'Prodip Kumer Chakrabarty', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(621, 'HTE000004', 569, 39, 65, 13, '1729061530', '300', NULL, 'Champa Pal Koiri', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(622, 'HTE000005', 569, 39, 65, 13, '1729061531', '300', NULL, 'Rajib Kanu', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(623, 'PG000191', 526, 11, 64, 13, '1907488029', '200', NULL, 'Md. Abul Kalam Azad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(624, 'PFL000028', 574, 12, 65, 13, '1713361923', '300', NULL, 'Md. Sourav Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(625, 'SREE000003', 399, 42, 65, 13, '1729061523', '200', NULL, 'Md. Shahin Sarker', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(626, 'PEL000030', 572, 43, 65, 13, '1708465388', '600', NULL, 'Md. Emran Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1200'),
+(627, 'PEL000031', 373, 43, 65, 13, '1708465391', '300', NULL, 'Arafat Miah', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(628, 'MDH00001', 579, 41, 64, 13, '1926673962', '300', NULL, 'Md. Najir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(629, 'MDH00002', 580, 41, 65, 15, '1715473540', '300', NULL, 'Tapon Babu', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(630, 'PG000066 (2)', 365, 12, 66, 13, '1841361904', '1000', NULL, 'Goutam Mazumder', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1000'),
+(631, 'PG000272 (2)', 624, 11, 66, 13, '1841561199', '1000', NULL, 'Manzoor Elahi', NULL, NULL, NULL, '1969-12-31', 1, NULL, '2000'),
+(632, 'BCH00001', 361, 20, 66, 13, '1844160444', '300', NULL, 'Bistro (Hot Line)', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(633, 'BCH00002', 356, 20, 64, 13, '1996332255', '50', NULL, 'Bistro Central', NULL, NULL, NULL, '0000-00-00', 1, NULL, '50'),
+(634, 'PG000393 (1)', 343, 11, 64, 13, '1944466245', '100', NULL, 'Md. Moniruzzaman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(635, 'PPLH000001 (1)', 421, 16, 66, 13, '1841056622', '1000', NULL, 'AKM Habibur Rahman', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(636, 'PG000603', 351, 11, 64, 15, '1982346072', '200', NULL, 'Saidul Islam', NULL, NULL, NULL, '1969-12-31', 0, NULL, '400'),
+(637, 'PG000517', 586, 11, 66, 13, '1844142381', '300', NULL, 'Md. Juel Rana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(638, 'PG000164', 598, 12, 66, 13, '1844142322', '1000', NULL, 'Mohammad Salah Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(639, 'PPLH000052', 426, 16, 65, 13, '1729061525', '300', NULL, 'S.M Sorowar Zahan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(640, 'PPLH000032', 426, 16, 65, 13, '1729061521', '300', NULL, 'Md. Najmul Kabir', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(641, 'PPLH000027', 643, 25, 66, 13, '1847324165', '300', NULL, 'Md. Imran Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(642, 'SAGO00009', 529, 25, 66, 13, '1847324166', '100', NULL, 'Md. Lavlu', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(643, 'Unknown 01', 470, 27, 65, 15, '1715207091', '1000', NULL, 'Amjad Iqbal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(644, 'GP000010', 473, 27, 65, 13, '1729061534', '300', NULL, 'Abu Jafor Biswas', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(645, 'Unknown02', 326, 27, 65, 13, '1713245353', '600', NULL, 'Dr. Pavel', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(646, 'Unknown03', 475, 27, 65, 13, '1729061532', '300', NULL, 'Md. Shahidul Haque', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(647, 'PG000289', 353, 27, 64, 13, '1907488016', '200', NULL, 'Md. Belal', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(648, 'Unknown04', 398, 27, 64, 13, '1907488018', '300', NULL, 'Nousor', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(649, 'CFMkt.87', 495, 29, 65, 13, '1766698296', '600', NULL, 'Sheikh Farid', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1200'),
+(650, 'CFMkt.76', 496, 29, 65, 13, '1766698294', '1000', NULL, 'Md. Tarikul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '2000'),
+(651, 'Unknown05', 353, 29, 65, 15, '1907488021', '200', NULL, 'Md. Ashiqur Rahman', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(652, 'Unknown06', 353, 29, 64, 13, '19074488024', '200', NULL, 'Ayub Ali', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(653, 'Unknown07', 353, 29, 64, 13, '1907488025', '200', NULL, 'Md. Delowar Hossain', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(654, 'Unknown08', 353, 29, 65, 13, '1907488023', '200', NULL, 'Md. Azadul Miah', NULL, NULL, NULL, '1969-12-31', 1, NULL, '200'),
+(655, 'Unknown09', 353, 29, 65, 15, '1710873168', '200', NULL, 'Md. Shadin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '400'),
+(656, 'PG000312', 508, 29, 66, 15, '1856995677', '150', NULL, 'Ridoy Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(657, 'Unknown10', 509, 29, 65, 15, '1781170628', '150', NULL, 'Ponkoj Roy', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(658, 'Unknown11', 509, 29, 66, 15, '1828381689', '150', NULL, 'Md. Rasel Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(659, 'Unknown13', 509, 29, 65, 15, '1799099254', '150', NULL, 'Md. Mostafiz Mia', NULL, NULL, NULL, '1969-12-31', 1, NULL, '150'),
+(660, 'Unknown12', 509, 29, 64, 15, '1928588294', '150', NULL, 'Misor Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(661, 'Unknown14', 509, 29, 64, 15, '1953010601', '150', NULL, 'Md. Rana', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(662, 'Unknown15', 509, 29, 65, 15, '1736343231', '150', NULL, 'Tarikul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(663, 'Unknown16', 509, 29, 64, 15, '1995672852', '150', NULL, 'Hasan Sheikh', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(664, 'Unknown17', 509, 29, 64, 15, '1932476160', '150', NULL, 'Farid Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(665, 'Unknown18', 509, 29, 64, 15, '1955008055', '150', NULL, 'Md. Zakariya Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(666, 'Unknown19', 509, 29, 65, 15, '1784697421', '150', NULL, 'Md. Rohim Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(667, 'Unknown20', 509, 29, 65, 15, '1792744474', '150', NULL, 'Md. Apple Mahmud', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(668, 'Unknown21', 616, 32, 66, 13, '1844160442', '900', NULL, 'Tonmoy Kanti Das', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(669, 'PPL000001', 434, 33, 65, 15, '1725135872', '300', NULL, 'Md. Al Amin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(670, 'PPLC000018', 532, 33, 65, 15, '1713605983', '100', NULL, 'Yeasin Hamid', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(671, 'SFH00001', 541, 35, 65, 13, '1708465387', '800', NULL, 'Zahurul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1600'),
+(672, 'SFH00002', 341, 35, 65, 13, '1708465393', '300', NULL, 'Akhlas Uddin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(673, 'SFH00003', 413, 35, 65, 13, '1729061515', '300', NULL, 'Sayed Md. Sajjad', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(674, 'SFH00004', 413, 35, 65, 13, '1729061516', '300', NULL, 'Md. Rezaul Hossain', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(675, 'PG000613', 419, 14, 66, 13, '1844142351', '900', NULL, 'Md. Munabbarul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1800'),
+(676, 'FF000038', 632, 25, 65, 15, '1799593549', '100', NULL, 'Generator Room', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(677, 'FF000039', 632, 25, 65, 15, '1705762518', '100', NULL, 'Production House-04', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(678, 'FF000040', 632, 25, 65, 15, '1766193757', '100', NULL, 'Production House-02', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(679, 'FF000041', 632, 25, 65, 15, '1786521907', '100', NULL, 'Production House-3', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(680, 'Unknown23', 645, 11, 66, 13, '1847293205', '900', NULL, 'Md. Fazle Karim', NULL, NULL, NULL, '1969-12-31', 1, NULL, '1800'),
+(681, 'PG000362', 353, 29, 64, 13, '1907488027', '150', NULL, 'Md. Razib Mridha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '150'),
+(682, 'FF000042', 632, 33, 65, 13, '1926673960', '300', NULL, 'Md. Al- Amin', NULL, NULL, NULL, '0000-00-00', 1, NULL, '300'),
+(683, 'PG000116', 629, 12, 66, 13, '1816932918', '500', NULL, 'Rajaul Karim', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000'),
+(684, 'DPG00003', 351, 11, 65, 13, '1708465397', '200', NULL, 'Saidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '200'),
+(685, 'DPK00004', 415, 14, 66, 13, '1847324164', '450', NULL, 'Jahidul Islam', NULL, NULL, NULL, '0000-00-00', 1, NULL, '900'),
+(686, 'PG000113', 443, 19, 65, 13, '1711621197', '2000', NULL, 'Sujit Ranjan Saha', NULL, NULL, NULL, '0000-00-00', 1, NULL, '4000'),
+(687, 'PG000290', 383, 12, 65, 15, '1721764905', '100', NULL, 'Imran Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '100'),
+(688, 'PPLF000016', 381, 11, 65, 15, '1728909282', '300', NULL, 'Md. Lal Mia', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(689, 'DPN00002', 415, 11, 66, 13, '1847324163', '700', NULL, 'Narshindi Depot (Modem)', NULL, NULL, NULL, '0000-00-00', 1, NULL, '700'),
+(690, 'PG000522', 415, 11, 66, 13, '1844142396', '300', NULL, 'Md. selim reza', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(691, 'PG000506', 588, 11, 66, 13, '1847284924', '300', NULL, 'Md. Tofazzal Hossan', NULL, NULL, NULL, '0000-00-00', 1, NULL, '600'),
+(692, 'SREE000004', 426, 42, 65, 13, '1729061505', '500', NULL, 'Jakaria Ahmed', NULL, NULL, NULL, '0000-00-00', 1, NULL, '1000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sma_expenses`
 --
 
@@ -2347,7 +3507,39 @@ INSERT INTO `sma_groups` (`id`, `name`, `description`) VALUES
 (3, 'customer', 'Customer'),
 (4, 'supplier', 'Supplier'),
 (5, 'sales', 'Sales Staff'),
-(6, 'test', 'testing');
+(6, 'admin_task', 'admin_task');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_guards`
+--
+
+CREATE TABLE `sma_guards` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `employee_id` varchar(100) NOT NULL,
+  `designation_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `mobile_number` varchar(13) NOT NULL,
+  `height_feet` varchar(100) NOT NULL,
+  `height_inch` varchar(100) NOT NULL,
+  `present_weight` varchar(100) NOT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_date` date DEFAULT NULL,
+  `joining_date` date NOT NULL,
+  `dob` date NOT NULL,
+  `active` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_guards`
+--
+
+INSERT INTO `sma_guards` (`id`, `employee_id`, `designation_id`, `company_id`, `mobile_number`, `height_feet`, `height_inch`, `present_weight`, `created_by`, `name`, `created_date`, `updated_by`, `updated_date`, `joining_date`, `dob`, `active`) VALUES
+(2, 'PG000004', 315, 11, '1781870371', '5', '9', '75', NULL, 'Bond-007', NULL, NULL, NULL, '2018-01-10', '1988-01-10', 1);
 
 -- --------------------------------------------------------
 
@@ -2397,6 +3589,31 @@ CREATE TABLE `sma_notifications` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sma_operators`
+--
+
+CREATE TABLE `sma_operators` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `contact_person` varchar(50) NOT NULL,
+  `contact_number` varchar(50) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `image` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_operators`
+--
+
+INSERT INTO `sma_operators` (`id`, `code`, `name`, `contact_person`, `contact_number`, `address`, `image`) VALUES
+(64, 'BL', 'Banglalink', 'Mr. Rahman', '1936884226', 'Gulshan,Dhaka.', NULL),
+(65, 'GP', 'GrameenPhone', 'Mr. Z', '12345678974', 'Gulshan', NULL),
+(66, 'Robi', 'Robi', 'Mr. Y', '1844050846', 'Gulshan, Dhaka', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sma_order_ref`
 --
 
@@ -2422,7 +3639,46 @@ CREATE TABLE `sma_order_ref` (
 --
 
 INSERT INTO `sma_order_ref` (`ref_id`, `date`, `so`, `qu`, `po`, `to`, `pos`, `do`, `pay`, `re`, `rep`, `ex`, `ppay`, `qa`) VALUES
-(1, '2015-03-01', 17, 1, 31, 9, 60, 1, 70, 1, 1, 1, 1, 2);
+(1, '2015-03-01', 30, 1, 34, 9, 66, 1, 75, 1, 1, 1, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_packages`
+--
+
+CREATE TABLE `sma_packages` (
+  `id` int(11) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_packages`
+--
+
+INSERT INTO `sma_packages` (`id`, `code`, `name`) VALUES
+(13, 'Package-1', 'Postpaid'),
+(14, 'Package-2', 'Postpaid(2 GB)'),
+(15, 'Package-3', 'Prepaid'),
+(16, 'Package-4', 'Postpaid(500 MB)'),
+(17, 'Package-5', 'Postpaid(300 MB, 3G)'),
+(18, 'Package-6', 'Postpaid(Pay as you go)'),
+(19, 'Package-7', 'Postpaid(5 GB)'),
+(20, 'Package-8', 'Postpaid(3 GB)'),
+(21, 'Package-9', 'Postpaid(3 GB (M.P))'),
+(22, 'Package-10', 'Postpaid( 2GB)'),
+(23, 'Package-11', 'Postpaid(3 GB )'),
+(24, 'Package-12', 'Postpaid(Data use)'),
+(25, 'Package-13', 'Postpaid(1.5 GB)'),
+(26, 'Package-14', 'Postpaid(Data)'),
+(27, 'Package-15', 'Postpaid(4 GB)'),
+(28, 'Package-16', 'Postpaid(1 (GB))'),
+(29, 'Package-17', 'Postpaid(8 GB ROBI Ace postpaid )'),
+(30, 'Package-18', 'Postpaid(1 GB)'),
+(31, 'Package-19', 'Postpaid(7GB)'),
+(32, 'Package-20', 'Postpaid(Data )'),
+(33, 'Package-21', 'Postpaid(HS 250 EB)');
 
 -- --------------------------------------------------------
 
@@ -2485,7 +3741,12 @@ INSERT INTO `sma_payments` (`id`, `date`, `sale_id`, `return_id`, `purchase_id`,
 (27, '2018-06-03 18:55:08', 53, NULL, NULL, 'IPAY/2018/06/0066', NULL, 'Cheque', '', '', '', '', '', '', '101.6900', NULL, 1, NULL, 'received', '', '500.0000', '398.3100', NULL, '0.00', '0.00'),
 (28, '2018-06-05 03:26:00', 54, NULL, NULL, 'IPAY/2018/06/0067', NULL, 'cash', '', '', '', '', '', 'Visa', '-101.6900', NULL, 1, NULL, 'returned', NULL, '0.0000', '0.0000', NULL, NULL, NULL),
 (29, '2018-06-04 18:32:54', 55, NULL, NULL, 'IPAY/2018/06/0068', NULL, 'cash', '', '', '', '', '', '', '67.7900', NULL, 1, NULL, 'received', '', '67.7900', '0.0000', NULL, '0.00', '0.00'),
-(30, '2018-06-05 04:39:00', 56, NULL, NULL, 'IPAY/2018/06/0069', NULL, 'Amex', '', '', '', '', '', 'Visa', '101.6900', NULL, 1, NULL, 'received', '', '0.0000', '0.0000', NULL, NULL, NULL);
+(30, '2018-06-05 04:39:00', 56, NULL, NULL, 'IPAY/2018/06/0069', NULL, 'Amex', '', '', '', '', '', 'Visa', '101.6900', NULL, 1, NULL, 'received', '', '0.0000', '0.0000', NULL, NULL, NULL),
+(31, '2018-09-30 19:13:22', 2, NULL, NULL, 'IPAY/2018/10/0070', NULL, 'cash', '', '', '', '', '', '', '70.0000', NULL, 1, NULL, 'received', '', '70.0000', '0.0000', NULL, '0.00', '0.00'),
+(32, '2018-09-30 19:19:32', 3, NULL, NULL, 'IPAY/2018/10/0071', NULL, 'cash', '', '', '', '', '', '', '70.0000', NULL, 1, NULL, 'received', '', '70.0000', '0.0000', NULL, '0.00', '0.00'),
+(33, '2018-09-30 19:21:05', 4, NULL, NULL, 'IPAY/2018/10/0072', NULL, 'cash', '', '', '', '', '', '', '90.4000', NULL, 1, NULL, 'received', '', '90.4000', '0.0000', NULL, '0.00', '0.00'),
+(34, '2018-10-02 22:21:00', 8, NULL, NULL, 'IPAY2018100073', NULL, 'cash', '', '', '', '', '', '', '90.4000', NULL, 1, NULL, 'received', '', '90.4000', '0.0000', NULL, '0.00', '0.00'),
+(35, '2018-10-02 22:27:35', 9, NULL, NULL, 'IPAY2018100074', NULL, 'cash', '', '', '', '', '', '', '90.4000', NULL, 1, NULL, 'received', '', '90.4000', '0.0000', NULL, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -2587,13 +3848,13 @@ CREATE TABLE `sma_permissions` (
   `sales-payments` tinyint(1) DEFAULT '0',
   `purchases-payments` tinyint(1) DEFAULT '0',
   `purchases-expenses` tinyint(1) DEFAULT '0',
-  `products-adjustments` tinyint(1) NOT NULL DEFAULT '0',
-  `bulk_actions` tinyint(1) NOT NULL DEFAULT '0',
-  `customers-deposits` tinyint(1) NOT NULL DEFAULT '0',
-  `customers-delete_deposit` tinyint(1) NOT NULL DEFAULT '0',
-  `products-barcode` tinyint(1) NOT NULL DEFAULT '0',
-  `purchases-return_purchases` tinyint(1) NOT NULL DEFAULT '0',
-  `reports-expenses` tinyint(1) NOT NULL DEFAULT '0',
+  `products-adjustments` tinyint(1) DEFAULT '0',
+  `bulk_actions` tinyint(1) DEFAULT '0',
+  `customers-deposits` tinyint(1) DEFAULT '0',
+  `customers-delete_deposit` tinyint(1) DEFAULT '0',
+  `products-barcode` tinyint(1) DEFAULT '0',
+  `purchases-return_purchases` tinyint(1) DEFAULT '0',
+  `reports-expenses` tinyint(1) DEFAULT '0',
   `reports-daily_purchases` tinyint(1) DEFAULT '0',
   `reports-monthly_purchases` tinyint(1) DEFAULT '0',
   `products-stock_count` tinyint(1) DEFAULT '0',
@@ -2607,16 +3868,62 @@ CREATE TABLE `sma_permissions` (
   `category-edit` tinyint(4) DEFAULT '0',
   `category-delete` tinyint(4) DEFAULT '0',
   `reports-sales-margin` tinyint(1) DEFAULT '0',
-  `reports-product-details` tinyint(1) DEFAULT '0'
+  `reports-product-details` tinyint(1) DEFAULT '0',
+  `company-index` tinyint(1) DEFAULT '0',
+  `company-add` tinyint(1) DEFAULT '0',
+  `company-edit` tinyint(1) DEFAULT '0',
+  `company-delete` tinyint(1) DEFAULT '0',
+  `products-reorder_details` tinyint(1) DEFAULT '0',
+  `products-details_search` tinyint(1) DEFAULT '0',
+  `designation-index` tinyint(1) DEFAULT '0',
+  `designation-add` tinyint(1) DEFAULT '0',
+  `designation-edit` tinyint(1) DEFAULT '0',
+  `designation-delete` tinyint(1) DEFAULT '0',
+  `operator-index` tinyint(1) DEFAULT '0',
+  `operator-add` tinyint(1) DEFAULT '0',
+  `operator-edit` tinyint(1) DEFAULT '0',
+  `operator-delete` tinyint(1) DEFAULT '0',
+  `package-index` tinyint(1) DEFAULT '0',
+  `package-add` tinyint(1) DEFAULT '0',
+  `package-edit` tinyint(1) DEFAULT '0',
+  `package-delete` tinyint(1) DEFAULT '0',
+  `employees-index` tinyint(1) DEFAULT '0',
+  `employees-add` tinyint(1) DEFAULT '0',
+  `employees-edit` tinyint(1) DEFAULT '0',
+  `employees-delete` tinyint(1) DEFAULT '0',
+  `employees-employee_by_csv` tinyint(1) NOT NULL DEFAULT '0',
+  `employees-bill_add` tinyint(1) NOT NULL DEFAULT '0',
+  `employees-bill_index` tinyint(1) NOT NULL DEFAULT '0',
+  `employees-bill_delete` tinyint(1) NOT NULL DEFAULT '0',
+  `guard-index` tinyint(1) NOT NULL DEFAULT '0',
+  `guard-add` tinyint(1) DEFAULT '0',
+  `guard-edit` tinyint(1) NOT NULL DEFAULT '0',
+  `guard-delete` tinyint(1) NOT NULL DEFAULT '0',
+  `guard-weight_upload` tinyint(1) NOT NULL DEFAULT '0',
+  `reports-company_bill_details` tinyint(1) NOT NULL DEFAULT '0',
+  `reports-company_wise_bill` tinyint(1) NOT NULL DEFAULT '0',
+  `document-index` tinyint(1) NOT NULL DEFAULT '0',
+  `document-add` tinyint(1) NOT NULL DEFAULT '0',
+  `document-edit` tinyint(1) NOT NULL DEFAULT '0',
+  `document-delete` tinyint(1) NOT NULL DEFAULT '0',
+  `doctype-index` tinyint(1) NOT NULL DEFAULT '0',
+  `doctype-add` tinyint(1) NOT NULL DEFAULT '0',
+  `doctype-edit` tinyint(1) NOT NULL DEFAULT '0',
+  `doctype-delete` tinyint(1) NOT NULL DEFAULT '0',
+  `backups_index` tinyint(1) DEFAULT NULL,
+  `document-doc_movement_list` tinyint(1) NOT NULL DEFAULT '0',
+  `document-add_movement` tinyint(1) NOT NULL DEFAULT '0',
+  `document-edit_movement` tinyint(1) NOT NULL DEFAULT '0',
+  `document-delete_movement` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sma_permissions`
 --
 
-INSERT INTO `sma_permissions` (`id`, `group_id`, `products-index`, `products-add`, `products-edit`, `products-delete`, `products-cost`, `products-price`, `quotes-index`, `quotes-add`, `quotes-edit`, `quotes-pdf`, `quotes-email`, `quotes-delete`, `sales-index`, `sales-add`, `sales-edit`, `sales-pdf`, `sales-email`, `sales-delete`, `purchases-index`, `purchases-add`, `purchases-edit`, `purchases-pdf`, `purchases-email`, `purchases-delete`, `transfers-index`, `transfers-add`, `transfers-edit`, `transfers-pdf`, `transfers-email`, `transfers-delete`, `customers-index`, `customers-add`, `customers-edit`, `customers-delete`, `suppliers-index`, `suppliers-add`, `suppliers-edit`, `suppliers-delete`, `sales-deliveries`, `sales-add_delivery`, `sales-edit_delivery`, `sales-delete_delivery`, `sales-email_delivery`, `sales-pdf_delivery`, `sales-gift_cards`, `sales-add_gift_card`, `sales-edit_gift_card`, `sales-delete_gift_card`, `pos-index`, `sales-return_sales`, `reports-index`, `reports-warehouse_stock`, `reports-quantity_alerts`, `reports-expiry_alerts`, `reports-products`, `reports-daily_sales`, `reports-monthly_sales`, `reports-sales`, `reports-payments`, `reports-purchases`, `reports-profit_loss`, `reports-customers`, `reports-suppliers`, `reports-staff`, `reports-register`, `sales-payments`, `purchases-payments`, `purchases-expenses`, `products-adjustments`, `bulk_actions`, `customers-deposits`, `customers-delete_deposit`, `products-barcode`, `purchases-return_purchases`, `reports-expenses`, `reports-daily_purchases`, `reports-monthly_purchases`, `products-stock_count`, `edit_price`, `brand-index`, `brand-add`, `brand-edit`, `brand-delete`, `category-index`, `category-add`, `category-edit`, `category-delete`, `reports-sales-margin`, `reports-product-details`) VALUES
-(1, 5, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, 1, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 0, 0, 1, 1, 1, 1, NULL, NULL, 1, NULL, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 1, 1, NULL, NULL, 1, 1, NULL, 1, 1, 1, 1, 1, 1, 1, 1),
-(2, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL);
+INSERT INTO `sma_permissions` (`id`, `group_id`, `products-index`, `products-add`, `products-edit`, `products-delete`, `products-cost`, `products-price`, `quotes-index`, `quotes-add`, `quotes-edit`, `quotes-pdf`, `quotes-email`, `quotes-delete`, `sales-index`, `sales-add`, `sales-edit`, `sales-pdf`, `sales-email`, `sales-delete`, `purchases-index`, `purchases-add`, `purchases-edit`, `purchases-pdf`, `purchases-email`, `purchases-delete`, `transfers-index`, `transfers-add`, `transfers-edit`, `transfers-pdf`, `transfers-email`, `transfers-delete`, `customers-index`, `customers-add`, `customers-edit`, `customers-delete`, `suppliers-index`, `suppliers-add`, `suppliers-edit`, `suppliers-delete`, `sales-deliveries`, `sales-add_delivery`, `sales-edit_delivery`, `sales-delete_delivery`, `sales-email_delivery`, `sales-pdf_delivery`, `sales-gift_cards`, `sales-add_gift_card`, `sales-edit_gift_card`, `sales-delete_gift_card`, `pos-index`, `sales-return_sales`, `reports-index`, `reports-warehouse_stock`, `reports-quantity_alerts`, `reports-expiry_alerts`, `reports-products`, `reports-daily_sales`, `reports-monthly_sales`, `reports-sales`, `reports-payments`, `reports-purchases`, `reports-profit_loss`, `reports-customers`, `reports-suppliers`, `reports-staff`, `reports-register`, `sales-payments`, `purchases-payments`, `purchases-expenses`, `products-adjustments`, `bulk_actions`, `customers-deposits`, `customers-delete_deposit`, `products-barcode`, `purchases-return_purchases`, `reports-expenses`, `reports-daily_purchases`, `reports-monthly_purchases`, `products-stock_count`, `edit_price`, `brand-index`, `brand-add`, `brand-edit`, `brand-delete`, `category-index`, `category-add`, `category-edit`, `category-delete`, `reports-sales-margin`, `reports-product-details`, `company-index`, `company-add`, `company-edit`, `company-delete`, `products-reorder_details`, `products-details_search`, `designation-index`, `designation-add`, `designation-edit`, `designation-delete`, `operator-index`, `operator-add`, `operator-edit`, `operator-delete`, `package-index`, `package-add`, `package-edit`, `package-delete`, `employees-index`, `employees-add`, `employees-edit`, `employees-delete`, `employees-employee_by_csv`, `employees-bill_add`, `employees-bill_index`, `employees-bill_delete`, `guard-index`, `guard-add`, `guard-edit`, `guard-delete`, `guard-weight_upload`, `reports-company_bill_details`, `reports-company_wise_bill`, `document-index`, `document-add`, `document-edit`, `document-delete`, `doctype-index`, `doctype-add`, `doctype-edit`, `doctype-delete`, `backups_index`, `document-doc_movement_list`, `document-add_movement`, `document-edit_movement`, `document-delete_movement`) VALUES
+(1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, NULL, NULL, NULL, 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0),
+(2, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 1, 1, NULL, NULL, 1, 1, NULL, NULL, 1, 1, 1, NULL, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2817,14 +4124,14 @@ CREATE TABLE `sma_products` (
 
 INSERT INTO `sma_products` (`id`, `code`, `name`, `unit`, `cost`, `price`, `alert_quantity`, `image`, `category_id`, `subcategory_id`, `cf1`, `cf2`, `cf3`, `cf4`, `cf5`, `cf6`, `quantity`, `tax_rate`, `track_quantity`, `details`, `warehouse`, `barcode_symbology`, `file`, `product_details`, `tax_method`, `type`, `supplier1`, `supplier1price`, `supplier2`, `supplier2price`, `supplier3`, `supplier3price`, `supplier4`, `supplier4price`, `supplier5`, `supplier5price`, `promotion`, `promo_price`, `start_date`, `end_date`, `supplier1_part_no`, `supplier2_part_no`, `supplier3_part_no`, `supplier4_part_no`, `supplier5_part_no`, `sale_unit`, `purchase_unit`, `brand`, `min_selling_price`, `landing_price`) VALUES
 (27182, '47241', 'LOGITECH MK120 DESKTOP KB+MSE', 1, '22.0000', '27.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', '13.0000', 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, '22.00', '17.00'),
-(27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 1, '70.0000', '149.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
-(27184, '48397', 'MEM-DESK-DDR3-REF-4G DDR3 Desktop 4GB Memory, Pulled', 1, '28.0000', '49.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
+(27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 1, '70.0000', '80.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', '63.0000', 5, 1, '', NULL, 'code128', NULL, '', 1, 'standard', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, 1, 1, 58, '70.00', '70.00'),
+(27184, '48397', 'MEM-DESK-DDR3-REF-4G DDR3 Desktop 4GB Memory, Pulled', 1, '28.0000', '0.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', '1.0000', 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, '28.00', '28.00'),
 (27185, '48396', 'Cat5e Network Cable 6FT- White', 1, '0.9900', '6.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
-(27186, '48395', 'LCD SCREEN 14\" 40PIN', 1, '65.0000', '149.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
+(27186, '48395', 'LCD SCREEN 14\" 40PIN', 1, '65.0000', '70.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', '18.0000', 5, 1, '', NULL, 'code128', NULL, '', 1, 'standard', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, 1, 1, 58, '65.00', '65.00'),
 (27187, '48394', 'A1466 TRACKPAD MID 2012', 1, '55.0000', '150.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
 (27188, '48393', 'SERVICE ID 6312 : WATER DAMAGE', 1, '80.0000', '0.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, '80.00', '80.00'),
 (27189, '48392', 'HP DV 2000  LAPTOP', 1, '20.0000', '149.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
-(27190, '48390', 'CANON CL 241 ORIGINAL', 1, '29.4000', '34.5000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
+(27190, '48390', 'CANON CL 241 ORIGINAL', 1, '29.4000', '34.5000', '1.0000', '', 665, NULL, '', '', '', '', '', '', '5.0000', 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, '29.40', '29.40'),
 (27191, '48389', 'SERVICE ID 6332: Samsung S4 Screen Replacement', 1, '40.0000', '80.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
 (27192, '48388', 'SERVICE ID : 6320 NO POWER', 1, '80.0000', '159.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
 (27193, '48387', 'SERVICE ID : 6321 NO POWER', 1, '60.0000', '129.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
@@ -2832,8 +4139,8 @@ INSERT INTO `sma_products` (`id`, `code`, `name`, `unit`, `cost`, `price`, `aler
 (27195, '48385', 'SSD-WDS250G2B0A WD BLUE 250GB 3D NANO SATA SSD', 1, '93.0000', '169.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
 (27196, '48384', 'SSD-WDS500G2B0A WD BLUE 500GB 3D NANO SATA SSD', 1, '160.0000', '299.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
 (27197, '48383', 'POWER-W0441N TT 600WATX NON-MODULAR (BULK) BLACK', 1, '43.0000', '89.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', '7.0000', 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
-(27198, '48382', 'DDR2 SODIMM laptop 2G Memory, Pulled, 30 days warranty', 1, '12.0000', '29.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
-(27199, '48381', 'Targus 90W AC Adapter w/ 5 tips. APA70US, open box w/60 days warranty', 1, '9.8800', '24.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 1, NULL, NULL, 'code128', NULL, NULL, 1, 'standard', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL);
+(27198, '48382', 'DDR2 SODIMM laptop 2G Memory, Pulled, 30 days warranty', 1, '12.0000', '29.9900', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 0, '', NULL, 'code128', NULL, '', 1, 'service', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL),
+(27199, '48381', 'Targus 90W AC Adapter w/ 5 tips. APA70US, open box w/60 days warranty', 1, '9.8800', '670.0000', '1.0000', '', 665, NULL, '', '', '', '', '', '', NULL, 5, 0, '', NULL, 'code128', NULL, '', 1, 'combo', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, 1, 1, 58, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2917,6 +4224,15 @@ CREATE TABLE `sma_purchases` (
   `internal_ref` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `sma_purchases`
+--
+
+INSERT INTO `sma_purchases` (`id`, `reference_no`, `date`, `supplier_id`, `supplier`, `warehouse_id`, `note`, `total`, `product_discount`, `order_discount_id`, `order_discount`, `total_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `shipping`, `grand_total`, `paid`, `status`, `payment_status`, `created_by`, `updated_by`, `updated_at`, `attachment`, `payment_term`, `due_date`, `return_id`, `surcharge`, `return_purchase_ref`, `purchase_id`, `return_purchase_total`, `internal_ref`) VALUES
+(1, 'PO/2018/07/0031', '2018-07-31 04:03:00', 8, 'A-1 WIRELESS INC  ', 1, '', '175.0000', '0.0000', NULL, '0.0000', '0.0000', '22.7500', NULL, '0.0000', '22.7500', '0.0000', '197.7500', '0.0000', 'received', 'pending', 1, NULL, NULL, NULL, 0, NULL, NULL, '0.0000', NULL, NULL, '0.0000', NULL),
+(2, 'PO/2018/09/0032', '2018-09-26 04:30:00', 11, 'Advance Computer  ', 1, '', '3700.0000', '0.0000', NULL, '0.0000', '0.0000', '481.0000', NULL, '0.0000', '481.0000', '0.0000', '4181.0000', '0.0000', 'received', 'pending', 1, NULL, NULL, NULL, 0, NULL, NULL, '0.0000', NULL, NULL, '0.0000', NULL),
+(3, 'PO/2018/09/0033', '2018-10-01 03:43:00', 4, '1st CHOICE WIRELESS  ', 1, '', '3500.0000', '0.0000', NULL, '0.0000', '0.0000', '455.0000', NULL, '0.0000', '455.0000', '0.0000', '3955.0000', '0.0000', 'received', 'pending', 1, NULL, NULL, NULL, 0, NULL, NULL, '0.0000', NULL, NULL, '0.0000', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -2955,6 +4271,17 @@ CREATE TABLE `sma_purchase_items` (
   `tr_status` varchar(200) DEFAULT '',
   `tr_remain_qty` decimal(15,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_purchase_items`
+--
+
+INSERT INTO `sma_purchase_items` (`id`, `purchase_id`, `transfer_id`, `product_id`, `product_code`, `product_name`, `option_id`, `net_unit_cost`, `quantity`, `warehouse_id`, `item_tax`, `tax_rate_id`, `tax`, `discount`, `item_discount`, `expiry`, `subtotal`, `quantity_balance`, `date`, `status`, `unit_cost`, `real_unit_cost`, `quantity_received`, `supplier_part_no`, `purchase_item_id`, `product_unit_id`, `product_unit_code`, `unit_quantity`, `tr_status`, `tr_remain_qty`) VALUES
+(1, 1, NULL, 27190, '48390', 'CANON CL 241 ORIGINAL', NULL, '29.4000', '5.0000', 1, '19.1100', 5, '13.0000%', '0', '0.0000', NULL, '166.1100', '5.0000', '2018-07-31', 'received', '33.2200', '29.4000', '5.0000', NULL, NULL, 1, 'pc', '5.0000', '', '5.00'),
+(2, 1, NULL, 27184, '48397', 'MEM-DESK-DDR3-REF-4G DDR3 Desktop 4GB Memory, Pulled', NULL, '28.0000', '1.0000', 1, '3.6400', 5, '13.0000%', '0', '0.0000', NULL, '31.6400', '1.0000', '2018-07-31', 'received', '31.6400', '28.0000', '1.0000', NULL, NULL, 1, 'pc', '1.0000', '', '1.00'),
+(3, 2, NULL, 27186, '48395', 'LCD SCREEN 14\" 40PIN', NULL, '65.0000', '30.0000', 1, '253.5000', 5, '13.0000%', '0', '0.0000', NULL, '2203.5000', '18.0000', '2018-09-26', 'received', '73.4500', '65.0000', '30.0000', NULL, NULL, 1, 'pc', '30.0000', '', '30.00'),
+(4, 2, NULL, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', NULL, '70.0000', '25.0000', 1, '227.5000', 5, '13.0000%', '0', '0.0000', NULL, '1977.5000', '20.0000', '2018-09-26', 'received', '79.1000', '70.0000', '25.0000', NULL, NULL, 1, 'pc', '25.0000', '', '25.00'),
+(5, 3, NULL, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', NULL, '70.0000', '50.0000', 1, '455.0000', 5, '13.0000%', '0', '0.0000', NULL, '3955.0000', '43.0000', '2018-10-01', 'received', '79.1000', '70.0000', '50.0000', NULL, NULL, 1, 'pc', '50.0000', '', '50.00');
 
 -- --------------------------------------------------------
 
@@ -3122,6 +4449,20 @@ CREATE TABLE `sma_sales` (
   `internal_ref` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `sma_sales`
+--
+
+INSERT INTO `sma_sales` (`id`, `date`, `reference_no`, `customer_id`, `customer`, `biller_id`, `biller`, `warehouse_id`, `note`, `staff_note`, `total`, `product_discount`, `order_discount_id`, `total_discount`, `order_discount`, `product_tax`, `order_tax_id`, `order_tax`, `total_tax`, `shipping`, `grand_total`, `sale_status`, `payment_status`, `payment_term`, `due_date`, `created_by`, `updated_by`, `updated_at`, `total_items`, `pos`, `paid`, `return_id`, `surcharge`, `attachment`, `return_sale_ref`, `sale_id`, `return_sale_total`, `rounding`, `suspend_note`, `card_charge`, `card_charge_percentage`, `internal_ref`) VALUES
+(1, '2018-09-26 04:38:00', 'SALE/2018/09/0017', 325, 'Tanveer Oils Ltd', 999999, 'Modcom IT Solutions', 1, '', '', '3350.0000', '0.0000', NULL, '0.0000', '0.0000', '435.5000', NULL, '0.0000', '435.5000', '0.0000', '3785.5000', 'completed', 'pending', 0, NULL, 1, NULL, NULL, 5, 0, '0.0000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', NULL, NULL, '0.00', '0.00', NULL),
+(2, '2018-09-30 19:13:22', 'SALE/POS/2018/10/0060', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '0.0000', '0.0000', NULL, '0.0000', '0.0000', '0.0000', NULL, '0.0000', '0.0000', '0.0000', '0.0000', 'completed', 'partial', 0, NULL, 1, NULL, NULL, 1, 1, '70.0000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL),
+(3, '2018-09-30 19:19:32', 'SALE/POS/2018/10/0061', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '0.0000', '0.0000', NULL, '0.0000', '0.0000', '0.0000', NULL, '0.0000', '0.0000', '0.0000', '0.0000', 'completed', 'partial', 0, NULL, 1, NULL, NULL, 1, 1, '70.0000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL),
+(4, '2018-09-30 19:21:05', 'SALE/POS/2018/10/0062', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '80.0000', '0.0000', NULL, '0.0000', '0.0000', '10.4000', NULL, '0.0000', '10.4000', '0.0000', '90.4000', 'completed', 'paid', 0, NULL, 1, NULL, NULL, 1, 1, '90.4000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL),
+(5, '2018-09-30 20:03:33', 'SALE/POS/2018/10/0063', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '80.0000', '0.0000', NULL, '0.0000', '0.0000', '10.4000', NULL, '0.0000', '10.4000', '0.0000', '90.4000', 'completed', 'due', 0, NULL, 1, NULL, NULL, 1, 1, '0.0000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL),
+(7, '2018-10-03 08:19:00', 'SALE2018100019', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '80.0000', '0.0000', NULL, '0.0000', '0.0000', '10.4000', NULL, '0.0000', '10.4000', '0.0000', '90.4000', 'completed', 'pending', 0, NULL, 1, NULL, NULL, 1, 0, '0.0000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', NULL, NULL, '0.00', '0.00', NULL),
+(8, '2018-10-02 22:21:00', 'SALE/POS2018100064', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '80.0000', '0.0000', NULL, '0.0000', '0.0000', '10.4000', NULL, '0.0000', '10.4000', '0.0000', '90.4000', 'completed', 'paid', 0, NULL, 1, NULL, NULL, 1, 1, '90.4000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL),
+(9, '2018-10-02 22:27:35', 'SALEPOS2018100065', 1511, 'Walk-in-customer', 999999, 'Modcom IT Solutions', 1, '', '', '80.0000', '0.0000', NULL, '0.0000', '0.0000', '10.4000', NULL, '0.0000', '10.4000', '0.0000', '90.4000', 'completed', 'paid', 0, NULL, 1, NULL, NULL, 1, 1, '90.4000', NULL, '0.0000', NULL, NULL, NULL, '0.0000', '0.0000', NULL, '0.00', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -3154,6 +4495,20 @@ CREATE TABLE `sma_sale_items` (
   `unit_quantity` decimal(15,4) NOT NULL,
   `comment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_sale_items`
+--
+
+INSERT INTO `sma_sale_items` (`id`, `sale_id`, `product_id`, `product_code`, `product_name`, `product_type`, `option_id`, `net_unit_price`, `unit_price`, `quantity`, `warehouse_id`, `item_tax`, `tax_rate_id`, `tax`, `discount`, `item_discount`, `subtotal`, `serial_no`, `real_unit_price`, `sale_item_id`, `product_unit_id`, `product_unit_code`, `unit_quantity`, `comment`) VALUES
+(1, 1, 27199, '48381', 'Targus 90W AC Adapter w/ 5 tips. APA70US, open box w/60 days warranty', 'combo', NULL, '670.0000', '757.1000', '5.0000', 1, '435.5000', 5, '13.0000%', '0', '0.0000', '3785.5000', '', '670.0000', NULL, 1, 'pc', '5.0000', NULL),
+(2, 2, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '0.0000', '0.0000', '1.0000', 1, '0.0000', 5, '13.0000%', '0', '0.0000', '0.0000', '', '0.0000', NULL, 1, 'pc', '1.0000', ''),
+(3, 3, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '0.0000', '0.0000', '1.0000', 1, '0.0000', 5, '13.0000%', '0', '0.0000', '0.0000', '', '0.0000', NULL, 1, 'pc', '1.0000', ''),
+(4, 4, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '80.0000', '90.4000', '1.0000', 1, '10.4000', 5, '13.0000%', '0', '0.0000', '90.4000', '', '80.0000', NULL, 1, 'pc', '1.0000', ''),
+(5, 5, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '80.0000', '90.4000', '1.0000', 1, '10.4000', 5, '13.0000%', '0', '0.0000', '90.4000', '', '80.0000', NULL, 1, 'pc', '1.0000', ''),
+(7, 7, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '80.0000', '90.4000', '1.0000', 1, '10.4000', 5, '13.0000%', '0', '0.0000', '90.4000', '', '80.0000', NULL, 1, 'pc', '1.0000', NULL),
+(8, 8, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '80.0000', '90.4000', '1.0000', 1, '10.4000', 5, '13.0000%', '0', '0.0000', '90.4000', '', '80.0000', NULL, 1, 'pc', '1.0000', ''),
+(9, 9, 27183, '48398', 'SERVICE ID 6335 : HOD NOT DETECTED', 'standard', NULL, '80.0000', '90.4000', '1.0000', 1, '10.4000', 5, '13.0000%', '0', '0.0000', '90.4000', '', '80.0000', NULL, 1, 'pc', '1.0000', '');
 
 -- --------------------------------------------------------
 
@@ -3197,41 +4552,284 @@ CREATE TABLE `sma_sessions` (
 --
 
 INSERT INTO `sma_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('0ilremht309iam6uqv5l4hmm5r79j29d', '::1', 1528182266, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383138323131383b6964656e746974797c733a31353a2273616c6573406d6f64636f6d2e6361223b757365726e616d657c733a383a226d6f64737579616e223b656d61696c7c733a31353a2273616c6573406d6f64636f6d2e6361223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313831393938223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2235223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
-('11hdlld472m62ruhc6h6av4uqb7neper', '::1', 1528173013, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383137323738393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383137333030313b),
-('4r33a2oq7c3002nfmk5gni92usamfkfr', '::1', 1528776018, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737353836363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737353836373b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('6m29mv15o4resde4ha46tu1leb42rjhc', '::1', 1528773580, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737333532373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('7269drm5cum6m9abjpt6qm23rb5pei3v', '::1', 1528775053, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737343931373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737353035333b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('7g5jvdlpkpm63otmsq29ac5mso122vbq', '::1', 1528183629, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383138333632373b6964656e746974797c733a31353a2273616c6573406d6f64636f6d2e6361223b757365726e616d657c733a383a226d6f64737579616e223b656d61696c7c733a31353a2273616c6573406d6f64636f6d2e6361223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313831393938223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2235223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
-('7icc1ifeg6di11finmuat5jdvd19fmla', '::1', 1528715628, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731353332363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('9mun4mbckun3fpob0pkspmppeqh36c4g', '::1', 1528275669, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383237353536333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313932323738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383237353636383b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('a1kigvdaa76t46buggim9hkf1noi65kt', '::1', 1528173593, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383137333532393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383137333137393b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('a3f6of3si796rlcv6ltvppglld15prmo', '::1', 1528184813, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383138343731323b6964656e746974797c733a31353a2273616c6573406d6f64636f6d2e6361223b757365726e616d657c733a383a226d6f64737579616e223b656d61696c7c733a31353a2273616c6573406d6f64636f6d2e6361223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313831393938223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2235223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
-('blee1rtop7amtrrdgs8aam5p1l6h0dqr', '::1', 1528774189, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737343034333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737343134383b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('bmo30b5k39l36qe0hh5du1qaak8k1lio', '::1', 1528772971, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737323732313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('ckcpef66q9mekbe6l4gbo6can6ig7gct', '::1', 1528712425, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731303534313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('d4kgdhq5ntllage0dibmsfqcmlu3ksoi', '::1', 1528773308, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737333032363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('dhlrnehtmos0hjgv3qjmqg7rj8g2bf3u', '::1', 1528272745, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383237323636363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313932323738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('dj0vpqih6ntl3mo1oqrqlpb2vs6tr66n', '::1', 1528717615, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731373039323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('eudq8iv29rvcol9r2dnk00roijcve1ej', '::1', 1528170243, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383137303233303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383137303233313b),
-('f77ugqs38ftu76u0vnoel8n24gu72qs7', '::1', 1528715914, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731353839363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('f89rvjvdv9kjl793oqjravnpar3p45d6', '::1', 1528774811, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737343532323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737343134383b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('hhnctvv5rbal5nru11s4k6huaqngbakb', '::1', 1528776627, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737363530393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737353836373b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('hlr8d7mlk6aiimqnh0jahf343ftjc480', '::1', 1528169199, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383136393133363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383136393139383b),
-('kf83dunbvlrmcjk01idtf3gbbh1v3ujq', '::1', 1528192568, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383139323236383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313832303335223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('kl2rps9oqa0jsptki4psd93ef6taredq', '::1', 1528717039, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731363734313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('ld14enr5jq9d4b61gqib2j7ha6l5n7md', '::1', 1528777460, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737373232333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737353836373b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('lnuobqmn75t8js1c0ekeashg9pkr5kgo', '::1', 1528712447, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731323432383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('mqqq3b86g29rdd4rcm5er02nnntfl9mb', '::1', 1528271713, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383237313632383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313932323738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('ne5v1532f7boqh7alsiat1ojiacqg6db', '::1', 1528718614, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731383331383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383731383534383b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('nspavaeakss992ch8p88mdeuqqhfcgep', '::1', 1528775806, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383737353530363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238373039383134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383737353830303b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('o00qdpvtnroqv6re5l2oqn25rvcc5j56', '::1', 1528173409, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383137333132353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383137333137393b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('s8ac1gltepus2p1l1c2r57ncvl8egtcs', '::1', 1528716616, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731363336343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('sdghphi7kt6f1c6bgpsog5bfphl29hcb', '::1', 1528182957, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383138323734343b6964656e746974797c733a31353a2273616c6573406d6f64636f6d2e6361223b757365726e616d657c733a383a226d6f64737579616e223b656d61696c7c733a31353a2273616c6573406d6f64636f6d2e6361223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238313831393938223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2235223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
-('t9u63aatdvkd074t2nqeccdhdo6kqugh', '::1', 1528174758, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383137343735373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383137333137393b72656769737465725f69647c733a313a2231223b636173685f696e5f68616e647c733a363a22302e30303030223b72656769737465725f6f70656e5f74696d657c733a31393a22323031382d30342d31302030373a30363a3431223b),
-('tghp52isp807mcbd9lk01rdcfscv980i', '::1', 1528709867, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383730393739353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
-('tumjr02jcncec14sb6bc64068i1euike', '::1', 1528170040, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383136393830373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238303835313839223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313532383136393830393b),
-('vj4f6aqha6kvuo2abr84g2akme87a5t9', '::1', 1528717905, 0x5f5f63695f6c6173745f726567656e65726174657c693a313532383731373631383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353238323731363930223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b);
+('02n57rk6ckh7e22894ggc81nsdihppos', '::1', 1542169796, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323136393739353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313636353931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('09hbrdgaa8blnmcj0icdblml0tijmlk7', '::1', 1541575014, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537343835323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('0aou48qlsi88rjtukouuvs1i8d970op8', '::1', 1542016468, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031363434383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0e9i72gsnhpmgg21u7mperep9ilittqf', '::1', 1542003877, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030333834393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383438223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0k79fbqingsmcf29o8t9j01hm4ve7fbt', '::1', 1542185386, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138353336323b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313639373935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('0m1n00vvopauig7faq30v8fclveagc7e', '::1', 1540102174, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130323137333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('0n7phja4mu3gcgakj50n3vio3l5m0pgn', '::1', 1542194247, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139343135323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0p0scd2ph3d89hh7uor4kv7ji81vlbh6', '::1', 1542190403, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139303130333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0pqlkg41oeb1u5e56gn7hmp4rfc6ubk6', '::1', 1540122907, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132323836343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0sds4aaq7m5gt7oqhks7e5g84vjlt6vr', '::1', 1541579510, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537393431393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236363130223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('0sicc7qn4u2bk498tgglb4lalnv4a3ut', '::1', 1540784996, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738343639353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738343939353b),
+('0tlrhvh957k70p40srrbcu7jssmt59pk', '::1', 1542021234, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323032303935313b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303035343333223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('0uc8ifml9rv9bpbr4t7llejgetckh5rc', '::1', 1540719435, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303731393433343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('0vhkkdh4gila1u01r74sk1h9jnqp75pn', '::1', 1541917876, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931373837353b),
+('0vognj5cco6g893fe49itnhvpeuueajl', '::1', 1539422507, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393432323437303b7265717565737465645f706167657c733a383a2270726f6475637473223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343038323737223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('12oibuvvihsr2rvha196389vau2fungb', '::1', 1541572235, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537323136303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('1dm2mdtaq7e573lqnq7ps7e9aue88uob', '::1', 1542088021, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038373734363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('1ma1sbkdqrt5sdvv1l4qbiel09tuhdd9', '::1', 1540101004, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130303830363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('1oa20n0obsrcffutkqfheebvpq44l3d0', '::1', 1540784623, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738343336333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738343632333b),
+('1us8e0ri6shbo5u80hb7aduirj2brv1c', '::1', 1541832165, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833323130323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('29f0mr0rhgpi7rpqoi4q3calu9l4a47i', '::1', 1542193758, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139333438303b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('29g16dni9kno2ih5aacbjk77r9jocmjj', '::1', 1541832089, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833313739363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('2bi3ppm6s88ll3t5of6hp80vqdv1gppe', '::1', 1542080630, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038303333393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('2f5f1b310ca0at9o38ojak1ukfoq9u84', '::1', 1541574813, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537343534333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('2ffiqj8kdsg5unbkhhsg2ktim58fn3v6', '::1', 1541573113, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537323831363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('2iabq7ofn5psr2h9h6gf9vfac44rur4h', '::1', 1542016238, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031363035383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('2pi1bkjddv5imfc3lp4b0h2lojthpeog', '::1', 1541842266, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834313937373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('3103lavemklnfk89lnb7ihk9o07u3gu7', '::1', 1541567190, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536373032323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('33pviqmlhqf6sl02tl6cfdeu1sru9d9u', '::1', 1540103526, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130333531343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('381vfp1n4uvpnlfpvfieqqvkr6vod3og', '::1', 1542010729, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031303433383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('39v3oisfan71n42n1l9j2aghpb0kiv1i', '::1', 1542086943, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038363730303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('3cs5mf4evt38m3v40b2a2rtj5nv1jflp', '::1', 1540100701, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130303432313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('3j33hbgbv10u629qus1d2764uoor7pp9', '::1', 1541328121, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332383038353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313137363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('4c99ckkc1n6ib80v836dc4adn4nmmq8n', '::1', 1541839891, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833393839303b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('4e2pukktb2nk51rvk1jl5tv4rvmf1faq', '::1', 1541835407, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833353337353b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('4mtdf9vfa8utf1pptr23ed3pb5dgqpp4', '::1', 1541843797, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834333530383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('4oskp6ls8vvdehbd1n86ik1bgq07dbul', '::1', 1540115843, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131353834333b),
+('52j3a3trk42sj9qcvo2sorjf910lkdbq', '::1', 1542107164, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130373133353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303139393133223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('52pdeb29k7qi3uf25fe4nf55aqms4vf1', '::1', 1540106196, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130353932333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('584ldttdt25pbejb6u63rv58tjmpc83n', '::1', 1540023512, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032333336303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5hh2s14dt69u5ks7l63ct2gec516ts61', '::1', 1542002244, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030323232353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5javq7kf6245qt8e6q9f8dp2g0057htu', '::1', 1540712600, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303731323539393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5jhbcab0a46ftvm5p9ktftlcitm8gdtg', '::1', 1541578313, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537383039313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5kferlacpcandk05fdab9c3g3katt8ej', '::1', 1541498209, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439373939383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5lppu5h8clggc2hj5t8e3jkqj8583v9t', '::1', 1542001463, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030313136393b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('5m4kom49r43s5t2i8ib212telv542pds', '::1', 1540788597, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738383539363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('5q60em68h6ncjhmki50f8pg5ufd9qk15', '::1', 1541581255, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313538313035363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431353830313034223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('687bolc30m67lm6a6ogg5ilsml25qk3f', '::1', 1542189487, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138393438363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('6cpqafjiu5cvb1eujl6gf4u38gfqoc2k', '::1', 1541995661, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313939353531343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934303538223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('6lu3vaca02j8ie76lqm0f0rquno82utq', '::1', 1542184914, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138343931343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313636383730223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('6qleiq9u78c40jjaq4fsitlvdh2ohidk', '::1', 1542089746, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038393437383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('6qnhrvd85pm3pe8ujfcjsn9l4bvadva9', '::1', 1540792918, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303739323630313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('6skvrvupm1pf1ttttsbkj33jn5nnv0su', '::1', 1541917667, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931373437313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('72m6jf1aqb5du25tbqnccl8i7np08i9f', '::1', 1542021884, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323032313730383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303036303330223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('75jje328skre2v8lgq4kg2g4l61tikgq', '::1', 1541835859, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833353834343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('7bd6o4t6lsi2dceb3vgrp284p6rgge0v', '::1', 1539413088, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393431333036373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b72656d6f76655f736c6c737c693a313b6d6573736167657c733a32333a2253616c65207375636365737366756c6c79206164646564223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226e6577223b7d),
+('7bpic4trrmolk7l94ubpnln37dk8brhq', '::1', 1542193290, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139333130373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('7e938a3j3d5sv0199jdj66u4772qpqvp', '::1', 1541564587, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536343533313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('7knccq6oe3koohp262blq5vfapua9ol4', '::1', 1542180274, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138303237333b7265717565737465645f706167657c733a353a226775617264223b),
+('7ob2p3r7m2hi38nog5gv1kt71e8019ul', '::1', 1540788394, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738383238373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('7tj4aco10n9ufrok6o26qaqr2v9vardo', '::1', 1541566989, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536363731383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('7tkuaj13ucss50ro5ea7adsn7280r2mu', '::1', 1541570799, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537303531363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b);
+INSERT INTO `sma_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('7ud3suq6qfgu9tfksu1ol9titre55i5n', '::1', 1541327216, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332363935393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313137363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('7vgosh410iv133ki07oa8gk9a35r9n0d', '::1', 1542167437, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323136373433373b),
+('81rfa2auplb17a8b8blqoottlam4a21i', '::1', 1540026230, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032363233303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('82ge3eo6qa04t1r2imepa7nhtbpmsgkr', '::1', 1539408476, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393430383036323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('84v70qpclrt1jbsk3q6v3v59khnp9fh8', '::1', 1542019445, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031373335363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('89o7ienur5vcoi9b9beci3f1ulumhe3l', '::1', 1540028209, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032383131303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6d6573736167657c733a32343a224775617264207375636365737366756c6c79206164646564223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('8acp471eju37n7eb8eu0q3p6ooimqqdl', '::1', 1541570517, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537303531363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('8dd0k00msg3d3p4abgu388rg87aumnog', '::1', 1541566612, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536363332353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('8ert3g9dieaaqat7upgrrg0i7vdl59j0', '::1', 1542087385, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038373131363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('8iru79tigka1se6n1370aqo358p7glie', '::1', 1540106579, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130363533323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('8kcvt21smp7mk7stesl9mqi0asekhgr2', '::1', 1542000326, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030303138383b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('8lno2vdv2055uf97qcldp49ifesjs6f3', '::1', 1542104798, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130343533373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('8oc9u32vg30bo5b9th0gji30ojltv4s2', '::1', 1541915678, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931353537333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('8ojuvro7o9nrdmurl9u8qjgh8lu4cu1c', '::1', 1540792561, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303739323239393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('8thamu90aes7dcv00dt0d9jq6617851l', '::1', 1540103109, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130323739313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('8ua88bk0pap7opq0092kpljgqttljab3', '::1', 1541834181, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833333931363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('97g2jmk8jbm1e4b4v64b4tsbkcruv7ed', '::1', 1540106517, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130363232353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('994d7bgd846qd9rc1vlpcu73pru1b6cv', '::1', 1542186431, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138363135343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('997moolvcp0vj42otemdokj2hm7cpu3a', '::1', 1541843087, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834323833383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('9baga0ea3s752tn40kdre2cot35uuk08', '::1', 1541833782, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833333537333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('9l35917dj4917dheo1u36ieqil6pi8jl', '::1', 1540113589, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131333334333b7265717565737465645f706167657c733a31353a2267756172642f6164645f6775617264223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313039333635223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('9sl6c0irepogus94q4cq8img7njp8lh9', '::1', 1542085346, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038353037373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('9uidesdo67d0i5gcktgov11p2qiom8hb', '::1', 1541576446, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537363434363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('a0csi2uqv5qnr50umo8aaugferg40g9g', '::1', 1541577972, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537373731313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ac6np4nf9h5ne48bb6aphm2srjv3h2qs', '::1', 1541475301, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313437353239393b7265717565737465645f706167657c733a393a22656d706c6f79656573223b),
+('al6cr0j3vqf8gu2fpstmkmal2hu6dfui', '::1', 1540629093, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632393039323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('amg1r5d8ujtpseguob6f5dvkf4mb6jkr', '::1', 1540109438, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130393433383b),
+('aoe8a9nl23uvt72ept9f3nh4nt3dlb57', '::1', 1541501976, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530313737333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('aq2kraufab4ntmpej2rj4idq3bj2dl6q', '::1', 1542166124, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323136363131303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313035343737223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('as51ld2qa8e6h23qkg3n2431lffgipgk', '::1', 1540124296, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132333938313b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('as5vruom5bv19mvo4tnq8n1ui2bg6j3u', '::1', 1541565795, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536353634303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('avihu8p8l1v15enjrngrpk7qje8c58mn', '::1', 1542195126, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139343936383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('b5ejdhnlbeeu2b8e18lfm0p54tmi7k3g', '::1', 1541504083, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530343035323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('b6010a3u9p7uat7jed3h5j330fk4doke', '::1', 1541570829, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537303831383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('bcrufejrfhjhlqrj9t4brqe8hvf5ce39', '::1', 1540623510, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632333431363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('bpdcdqo06rr0rflm9j9n2n4m9od8lt9h', '::1', 1540124328, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132343330363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('bt4e5s9n20oivp11e0h5ep5tsdjanbbi', '::1', 1542181916, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138313737363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313636383730223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('c49cb1iqtd44m3fjb1jf5avnf8a4v8aj', '::1', 1542096977, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323039363837393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('c5a60uu1lhijt56ihk5oobvrdvb11nhu', '::1', 1540096127, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303039363130383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('c6t0ndp28hrl81mo35jpiqdhovbg7nuk', '::1', 1541907664, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930373339313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('c9djndk3bkoikncr0tbfb16c15du3lol', '::1', 1542106174, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130363134363b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303139393133223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('c9ithtqo8on4m6349div44qf84nn65oi', '::1', 1542194517, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139343438363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ce9h7kg0m9nmjgdq67odc1e6fp2h3ork', '::1', 1541832575, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833323431383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('cedtvrrct52lt7u5klrnucoue05o7n59', '::1', 1541501724, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530313435323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('cfv53anlde1tuh4vdsamdkk7ijcon8qu', '::1', 1541499158, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439383939383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('cvjbqeq1b0hav9hg41ie5qa7o16k6b4k', '::1', 1540095698, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303039353431343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('dfic38a0v06qtnbtstpb1ufol9p7uds2', '::1', 1542082679, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038323437353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dicsfqcrm38801tsuv7r0n6eb43327r8', '::1', 1541843335, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834333134343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('djda639c0rk6dmem0r9rkinrhb8fqnok', '::1', 1540100278, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303039393938383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('dk0dugig4974tcondgqjl2a3p02slf7p', '::1', 1542191418, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139313431373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dp3b1q2qf3eslmb1vlcgbkrffmopi79l', '::1', 1541994903, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313939343833383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934303538223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dsmt1gc55t7mjjacr3i3us89lj4ttlq3', '::1', 1542188095, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138373739353b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dtlqu6e5t49equpd8dj3njat58ehkekg', '::1', 1542080772, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038303733313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dul3snlhu6v8rnfhn2acinhjktcr86qm', '::1', 1541837728, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833373732373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('dusivqltditvpi609isuo03k7tqo73t3', '::1', 1540028850, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032383636303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('e617oeodqqcamhed3fa2dnqlc7mjedfo', '::1', 1542000773, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030303734353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('eat3spsen3fttksr67u40870e6h0o4uv', '::1', 1541573374, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537333132353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ebm16nmova5o710vc741rvtaom43bgpn', '::1', 1540703677, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303730333338303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ebr95qmm2ifvtaot5pgrc0hd7sa1u6av', '::1', 1542101993, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130313834363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ejdapbtic106sl13f7is1g4i4je05kmg', '::1', 1540622578, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632323533323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('eqclu5ob9rvoj5ueo526qelf7msb90qi', '::1', 1540279912, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303237393931313b),
+('es81ghtcpsca988k6t0gjpe5kphrt6a4', '::1', 1542020079, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031393930323b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303035343333223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('f11drburoj1e31il4m2st8o07rick0li', '::1', 1542088655, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038383633323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b);
+INSERT INTO `sma_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('f387s4noega64080m4npg7ha8q7h8vpe', '::1', 1541831687, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833313230333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('f5mq91oqm90don6asd051hp7r0cih31q', '::1', 1541909099, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930383834313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('fe421jklpj7mbchnnmfs0b18qq98b3ir', '::1', 1541999820, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313939393831313b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('fforv3hkekglc0p33epoq54m3i6r3ulh', '::1', 1541563227, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536323830343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('fus0a7vm6lq6krd282dtbctstaduchul', '::1', 1541576661, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537363434363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('g33fv4m3048f7srg5i46nnejp0a8njg7', '::1', 1540122255, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132323038323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6572726f727c4e3b),
+('g4o8lnkh7ckuh0inqlaohvh3f27c7q7f', '::1', 1540023930, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032333932353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('gbki4e816eahq690l7ak9e7vva8ke7vb', '::1', 1541917066, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931363830383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('gdno4tbd941ff939b3b5sivir23jr1pc', '::1', 1542096433, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323039363134333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('gen6pl80bvcht98m85cmhsgesh8cc3mq', '::1', 1540624807, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632343531393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('gk5cntt8440n5h96guihsga6gnd6gjai', '::1', 1540028064, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032373736393b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('gkb52gak3ubf2g903tk20al0pbgfm1vc', '::1', 1541916605, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931363433323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('gkes44bc3k7ctvidpu194kvp86hkdpbu', '::1', 1540703302, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303730333036363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6572726f727c733a32393a22656d706c6f79656520636f646520282020292e206e6f7420666f756e64223b5f5f63695f766172737c613a313a7b733a353a226572726f72223b733a333a226f6c64223b7d),
+('gm7m7iddlh00nv0f2de5utg7m98g1ugv', '::1', 1540113647, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131333634373b7265717565737465645f706167657c733a31353a2267756172642f6164645f6775617264223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313039333635223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('gtae34n03p6ck3v5cuj7ski3kikvpund', '::1', 1542083784, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038333633393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('gtq93tgb5l01kd4rore4hbk9ove9mt4n', '::1', 1542105491, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130353436383b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303139393133223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('h8bdjmm16bkg4akvae0en832r8283osc', '::1', 1540117704, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131373636313b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('hkmoago49t00jdj7gctk672k4hdq098u', '::1', 1542085053, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038343735303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ht14gbonhrojunl93h74amn6e0qegkpe', '::1', 1542194150, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139333834393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('i2dnsgimq4hu3nusf8nkbfivj8jpmgvs', '::1', 1542100415, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130303336313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('i3483doecdvpnk3351k314fgmrl2svb9', '::1', 1541494521, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439343438313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('i4d114l03np11o11vh3vgfn3qsrtri6m', '::1', 1542083034, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038323738383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('i4mjvpjqgu2haqhpfmtlgsh6tbaev46k', '::1', 1540103893, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130333839323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('iaaivc9bgbi4fkqn44340oploosp533s', '::1', 1541908838, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930383532333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ij1qbv14scjrlaoi1s2l852ja1p8luka', '::1', 1541563969, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536333835393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ik3a3kj0vpk8e5rab21gr6sfet6n7fnb', '::1', 1542003556, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030333338323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383438223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ikccfvbovurjmqlalcfc437bp0im3rnn', '::1', 1542190658, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139303430393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('is4msfhr5pf3fird6r10qj3a8ac1jm57', '::1', 1541841920, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834313633313b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('j005heu7q36gr7t8muf3sdc35oi5bds1', '::1', 1541909422, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930393134343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('j1djrpb3einiu9ri7su276dknr8m1j1c', '::1', 1539423615, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393432333631343b7265717565737465645f706167657c733a383a2270726f6475637473223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343038323737223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('j2aqag3o0adjf2qnf1jardhp07ud32tm', '::1', 1540115490, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131353232313b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313039333332223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('j7lovju4iqkqccs91tnpmv12tcnmici6', '::1', 1542010328, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031303132333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('j9f9knddi1vkaaoav5kthbphst78toii', '::1', 1540029448, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032393135393b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('jd9bpukcchcsid8ivh61eh8tc6d5odo4', '::1', 1541574087, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537333935333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('jg5865vm6slign0hipbp9f60dmlm62ej', '::1', 1541911113, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931313035373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('jlsnilvbmnlb3kefdfsvuiua8s0p7sh8', '::1', 1542192765, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139323636323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('jv8vrc0gs1d090672p2isrk4u38d91fp', '::1', 1542191985, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139313734373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('k1mg6o8c7eo8esa9t7um5k198uagtepl', '::1', 1541494375, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439343136303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('k78bu1o2ccsm31ifaqg0r8anlvntb9c9', '::1', 1541838136, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833383036373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('k84ebdjoel8lboml6fs38vtc4a84tden', '::1', 1541327413, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332373237333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313137363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('k8669k5brpekn0q74rhe65eeqvb82gbj', '::1', 1542005577, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030353432333b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393939383139223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('k91gjbqbqa08k5i6nb2p5usa9bc0n53s', '::1', 1540622286, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632323135343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('kcotlnst34vu14ee5b5ee9ohbl39keik', '::1', 1540101416, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130313333333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('kdd4g08mnsm5vbpouq8h5tgmj9ml508g', '::1', 1542003347, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030323938363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383438223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('kkhuk6ots2grj9mn4cc4ulup34aje5c8', '::1', 1541994060, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313939333935323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393037343035223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('ko6iagsqufdlr48kqh76ukcve8lsqc2t', '::1', 1541580595, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313538303436353b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431353739343333223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('krko8b7nnfjmnu73b3mearb55q3ajtut', '::1', 1542192578, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139323235333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('l2oqqkhkrljtcprk2e2ji0h1u1i1puk9', '::1', 1541917388, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931373132383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('l2tmh88b0at33jprkr6jiskfshr1qpig', '::1', 1542019684, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031393435363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('l3nm3b0kainqurhp78pa8a6h7t3ebut5', '::1', 1541576426, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537363039393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('l3ra6shg8rd3jj2vt7su5na38nlj94lu', '::1', 1540624343, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632343133333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('li5d87cp2sesq4r73elhlg1uq9kmidmd', '::1', 1542087501, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038373433353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ljh2d4b1dbhmhovdqrfdcvdrum7i0bsi', '::1', 1540029608, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032393437313b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('lo9p7vjaedupgnfs1a922i9uatkpjt3m', '::1', 1541326946, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332363934353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373834333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6572726f727c4e3b),
+('ltdb70nfqe2phi9um3usnf2b3f9osm0e', '::1', 1540122080, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132313737373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6572726f727c4e3b),
+('m0j06ljanavsapl737v9rpud31jksnqr', '::1', 1541582637, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313538323633363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431353830313034223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6572726f727c4e3b),
+('m2hdt1pnff2u937db0k6u42rlha5vg7j', '::1', 1540122856, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132323438383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6572726f727c4e3b),
+('m5defn58ru6d5pqqi6k3rvqdu16e4mu7', '::1', 1542017353, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031363838393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('m6vhqqt82f2uq8b5ithts4ftidkm93j3', '::1', 1541838906, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833383738363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b);
+INSERT INTO `sma_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('m8emnlf3vu47fl9dnmlvj36a1a047fng', '::1', 1540114866, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131343636373b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313039333332223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mcihnujf9n7tcidj0sfibnldkdh2i5cl', '::1', 1542186791, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138363531373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('mcsiqu7mvl60cs5o97gjbma33kls44ck', '::1', 1542005162, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030343935303b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383438223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('mk5d3btmtakquv5u2thoaeokka3oo0al', '::1', 1542101781, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130313532383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('mn5stgcqeiaj14fbans5p2dofs5l0vit', '::1', 1541326513, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332363236373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373834333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mn6acfq81ad5hs1cqh8cinr6j3ak3oeo', '::1', 1541571648, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537313337303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mp1hukrius1rj4uqdnlihstka8c2bbfs', '::1', 1541326871, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313332363539313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313137363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('mpqc2ak5h206tqrjs3a0mjl52h2ne9nm', '::1', 1541578700, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537383437313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mtjsnh203157qia4j34qi0v66lfrcnpg', '::1', 1539414702, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393431343431323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mub0r6lfbr1asnipatjug25qtonjcq9q', '::1', 1541503712, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530333431343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('mvm2n84j2t3jkuk29a06gtp75lq5epal', '::1', 1542190956, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323139303737353b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('nc4empajcjfbvlkvajobf1m91386k55q', '::1', 1540025169, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032343839323b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ngdcrgub1tbkvgo6orve18ivhtqo6rn6', '::1', 1540785233, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738353032363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738353233333b),
+('nkv661ilgtj26fq64pr7ncs79528reb1', '::1', 1542089449, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038393137363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('nmfvr7c81g5ls8c8cg82gj66eu217k31', '::1', 1542085917, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038353931363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('nq4b1t4b69uih9qfqqfach60q6mulejc', '::1', 1540793176, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303739323932343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('nqlvgu8g00fb61ctabnr38ra1ajd126t', '::1', 1540793229, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303739333232363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('ntf732391jhvcjpgmmj3t38lvar5jtts', '::1', 1540103216, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130333132303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('o2qfcpo60fumriu8r4n2e2247rhqbq34', '::1', 1542084657, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038343433353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('oake975lk2jcg4r78r8r78b5m4otlib2', '::1', 1540279867, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303237393836373b7265717565737465645f706167657c733a373a2277656c636f6d65223b),
+('ockundii6afq1jjp3qbqf4naua4mtp0b', '::1', 1542188323, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138383130323b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ofkec8ec8h43sr6rcqv3iuafn84vbi2o', '::1', 1542010771, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323031303734393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('om44jb7rncgnkj0fed7s1s6j008p83qk', '::1', 1542001761, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030313532383b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('onm5i32miks06nqkl558e796utt6qbf2', '::1', 1542188717, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138383731363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ou32ecgj72u9h19ge0r50dmchdup8q2a', '::1', 1541580328, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313538303039333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431353739343333223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('p3u0ju0b1s5aon9hmssd7nm6sgil5m4b', '::1', 1541581647, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313538313433393b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431353830313034223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('p4enjjvv7j3jugd25lo30p66fqebmi2q', '::1', 1540624829, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632343832393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('p4qn3mpq2bt9fgb9kk02oqq5915o9ms9', '::1', 1541909806, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930393532393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('p5r65djhna7ea69cova9eflfd2fi4u3a', '::1', 1539408913, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393430383534353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('pispb3t1p4j1841aac0baek206ou1l3n', '::1', 1540121655, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132313332343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('pmiof0pn4vr8g6gv7epcm0i3ab63uerf', '::1', 1540710944, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303731303932373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('pus05lqomf18t4uqr06irdderjk8oi00', '::1', 1540794057, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303739333938323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('q05qkfn6gh6ogla97ghd3uopr971j85t', '::1', 1539409058, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393430383931343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('q67gc1re290robu66jqjjr7c22rb9r0v', '::1', 1542187101, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138363837363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('qbdgshvnplmkvtss923chgifnv27t58s', '::1', 1541499635, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439393336383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('qimtm1clts5gl73j2s7apgi42t9u0uad', '::1', 1540787061, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738363832363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('qj5qsolj9bpjssj7s1cqo2uqtaccfjga', '::1', 1541907916, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930373639373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('qkl0jp957kc9j0b9cspqtghi94p6nt53', '::1', 1541572812, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537323531333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('qkl0reumpfu2iaj084u1t287e4gghh3l', '::1', 1542167112, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323136363835313b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313635373431223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6d6573736761657c733a32383a224461746162617365207375636365737366756c6c792073617665642e223b5f5f63695f766172737c613a313a7b733a373a226d657373676165223b733a333a226f6c64223b7d),
+('qmciqrq2dn9n6iji464db6vgvnbm0lgj', '::1', 1540124819, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303132343830383b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313135373936223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('qst8pv9s7lvbdk0pg50pvc6d9i5g7l8g', '::1', 1539414169, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393431333932333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('r1c2so4b8rrj2ac5v93kaojvk05drlkp', '::1', 1540629561, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632393433343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('r2mnquv028t9bs5cfpe8dhd6asj90br9', '::1', 1540107119, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303130373031313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('r2p00usdp8bh5tb3leftd7njnvii8jjl', '::1', 1542165980, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323136353731383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303830333533223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('r546p10nhbdeudmnu05lpt2mfl12c6od', '::1', 1542085557, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038353337393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('rbl8frdnk6gbmhlmhg9a73qmc5mro4uk', '::1', 1542002977, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030323638333b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('rcpp21337qe1dgiu3qmi54n3etqikn3i', '::1', 1541571806, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537313730373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('rfh9ap9992gco1iqpka9lspqsbhvmg01', '::1', 1540623280, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632333033373b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('rfsg9ntkbs4812q5kg06pe587tm4n4d6', '::1', 1542088318, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038383037363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('rhe2mppvv4s99dk99skm1ikil4kfkinn', '::1', 1540720115, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303732303031343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('rmjmqeksrqi6ris7a49t772mauv71l2p', '::1', 1542187408, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138373138353b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ru3cnpu1mbnt1mkgkggirsg23gil18si', '::1', 1541834558, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833343338373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('s2e2u8i3fa56o8eejfdla77gkbq5djb1', '::1', 1541564504, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536343232363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('sgt0q60o55f9a0bal49r8a8cgmissqi2', '::1', 1540114223, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303131343139353b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313039333332223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('shagptb2hq48cormdief3hc49n1jg1dk', '::1', 1540703840, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303730333639343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('sn4gag0si8325efrfenol9vef09cotsu', '::1', 1540030062, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032393737323b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('t2vo5d33p5dsedbeveb8s4ce69k8bjht', '::1', 1541497791, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313439373635323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('t52ko09bl2jb2ns0bd5g7ira9tbv9omb', '::1', 1539414942, 0x5f5f63695f6c6173745f726567656e65726174657c693a313533393431343732303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353338383836353037223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('t5vu37jin6a0n9q557t82nuvsgchsrqd', '::1', 1540024472, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032343235303b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('t8dg2ig33ubeia7f54cob92n6dl4vos2', '::1', 1541910746, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313931303730313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('t9odfbjq221lb6qdm1idg8ti5i61nhf7', '::1', 1541830840, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833303833393b);
+INSERT INTO `sma_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('tao29ms3lmacrrc2mqdo9dshnlpvjv07', '::1', 1540022177, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032323135383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353336383134393232223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('tdi6jn612j3rpcla1rtjs55qe6t7ees0', '::1', 1540094502, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303039343435313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('tei63kp7reaq0hc95q6qt5mfh74rfiri', '::1', 1540716093, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303731363039333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('tig7u52udlud1goggufu739n8k0tac7c', '::1', 1540025634, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303032353334343b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353339343232343831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('touumf4c2ca52kbgerlpv9gibjuunvv2', '::1', 1540626089, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632363038313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('tuct4nu031g0600q69k27bqv6af2gtm5', '::1', 1542083450, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038333136343b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('tupbfjhadh6eq8lpr45jie7e781vg0np', '::1', 1542006112, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030363031373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303032393935223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('tvgm8krl4q0mglv3672mg08cj13aitjk', '::1', 1541563503, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536333430363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('u17r0g9f0hqd2vdsoli5c2qh2hh9idqm', '::1', 1541569841, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536393833323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('u1mirmhrq8q66ll0r3c40v95b9fp9va5', '::1', 1540719016, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303731383733323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430363231333331223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('u2fu1s7i90hdfv6i9o2b2lnis6fgg9co', '::1', 1542096527, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323039363439323b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('u3vn1jtop6do22iph39favng174e7okh', '::1', 1540621512, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303632313332303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430313134323134223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('u61q1mbs5b1h6ntvj5nug409s8qopfc2', '::1', 1542102403, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130323136353b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('u7n4jugoubmtft7nkunb5uc8um44ndkd', '::1', 1542089917, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323038393831393b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('u856gjaoeakpdplqndbtq8u0u54612rq', '::1', 1542185982, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323138353734333b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432313831373931223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ua4mi4l94cbm13en8dkeju4m15tjgpf4', '::1', 1541566311, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536353934383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('uagt0de3qh94h304iprq3on0rcamthp3', '::1', 1541843868, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834333833303b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ucn0fssceqd506jngvqqmo1os06kogtt', '::1', 1541835361, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833343739363b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('uhr7b1ooj5mf26pj54pqjn68uqjokb68', '::1', 1541502409, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530323237313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('ukek260h531qt5do46rqbhgrvk74mrkr', '::1', 1540786218, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303738363231383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430373033303738223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b6c6173745f61637469766974797c693a313534303738363231383b),
+('usjvjufc6p833vjfm7km81n9vjn9fv7c', '::1', 1541834796, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313833343738343b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383330363631223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('ut4fcghaie95upgj6dj26dmn3u64d96e', '::1', 1540096012, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303039353732303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353430303233333733223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('uthkv22gb2g5jcr81nt6ia9gi2u8is1c', '::1', 1541578928, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313537383834333b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('utq8es1a08bn0hppip3p1ud9vldj98r1', '::1', 1542002114, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323030313839373b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431393934383031223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('v2s1bn4075tkch5ichhp40q33c0bkl18', '::1', 1541840519, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313834303530373b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383331323033223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b6d6573736167657c733a33383a223c703e596f7520617265207375636365737366756c6c79206c6f6767656420696e2e3c2f703e223b5f5f63695f766172737c613a313a7b733a373a226d657373616765223b733a333a226f6c64223b7d),
+('v7d94ff83dhangq8ok48lv44bbv3dma3', '::1', 1542101391, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534323130313130303b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353432303231373231223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('vcln63r26um3libn5rt24rlg4bsp3e31', '::1', 1541504029, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313530333733313b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431333236323830223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b),
+('vftcc4s6h3oppmp7oa5k87mosb84oc90', '::1', 1541910173, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313930393931363b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a32303a2261646d696e4070617261676f6e2e636f6d2e6264223b757365725f69647c733a313a2233223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431383430353138223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2236223b77617265686f7573655f69647c733a313a2231223b766965775f72696768747c733a313a2231223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c4e3b73686f775f70726963657c4e3b),
+('vr03gkfn6kehsgia4qgb5ja515m7e0pg', '::1', 1541565457, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534313536353139383b7265717565737465645f706167657c733a303a22223b6964656e746974797c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365726e616d657c733a353a226f776e6572223b656d61696c7c733a31393a226f776e6572406d79706f73736f66742e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a31303a2231353431343934313831223b6c6173745f69707c733a333a223a3a31223b6176617461727c4e3b67656e6465727c733a343a226d616c65223b67726f75705f69647c733a313a2231223b77617265686f7573655f69647c4e3b766965775f72696768747c733a313a2230223b656469745f72696768747c733a313a2230223b616c6c6f775f646973636f756e747c733a313a2230223b62696c6c65725f69647c4e3b636f6d70616e795f69647c4e3b73686f775f636f73747c733a313a2230223b73686f775f70726963657c733a313a2230223b);
 
 -- --------------------------------------------------------
 
@@ -3337,7 +4935,7 @@ CREATE TABLE `sma_settings` (
 --
 
 INSERT INTO `sma_settings` (`setting_id`, `logo`, `logo2`, `site_name`, `language`, `default_warehouse`, `accounting_method`, `default_currency`, `default_tax_rate`, `rows_per_page`, `version`, `default_tax_rate2`, `dateformat`, `sales_prefix`, `quote_prefix`, `purchase_prefix`, `transfer_prefix`, `delivery_prefix`, `payment_prefix`, `return_prefix`, `returnp_prefix`, `expense_prefix`, `item_addition`, `theme`, `product_serial`, `default_discount`, `product_discount`, `discount_method`, `tax1`, `tax2`, `overselling`, `restrict_user`, `restrict_calendar`, `timezone`, `iwidth`, `iheight`, `twidth`, `theight`, `watermark`, `reg_ver`, `allow_reg`, `reg_notification`, `auto_reg`, `protocol`, `mailpath`, `smtp_host`, `smtp_user`, `smtp_pass`, `smtp_port`, `smtp_crypto`, `corn`, `customer_group`, `default_email`, `mmode`, `bc_fix`, `auto_detect_barcode`, `captcha`, `reference_format`, `racks`, `attributes`, `product_expiry`, `decimals`, `qty_decimals`, `decimals_sep`, `thousands_sep`, `invoice_view`, `default_biller`, `envato_username`, `purchase_code`, `rtl`, `each_spent`, `ca_point`, `each_sale`, `sa_point`, `update`, `sac`, `display_all_products`, `display_symbol`, `symbol`, `remove_expired`, `barcode_separator`, `set_focus`, `price_group`, `barcode_img`, `ppayment_prefix`, `disable_editing`, `qa_prefix`, `update_cost`, `code_prefix`, `internal_price_group`) VALUES
-(1, 'Final_Logo_small-pos_.jpg', 'fresh_mart_Logo_resiz3.jpg', 'Freshmart', 'english', 1, 0, '$', 1, 10, '3.0.2.23', 0, 5, 'SALE', 'QUOTE', 'PO', 'TR', 'DO', 'IPAY', 'SR', 'PR', '', 0, 'default', 1, 1, 1, 1, 1, 0, 0, 1, 0, 'America/Toronto', 800, 800, 60, 60, 0, 0, 0, 0, NULL, 'mail', '/usr/sbin/sendmail', 'pop.gmail.com', 'contact@sma.tecdiary.org', 'jEFTM4T63AiQ9dsidxhPKt9CIg4HQjCN58n/RW9vmdC/UDXCzRLR469ziZ0jjpFlbOg43LyoSmpJLBkcAHh0Yw==', '25', NULL, NULL, 1, 'bala@modcom.ca', 0, 4, 1, 0, 2, 1, 1, 0, 2, 2, '.', ',', 0, 999999, 'shoolindesign', 'd382ffd1-5419-4a40-adde-114aaacac984', 0, NULL, NULL, NULL, NULL, 0, 0, 0, 0, '$', 0, '_', 0, 1, 1, 'POP', 90, '', 0, '10', 'Partner Price');
+(1, 'fresh_mart_Logo_resiz4.jpg', '260_x_801.jpg', 'Paragon Group', 'english', 1, 0, 'BDT', 1, 10, '3.0.2.23', 0, 5, 'SALE', 'QUOTE', 'PO', 'TR', 'DO', 'IPAY', 'SR', 'PR', '', 0, 'default', 1, 1, 1, 1, 1, 0, 0, 1, 0, 'America/Toronto', 800, 800, 60, 60, 0, 0, 0, 0, NULL, 'mail', '/usr/sbin/sendmail', 'pop.gmail.com', 'contact@sma.tecdiary.org', 'jEFTM4T63AiQ9dsidxhPKt9CIg4HQjCN58n/RW9vmdC/UDXCzRLR469ziZ0jjpFlbOg43LyoSmpJLBkcAHh0Yw==', '25', NULL, NULL, 1, 'info@paragon.com.bd', 0, 4, 1, 0, 2, 1, 1, 0, 2, 2, '.', ',', 0, 999999, 'shoolindesign', 'd382ffd1-5419-4a40-adde-114aaacac984', 0, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 'BDT', 0, '_', 0, 1, 1, 'POP', 90, '', 0, '10', 'Partner Price');
 
 -- --------------------------------------------------------
 
@@ -3731,9 +5329,9 @@ CREATE TABLE `sma_users` (
 --
 
 INSERT INTO `sma_users` (`id`, `last_ip_address`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `avatar`, `gender`, `group_id`, `warehouse_id`, `biller_id`, `company_id`, `show_cost`, `show_price`, `award_points`, `view_right`, `edit_right`, `allow_discount`) VALUES
-(1, 0x3a3a31, 0x0000, 'owner', '36911a652dc8dcd6d1fc08fda7e049b0adc0a0a8', NULL, 'owner@mypossoft.com', NULL, NULL, NULL, '9bdd01e4d1b165fdc400a7ba1b3a10f4e2ffe074', 1351661704, 1528772745, 1, 'Owner', 'Owner', 'Stock Manager', '012345678', NULL, 'male', 1, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
+(1, 0x3a3a31, 0x0000, 'owner', '36911a652dc8dcd6d1fc08fda7e049b0adc0a0a8', NULL, 'owner@mypossoft.com', NULL, NULL, NULL, '9bdd01e4d1b165fdc400a7ba1b3a10f4e2ffe074', 1351661704, 1542185371, 1, 'Owner', 'Owner', 'Stock Manager', '012345678', NULL, 'male', 1, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
 (2, NULL, 0x32372e35342e3136312e3231, 'aa123', 'e134a227e72b35e4d64b1f7d873af127e19c3616', NULL, 'aa@aa.com', NULL, NULL, NULL, NULL, 1490018098, 1490018098, 1, 'Jay', 'Sheth', 'Emerging Coders', '123456780', NULL, 'male', 1, 0, 0, NULL, 0, 0, 0, 1, 0, 0),
-(3, 0x3a3a31, 0x39392e3233382e3230312e3532, 'modsuyan', '6f3dbf673d9e69d424e90d1e6925be3902d9d1eb', NULL, 'sales@modcom.ca', NULL, NULL, NULL, NULL, 1490095554, 1528182129, 1, 'Suyan', 'Naga', 'Modcom', '4168574502', NULL, 'male', 5, 1, NULL, NULL, NULL, NULL, 0, 1, 0, 0),
+(3, 0x3a3a31, 0x39392e3233382e3230312e3532, 'admin', '5d0cbb9e07b7325f5944315eb6ec428d8655da91', NULL, 'admin@paragon.com.bd', NULL, NULL, NULL, NULL, 1490095554, 1542185764, 1, 'Admin', '01', 'Modcom', '4168574502', NULL, 'male', 6, 1, NULL, NULL, NULL, NULL, 0, 1, 0, 0),
 (4, 0x32372e35342e3136312e3734, 0x32372e35342e3136312e3734, 'akash_varlani', '3329d8443cdab2f3c60e08c5f3db0b72432e2d52', NULL, 'varlani.akash85@gmail.com', NULL, NULL, NULL, NULL, 1490095953, 1490096256, 1, 'akash', 'VARLANI', 'emerging coders', '1234567890', NULL, 'male', 1, 0, 0, NULL, 0, 0, 0, 1, 0, 0),
 (5, 0x3a3a31, 0x3a3a31, 'test', '4844a60f85339035b9985f2ebcd625c8eb1ddba0', NULL, 't@t.com', NULL, NULL, NULL, NULL, 1523333157, 1526554514, 1, 'Test', '001', 'PG', '12345678911', NULL, 'male', 5, 1, NULL, NULL, NULL, NULL, 0, 1, 0, 0);
 
@@ -3979,7 +5577,135 @@ INSERT INTO `sma_user_logins` (`id`, `user_id`, `company_id`, `ip_address`, `log
 (220, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-05 09:51:18'),
 (221, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-06 07:54:50'),
 (222, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-11 09:36:54'),
-(223, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-12 03:05:45');
+(223, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-12 03:05:45'),
+(224, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-12 07:05:56'),
+(225, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-21 03:50:32'),
+(226, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-06-21 07:40:37'),
+(227, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-21 09:29:55'),
+(228, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-23 16:16:22'),
+(229, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-06-23 18:05:16'),
+(230, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-23 18:06:09'),
+(231, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-06-23 18:14:49'),
+(232, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-23 18:28:45'),
+(233, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-06-24 03:49:40'),
+(234, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 03:25:24'),
+(235, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-07-01 03:53:27'),
+(236, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 03:56:16'),
+(237, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 03:59:22'),
+(238, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-07-01 03:59:45'),
+(239, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 04:31:51'),
+(240, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-07-01 04:34:42'),
+(241, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 04:48:58'),
+(242, 3, NULL, 0x3a3a31, 'sales@modcom.ca', '2018-07-01 04:50:23'),
+(243, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 08:26:38'),
+(244, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:22:01'),
+(245, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 10:22:35'),
+(246, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:24:17'),
+(247, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 10:29:31'),
+(248, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:34:14'),
+(249, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 10:37:02'),
+(250, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:39:07'),
+(251, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 10:42:20'),
+(252, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:43:12'),
+(253, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-01 10:49:06'),
+(254, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-01 10:54:01'),
+(255, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-02 03:38:20'),
+(256, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-02 05:56:11'),
+(257, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-02 08:40:03'),
+(258, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-04 03:48:34'),
+(259, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-04 03:49:58'),
+(260, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-04 06:59:20'),
+(261, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-04 06:59:53'),
+(262, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-04 07:40:39'),
+(263, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-05 07:55:26'),
+(264, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-07 05:08:58'),
+(265, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-07 07:13:08'),
+(266, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-07 07:14:17'),
+(267, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-07 07:16:29'),
+(268, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-07 08:24:48'),
+(269, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-08 03:58:38'),
+(270, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-08 06:52:36'),
+(271, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-08 06:54:50'),
+(272, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-08 07:05:01'),
+(273, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-08 07:09:39'),
+(274, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-08 07:30:30'),
+(275, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-08 07:31:25'),
+(276, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-08 10:26:36'),
+(277, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-07-08 10:27:47'),
+(278, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-08 10:50:44'),
+(279, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-07-31 03:35:57'),
+(280, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-01 07:04:29'),
+(281, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-01 10:30:06'),
+(282, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-02 09:19:32'),
+(283, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-02 10:14:23'),
+(284, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-08-02 10:25:15'),
+(285, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-02 10:25:31'),
+(286, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-08-02 10:26:22'),
+(287, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-08-02 10:27:06'),
+(288, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-04 03:26:54'),
+(289, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-08-04 05:02:38'),
+(290, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-08-16 09:17:44'),
+(291, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-20 04:54:42'),
+(292, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-08-27 05:41:51'),
+(293, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-09-11 03:32:20'),
+(294, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-09-13 05:02:02'),
+(295, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-09-13 05:03:03'),
+(296, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-09-13 06:31:51'),
+(297, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-09-26 04:20:20'),
+(298, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-01 03:30:58'),
+(299, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-01 03:43:00'),
+(300, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-01 06:33:06'),
+(301, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-03 06:44:14'),
+(302, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-04 08:09:05'),
+(303, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-07 04:28:27'),
+(304, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-13 05:24:37'),
+(305, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-13 09:21:21'),
+(306, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-20 07:56:14'),
+(307, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-20 08:16:13'),
+(308, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-21 04:01:00'),
+(309, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-21 08:08:30'),
+(310, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-21 08:08:52'),
+(311, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-21 08:09:25'),
+(312, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-21 09:15:58'),
+(313, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-21 09:30:15'),
+(314, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-21 09:56:36'),
+(315, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-10-21 10:27:41'),
+(316, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-27 06:22:11'),
+(317, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-28 05:04:38'),
+(318, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-10-29 03:39:33'),
+(319, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-04 10:11:20'),
+(320, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-04 10:16:50'),
+(321, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-06 08:49:41'),
+(322, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-07 03:53:39'),
+(323, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-07 08:30:33'),
+(324, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-07 08:41:08'),
+(325, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-07 08:41:44'),
+(326, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-07 08:57:47'),
+(327, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-10 06:17:41'),
+(328, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-10 06:18:18'),
+(329, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-10 06:26:43'),
+(330, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-10 09:01:24'),
+(331, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-10 09:01:58'),
+(332, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-11 03:36:45'),
+(333, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-12 03:40:59'),
+(334, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-12 03:53:21'),
+(335, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-12 03:54:08'),
+(336, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-12 05:16:59'),
+(337, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-12 06:09:55'),
+(338, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-12 06:50:33'),
+(339, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-12 07:00:30'),
+(340, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-12 10:51:54'),
+(341, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-12 11:22:01'),
+(342, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-13 03:39:13'),
+(343, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-13 10:37:57'),
+(344, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-14 03:22:21'),
+(345, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-14 03:28:43'),
+(346, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-14 03:36:31'),
+(347, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-14 03:41:10'),
+(348, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-14 04:29:55'),
+(349, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-14 07:49:51'),
+(350, 1, NULL, 0x3a3a31, 'owner@mypossoft.com', '2018-11-14 08:49:31'),
+(351, 3, NULL, 0x3a3a31, 'admin@paragon.com.bd', '2018-11-14 08:56:04');
 
 -- --------------------------------------------------------
 
@@ -4014,7 +5740,7 @@ CREATE TABLE `sma_warehouses` (
 --
 
 INSERT INTO `sma_warehouses` (`id`, `code`, `name`, `address`, `map`, `phone`, `email`, `price_group_id`) VALUES
-(1, 'MW', 'Modcom Woodbine', '<p>7310 Woodbine ave. Unit 6</p><p>Markham. Ont. L3R1A4</p>', NULL, '012345678', 'sales@modcom.ca', 1),
+(1, 'MW', 'Paragon House', '<p>House-5,Mohakhail C/A</p><p>Dhaka</p>', NULL, '012345678', 'info@paragon.com.bd', 1),
 (2, 'MC', 'Modcom College', '<p>281 College St. </p><p>Toronto</p>', NULL, '0105292122', 'modcomc@gmail.com', 1),
 (3, 'HT', 'Hitech Direct', '<p>314 Collge st. Toronto</p>', NULL, '', 'hitechdirectc@gmail.com', 1);
 
@@ -4033,6 +5759,26 @@ CREATE TABLE `sma_warehouses_products` (
   `avg_cost` decimal(25,4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `sma_warehouses_products`
+--
+
+INSERT INTO `sma_warehouses_products` (`id`, `product_id`, `warehouse_id`, `quantity`, `rack`, `avg_cost`) VALUES
+(1, 27190, 1, '5.0000', NULL, '29.4000'),
+(2, 27184, 1, '1.0000', NULL, '28.0000'),
+(3, 27199, 1, '0.0000', NULL, '9.8800'),
+(4, 27199, 2, '0.0000', NULL, '9.8800'),
+(5, 27199, 3, '0.0000', NULL, '9.8800'),
+(6, 27186, 1, '18.0000', NULL, '65.0000'),
+(7, 27183, 1, '63.0000', NULL, '70.0000'),
+(8, 27198, 1, '0.0000', NULL, '12.0000'),
+(9, 27198, 2, '0.0000', NULL, '12.0000'),
+(10, 27198, 3, '0.0000', NULL, '12.0000'),
+(11, 27183, 2, '0.0000', NULL, '70.0000'),
+(12, 27183, 3, '0.0000', NULL, '70.0000'),
+(13, 27186, 2, '0.0000', NULL, '65.0000'),
+(14, 27186, 3, '0.0000', NULL, '65.0000');
+
 -- --------------------------------------------------------
 
 --
@@ -4047,6 +5793,33 @@ CREATE TABLE `sma_warehouses_products_variants` (
   `quantity` decimal(15,4) NOT NULL,
   `rack` varchar(55) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sma_weight_details`
+--
+
+CREATE TABLE `sma_weight_details` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `employee_id` varchar(100) NOT NULL,
+  `created_by` int(11) UNSIGNED DEFAULT NULL,
+  `year` varchar(10) NOT NULL,
+  `month` varchar(20) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `standard_weight` varchar(100) DEFAULT NULL,
+  `current_weight` varchar(25) DEFAULT NULL,
+  `reference_no` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sma_weight_details`
+--
+
+INSERT INTO `sma_weight_details` (`id`, `employee_id`, `created_by`, `year`, `month`, `start_date`, `end_date`, `created_date`, `standard_weight`, `current_weight`, `reference_no`) VALUES
+(23, 'PG000004', NULL, '2016', 'January', '2018-01-10', '1969-12-31', NULL, '77', '78', '2016_January');
 
 --
 -- Indexes for dumped tables
@@ -4072,6 +5845,13 @@ ALTER TABLE `sma_adjustments`
 ALTER TABLE `sma_adjustment_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `adjustment_id` (`adjustment_id`);
+
+--
+-- Indexes for table `sma_bills`
+--
+ALTER TABLE `sma_bills`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_id` (`employee_id`,`mobile_number`);
 
 --
 -- Indexes for table `sma_brands`
@@ -4115,6 +5895,13 @@ ALTER TABLE `sma_companies`
   ADD KEY `group_id_2` (`group_id`);
 
 --
+-- Indexes for table `sma_company`
+--
+ALTER TABLE `sma_company`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
+
+--
 -- Indexes for table `sma_costing`
 --
 ALTER TABLE `sma_costing`
@@ -4151,6 +5938,43 @@ ALTER TABLE `sma_deposits`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sma_designations`
+--
+ALTER TABLE `sma_designations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
+
+--
+-- Indexes for table `sma_doctype`
+--
+ALTER TABLE `sma_doctype`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `sma_documents`
+--
+ALTER TABLE `sma_documents`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `sma_document_movement`
+--
+ALTER TABLE `sma_document_movement`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`,`document_id`);
+
+--
+-- Indexes for table `sma_employees`
+--
+ALTER TABLE `sma_employees`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_id` (`employee_id`),
+  ADD UNIQUE KEY `mobile_number` (`mobile_number`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indexes for table `sma_expenses`
 --
 ALTER TABLE `sma_expenses`
@@ -4184,6 +6008,14 @@ ALTER TABLE `sma_groups`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sma_guards`
+--
+ALTER TABLE `sma_guards`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_id` (`employee_id`),
+  ADD UNIQUE KEY `mobile_number` (`mobile_number`);
+
+--
 -- Indexes for table `sma_login_attempts`
 --
 ALTER TABLE `sma_login_attempts`
@@ -4196,10 +6028,24 @@ ALTER TABLE `sma_notifications`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sma_operators`
+--
+ALTER TABLE `sma_operators`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
+
+--
 -- Indexes for table `sma_order_ref`
 --
 ALTER TABLE `sma_order_ref`
   ADD PRIMARY KEY (`ref_id`);
+
+--
+-- Indexes for table `sma_packages`
+--
+ALTER TABLE `sma_packages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
 
 --
 -- Indexes for table `sma_payments`
@@ -4487,6 +6333,13 @@ ALTER TABLE `sma_warehouses_products_variants`
   ADD KEY `warehouse_id` (`warehouse_id`);
 
 --
+-- Indexes for table `sma_weight_details`
+--
+ALTER TABLE `sma_weight_details`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_id` (`employee_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -4506,10 +6359,15 @@ ALTER TABLE `sma_adjustments`
 ALTER TABLE `sma_adjustment_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `sma_bills`
+--
+ALTER TABLE `sma_bills`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2303;
+--
 -- AUTO_INCREMENT for table `sma_brands`
 --
 ALTER TABLE `sma_brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `sma_calendar`
 --
@@ -4529,22 +6387,27 @@ ALTER TABLE `sma_categories`
 -- AUTO_INCREMENT for table `sma_combo_items`
 --
 ALTER TABLE `sma_combo_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `sma_companies`
 --
 ALTER TABLE `sma_companies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000;
 --
+-- AUTO_INCREMENT for table `sma_company`
+--
+ALTER TABLE `sma_company`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+--
 -- AUTO_INCREMENT for table `sma_costing`
 --
 ALTER TABLE `sma_costing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `sma_currencies`
 --
 ALTER TABLE `sma_currencies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `sma_customer_groups`
 --
@@ -4565,6 +6428,31 @@ ALTER TABLE `sma_deliveries`
 --
 ALTER TABLE `sma_deposits`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sma_designations`
+--
+ALTER TABLE `sma_designations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=626;
+--
+-- AUTO_INCREMENT for table `sma_doctype`
+--
+ALTER TABLE `sma_doctype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+--
+-- AUTO_INCREMENT for table `sma_documents`
+--
+ALTER TABLE `sma_documents`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2319;
+--
+-- AUTO_INCREMENT for table `sma_document_movement`
+--
+ALTER TABLE `sma_document_movement`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=697;
+--
+-- AUTO_INCREMENT for table `sma_employees`
+--
+ALTER TABLE `sma_employees`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=693;
 --
 -- AUTO_INCREMENT for table `sma_expenses`
 --
@@ -4591,6 +6479,11 @@ ALTER TABLE `sma_gift_card_topups`
 ALTER TABLE `sma_groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
+-- AUTO_INCREMENT for table `sma_guards`
+--
+ALTER TABLE `sma_guards`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `sma_login_attempts`
 --
 ALTER TABLE `sma_login_attempts`
@@ -4601,15 +6494,25 @@ ALTER TABLE `sma_login_attempts`
 ALTER TABLE `sma_notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `sma_operators`
+--
+ALTER TABLE `sma_operators`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+--
 -- AUTO_INCREMENT for table `sma_order_ref`
 --
 ALTER TABLE `sma_order_ref`
   MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `sma_packages`
+--
+ALTER TABLE `sma_packages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
 -- AUTO_INCREMENT for table `sma_payments`
 --
 ALTER TABLE `sma_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `sma_permissions`
 --
@@ -4634,7 +6537,7 @@ ALTER TABLE `sma_printers`
 -- AUTO_INCREMENT for table `sma_products`
 --
 ALTER TABLE `sma_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41423;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27200;
 --
 -- AUTO_INCREMENT for table `sma_product_photos`
 --
@@ -4654,32 +6557,32 @@ ALTER TABLE `sma_product_variants`
 -- AUTO_INCREMENT for table `sma_purchases`
 --
 ALTER TABLE `sma_purchases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sma_purchase_items`
 --
 ALTER TABLE `sma_purchase_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28559;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `sma_quotes`
 --
 ALTER TABLE `sma_quotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sma_quote_items`
 --
 ALTER TABLE `sma_quote_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sma_sales`
 --
 ALTER TABLE `sma_sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `sma_sale_items`
 --
 ALTER TABLE `sma_sale_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `sma_service_type`
 --
@@ -4759,7 +6662,7 @@ ALTER TABLE `sma_users`
 -- AUTO_INCREMENT for table `sma_user_logins`
 --
 ALTER TABLE `sma_user_logins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
 --
 -- AUTO_INCREMENT for table `sma_variants`
 --
@@ -4774,12 +6677,17 @@ ALTER TABLE `sma_warehouses`
 -- AUTO_INCREMENT for table `sma_warehouses_products`
 --
 ALTER TABLE `sma_warehouses_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14284;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `sma_warehouses_products_variants`
 --
 ALTER TABLE `sma_warehouses_products_variants`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sma_weight_details`
+--
+ALTER TABLE `sma_weight_details`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- Constraints for dumped tables
 --
