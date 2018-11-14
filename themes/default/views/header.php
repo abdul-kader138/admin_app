@@ -1650,7 +1650,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index'] || $GP['doctype-index']) { ?>
+    <?php if ($GP['company-index'] || $GP['designation-index'] || $GP['operator-index'] || $GP['package-index'] || $GP['doctype-index'] || $GP['backups_index']) { ?>
         <li class="mm_system_settings">
             <a class="dropmenu" href="#">
                 <i class="fa fa-cog"></i>
@@ -1703,6 +1703,14 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php } ?>
+         <?php if ($GP['backups_index']) { ?>
+                <li id="system_settings_backups">
+                    <a href="<?= site_url('system_settings/backups') ?>">
+                        <i class="fa fa-database"></i><span
+                            class="text"> <?= lang('backups'); ?></span>
+                    </a>
+                </li>
+        <?php } ?>
             </ul>
         </li>
     <?php } ?>

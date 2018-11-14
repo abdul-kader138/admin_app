@@ -469,10 +469,21 @@ class system_settings extends MY_Controller
             $this->session->set_flashdata('warning', lang('disabled_in_demo'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
-        if (!$this->Owner) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect("welcome");
+//        if (!$this->Owner) {
+//            $this->session->set_flashdata('error', lang('access_denied'));
+//            redirect("welcome");
+//        }
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['backups_index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
         }
+
+
         $this->data['files'] = glob('./files/backups/*.zip', GLOB_BRACE);
         $this->data['dbs'] = glob('./files/backups/*.txt', GLOB_BRACE);
         krsort($this->data['files']); krsort($this->data['dbs']);
@@ -487,10 +498,21 @@ class system_settings extends MY_Controller
             $this->session->set_flashdata('warning', lang('disabled_in_demo'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
-        if (!$this->Owner) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect("welcome");
+//        if (!$this->Owner) {
+//            $this->session->set_flashdata('error', lang('access_denied'));
+//            redirect("welcome");
+//        }
+
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['backups_index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
         }
+
         $this->load->dbutil();
         $prefs = array(
             'format' => 'txt',
@@ -545,10 +567,20 @@ class system_settings extends MY_Controller
             $this->session->set_flashdata('warning', lang('disabled_in_demo'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
-        if (!$this->Owner) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect("welcome");
+//        if (!$this->Owner) {
+//            $this->session->set_flashdata('error', lang('access_denied'));
+//            redirect("welcome");
+//        }
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['backups_index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
         }
+
         $this->load->library('zip');
         $this->zip->read_file('./files/backups/' . $dbfile . '.txt');
         $name = $dbfile . '.zip';
@@ -594,9 +626,18 @@ class system_settings extends MY_Controller
             $this->session->set_flashdata('warning', lang('disabled_in_demo'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
-        if (!$this->Owner) {
-            $this->session->set_flashdata('error', lang('access_denied'));
-            redirect("welcome");
+//        if (!$this->Owner) {
+//            $this->session->set_flashdata('error', lang('access_denied'));
+//            redirect("welcome");
+//        }
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['backups_index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
         }
         unlink('./files/backups/' . $dbfile . '.txt');
         $this->session->set_flashdata('messgae', lang('db_deleted'));
@@ -842,6 +883,7 @@ class system_settings extends MY_Controller
                 'reports-company_wise_bill' => $this->input->post('reports-company_wise_bill'),
                 'products-stock_count' => $this->input->post('products-stock_count'),
                 'edit_price' => $this->input->post('edit_price'),
+                'backups_index' => $this->input->post('backups_index'),
 //                a.kader
                 'category-index' => $this->input->post('category-index'),
                 'category-edit' => $this->input->post('category-edit'),
@@ -5098,7 +5140,7 @@ class system_settings extends MY_Controller
     {
         if(! $this->Owner && ! $this->Admin) {
             $get_permission=$this->permission_details[0];
-            if ((!$get_permission['operator-add'])) {
+            if ((!$get_permission['doctype-add'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);

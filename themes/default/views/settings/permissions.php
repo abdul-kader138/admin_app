@@ -532,7 +532,12 @@
                                             <input type="checkbox" value="1" class="checkbox" id="edit_price"
                                             name="edit_price" <?php echo $p->edit_price ? "checked" : ''; ?>>
                                             <label for="edit_price" class="padding05"><?= lang('edit_price_on_sale') ?></label>
-                                        </span> 
+                                        </span>
+                                         <span style="inline-block">
+                                            <input type="checkbox" value="1" class="checkbox" id="backups_index"
+                                                   name="backups_index" <?php echo $p->backups_index ? "checked" : ''; ?>>
+                                            <label for="backups_index" class="padding05"><?= lang('Backup_Database') ?></label>
+                                        </span>
                                     </td>
                                 </tr>
 
