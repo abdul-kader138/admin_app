@@ -100,7 +100,7 @@ echo form_open_multipart("document/add", $attrib);
             <?php
             $wh[''] = '';
             foreach ($doctypes as $doctype) {
-                $wh[$doctype->id] = $doctype->name;
+                $wh[$doctype->id] = $doctype->description;
             }
             echo form_dropdown('doctype_id', $wh, (isset($_POST['doctype_id']) ? $_POST['doctype_id'] : ""), 'id="doctype_id" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("doc_type") . '" required="required" style="width:100%;" ');
             ?>

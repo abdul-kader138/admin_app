@@ -78,7 +78,7 @@ class Document  extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".name as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#',"  . $this->db->dbprefix('documents') . ".attachment_name) as url,")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".description as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#',"  . $this->db->dbprefix('documents') . ".attachment_name) as url,")
             ->from("documents")
             ->join('company', 'documents.company_id=company.id', 'left')
             ->join('doctype', 'documents.doctype_id=doctype.id', 'left')
@@ -438,4 +438,94 @@ class Document  extends MY_Controller
         }
     }
 
-} 
+
+    function edit_movement($id = NULL)
+    {
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-edit'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        if ($this->input->post('id')) {
+            $id = $this->input->post('id');
+        }
+
+        $this->data['title'] = "Edit Document Movement";
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
+        $this->form_validation->set_rules('document_id', lang("document_id"), 'trim|required');
+        $this->form_validation->set_rules('application_type', lang("application_type"), 'trim|required');
+        $this->form_validation->set_rules('responsible_person', lang("responsible_person"), 'trim|required');
+        $this->form_validation->set_rules('notification_date', lang("notification_date"), 'trim|required');
+        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim|required');
+        $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
+        $this->form_validation->set_rules('processing_fees', lang("processing_fees"), 'trim');
+
+
+
+        if ($this->form_validation->run() == true) {
+
+            $doc_url="";
+            if($this->input->post('notification_date')) $notification_date=$this->sma->fld($this->input->post('notification_date'));
+            if($this->input->post('expire_date')) $expire_date=$this->sma->fld($this->input->post('expire_date'));
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'reference_no' => $this->input->post('reference_no'),
+                'document_id' => $this->input->post('document_id'),
+                'application_type' => $this->input->post('application_type'),
+                'responsible_person' => $this->input->post('responsible_person'),
+                'processing_fees' => $this->input->post('processing_fees'),
+                'created_by' => $this->session->userdata('user_id'),
+                'notification_date' => $notification_date,
+                'expire_date' => $expire_date,
+                'created_date' => date("Y-m-d H:i:s"),
+                'other_info' => $this->input->post('other_info'),
+            );
+
+            if ($_FILES['document']['size'] > 0) {
+                $t=true;
+                $document_details=$this->document_model->getMovementById($id);
+                if($document_details->attachment_name){
+                    $this->load->helper("file");
+                    $t=unlink("./assets/uploads/document/movement/".$document_details->attachment_name);
+                }
+
+                $this->load->library('upload');
+                $config['upload_path'] = $this->upload_path_movement;
+                $config['allowed_types'] = $this->digital_file_types;
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = true;
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('document')) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+                $doc_url=(($this->upload_path_movement) ."/". ( $photo = $this->upload->file_name));
+                $data['url'] = $doc_url;
+                $data['attachment_name'] = $this->upload->file_name;
+
+            }
+
+        }
+        if ($this->form_validation->run() === TRUE && $this->document_model->updateMovement($id, $data)) {
+            $this->session->set_flashdata('message', lang('doc_mov_updated'));
+            redirect("document/doc_movement_list");
+        } else {
+            $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['document'] = $this->document_model->getMovementById($id);
+            $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['docs'] = $this->site->getAllDoc();
+            $this->data['employees'] = $this->site->getAllEmployees();
+            $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/edit_movement'), 'page' => lang('document')), array('link' => '#', 'page' => lang('doc_mov_updated')));
+            $meta = array('page_title' => lang('edit_movement'), 'bc' => $bc);
+            $this->page_construct('document/edit_movement', $meta, $this->data);
+        }
+
+   }
+}

@@ -74,4 +74,22 @@ class Document_model extends CI_Model
         else return FALSE;
     }
 
+    public function getMovementById($id)
+    {
+        $q = $this->db->get_where('document_movement', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateMovement($id, $data = array())
+    {
+        $this->db->where('id', $id);
+        if ($this->db->update('document_movement', $data)) {
+            return true;
+        }
+        return false;
+    }
+
 } 
