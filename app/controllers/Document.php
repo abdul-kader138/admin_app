@@ -287,8 +287,8 @@ class Document  extends MY_Controller
         $this->form_validation->set_rules('document_id', lang("document_id"), 'trim|required');
         $this->form_validation->set_rules('application_type', lang("application_type"), 'trim|required');
         $this->form_validation->set_rules('responsible_person', lang("responsible_person"), 'trim|required');
-        $this->form_validation->set_rules('notification_date', lang("notification_date"), 'trim|required');
-        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim|required');
+        $this->form_validation->set_rules('notification_date', lang("notification_date"), 'trim');
+        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
         $this->form_validation->set_rules('processing_fees', lang("processing_fees"), 'trim');
 
@@ -460,8 +460,8 @@ class Document  extends MY_Controller
         $this->form_validation->set_rules('document_id', lang("document_id"), 'trim|required');
         $this->form_validation->set_rules('application_type', lang("application_type"), 'trim|required');
         $this->form_validation->set_rules('responsible_person', lang("responsible_person"), 'trim|required');
-        $this->form_validation->set_rules('notification_date', lang("notification_date"), 'trim|required');
-        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim|required');
+        $this->form_validation->set_rules('notification_date', lang("notification_date"), 'trim');
+        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
         $this->form_validation->set_rules('processing_fees', lang("processing_fees"), 'trim');
 

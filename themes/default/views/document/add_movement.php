@@ -119,13 +119,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <?= lang("Notification_Date", "Notification_Date"); ?>
-                                <?php echo form_input('notification_date', (isset($_POST['notification_date']) ? $_POST['notification_date'] : ""), 'class="form-control input-tip date" required="required" id="notification_date"'); ?>
+                                <?php echo form_input('notification_date', (isset($_POST['notification_date']) ? $_POST['notification_date'] : ""), 'class="form-control input-tip date" id="notification_date"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <?= lang("Expire_Date", "Expire_Date"); ?>
-                                <?php echo form_input('expire_date', (isset($_POST['expire_date']) ? $_POST['expire_date'] : ""), 'class="form-control input-tip date" required="required" id="expire_date"'); ?>
+                                <?php echo form_input('expire_date', (isset($_POST['expire_date']) ? $_POST['expire_date'] : ""), 'class="form-control input-tip date" id="expire_date"'); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>
