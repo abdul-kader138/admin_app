@@ -361,7 +361,7 @@ class Employees extends MY_Controller
         }
     }
 
-    function Employees_actions($wh = NULL) {
+    function employees_actions($wh = NULL) {
         if (!$this->Owner && !$this->GP['bulk_actions']) {
             $this->session->set_flashdata('warning', lang('access_denied'));
             redirect($_SERVER["HTTP_REFERER"]);
@@ -448,8 +448,10 @@ class Employees extends MY_Controller
                         header('Content-Type: application/vnd.ms-excel');
                         header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
                         header('Cache-Control: max-age=0');
-
+                       set_time_limit(120);
+                      ini_set('memory_limit', '256M');
                         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        ob_end_clean();
                         return $objWriter->save('php://output');
                     }
 
@@ -817,9 +819,10 @@ class Employees extends MY_Controller
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
         header('Cache-Control: max-age=0');
-
+        set_time_limit(120);
+        ini_set('memory_limit', '256M');
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
-
+        ob_end_clean();
         return $objWriter->save('php://output');
     }
 
@@ -860,9 +863,10 @@ class Employees extends MY_Controller
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
         header('Cache-Control: max-age=0');
-
+        set_time_limit(120);
+        ini_set('memory_limit', '256M');
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
-
+        ob_end_clean();
         return $objWriter->save('php://output');
     }
 

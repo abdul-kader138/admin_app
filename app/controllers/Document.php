@@ -99,7 +99,7 @@ class Document  extends MY_Controller
         }
 
         $this->data['title'] = "Add Document";
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[documents.name]');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
@@ -282,7 +282,7 @@ class Document  extends MY_Controller
         }
 
         $this->data['title'] = "Add Document Movement";
-        $this->form_validation->set_rules('name', lang("name"), 'trim|required|is_unique[document_movement.name]');
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
         $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
         $this->form_validation->set_rules('document_id', lang("document_id"), 'trim|required');
         $this->form_validation->set_rules('application_type', lang("application_type"), 'trim|required');
