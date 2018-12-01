@@ -549,12 +549,12 @@ class Employees extends MY_Controller
             $operator_id = $this->input->post('operator_id');
             $package_id = $this->input->post('package_id');
             $year = $this->input->post('year');
-            $start_date= (string) $this->input->post('start_date');;
-            $end_date= (string) $this->input->post('end_date');;
-            $new_start_date= date('d-m-Y', strtotime($start_date));
-            $new_end_date= date('d-m-Y', strtotime($end_date));
-            $new_start_date= date('Y-m-d', strtotime($new_start_date));
-            $new_end_date= date('Y-m-d', strtotime($new_end_date));
+            $start_date= $this->sma->fsd($this->input->post('start_date'));
+            $end_date= $this->sma->fsd($this->input->post('end_date'));
+//            $new_start_date= date('d-m-Y', strtotime($start_date));
+//            $new_end_date= date('d-m-Y', strtotime($end_date));
+//            $new_start_date= date('Y-m-d', strtotime($new_start_date));
+//            $new_end_date= date('Y-m-d', strtotime($new_end_date));
 
             if (isset($_FILES["userfile"])) {
 
@@ -619,8 +619,8 @@ class Employees extends MY_Controller
                                 'month' => $month,
                                 'operator_id' => $operator_id,
                                 'package_id' => $package_id,
-                                'start_date' => $new_start_date,
-                                'end_date' => $new_end_date,
+                                'start_date' => $start_date,
+                                'end_date' => $end_date,
                                 'mobile_number' => $csv_pr['mobile_no'],
                                 'ceiling_amount' => $employee_details->ceiling_amount,
                                 'company_id' => $employee_details->company_id,
