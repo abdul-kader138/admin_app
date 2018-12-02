@@ -387,28 +387,30 @@ class Employees extends MY_Controller
                     $this->excel->getActiveSheet()->setTitle('Employees');
                     $this->excel->getActiveSheet()->SetCellValue('A1', lang('employee_id'));
                     $this->excel->getActiveSheet()->SetCellValue('B1', lang('name'));
-                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('company_name'));
-                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('operator_name'));
-                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('package_name'));
-                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('mobile_no'));
-                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('ceiling_amount'));
-                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('credit_limit'));
-                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('service_start_date'));
-                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('status'));
+                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('designation_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('company_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('operator_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('package_name'));
+                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('mobile_no'));
+                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('ceiling_amount'));
+                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('credit_limit'));
+                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('service_start_date'));
+                    $this->excel->getActiveSheet()->SetCellValue('K1', lang('status'));
 //
                     $row = 2;
                     foreach ($_POST['val'] as $id) {
                         $employees = $this->employees_model->getALlEmployeeDetails($id);
                         $this->excel->getActiveSheet()->SetCellValue('A' . $row, $employees->employee_id);
                         $this->excel->getActiveSheet()->SetCellValue('B' . $row, $employees->name);
-                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $employees->c_name);
-                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $employees ? $employees->o_name : '');
-                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $employees->p_name);
-                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $employees->mobile_number);
-                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $employees->ceiling_amount);
-                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $employees->credit_limit);
-                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $employees->service_start_date);
-                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $employees->active = 1 ? 'Active' : 'Inactive');
+                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $employees->d_name);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $employees->c_name);
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $employees ? $employees->o_name : '');
+                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $employees->p_name);
+                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $employees->mobile_number);
+                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $employees->ceiling_amount);
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $employees->credit_limit);
+                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $employees->service_start_date);
+                        $this->excel->getActiveSheet()->SetCellValue('K' . $row, $employees->active = 1 ? 'Active' : 'Inactive');
                         $row++;
                     }
 
@@ -458,7 +460,7 @@ class Employees extends MY_Controller
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
             } else {
-                $this->session->set_flashdata('error', $this->lang->line("no_product_selected"));
+                $this->session->set_flashdata('error', $this->lang->line("No_Employee_Selected."));
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         } else {
@@ -607,11 +609,13 @@ class Employees extends MY_Controller
 //                            $this->session->set_flashdata('error', lang("mobile_number") . " ( " .$csv_pr['mobile_no'] . " ). " . "not found");
 //                            redirect($_SERVER["HTTP_REFERER"]);
 //                        }
-
-                        if($employee_details){
-                            $dues=0;
-                            if($employee_details->ceiling_amount < $csv_pr['usage_amount']) $dues=abs(((float)$employee_details->ceiling_amount) -((float)$csv_pr['usage_amount']));
-
+                        $celling_amount=0;
+                        $usage_amount=0;
+                        if($employee_details) {
+                            $dues = 0;
+                            $celling_amount=(float) $employee_details->ceiling_amount;
+                            $usage_amount=(float) $csv_pr['usage_amount'];
+                            if($celling_amount < $usage_amount) $dues=($usage_amount-$celling_amount);
                             $bills[] = array(
                                 'employee_id' => $employee_details->employee_id,
                                 'reference_no' => ($year."_".$month."_".$operator_id."_".$package_id),
@@ -850,9 +854,9 @@ class Employees extends MY_Controller
                 $this->excel->getActiveSheet()->SetCellValue('A' . $row,  $bill_item->employee_id);
                 $this->excel->getActiveSheet()->SetCellValue('B' . $row, $bill_item->mobile_number);
                 $this->excel->getActiveSheet()->SetCellValue('C' . $row, abs($bill_item->ceiling_amount - $bill_item->usage_amount));
-//                $row++;
+                $row++;
             }
-            $row++;
+//            $row++;
 
         }
 

@@ -192,7 +192,7 @@ class Employees_model extends CI_Model
 
     public function getALlEmployeeDetails($id)
     {
-        $this->db->select('employees.*,company.name as c_name, operators.name as o_name, packages.name as p_name')
+        $this->db->select('employees.*,company.name as c_name, operators.name as o_name, packages.name as p_name,designations.name as d_name')
             ->join('company', 'employees.company_id=company.id', 'left')
             ->join('operators', 'employees.operator_id=operators.id', 'left')
             ->join('packages', 'employees.package_id=packages.id', 'left')
