@@ -298,7 +298,7 @@ if ($Owner || $Admin) {
     ?>
     <li class="mm_employees">
         <a class="dropmenu" href="#">
-            <i class="fa fa-heart-o"></i>
+            <i class="fa fa-user"></i>
             <span class="text"> <?= lang('Employee'); ?> </span>
             <span class="chevron closed"></span>
         </a>
@@ -321,15 +321,34 @@ if ($Owner || $Admin) {
                     <span class="text"> <?= lang('add_employee_by_csv'); ?></span>
                 </a>
             </li>
+            <li id="employees_index_payment">
+                <a class="submenu" href="<?= site_url('employees/index_payment'); ?>">
+                    <i class="fa fa-usd"></i><span
+                        class="text"> <?= lang('index_payment'); ?></span>
+                </a>
+            </li>
+            <li id="employees_add_employee_payment">
+                <a class="submenu" href="<?= site_url('employees/add_employee_payment'); ?>">
+                    <i class="fa fa-plus-circle"></i><span
+                        class="text"> <?= lang('add_employee_payment'); ?></span>
+                </a>
+            </li>
+            <li id="employees_employee_payment_by_csv">
+                <a class="submenu" href="<?= site_url('employees/employee_payment_by_csv'); ?>">
+                    <i class="fa fa-upload"></i>
+                    <span class="text"> <?= lang('add_employee_payment_by_csv'); ?></span>
+                </a>
+            </li>
+
             <li id="employees_bill_add">
                 <a class="submenu" href="<?= site_url('employees/bill_add'); ?>">
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-upload"></i>
                     <span class="text"> <?= lang('bill_upload'); ?></span>
                 </a>
             </li>
             <li id="employees_bills">
                 <a class="submenu" href="<?= site_url('employees/bills'); ?>">
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-certificate"></i>
                     <span class="text"> <?= lang('bills'); ?></span>
                 </a>
             </li>
@@ -337,7 +356,7 @@ if ($Owner || $Admin) {
     </li>
     <li class="mm_guard">
         <a class="dropmenu" href="#">
-            <i class="fa fa-heart-o"></i>
+            <i class="fa fa-lock"></i>
             <span class="text"> <?= lang('Guard'); ?> </span>
             <span class="chevron closed"></span>
         </a>
@@ -356,7 +375,7 @@ if ($Owner || $Admin) {
             </li>
             <li id="guard_bill_add">
                 <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
-                    <i class="fa fa-plus-circle"></i><span
+                    <i class="fa fa-upload"></i><span
                         class="text"> <?= lang('weight_upload'); ?></span>
                 </a>
             </li>
@@ -1210,6 +1229,8 @@ if ($Owner || $Admin) {
 
     <?php if ($GP['employees-index'] || $GP['employees-add'] || $GP['employees-edit'] ||
         $GP['employees-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
+         || $GP['employees-index_payment'] || $GP['employees-add_employee_payment'] || $GP['employees-edit_employee_payment'] ||
+        $GP['employees-delete_employee_payment'] ||  $GP['employees-employee_payment_by_csv']
     ) {
         ?>
         <li class="mm_employees">
@@ -1222,7 +1243,7 @@ if ($Owner || $Admin) {
                 <?php if ($GP['employees-index']) { ?>
                     <li id="employees_index">
                         <a class="submenu" href="<?= site_url('employees'); ?>">
-                            <i class="fa fa-heart-o"></i><span
+                            <i class="fa fa-users"></i><span
                                 class="text"> <?= lang('list_employees'); ?></span>
                         </a>
                     </li>
@@ -1244,11 +1265,40 @@ if ($Owner || $Admin) {
                     </li>
                 <?php } ?>
 
+                <?php if ($GP['employees-index_payment']) { ?>
+                    <li id="employees_index_payment">
+                        <a class="submenu" href="<?= site_url('employees/index_payment'); ?>">
+                            <i class="fa fa-usd"></i><span
+                                class="text"> <?= lang('index_payment'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+
+                <?php if ($GP['employees-add_employee_payment']) { ?>
+                    <li id="employees_add_employee_payment">
+                        <a class="submenu" href="<?= site_url('employees/add_employee_payment'); ?>">
+                            <i class="fa fa-plus-circle"></i><span
+                                class="text"> <?= lang('add_employee_payment'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <?php if ($GP['employees-employee_payment_by_csv']) { ?>
+                    <li id="employees_add_employee_payment">
+                        <a class="submenu" href="<?= site_url('employees/employee_payment_by_csv'); ?>">
+                            <i class="fa fa-upload"></i><span
+                                class="text"> <?= lang('add_employee_payment_by_csv'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+
 
                 <?php if ($GP['employees-bill_index']) { ?>
                     <li id="employee-bill_index">
                         <a class="submenu" href="<?= site_url('employees/bills'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
+                            <i class="fa fa-certificate"></i><span
                                 class="text"> <?= lang('bills'); ?></span>
                         </a>
                     </li>
@@ -1257,7 +1307,7 @@ if ($Owner || $Admin) {
                 <?php if ($GP['employees-bill_add']) { ?>
                     <li id="employees_bill_add">
                         <a class="submenu" href="<?= site_url('employees/bill_add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
+                            <i class="fa fa-upload"></i><span
                                 class="text"> <?= lang('bill_upload'); ?></span>
                         </a>
                     </li>
@@ -1271,7 +1321,7 @@ if ($Owner || $Admin) {
         ?>
         <li class="mm_guard">
             <a class="dropmenu" href="#">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-lock"></i>
                 <span class="text"> <?= lang('guard'); ?> </span>
                 <span class="chevron closed"></span>
             </a>
@@ -1279,7 +1329,7 @@ if ($Owner || $Admin) {
                 <?php if ($GP['guard-index']) { ?>
                     <li id="guard_index">
                         <a class="submenu" href="<?= site_url('guard'); ?>">
-                            <i class="fa fa-heart-o"></i><span
+                            <i class="fa fa-users"></i><span
                                 class="text"> <?= lang('list_guards'); ?></span>
                         </a>
                     </li>
@@ -1295,7 +1345,7 @@ if ($Owner || $Admin) {
                 <?php if ($GP['guard-weight_upload']) { ?>
                     <li id="guard_bill_add">
                         <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
+                            <i class="fa fa-upload"></i><span
                                 class="text"> <?= lang('weight_upload'); ?></span>
                         </a>
                     </li>

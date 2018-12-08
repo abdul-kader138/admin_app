@@ -416,6 +416,27 @@
                                 </tr>
 
                                 <tr>
+                                    <td><?= lang("employees_payment"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-index_payment" <?php echo $p->{'employees-index_payment'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-add_employee_payment" <?php echo $p->{'employees-add_employee_payment'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-edit_employee_payment" <?php echo $p->{'employees-edit_employee_payment'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-delete_employee_payment" <?php echo $p->{'employees-delete_employee_payment'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-employee_payment_by_csv" <?php echo $p->{'employees-employee_payment_by_csv'} ? "checked" : ''; ?>>
+                                        <label for="customers-deposits" class="padding05"><?= lang('add_employee_payment_by_csv') ?></label>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
                                     <td><?= lang("bills"); ?></td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="employees-bill_index" <?php echo $p->{'employees-bill_index'} ? "checked" : ''; ?>>

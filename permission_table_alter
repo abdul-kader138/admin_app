@@ -1,0 +1,5 @@
+ALTER TABLE `sma_permissions` ADD `employees-index_payment` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `employees-add_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `employees-edit_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
+ALTER TABLE `sma_permissions` ADD `employees-delete_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
+ALTER TABLE `sma_permissions` ADD `employees-employee_payment_by_csv` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;

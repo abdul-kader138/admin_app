@@ -537,14 +537,20 @@ $lang['product_reorder']                     = "Product Reorder";
 //Employee Setting
 
 $lang['employees']                      = "Employee";
+$lang['employees_payment']              = "Employee Payment";
 $lang['add_employee']                   = "Add Employee";
+$lang['add_employee_payment']           = "Add Employee Payment";
 $lang['list_employees']                 = "List Employees";
+$lang['index_payment']                  = "List Employees Payment";
+
+
 
 //Designation
 $lang['designation']                    = "Designation";
 $lang['operator']                       = "Operator";
 $lang['package']                        = "Package";
 $lang['add_employee_by_csv']            = "Add Employee By CSV";
+$lang['add_employee_payment_by_csv']    = "Add Payment By CSV";
 $lang['bill_upload']                    = "Bill Upload By CSV";
 $lang['bills']                          = "Bills";
 $lang['bill_details']                   = "Bill Details";
