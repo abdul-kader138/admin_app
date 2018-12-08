@@ -290,12 +290,12 @@ class Employees_model extends CI_Model
 
     public function getEmployeePaymentsById($id)
     {
-        $this->db->select("employees_payment.id as id,employees_payment.employee_id as employee_ids,employees.name as nam,company.name as c_name,bank_name,bank_account,gross_salary,payment_payroll as payment_payroll,payment_other,employees.active as actives")
+        $this->db->select("employees_payment.employee_id as employee_ids,employees.name as nam,company.name as c_name,employees_payment.bank_name,employees_payment.bank_account,employees_payment.gross_salary,employees_payment.payment_payroll as payment_payroll,employees_payment.payment_other,employees.active as actives")
 //        ->from("employees_payment")
         ->join('employees', 'employees_payment.employee_id=employees.employee_id', 'inner')
         ->join('company', 'employees.company_id=company.id', 'left')
         ->group_by('employees_payment.id');
-        $q = $this->db->get_where('employees_payment', array('id' => $id), 1);
+        $q = $this->db->get_where('employees_payment', array('id' => $id));
         if ($q->num_rows() > 0) {
             return $q->row();
         }
