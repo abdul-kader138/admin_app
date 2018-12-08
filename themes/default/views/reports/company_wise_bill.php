@@ -32,7 +32,7 @@ if ($this->input->post('company')) {
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 return nRow;
             },
-            "aoColumns": [null, null, null],
+            "aoColumns": [{"mRender": textAlign}, {"mRender": textAlign},{"mRender": textAlign} ],
             "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                 var gtotal = 0, paid = 0, balance = 0;
                 for (var i = 0; i < aaData.length; i++) {
@@ -175,8 +175,8 @@ if ($this->input->post('company')) {
                         <tfoot class="dtFilter">
                         <tr class="active">
                             <th></th>
-                            <th style="text-align: left"></th>
-                            <th style="text-align: left"></th>
+                            <th style="text-align: center"></th>
+                            <th style="text-align: center"></th>
                         </tr>
                         </tfoot>
                     </table>
@@ -208,5 +208,11 @@ if ($this->input->post('company')) {
             });
             return false;
         });
+
+
     });
+
+    function textAlign(x) {
+        return '<div class="text-center">' + x + '</div>';
+    }
 </script>
