@@ -3,3 +3,24 @@ ALTER TABLE `sma_permissions` ADD `employees-add_employee_payment` TINYINT(1) NU
 ALTER TABLE `sma_permissions` ADD `employees-edit_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
 ALTER TABLE `sma_permissions` ADD `employees-delete_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
 ALTER TABLE `sma_permissions` ADD `employees-employee_payment_by_csv` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
+
+
+
+CREATE TABLE `sma_employees_payment` (
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `employee_id` varchar(100) NOT NULL,
+ `payment_payroll` decimal(11,2) NOT NULL,
+  `gross_salary` decimal(11,2) NOT NULL,
+  `payment_other` decimal(11,2) NOT NULL,
+ `created_by` int(11) unsigned DEFAULT NULL,
+ `created_date` DATETIME DEFAULT NULL,
+ `updated_by` int(11) DEFAULT NULL,
+ `updated_date` DATETIME DEFAULT NULL,
+ `active` tinyint(1) DEFAULT '1',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `employee_id` (`employee_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=693 DEFAULT CHARSET=utf8
+
+
+ALTER TABLE `sma_employees_payment` ADD `bank_name` VARCHAR(50) NULL DEFAULT NULL AFTER `active`;
+ALTER TABLE `sma_employees_payment` ADD `bank_account` VARCHAR(100) NULL DEFAULT NULL AFTER `active`;

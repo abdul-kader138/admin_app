@@ -241,4 +241,64 @@ class Employees_model extends CI_Model
         return FALSE;
     }
 
+
+    public function getAllEmployees()
+    {
+        $q = $this->db->get("employees");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+
+    public function addEmployeePayment($data = array())
+    {
+        if ($this->db->insert('employees_payment', $data)) {
+            $cid = $this->db->insert_id();
+            return $cid;
+        }
+        return false;
+    }
+
+    public function getEmployeePaymentById($id)
+    {
+        $q = $this->db->get_where('employees_payment', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateEmployeePayment($id, $data = array())
+    {
+        $this->db->where('id', $id);
+        if ($this->db->update('employees_payment', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deletePayment($id)
+    {
+        if ($this->db->delete('employees_payment', array('id' => $id)))  return true;
+        else return FALSE;
+    }
+
+    public function getEmployeePaymentsById($id)
+    {
+        $this->db->select("employees_payment.id as id,employees_payment.employee_id as employee_ids,employees.name as nam,company.name as c_name,bank_name,bank_account,gross_salary,payment_payroll as payment_payroll,payment_other,employees.active as actives")
+//        ->from("employees_payment")
+        ->join('employees', 'employees_payment.employee_id=employees.employee_id', 'inner')
+        ->join('company', 'employees.company_id=company.id', 'left')
+        ->group_by('employees_payment.id');
+        $q = $this->db->get_where('employees_payment', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
 }

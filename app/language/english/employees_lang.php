@@ -81,3 +81,19 @@ $lang['bill_no']                        = "Bill No";
 $lang['bill_details']                   = "Bill Details";
 $lang['contact_person']                 = "Contact Person";
 $lang['view_purchase_details']          = "View Purchase Details";
+
+
+$lang['add_employee_payment']             = "Add Employee Payment";
+$lang['edit_employee_payment']            = "Edit Employee Payment";
+$lang['delete_employee_payment']          = "Delete Employee Payment";
+$lang['employee_payment_added']           = "Employee payment successfully added.";
+$lang['employee_payment_edited']          = "Employee payment successfully updated.";
+$lang['employee_payment_delete']          = "Employee payment successfully deleted.";
+$lang['no_employee_selected']             = "No employee selected. Please select at least one employee.";
+$lang['gross_salary']                     = "Gross Salary";
+$lang['payment_payroll']                  = "Payment Payroll";
+$lang['payment_other']                    = "Payment Other";
+$lang['index_payment']                    = "List Employees Payment";
+$lang['bank_account']                     = "Bank Account";
+$lang['bank_name']                        = "Bank Name";
+$lang['gross_amount_error']               = "Summation amount of payroll & other not equal to gross salary.";
