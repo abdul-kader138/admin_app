@@ -82,6 +82,7 @@ class Employees_model extends CI_Model
         }
         return false;
     }
+
     public function updateEmployee($id, $data = array())
     {
         $this->db->where('id', $id);
@@ -103,7 +104,7 @@ class Employees_model extends CI_Model
 
     public function deleteEmployee($id)
     {
-        if ($this->db->delete('employees', array('id' => $id)))  return true;
+        if ($this->db->delete('employees', array('id' => $id))) return true;
         else return FALSE;
     }
 
@@ -125,17 +126,18 @@ class Employees_model extends CI_Model
         return false;
     }
 
-    public function getEmployeeByMobile($id,$number)
+    public function getEmployeeByMobile($id, $number)
     {
-        $q = $this->db->get_where('employees', array('mobile_number'=>$number), 1);
+        $q = $this->db->get_where('employees', array('mobile_number' => $number), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }
         return FALSE;
     }
-    public function getBillByMonthAndYear($month,$year,$operator_id,$package_id)
+
+    public function getBillByMonthAndYear($month, $year, $operator_id, $package_id)
     {
-        $q = $this->db->get_where('bills', array('month' => $month,'year'=>$year,'operator_id'=>$operator_id,'package_id'=>$package_id), 1);
+        $q = $this->db->get_where('bills', array('month' => $month, 'year' => $year, 'operator_id' => $operator_id, 'package_id' => $package_id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }
@@ -152,7 +154,7 @@ class Employees_model extends CI_Model
 
     public function deleteBill($id)
     {
-        if ($this->db->delete('bills', array('reference_no' => $id)))  return true;
+        if ($this->db->delete('bills', array('reference_no' => $id))) return true;
         else return FALSE;
     }
 
@@ -182,7 +184,8 @@ class Employees_model extends CI_Model
         return FALSE;
     }
 
-    public function getOperatorByID($id) {
+    public function getOperatorByID($id)
+    {
         $q = $this->db->get_where('operators', array('id' => $id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -284,21 +287,24 @@ class Employees_model extends CI_Model
 
     public function deletePayment($id)
     {
-        if ($this->db->delete('employees_payment', array('id' => $id)))  return true;
+        if ($this->db->delete('employees_payment', array('id' => $id))) return true;
         else return FALSE;
     }
 
     public function getEmployeePaymentsById($id)
     {
-        $this->db->select("employees_payment.employee_id as employee_ids,employees.name as nam,company.name as c_name,employees_payment.bank_name,employees_payment.bank_account,employees_payment.gross_salary,employees_payment.payment_payroll as payment_payroll,employees_payment.payment_other,employees.active as actives")
-//        ->from("employees_payment")
-        ->join('employees', 'employees_payment.employee_id=employees.employee_id', 'inner')
-        ->join('company', 'employees.company_id=company.id', 'left')
-        ->group_by('employees_payment.id');
-        $q = $this->db->get_where('employees_payment', array('id' => $id));
+
+        $this->db->select("employees_payment.*,employees.employee_id,employees.name as nam,company.name as c_name");
+        $this->db->from('employees_payment');
+        $this->db->where('employees_payment.id', $id);
+        $this->db->join('employees', 'employees.employee_id=employees_payment.employee_id', 'left');
+        $this->db->join('company', 'company.id=employees.company_id', 'left');
+        $q = $this->db->get();
         if ($q->num_rows() > 0) {
             return $q->row();
         }
         return FALSE;
+
     }
+
 }

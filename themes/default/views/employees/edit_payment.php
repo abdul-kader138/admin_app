@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <?php echo lang('bank_name', 'bank_name'); ?>
                                 <div class="controls">
-                                    <?php $sst = array('EBL(Poultry)' => lang('EBL(Poultry)'),'EBL(Jessor)' => lang('EBL(Jessor)'));
+                                    <?php $sst = array('EBL(Poultry)' => lang('EBL(Poultry)'),'EBL(Jessor)' => lang('EBL(Jessore)'));
                                     echo form_dropdown('bank_name', $sst, $employee_payment->bank_name, 'class="form-control input-tip" required="required" id="bank_name"'); ?>
                                 </div>
                             </div>

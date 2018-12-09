@@ -999,7 +999,7 @@ class Employees extends MY_Controller
             ->join('employees', 'employees_payment.employee_id=employees.employee_id', 'inner')
             ->join('company', 'employees.company_id=company.id', 'left')
             ->group_by('employees_payment.id')
-            ->edit_column('active', '$1__$2', 'active, id')
+//            ->edit_column('active', '$1__$2', 'active, id')
             ->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
     }
@@ -1171,7 +1171,7 @@ class Employees extends MY_Controller
                     $this->excel->getActiveSheet()->setTitle('Employees_Payment');
                     $this->excel->getActiveSheet()->SetCellValue('A1', lang('employee_id'));
                     $this->excel->getActiveSheet()->SetCellValue('B1', lang('name'));
-                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('company'));
+                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('company_name'));
                     $this->excel->getActiveSheet()->SetCellValue('D1', lang('bank_name'));
                     $this->excel->getActiveSheet()->SetCellValue('E1', lang('bank_account'));
                     $this->excel->getActiveSheet()->SetCellValue('F1', lang('gross_salary'));
@@ -1190,7 +1190,7 @@ class Employees extends MY_Controller
                         $this->excel->getActiveSheet()->SetCellValue('F' . $row, $employees->gross_salary);
                         $this->excel->getActiveSheet()->SetCellValue('G' . $row, $employees->payment_payroll);
                         $this->excel->getActiveSheet()->SetCellValue('H' . $row, $employees->payment_other);
-                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $employees->actives);
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, ($employees->active == '1' ? 'Active' :'Inactive'));
                         $row++;
                     }
 
