@@ -926,6 +926,8 @@ class system_settings extends MY_Controller
                 'employees-edit_employee_payment' => $this->input->post('employees-edit_employee_payment'),
                 'employees-delete_employee_payment' => $this->input->post('employees-delete_employee_payment'),
                 'employees-employee_payment_by_csv' => $this->input->post('employees-employee_payment_by_csv'),
+                'employees-salary_process' => $this->input->post('employees-salary_process'),
+                'employees-list_month_salary' => $this->input->post('employees-list_month_salary'),
 
 
                 'employees-bill_index' => $this->input->post('employees-bill_index'),

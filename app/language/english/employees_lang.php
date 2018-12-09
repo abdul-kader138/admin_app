@@ -97,3 +97,14 @@ $lang['index_payment']                    = "List Employees Payment";
 $lang['bank_account']                     = "Bank Account";
 $lang['bank_name']                        = "Bank Name";
 $lang['gross_amount_error']               = "Summation amount of payroll & other not equal to gross salary.";
+$lang['salary_start_date']                = "Start Date";
+$lang['salary_end_date']                  = "End Date";
+$lang['absent_days']                      = "Absent Days";
+$lang['holiday_allowance_hours']          = "Holiday Allowance";
+
+$lang['salary_already_exist']             = "Salary already processed for this month";
+$lang['salary_added']                     = "Salary Successfully processed";
+$lang['total_absent_deduction']           = "Total Absent Deduction";
+$lang['total_holiday_allowance']          = "Total Holiday allowance";
+$lang['total_salary']                     = "Total Salary";
+$lang['salary_details']                   = "Salary Details";

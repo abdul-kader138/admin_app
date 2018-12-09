@@ -24,3 +24,30 @@ CREATE TABLE `sma_employees_payment` (
 
 ALTER TABLE `sma_employees_payment` ADD `bank_name` VARCHAR(50) NULL DEFAULT NULL AFTER `active`;
 ALTER TABLE `sma_employees_payment` ADD `bank_account` VARCHAR(100) NULL DEFAULT NULL AFTER `active`;
+
+ALTER TABLE `sma_permissions` ADD `employees-salary_process` TINYINT(1) NULL DEFAULT '0' AFTER `employees-edit_employee_payment`;
+ALTER TABLE `sma_permissions` ADD `employees-list_month_salary` TINYINT(1) NULL DEFAULT '0' AFTER `employees-edit_employee_payment`
+
+
+CREATE TABLE `sma_salary` (
+ `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+ `employee_id` varchar(100) NOT NULL,
+ `created_by` int(11) unsigned DEFAULT NULL,
+ `year` varchar(10) NOT NULL,
+ `month` varchar(20) NOT NULL,
+ `start_date` date NOT NULL,
+ `end_date` date NOT NULL,
+ `created_date` datetime DEFAULT NULL,
+ `gross_salary` decimal(15,2) NOT NULL,
+ `payment_payroll` decimal(15,2) NOT NULL,
+ `payment_other` decimal(15,2) NOT NULL,
+ `absent_days` decimal(15,2) NOT NULL,
+ `holiday_allowance` decimal(15,2) NOT NULL,
+ `gross_holiday_allowance` decimal(15,2) NOT NULL,
+ `payment_other_holiday_allowance` decimal(15,2) NOT NULL,
+ `gross_absent_deduction` varchar(100) DEFAULT NULL,
+ `payment_other_absent_deduction` varchar(100) DEFAULT NULL,
+ `reference_no` varchar(100) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `employee_id` (`year`,`month`)
+) ENGINE=InnoDB AUTO_INCREMENT=4493 DEFAULT CHARSET=utf8

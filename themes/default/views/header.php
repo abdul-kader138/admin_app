@@ -333,12 +333,25 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_employee_payment'); ?></span>
                 </a>
             </li>
-            <li id="employees_employee_payment_by_csv">
-                <a class="submenu" href="<?= site_url('employees/employee_payment_by_csv'); ?>">
+<!--            <li id="employees_employee_payment_by_csv">-->
+<!--                <a class="submenu" href="--><?//= site_url('employees/employee_payment_by_csv'); ?><!--">-->
+<!--                    <i class="fa fa-upload"></i>-->
+<!--                    <span class="text"> --><?//= lang('add_employee_payment_by_csv'); ?><!--</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            <li id="employees_salary_process">
+                <a class="submenu" href="<?= site_url('employees/salary_process'); ?>">
                     <i class="fa fa-upload"></i>
-                    <span class="text"> <?= lang('add_employee_payment_by_csv'); ?></span>
+                    <span class="text"> <?= lang('salary_process'); ?></span>
                 </a>
             </li>
+            <li id="employees_list_month_salary">
+                <a class="submenu" href="<?= site_url('employees/list_month_salary'); ?>">
+                    <i class="fa fa-money"></i>
+                    <span class="text"> <?= lang('list_month_salary'); ?></span>
+                </a>
+            </li>
+
 
             <li id="employees_bill_add">
                 <a class="submenu" href="<?= site_url('employees/bill_add'); ?>">
@@ -1230,7 +1243,8 @@ if ($Owner || $Admin) {
     <?php if ($GP['employees-index'] || $GP['employees-add'] || $GP['employees-edit'] ||
         $GP['employees-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
          || $GP['employees-index_payment'] || $GP['employees-add_employee_payment'] || $GP['employees-edit_employee_payment'] ||
-        $GP['employees-delete_employee_payment'] ||  $GP['employees-employee_payment_by_csv']
+        $GP['employees-delete_employee_payment'] ||  $GP['employees-employee_payment_by_csv'] || $GP['employees-salary_process']
+        ||  $GP['employees-list_month_salary']
     ) {
         ?>
         <li class="mm_employees">
@@ -1285,14 +1299,29 @@ if ($Owner || $Admin) {
                 <?php } ?>
 
                 <?php if ($GP['employees-employee_payment_by_csv']) { ?>
-                    <li id="employees_add_employee_payment">
-                        <a class="submenu" href="<?= site_url('employees/employee_payment_by_csv'); ?>">
+<!--                    <li id="employees_add_employee_payment">-->
+<!--                        <a class="submenu" href="--><?//= site_url('employees/employee_payment_by_csv'); ?><!--">-->
+<!--                            <i class="fa fa-upload"></i><span-->
+<!--                                class="text"> --><?//= lang('add_employee_payment_by_csv'); ?><!--</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                <?php } ?>
+                <?php if ($GP['employees-salary_process']) { ?>
+                    <li id="employees_salary_process">
+                        <a class="submenu" href="<?= site_url('employees/salary_process'); ?>">
                             <i class="fa fa-upload"></i><span
-                                class="text"> <?= lang('add_employee_payment_by_csv'); ?></span>
+                                class="text"> <?= lang('salary_process'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
-
+                <?php if ($GP['employees-list_month_salary']) { ?>
+                    <li id="employees_list_month_salary">
+                        <a class="submenu" href="<?= site_url('employees/list_month_salary'); ?>">
+                            <i class="fa fa-money"></i><span
+                                class="text"> <?= lang('list_month_salary'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
 
 
                 <?php if ($GP['employees-bill_index']) { ?>

@@ -431,7 +431,12 @@
                                     </td>
                                     <td>
                                         <input type="checkbox" value="1" class="checkbox" name="employees-employee_payment_by_csv" <?php echo $p->{'employees-employee_payment_by_csv'} ? "checked" : ''; ?>>
-                                        <label for="customers-deposits" class="padding05"><?= lang('add_employee_payment_by_csv') ?></label>
+                                        <label for="employee-employee_payment_by_csv" class="padding05"><?= lang('add_employee_payment_by_csv') ?></label>
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-salary_process" <?php echo $p->{'employees-salary_process'} ? "checked" : ''; ?>>
+                                        <label for="employee-salary_process" class="padding05"><?= lang('salary_process') ?></label>
+                                        <input type="checkbox" value="1" class="checkbox" name="employees-list_month_salary" <?php echo $p->{'employees-list_month_salary'} ? "checked" : ''; ?>>
+                                        <label for="employee-list_month_salary" class="padding05"><?= lang('list_month_salary') ?></label>
+
                                     </td>
                                 </tr>
 

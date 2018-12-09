@@ -423,8 +423,8 @@ $lang['operator_updated']                       = "Operator successfully updated
 $lang['operator_deleted']                       = "Operator successfully deleted.";
 
 
-$lang['doc_type']                               = "Document Type";
-$lang['description']                            = "Description";
+$lang['doc_type']                              = "Document Type";
+$lang['description']                           = "Description";
 
 $lang['doc_type']                              = "Document Type";
 $lang['doc_type_add']                          = "Add Document Type";
@@ -436,8 +436,11 @@ $lang['doctype_deleted']                       = "Document Type successfully del
 
 
 
-$lang['doc_movement']                   = "Document Movement";
-$lang['doc_movement_list']              = "List Document Movement";
-$lang['add_movement']                   = "Add Document Movement";
-$lang['edit_movement']                  = "Edit Document Movement";
-$lang['delete_movement']                = "Delete Document Movement";
+$lang['doc_movement']                          = "Document Movement";
+$lang['doc_movement_list']                     = "List Document Movement";
+$lang['add_movement']                          = "Add Document Movement";
+$lang['edit_movement']                         = "Edit Document Movement";
+$lang['delete_movement']                       = "Delete Document Movement";
+
+$lang['salary_process']                        = "Salary Process";
+$lang['list_month_salary']                     = "List Month Salary";

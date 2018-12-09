@@ -1248,5 +1248,296 @@ class Employees extends MY_Controller
         }
     }
 
+    public function salary_process()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-salary_process'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('security');
+        $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
+        $this->form_validation->set_message('is_natural_no_zero', lang("no_zero_required"));
+        $this->form_validation->set_rules('year', lang("year"), 'trim|required');
+        $this->form_validation->set_rules('month', lang("month"), 'trim|required');
+        $this->form_validation->set_rules('start_date', lang("start_date"), 'trim|required');
+        $this->form_validation->set_rules('end_date', lang("end_date"), 'trim|required');
+
+        if ($this->form_validation->run() == true) {
+
+            $month = $this->input->post('month');
+            $year = $this->input->post('year');
+            $start_date = $this->sma->fsd($this->input->post('start_date'));
+            $end_date = $this->sma->fsd($this->input->post('end_date'));
+
+            if (isset($_FILES["userfile"])) {
+
+                $this->load->library('upload');
+
+                $config['upload_path'] = $this->digital_upload_path;
+                $config['allowed_types'] = 'csv';
+                $config['max_size'] = $this->allowed_file_size;
+                $config['overwrite'] = true;
+
+                $this->upload->initialize($config);
+
+                if (!$this->upload->do_upload()) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect("employees/salary_process");
+                }
+
+                $csv = $this->upload->file_name;
+                $data['attachment'] = $csv;
+
+                $arrResult = array();
+                $handle = fopen($this->digital_upload_path . $csv, "r");
+                if ($handle) {
+                    while (($row = fgetcsv($handle, 1000, ",")) !== false) {
+                        $arrResult[] = $row;
+                    }
+                    fclose($handle);
+                }
+                $titles = array_shift($arrResult);
+
+                $keys = array('employee_id', 'absent_days','holiday_allowance_hours');
+                $final = array();
+                foreach ($arrResult as $key => $value) {
+                    $final[] = array_combine($keys, $value);
+                }
+                $rw = 2;
+
+                foreach ($final as $csv_pr) {
+                    $bill_details = $this->employees_model->getSalaryByMonthAndYear($month, $year);
+                    if ($bill_details) {
+                        $this->session->set_flashdata('error', lang("salary_already_exist"));
+                        redirect($_SERVER["HTTP_REFERER"]);
+                    }
+                    $holiday_allowance_gross=0;
+                    $holiday_allowance_other=0;
+                    $holiday_allowance_gross=0;
+                    $holiday_allowance_other=0;
+                    if (isset($csv_pr['employee_id'])) {
+                        $employee_details = $this->employees_model->getPaymentById($csv_pr['employee_id']);
+                        if ($employee_details) {
+                            $absent_days = (float)$csv_pr['absent_days'];
+                            $holiday_allowance = (float)$csv_pr['holiday_allowance_hours'];
+                            if (isset($csv_pr['absent_days'])) {
+                                $absent_deduction_gross=(($employee_details->gross_salary/30)*$absent_days);
+                                $absent_deduction_other=(($employee_details->payment_other/30)*$absent_days);
+
+                            }
+
+                            if (isset($csv_pr['holiday_allowance_hours'])) {
+                                $daily_amount_gross=($employee_details->gross_salary/30);
+                                $daily_amount_other=($employee_details->payment_other/30);
+                                $holiday_allowance_gross=(($daily_amount_gross/8)*$holiday_allowance);
+                                $holiday_allowance_other=(($daily_amount_other/8)*$holiday_allowance);
+                            }
+                            $salary[] = array(
+                                'employee_id' => $employee_details->employee_id,
+                                'reference_no' => ($year . "_" . $month ),
+                                'year' => $year,
+                                'month' => $month,
+                                'start_date' => $start_date,
+                                'end_date' => $end_date,
+                                'payment_payroll' => $employee_details->payment_payroll,
+                                'payment_other' => $employee_details->payment_other,
+                                'gross_salary' => $employee_details->gross_salary,
+                                'absent_days' => $absent_days,
+                                'holiday_allowance' => $holiday_allowance,
+                                'gross_absent_deduction' => $daily_amount_gross,
+                                'payment_other_absent_deduction' => $daily_amount_other,
+                                'payment_other_holiday_allowance' => $holiday_allowance_other,
+                                'gross_holiday_allowance' => $holiday_allowance_gross,
+                                'created_by' => $this->session->userdata('user_id'),
+                                'created_date' => date("Y-m-d h:i:sa"),
+                            );
+
+
+
+                        }
+                        // csv data check
+
+                    }
+                }
+
+            }
+        }
+
+
+        if ($this->form_validation->run() == true && $this->employees_model->addSalary($salary)) {
+            $this->session->set_flashdata('message', lang("salary_added"));
+            redirect("employees/bills");
+        } else {
+            $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('employees'), 'page' => lang('employees')), array('link' => '#', 'page' => lang('salary_process')));
+            $meta = array('page_title' => lang('add_employee_by_csv'), 'bc' => $bc);
+            $this->page_construct('employees/salary_process', $meta, $this->data);
+
+        }
+    }
+
+
+    function list_month_salary()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-list_month_salary'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('employees'), 'page' => lang('employees')), array('link' => '#', 'page' => lang('list_month_salary')));
+        $meta = array('page_title' => lang('list_month_salary'), 'bc' => $bc);
+        $this->page_construct('employees/list_month_salary', $meta, $this->data);
+    }
+
+    function get_month_salary()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-list_month_salary'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        if ($get_permission['employees-bill_delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete_bill") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('employees/delete_bill/$1') . "'>"
+            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
+            . lang('delete_bill') . "</a>";
+        $detail_link = anchor('employees/salary_details/$1', '<i class="fa fa-file-text-o"></i> ' . lang('salary_details'));
+        $detail_link_company = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details_company'));
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li>' . $detail_link . '</li>
+            <li>' . $delete_link . '</li>
+        </ul>
+    </div></div>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->load->library('datatables');
+        $this->datatables
+            ->select($this->db->dbprefix('salary') . ".reference_no as id, " . $this->db->dbprefix('salary') . ".month as op_name," . $this->db->dbprefix('salary') . ".year as pa_name,sum(" . $this->db->dbprefix('salary') . ".payment_other) as c_amount,round(sum(" . $this->db->dbprefix('salary') . ".payment_other_absent_deduction),2) as u_amount,round(sum(" . $this->db->dbprefix('salary') . ".payment_other_holiday_allowance),2) as b_amount")
+            ->from("salary")
+            ->group_by('salary.month')
+            ->group_by('salary.year')
+            ->group_by('salary.reference_no')
+            ->add_column("Actions", $action, "id");
+        echo $this->datatables->generate();
+    }
+
+    public function salary_details($salary_id = null)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-list_month_salary'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $salary_id = $this->input->get('id');
+        }
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $info = $this->employees_model->getAllSalaryDetails($salary_id);
+        $this->data['id'] = $salary_id;
+        $this->data['rows'] = $info;
+        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('employees/salary_details'), 'page' => lang('salary_details')));
+        $meta = array('page_title' => lang('salary_details'), 'bc' => $bc);
+        $this->page_construct('employees/salary_details', $meta, $this->data);
+
+    }
+
+    public function salary_details_pdf($bill_id = null, $view = null, $save_bufffer = null)
+    {
+        //$this->sma->checkPermissions();
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-list_month_salary'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+
+        if ($this->input->get('id')) {
+            $bill_id = $this->input->get('id');
+        }
+
+
+        $footer = ' <table width="100%">
+        <tr>
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="text-transform: capitalize;">
+
+                    <p style="border-top: 1px solid #000;">Prepared By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Checked By</p>
+                </div>
+            </td>
+
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Verified By</p>
+                </div>
+            </td>
+
+            <td style="width:23%; text-align:center">
+
+                <div style="float:left; margin:5px 15px">
+                    <p>&nbsp;</p>
+
+                    <p style="border-top: 1px solid #000;">Approved By</p>
+                </div>
+            </td>
+
+        </tr>
+    </table>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $info = $this->employees_model->getAllSalaryDetails($bill_id);
+        $this->data['id'] = $bill_id;
+        $this->data['rows'] = $info;
+        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+        $name = $this->lang->line("salary_details") . "_" . str_replace('/', '_', $bill_id) . ".pdf";
+        $html = $this->load->view($this->theme . 'employees/pdf', $this->data, true);
+        if (!$this->Settings->barcode_img) {
+            $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
+        }
+        if ($view) {
+            $this->load->view($this->theme . 'employees/pdf', $this->data);
+        } elseif ($save_bufffer) {
+            return $this->sma->generate_pdf($html, $name, $save_bufffer);
+        } else {
+            $this->sma->generate_pdf($html, $name, null, $footer);
+        }
+
+    }
+
 
 }

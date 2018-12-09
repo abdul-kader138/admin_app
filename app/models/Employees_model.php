@@ -307,4 +307,49 @@ class Employees_model extends CI_Model
 
     }
 
+    public function getSalaryByMonthAndYear($month, $year)
+    {
+        $q = $this->db->get_where('salary', array('month' => $month, 'year' => $year), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getPaymentById($id)
+    {
+        $q = $this->db->get_where('employees_payment', array('employee_id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addSalary($data)
+    {
+        if ($this->db->insert_batch('salary', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getAllSalaryDetails($ref)
+    {
+        $this->db->select("salary.*,employees_payment.employee_id,employees.employee_id,employees.name as nam,company.name as c_name");
+        $this->db->from('salary');
+        $this->db->where('salary.reference_no', $ref);
+        $this->db->join('employees_payment', 'employees_payment.employee_id=salary.employee_id', 'left');
+        $this->db->join('employees', 'employees.employee_id=employees_payment.employee_id', 'left');
+        $this->db->join('company', 'company.id=employees.company_id', 'left');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+
 }
