@@ -68,12 +68,12 @@
                                 <td style="vertical-align:middle;">   <?= $row->payment_other; ?></td>
                                 <td style="vertical-align:middle;">   <?= round($row->payment_other_absent_deduction,2); ?></td>
                                 <td style="vertical-align:middle;">   <?= round($row->payment_other_holiday_allowance,2); ?></td>
-                                <td style="vertical-align:right;">    <?= round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2))); ?></td>
+                                <td style="vertical-align:right;">    <?= round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)),2); ?></td>
                             </tr>
                             <?php
                             $total = $total + $row->payment_other;
                             $usage = $usage + $row->usage_amount;
-                            $dues = $dues +round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)));
+                            $dues = $dues +round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)),2);
                             $r++;
                         endforeach;
                         if ($return_rows) {

@@ -1525,12 +1525,12 @@ class Employees extends MY_Controller
         $this->data['rows'] = $info;
         $this->data['warehouse'] = $this->site->getWarehouseByID(1);
         $name = $this->lang->line("salary_details") . "_" . str_replace('/', '_', $bill_id) . ".pdf";
-        $html = $this->load->view($this->theme . 'employees/pdf', $this->data, true);
+        $html = $this->load->view($this->theme . 'employees/salary_details_pdf', $this->data, true);
         if (!$this->Settings->barcode_img) {
             $html = preg_replace("'\<\?xml(.*)\?\>'", '', $html);
         }
         if ($view) {
-            $this->load->view($this->theme . 'employees/pdf', $this->data);
+            $this->load->view($this->theme . 'employees/salary_details_pdf', $this->data);
         } elseif ($save_bufffer) {
             return $this->sma->generate_pdf($html, $name, $save_bufffer);
         } else {

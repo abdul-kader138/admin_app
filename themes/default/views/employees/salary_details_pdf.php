@@ -39,7 +39,7 @@
     <div class="row">
         <div class="box">
             <div class="box-header">
-                <h2 class="blue"><i class="fa-fw fa fa-file"></i><?= lang("bill_no") . '. ' . $id; ?></h2>
+                <h2 class="blue"><i class="fa-fw fa fa-file"></i><?= lang("reference_no") . '. ' . $id; ?></h2>
 
             </div>
             <div class="box-content">
@@ -68,22 +68,6 @@
                                     ?>
                                 </div>
                             </div>
-
-                            <div class="col-xs-5">
-
-                                <div class="col-xs-1"><i class="fa fa-3x fa-mobile text-muted"></i></div>
-                                <div class="col-xs-11">
-                                    <h2 class=""><?= $supplier->name; ?></h2>
-
-                                    <?php
-                                    echo lang("contact_person") . ": " . $supplier->contact_person . "<br />" . $supplier->address .  "<br />" ;
-
-                                    echo lang("tel") . ": " . $supplier->contact_number . "<br />" ;
-                                    ?>
-                                </div>
-                            </div>
-
-                            <div class="clearfix"></div>
                         </div>
 
                         <div class="table-responsive">
@@ -108,9 +92,6 @@
                                 $usage = 0;
                                 foreach ($rows as $row):
                                     $dues=0;
-                                    $dues_amount=($row->ceiling_amount -$row->usage_amount);
-                                    if($dues_amount < 0) $dues=abs($dues_amount);
-
                                     ?>
                                     <tr>
                                         <td style="text-align:center; width:40px; vertical-align:middle;"><?= $r; ?></td>
@@ -120,12 +101,12 @@
                                         <td style="vertical-align:middle;">   <?= $row->payment_other; ?></td>
                                         <td style="vertical-align:middle;">   <?= round($row->payment_other_absent_deduction,2); ?></td>
                                         <td style="vertical-align:middle;">   <?= round($row->payment_other_holiday_allowance,2); ?></td>
-                                        <td style="vertical-align:right;">    <?= round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2))); ?></td>
+                                        <td style="vertical-align:right;">    <?= round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)),2); ?></td>
                                     </tr>
                                     <?php
                                     $total = $total + $row->payment_other;
                                     $usage = $usage + $row->usage_amount;
-                                    $dues = $dues +round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)));
+                                    $dues = $dues +round(($row->payment_other+round($row->payment_other_holiday_allowance,2) -round($row->payment_other_absent_deduction,2)),2);
                                     $r++;
                                 endforeach;
                                 if ($return_rows) {
@@ -170,7 +151,7 @@
                                         (<?= $default_currency->code; ?>)
                                     </td>
                                     <td style="text-align:right; font-weight:bold;">
-                                        <?= $this->sma->formatMoney($total_dues); ?>
+                                        <?= $this->sma->formatMoney($dues); ?>
                                     </td>
                                 </tr>
 
