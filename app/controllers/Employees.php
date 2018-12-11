@@ -1311,7 +1311,7 @@ class Employees extends MY_Controller
                 $rw = 2;
 
                 foreach ($final as $csv_pr) {
-                    $bill_details = $this->employees_model->getSalaryByMonthAndYear($month, $year);
+                    $bill_details = $this->employees_model->getSalaryByMonthAndYear($month, $year,$csv_pr['employee_id']);
                     if ($bill_details) {
                         $this->session->set_flashdata('error', lang("salary_already_exist"));
                         redirect($_SERVER["HTTP_REFERER"]);
@@ -1371,7 +1371,7 @@ class Employees extends MY_Controller
 
         if ($this->form_validation->run() == true && $this->employees_model->addSalary($salary)) {
             $this->session->set_flashdata('message', lang("salary_added"));
-            redirect("employees/bills");
+            redirect("employees/list_month_salary");
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('employees'), 'page' => lang('employees')), array('link' => '#', 'page' => lang('salary_process')));
@@ -1409,12 +1409,11 @@ class Employees extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        if ($get_permission['employees-bill_delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete_bill") . "</b>' data-content=\"<p>"
-            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('employees/delete_bill/$1') . "'>"
+        if ($this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete_salary") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('employees/delete_salary/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
-            . lang('delete_bill') . "</a>";
+            . lang('delete_salary') . "</a>";
         $detail_link = anchor('employees/salary_details/$1', '<i class="fa fa-file-text-o"></i> ' . lang('salary_details'));
-        $detail_link_company = anchor('employees/view_bills/$1', '<i class="fa fa-file-text-o"></i> ' . lang('bill_details_company'));
         $action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
@@ -1537,6 +1536,28 @@ class Employees extends MY_Controller
             $this->sma->generate_pdf($html, $name, null, $footer);
         }
 
+    }
+
+    function delete_salary($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        if ($this->employees_model->deleteSalary($id)) {
+            if ($this->input->is_ajax_request()) {
+                echo lang("salary_deleted");
+                die();
+            }
+            $this->session->set_flashdata('message', lang('salary_deleted'));
+            redirect('employees/list_month_salary');
+        }
     }
 
 

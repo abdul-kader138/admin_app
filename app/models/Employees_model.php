@@ -307,9 +307,9 @@ class Employees_model extends CI_Model
 
     }
 
-    public function getSalaryByMonthAndYear($month, $year)
+    public function getSalaryByMonthAndYear($month, $year,$employee_id)
     {
-        $q = $this->db->get_where('salary', array('month' => $month, 'year' => $year), 1);
+        $q = $this->db->get_where('salary', array('month' => $month, 'year' => $year,'employee_id'=>$employee_id), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }
@@ -349,6 +349,12 @@ class Employees_model extends CI_Model
             return $data;
         }
         return FALSE;
+    }
+
+    public function deleteSalary($id)
+    {
+        if ($this->db->delete('salary', array('reference_no' => $id))) return true;
+        else return FALSE;
     }
 
 

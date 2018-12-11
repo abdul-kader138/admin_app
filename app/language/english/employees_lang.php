@@ -108,3 +108,5 @@ $lang['total_absent_deduction']           = "Total Absent Deduction";
 $lang['total_holiday_allowance']          = "Total Holiday allowance";
 $lang['total_salary']                     = "Total Salary";
 $lang['salary_details']                   = "Salary Details";
+$lang['delete_salary']                    = "Delete Salary";
+$lang['salary_deleted']                   = "Salary Successfully deleted";
