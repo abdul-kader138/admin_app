@@ -21,6 +21,7 @@ class Document  extends MY_Controller
         $this->lang->load('document', $this->Settings->user_language);
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/document';
+        $this->path = 'assets/uploads';
         $this->upload_path_movement = 'assets/uploads/document/movement';
         $this->thumbs_path = 'assets/uploads/thumbs/';
         $this->image_types = 'gif|jpg|jpeg|png|tif';
@@ -49,6 +50,26 @@ class Document  extends MY_Controller
         $this->page_construct('document/index', $meta, $this->data);
     }
 
+
+    function file_explorer()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['output_folder'] = $this->listFolder($this->path);
+//         $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'."/".$this->data['output_folder']['path_in_url']), 'page' => lang('document')), array('link' => '#', 'page' => lang('File_Explorer')));
+         $bc = array(array('link' => site_url('welcome'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'), 'page' => lang('File_Explorer')), array('link' => '#', 'page' => $this->data['output_folder']['path_in_url']));
+
+        $meta = array('page_title' => lang('document'), 'bc' => $bc);
+        $this->page_construct('document/file_explorer', $meta, $this->data);
+    }
 
     function getDocuments()
     {
@@ -528,4 +549,75 @@ class Document  extends MY_Controller
         }
 
    }
+
+    function listFolder()
+    {
+        $segment_array = $this->uri->segment_array();
+
+        // first and second segments are our controller and the 'virtual root'
+        $controller = array_shift( $segment_array );
+        $virtual_root = array_shift( $segment_array );
+
+//        if( empty( $this->roots )) exit( 'no roots defined' );
+
+        // let's check if a virtual root is choosen
+        // if this controller is the default controller, first segment is 'index'
+//        if ( $controller == 'index' OR $virtual_root == '' ) show_404();
+
+        // let's check if a virtual root matches
+//        if ( ! array_key_exists( $virtual_root, $this->roots )) show_404();
+
+        // build absolute path
+        $path_in_url = '';
+        foreach ( $segment_array as $segment ) $path_in_url.= $segment.'/';
+        $absolute_path = $this->path.'/'.$path_in_url;
+        $absolute_path = rtrim($absolute_path);
+
+        // is it a directory or a file ?
+        if ( is_dir( $absolute_path ))
+        {
+            // we'll need this to build links
+            $this->load->helper('url');
+
+            $dirs = array();
+            $files = array();
+            // let's traverse the directory
+            if ( $handle = @opendir( $absolute_path ))
+            {
+                while ( false !== ($file = readdir( $handle )))
+                {
+                    if (( $file != "." AND $file != ".." ))
+                    {
+                        if ( is_dir( $absolute_path.'/'.$file ))
+                        {
+                            $dirs[]['name'] = $file;
+                        }
+                        else
+                        {
+                            $files[]['name'] = $file;
+                        }
+                    }
+                }
+                closedir( $handle );
+                sort( $dirs );
+                sort( $files );
+            }
+            // parent directory
+            // here to ensure it's available and the first in the array
+            if ( $path_in_url != '' )
+                array_unshift ( $dirs, array( 'name' => '..' ));
+
+            // send the view
+            $data = array(
+                'controller' => $controller,
+                'virtual_root' => $virtual_root,
+                'path_in_url' => $path_in_url,
+                'dirs' => $dirs,
+                'files' => $files,
+            );
+           return $data ;
+        }
+    }
+
+//https://github.com/bcit-ci/CodeIgniter/wiki/simple-file-browser
 }

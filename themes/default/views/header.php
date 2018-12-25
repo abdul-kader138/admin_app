@@ -426,6 +426,12 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_movement'); ?></span>
                 </a>
             </li>
+            <li id="document_file_explorer">
+                <a class="submenu" href="<?= site_url('document/file_explorer'); ?>">
+                    <i class="fa fa-search"></i><span
+                        class="text"> <?= lang('File_Explorer'); ?></span>
+                </a>
+            </li>
         </ul>
     </li>
     <li class="mm_products">
