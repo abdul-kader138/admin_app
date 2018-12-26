@@ -38,6 +38,56 @@
             localStorage.setItem('slref', '<?=$slnumber?>');
         }
 
+
+
+        //
+
+            $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('Select_File_Sub_Directory') ?>").select2({
+                placeholder: "<?= lang('select_category_to_load') ?>", data: [
+                    {id: '', text: '<?= lang('Select_File_Sub_Directory') ?>'}
+                ]
+            });
+            $('#category').change(function () {
+                var v = $(this).val();
+                $('#modal-loading').show();
+                if (v) {
+                    $.ajax({
+                        type: "get",
+                        async: false,
+                        url: "<?= site_url('document/getSubCategories') ?>/" + v,
+                        dataType: "json",
+                        success: function (scdata) {
+                            if (scdata != null) {
+                                $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('Select_Subcategory') ?>").select2({
+                                    placeholder: "<?= lang('Select_File_Sub_Directory_To_Load') ?>",
+                                    data: scdata
+                                });
+                            } else {
+                                $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('no_subcategory') ?>").select2({
+                                    placeholder: "<?= lang('no_subcategory') ?>",
+                                    data: [{id: '', text: '<?= lang('no_subcategory') ?>'}]
+                                });
+                            }
+                        },
+                        error: function () {
+                            bootbox.alert('<?= lang('ajax_error') ?>');
+                            $('#modal-loading').hide();
+                        }
+                    });
+                } else {
+                    $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('select_category_to_load') ?>").select2({
+                        placeholder: "<?= lang('select_category_to_load') ?>",
+                        data: [{id: '', text: '<?= lang('select_category_to_load') ?>'}]
+                    });
+                }
+                $('#modal-loading').hide();
+            });
+            $('#code').bind('keypress', function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
     });
 </script>
 
@@ -107,8 +157,32 @@ echo form_open_multipart("document/add", $attrib);
         </div>
     </div>
 
+    <div class="col-md-4">
+        <div class="form-group">
+        <?= lang("File_Directory", "File_Directory") ?>
+        <?php
+        $cat[''] = "";
+       // var_dump($categories);
+        foreach ($categories as $category) {
+            $cat[$category->id] = $category->name;
+        }
+        echo form_dropdown('category', $cat, (isset($_POST['category']) ? $_POST['category'] : ''), 'class="form-control select" id="category" placeholder="' . lang("Select") . " " . lang("File_Directory") . '" required="required" style="width:100%"')
+        ?>
+        </div>
+    </div>
+
 <div class="clearfix"></div>
-<div class="col-md-6">
+    <div class="col-md-4">
+        <div class="form-group">
+            <?= lang("File_Sub_Directory", "File_Sub_Directory") ?>
+            <div class="controls" id="subcat_data"> <?php
+                echo form_input('subcategory', (isset($_POST['subcategory']) ? $_POST['subcategory'] : ''), 'class="form-control" id="subcategory"  placeholder="' . lang("Select_File_Sub_Directory_To_Load") . '"');
+                ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
     <div class="form-group">
         <?= lang("document", "document") ?>
         <input id="document" type="file" data-browse-label="<?= lang('browse'); ?>" name="document" data-show-upload="false"
@@ -130,6 +204,8 @@ echo form_open_multipart("document/add", $attrib);
     </div>
 
 </div>
+
+
 <div class="col-md-12">
     <div
         class="fprom-group"><?php echo form_submit('add_sale', $this->lang->line("submit"), 'id="add_sale" class="btn btn-primary" style="padding: 6px 15px; margin:15px 0;"'); ?>

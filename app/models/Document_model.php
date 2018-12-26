@@ -92,4 +92,37 @@ class Document_model extends CI_Model
         return false;
     }
 
+    public function getCategoryByID($id)
+    {
+        $q = $this->db->get_where("categories", array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getSubCategories($parent_id) {
+        $this->db->select('id as id, name as text')
+            ->where('parent_id', $parent_id)->order_by('name');
+        $q = $this->db->get("categories");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getAllSubCategory($id) {
+        $this->db->order_by('name')->where('parent_id', $id);
+        $q = $this->db->get("categories");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
 } 

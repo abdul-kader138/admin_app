@@ -37,7 +37,43 @@
         if (!localStorage.getItem('slref')) {
             localStorage.setItem('slref', '<?=$slnumber?>');
         }
-
+//        $('#subcategory').select2().enable(false);
+        $("#subcategory").prop("disabled", true);
+        $("#category").prop("disabled", true);
+        $("#document").prop("disabled", true);
+//        $('#subcategory option:selected').attr('disabled','disabled');
+//        $('#category').change(function () {
+//            var v = $(this).val();
+//            $('#modal-loading').show();
+//            if (v) {
+//                $.ajax({
+//                    type: "get",
+//                    async: false,
+//                    url: "<?//= site_url('document/getSubCategories') ?>///" + v,
+//                    dataType: "json",
+//                    success: function (scdata) {
+//                        if (scdata != null) {
+//                        }
+//                    },
+//                    error: function () {
+//                        bootbox.alert('<?//= lang('ajax_error') ?>//');
+//                        $('#modal-loading').hide();
+//                    }
+//                });
+//            } else {
+//                $("#subcategory").select2("destroy").empty().attr("placeholder", "<?//= lang('select_category_to_load') ?>//").select2({
+//                    placeholder: "<?//= lang('select_category_to_load') ?>//",
+//                    data: [{id: '', text: '<?//= lang('select_category_to_load') ?>//'}]
+//                });
+//            }
+//            $('#modal-loading').hide();
+//        });
+//        $('#code').bind('keypress', function (e) {
+//            if (e.keyCode == 13) {
+//                e.preventDefault();
+//                return false;
+//            }
+//        });
     });
 </script>
 
@@ -107,8 +143,34 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("File_Directory", "File_Directory") ?>
+                                <?php
+                                $cat[''] = "";
+                                foreach ($categories as $category) {
+                                    $cat[$category->id] = $category->name;
+                                }
+                                echo form_dropdown('category', $cat, $document->category_id, 'class="form-control select" id="category" placeholder="' . lang("Select") . " " . lang("File_Directory") . '" required="required"  style="width:100%"');
+                                ?>
+                            </div>
+                        </div>
+
                         <div class="clearfix"></div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <?= lang("File_Sub_Directory", "File_Sub_Directory") ?>
+                                <?php
+                                $cat1[''] = "";
+                                foreach ($subcategories as $subcategory) {
+                                    $cat1[$subcategory->id] = $subcategory->name;
+                                }
+                                echo form_dropdown('subcategory', $cat1, $document->subcategory_id, 'class="form-control select" id="subcategory" placeholder="' . lang("Select") . " " . lang("File_Sub_Directory") . '" required="required" style="width:100%"');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <?= lang("document", "document") ?>
                                 <input id="document" type="file" data-browse-label="<?= lang('browse'); ?>" name="document" data-show-upload="false"

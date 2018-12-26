@@ -30,6 +30,7 @@
 <div class="row">
     <?php
     $prefix = $output_folder['controller'].'/'.$output_folder['virtual_root'].'/'.$output_folder['path_in_url'];
+    $prefix_download = "assets/uploads/".$output_folder['path_in_url'];
     if (!empty($output_folder['dirs'])){
         echo '<div class="col-md-12">';
         foreach( $output_folder['dirs'] as $dir ){
@@ -48,7 +49,7 @@
         echo '<div class="col-md-12">';
         foreach( $output_folder['files'] as $file ){
             echo '<div class="col-md-4">';
-            echo anchor($prefix.$file['name'], '<i class="fa fa-file"></i><b> '.$file['name'].'</b><br/>',array('class' => 'file','download'=>'download'));
+            echo anchor($prefix_download.$file['name'], '<i class="fa fa-file"></i><b> '.$file['name'].'</b><br/>',array('class' => 'file','download'=>'download'));
             echo"</div>";
     }
         echo"</div>";
