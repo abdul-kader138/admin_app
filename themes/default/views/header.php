@@ -16,7 +16,8 @@
     <noscript>
         <style type="text/css">#loading {
                 display: none;
-            }</style>
+            }
+        </style>
     </noscript>
     <?php if ($Settings->user_rtl) { ?>
         <link href="<?= $assets ?>styles/helpers/bootstrap-rtl.min.css" rel="stylesheet"/>
@@ -430,6 +431,12 @@ if ($Owner || $Admin) {
                 <a class="submenu" href="<?= site_url('document/file_explorer'); ?>">
                     <i class="fa fa-search"></i><span
                         class="text"> <?= lang('File_Explorer'); ?></span>
+                </a>
+            </li>
+            <li id="filemanager_filemanager">
+                <a class="submenu" href="<?= site_url('filemanager/'); ?>">
+                    <i class="fa fa-search"></i><span
+                            class="text"> <?= lang('File_Explorer_New'); ?></span>
                 </a>
             </li>
         </ul>

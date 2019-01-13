@@ -3,77 +3,55 @@
     var count = 1, an = 1, product_variant = 0, DT = <?= $Settings->default_tax_rate ?>,
         product_tax = 0, invoice_tax = 0, total_discount = 0, total = 0,
         tax_rates = <?php echo json_encode($tax_rates); ?>;
-    //var audio_success = new Audio('<?=$assets?>sounds/sound2.mp3');
-    //var audio_error = new Audio('<?=$assets?>sounds/sound3.mp3');
     $(document).ready(function () {
+//        $("#subcategory").prop("disabled", true);
+//        $("#category").prop("disabled", true);
+//        $("#document").prop("disabled", true);
 
-        <?php if ($Owner || $Admin) { ?>
-        if (!localStorage.getItem('sldate')) {
-            $("#sldate").datetimepicker({
-                format: site.dateFormats.js_ldate,
-                fontAwesome: true,
-                language: 'sma',
-                weekStart: 1,
-                todayBtn: 1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                forceParse: 0
-            }).datetimepicker('update', new Date());
-        }
-        $(document).on('change', '#sldate', function (e) {
-            localStorage.setItem('sldate', $(this).val());
-        });
-        if (sldate = localStorage.getItem('sldate')) {
-            $('#sldate').val(sldate);
-        }
-        $(document).on('change', '#slbiller', function (e) {
-            localStorage.setItem('slbiller', $(this).val());
-        });
-        if (slbiller = localStorage.getItem('slbiller')) {
-            $('#slbiller').val(slbiller);
-        }
-        <?php } ?>
-        if (!localStorage.getItem('slref')) {
-            localStorage.setItem('slref', '<?=$slnumber?>');
-        }
-//        $('#subcategory').select2().enable(false);
-        $("#subcategory").prop("disabled", true);
-        $("#category").prop("disabled", true);
-        $("#document").prop("disabled", true);
+
 //        $('#subcategory option:selected').attr('disabled','disabled');
-//        $('#category').change(function () {
-//            var v = $(this).val();
-//            $('#modal-loading').show();
-//            if (v) {
-//                $.ajax({
-//                    type: "get",
-//                    async: false,
-//                    url: "<?//= site_url('document/getSubCategories') ?>///" + v,
-//                    dataType: "json",
-//                    success: function (scdata) {
-//                        if (scdata != null) {
-//                        }
-//                    },
-//                    error: function () {
-//                        bootbox.alert('<?//= lang('ajax_error') ?>//');
-//                        $('#modal-loading').hide();
-//                    }
-//                });
-//            } else {
-//                $("#subcategory").select2("destroy").empty().attr("placeholder", "<?//= lang('select_category_to_load') ?>//").select2({
-//                    placeholder: "<?//= lang('select_category_to_load') ?>//",
-//                    data: [{id: '', text: '<?//= lang('select_category_to_load') ?>//'}]
-//                });
-//            }
-//            $('#modal-loading').hide();
-//        });
-//        $('#code').bind('keypress', function (e) {
-//            if (e.keyCode == 13) {
-//                e.preventDefault();
-//                return false;
-//            }
-//        });
+        $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('select_category_to_load') ?>").select2({
+            placeholder: "<?= lang('select_category_to_load') ?>", data: [
+                {id: '', text: '<?= lang('select_category_to_load') ?>'}
+            ]
+        });
+        $('#category').change(function () {
+            var v = $(this).val();
+            $('#modal-loading').show();
+            if (v) {
+                $.ajax({
+                    type: "get",
+                    async: false,
+                    url: "<?= site_url('products/getSubCategories') ?>/" + v,
+                    dataType: "json",
+                    success: function (scdata) {
+                        if (scdata != null) {
+                            $("#subcategory").prop("disabled", false);
+                            $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('select_subcategory') ?>").select2({
+                                placeholder: "<?= lang('select_category_to_load') ?>",
+                                data: scdata
+                            });
+                        }
+                    },
+                    error: function () {
+                        bootbox.alert('<?= lang('ajax_error') ?>');
+                        $('#modal-loading').hide();
+                    }
+                });
+            } else {
+                $("#subcategory").select2("destroy").empty().attr("placeholder", "<?= lang('select_category_to_load') ?>").select2({
+                    placeholder: "<?= lang('select_category_to_load') ?>",
+                    data: [{id: '', text: '<?= lang('select_category_to_load') ?>'}]
+                });
+            }
+            $('#modal-loading').hide();
+        });
+        $('#code').bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
     });
 </script>
 
@@ -161,13 +139,10 @@
                             <div class="form-group">
 
                                 <?= lang("File_Sub_Directory", "File_Sub_Directory") ?>
-                                <?php
-                                $cat1[''] = "";
-                                foreach ($subcategories as $subcategory) {
-                                    $cat1[$subcategory->id] = $subcategory->name;
-                                }
-                                echo form_dropdown('subcategory', $cat1, $document->subcategory_id, 'class="form-control select" id="subcategory" placeholder="' . lang("Select") . " " . lang("File_Sub_Directory") . '" required="required" style="width:100%"');
-                                ?>
+                                <div class="controls" id="subcat_data"> <?php
+                                    echo form_input('subcategory',($document ? $document->subcategory_id : ''), 'class="form-control" id="subcategory"  placeholder="' . lang("select_category_to_load") . '"');
+                                    ?>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
