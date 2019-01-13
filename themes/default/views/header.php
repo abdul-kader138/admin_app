@@ -430,13 +430,13 @@ if ($Owner || $Admin) {
             <li id="document_file_explorer">
                 <a class="submenu" href="<?= site_url('document/file_explorer'); ?>">
                     <i class="fa fa-search"></i><span
-                        class="text"> <?= lang('File_Explorer'); ?></span>
+                        class="text"> <?= lang('File_Manager'); ?></span>
                 </a>
             </li>
-            <li id="filemanager_filemanager">
+            <li id="filemanager_index">
                 <a class="submenu" href="<?= site_url('filemanager/'); ?>">
                     <i class="fa fa-search"></i><span
-                            class="text"> <?= lang('File_Explorer_New'); ?></span>
+                            class="text"> <?= lang('File_Manager_New'); ?></span>
                 </a>
             </li>
         </ul>

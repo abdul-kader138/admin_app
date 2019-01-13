@@ -7,12 +7,8 @@
 
 <script type="text/javascript" src="<?= $assets ?>elFinder/js/elfinder.min.js"></script>
 <?php
-//$languages = $this->db->where('name', config_item('default_language'))->get('tbl_languages')->row();
 ?>
 <style>
-    /*#elfinder{*/
-        /*background-color: grey;*/
-    /*}*/
     .ui-dialog{
         background-color: #dbdee0;
     }
@@ -43,7 +39,7 @@
                             ['info'],
                             ['quicklook'],
                             // ['copy', 'cut', 'paste'],
-                            ['copy'],
+                            ['copy','paste'],
                             ['rm'],
                             ['duplicate', 'rename', 'edit', 'resize'],
                             ['extract', 'archive'],
@@ -60,7 +56,7 @@
 <!-- Element where elFinder will be created (REQUIRED) -->
 <div class="panel panel-custom">
     <div class="panel-heading">
-        <div class="panel-title"><?= lang('filemanager') ?></div>
+        <div class="panel-title"><?= lang('File_Manager') ?></div>
     </div>
     <div class="">
         <div id="elfinder"></div>

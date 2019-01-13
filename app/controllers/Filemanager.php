@@ -38,8 +38,8 @@ class Filemanager extends MY_Controller
         }
         $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('File_Explorer')));
-        $meta = array('page_title' => lang('File_Explorer'), 'bc' => $bc);
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('File_Manager')));
+        $meta = array('page_title' => lang('File_Manager'), 'bc' => $bc);
         $this->page_construct('filemanager/filemanager', $meta, $this->data);
     }
 
@@ -89,8 +89,8 @@ class Filemanager extends MY_Controller
             'uploadMaxSize' => $this->allowed_file_size . 'M',
             'accessControl' => 'access',
             'uploadAllow' => $allowed_files,
-            'uploadDeny'  => array('all'),
-            'disabled' => array('rename', 'rm'),
+//            'uploadDeny'  => array('all'),
+//            'disabled' => array('rename', 'rm'),
             'uploadOrder' => array(
                 'allow',
                 'deny'
