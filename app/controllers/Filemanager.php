@@ -89,7 +89,14 @@ class Filemanager extends MY_Controller
             'uploadMaxSize' => $this->allowed_file_size . 'M',
             'accessControl' => 'access',
             'uploadAllow' => $allowed_files,
+
+            //  to  disable all folder creation
+//            'disabled' => array('extract', 'archive', 'mkdir'),
+          //  to  disable all folder download
+         //   'disabled' => array('zipdl'),
+         //  to  stop all upload
 //            'uploadDeny'  => array('all'),
+        //  to  disable all delete
 //            'disabled' => array('rename', 'rm'),
             'uploadOrder' => array(
                 'allow',

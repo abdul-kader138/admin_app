@@ -35,7 +35,7 @@
 //                     ['mkdir'],
                             ['mkdir', 'upload'],
                             // ['mkdir', 'mkfile', 'upload'],
-                            ['open', 'download', 'getfile'],
+                            // ['open', 'download', 'getfile'],
                             ['info'],
                             ['quicklook'],
                             // ['copy', 'cut', 'paste'],
