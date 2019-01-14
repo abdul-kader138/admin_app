@@ -171,8 +171,8 @@ class system_settings extends MY_Controller
                 'disable_editing' => $this->input->post('disable_editing'),
                 'price_group' => $this->input->post('price_group'),
                 'barcode_img' => $this->input->post('barcode_renderer'),
-                 'code_prefix' => $this->input->post('code_prefix'),
-                 'internal_price_group' => $this->input->post('icpg'),
+                'code_prefix' => $this->input->post('code_prefix'),
+                'internal_price_group' => $this->input->post('icpg'),
                 'update_cost' => $this->input->post('update_cost'),
             );
             if ($this->input->post('smtp_pass')) {
@@ -953,6 +953,14 @@ class system_settings extends MY_Controller
                 'document-add_movement' => $this->input->post('document-add_movement'),
                 'document-edit_movement' => $this->input->post('document-edit_movement'),
                 'document-delete_movement' => $this->input->post('document-delete_movement'),
+
+
+                // a.KADER
+                'document-file_manager' => $this->input->post('document-file_manager'),
+                'document-folder_download' => $this->input->post('document-folder_download'),
+                'document-upload' => $this->input->post('document-upload'),
+                'document-file_delete' => $this->input->post('document-file_delete'),
+                'document-folder_create' => $this->input->post('document-folder_create'),
 
 
             );

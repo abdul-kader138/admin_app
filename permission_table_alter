@@ -1,53 +1,8 @@
-ALTER TABLE `sma_permissions` ADD `employees-index_payment` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
-ALTER TABLE `sma_permissions` ADD `employees-add_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
-ALTER TABLE `sma_permissions` ADD `employees-edit_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
-ALTER TABLE `sma_permissions` ADD `employees-delete_employee_payment` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
-ALTER TABLE `sma_permissions` ADD `employees-employee_payment_by_csv` TINYINT(1) NULL DEFAULT '0' AFTER `employees-add_employee_payment`;
+ALTER TABLE `sma_permissions` ADD `document-file_manager` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `document-folder_download` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `document-upload` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `document-file_delete` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
+ALTER TABLE `sma_permissions` ADD `document-folder_create` TINYINT(1) NULL DEFAULT '0' AFTER `document-delete_movement`;
 
 
 
-CREATE TABLE `sma_employees_payment` (
- `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
- `employee_id` varchar(100) NOT NULL,
- `payment_payroll` decimal(11,2) NOT NULL,
-  `gross_salary` decimal(11,2) NOT NULL,
-  `payment_other` decimal(11,2) NOT NULL,
- `created_by` int(11) unsigned DEFAULT NULL,
- `created_date` DATETIME DEFAULT NULL,
- `updated_by` int(11) DEFAULT NULL,
- `updated_date` DATETIME DEFAULT NULL,
- `active` tinyint(1) DEFAULT '1',
- PRIMARY KEY (`id`),
- UNIQUE KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=693 DEFAULT CHARSET=utf8
-
-
-ALTER TABLE `sma_employees_payment` ADD `bank_name` VARCHAR(50) NULL DEFAULT NULL AFTER `active`;
-ALTER TABLE `sma_employees_payment` ADD `bank_account` VARCHAR(100) NULL DEFAULT NULL AFTER `active`;
-
-ALTER TABLE `sma_permissions` ADD `employees-salary_process` TINYINT(1) NULL DEFAULT '0' AFTER `employees-edit_employee_payment`;
-ALTER TABLE `sma_permissions` ADD `employees-list_month_salary` TINYINT(1) NULL DEFAULT '0' AFTER `employees-edit_employee_payment`
-
-
-CREATE TABLE `sma_salary` (
- `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
- `employee_id` varchar(100) NOT NULL,
- `created_by` int(11) unsigned DEFAULT NULL,
- `year` varchar(10) NOT NULL,
- `month` varchar(20) NOT NULL,
- `start_date` date NOT NULL,
- `end_date` date NOT NULL,
- `created_date` datetime DEFAULT NULL,
- `gross_salary` decimal(15,2) NOT NULL,
- `payment_payroll` decimal(15,2) NOT NULL,
- `payment_other` decimal(15,2) NOT NULL,
- `absent_days` decimal(15,2) NOT NULL,
- `holiday_allowance` decimal(15,2) NOT NULL,
- `gross_holiday_allowance` decimal(15,2) NOT NULL,
- `payment_other_holiday_allowance` decimal(15,2) NOT NULL,
- `gross_absent_deduction` varchar(100) DEFAULT NULL,
- `payment_other_absent_deduction` varchar(100) DEFAULT NULL,
- `reference_no` varchar(100) NOT NULL,
- PRIMARY KEY (`id`),
- UNIQUE KEY `employee_id` (`year`,`month`)
-) ENGINE=InnoDB AUTO_INCREMENT=4493 DEFAULT CHARSET=utf8

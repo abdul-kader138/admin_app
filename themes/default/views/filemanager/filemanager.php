@@ -24,7 +24,7 @@
                 }
                 var elf = $('#elfinder').elfinder({
                     // lang: 'ru',             // language (OPTIONAL)
-                    url: '<?= site_url()?>filemanager/elfinder_init',  // connector URL (REQUIRED)
+                    url: '<?= site_url()?>document/elfinder_init',  // connector URL (REQUIRED)
                     lang: _locale,
                     height: 700,
                     uiOptions: {

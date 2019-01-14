@@ -433,8 +433,8 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('File_Manager'); ?></span>
                 </a>
             </li>
-            <li id="filemanager_index">
-                <a class="submenu" href="<?= site_url('filemanager/'); ?>">
+            <li id="document_file_manager">
+                <a class="submenu" href="<?= site_url('document/file_manager'); ?>">
                     <i class="fa fa-search"></i><span
                             class="text"> <?= lang('File_Manager_New'); ?></span>
                 </a>
@@ -1437,6 +1437,14 @@ if ($Owner || $Admin) {
                         <a class="submenu" href="<?= site_url('document/add_movement'); ?>">
                             <i class="fa fa-plus"></i><span
                                 class="text"> <?= lang('add_movement'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['document-file_manager']) { ?>
+                    <li id="document_file_manager">
+                        <a class="submenu" href="<?= site_url('document/file_manager'); ?>">
+                            <i class="fa fa-search"></i><span
+                                    class="text"> <?= lang('File_Manager'); ?></span>
                         </a>
                     </li>
                 <?php } ?>

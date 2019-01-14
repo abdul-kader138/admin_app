@@ -1,12 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+ini_set('memory_limit', '-1');
+// set max execution time 2 hours / mostly used for exporting PDF
+ini_set('max_execution_time', 3600);
+
 /**
  * Created by PhpStorm.
  * User: a.kader
  * Date: 12-Nov-18
  * Time: 9:55 AM
  */
-
-class Document  extends MY_Controller
+class Document extends MY_Controller
 {
 
     function __construct()
@@ -30,6 +33,7 @@ class Document  extends MY_Controller
         $this->data['logo'] = true;
         $this->load->library('form_validation');
         $this->load->model('document_model');
+        $this->allowed_file_size_new = '20';
     }
 
 
@@ -66,7 +70,7 @@ class Document  extends MY_Controller
         $this->data['output_folder'] = $this->listFolder($this->path);
 
 //         $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'."/".$this->data['output_folder']['path_in_url']), 'page' => lang('document')), array('link' => '#', 'page' => lang('File_Explorer')));
-         $bc = array(array('link' => site_url('welcome'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'), 'page' => lang('File_Explorer')), array('link' => '#', 'page' => $this->data['output_folder']['path_in_url']));
+        $bc = array(array('link' => site_url('welcome'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'), 'page' => lang('File_Explorer')), array('link' => '#', 'page' => $this->data['output_folder']['path_in_url']));
 
         $meta = array('page_title' => lang('document'), 'bc' => $bc);
         $this->page_construct('document/file_explorer', $meta, $this->data);
@@ -82,10 +86,10 @@ class Document  extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $edit_link="";
-        $delete_link="";
-        if($get_permission['document-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit/$1', '<i class="fa fa-edit"></i> ' . lang('doc_edit'), 'class="sledit"');
-        if($get_permission['document-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("doc_delete") . "</b>' data-content=\"<p>"
+        $edit_link = "";
+        $delete_link = "";
+        if ($get_permission['document-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit/$1', '<i class="fa fa-edit"></i> ' . lang('doc_edit'), 'class="sledit"');
+        if ($get_permission['document-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("doc_delete") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('document/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('doc_delete') . "</a>";
@@ -100,7 +104,7 @@ class Document  extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".description as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#',"  . $this->db->dbprefix('documents') . ".attachment_name) as url,")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".description as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#'," . $this->db->dbprefix('documents') . ".attachment_name) as url,")
             ->from("documents")
             ->join('company', 'documents.company_id=company.id', 'left')
             ->join('doctype', 'documents.doctype_id=doctype.id', 'left')
@@ -132,7 +136,7 @@ class Document  extends MY_Controller
 
         if ($this->form_validation->run() == true) {
 
-            $doc_url="";
+            $doc_url = "";
 
             $data = array(
                 'name' => $this->input->post('name'),
@@ -146,21 +150,19 @@ class Document  extends MY_Controller
                 'category_id' => $this->input->post('category'),
                 'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL
             );
-            $directory_path="";
-            if($this->input->post('category')){
-                $get_category=$this->document_model->getCategoryByID($this->input->post('category'));
-                $directory_path=$this->upload_path."/".$get_category->name."/";
-                if(!($this->checkAndMakeDirectory($directory_path)))
-                {
+            $directory_path = "";
+            if ($this->input->post('category')) {
+                $get_category = $this->document_model->getCategoryByID($this->input->post('category'));
+                $directory_path = $this->upload_path . "/" . $get_category->name . "/";
+                if (!($this->checkAndMakeDirectory($directory_path))) {
                     $this->session->set_flashdata('error', "Failed to create directory");
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
             }
-            if($this->input->post('subcategory')) {
+            if ($this->input->post('subcategory')) {
                 $get_sub_category = $this->document_model->getCategoryByID($this->input->post('subcategory'));
-                $directory_path = $this->upload_path . "/" . $get_category->name . "/" . $get_sub_category->name."/";
-                if(!($this->checkAndMakeDirectory($directory_path)))
-                {
+                $directory_path = $this->upload_path . "/" . $get_category->name . "/" . $get_sub_category->name . "/";
+                if (!($this->checkAndMakeDirectory($directory_path))) {
                     $this->session->set_flashdata('error', "Failed to create directory");
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
@@ -180,7 +182,7 @@ class Document  extends MY_Controller
                     $this->session->set_flashdata('error', $error);
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
-                $doc_url=($directory_path ."/". ( $photo = $this->upload->file_name));
+                $doc_url = ($directory_path . "/" . ($photo = $this->upload->file_name));
                 $data['url'] = $doc_url;
                 $data['attachment_name'] = $this->upload->file_name;
 
@@ -204,7 +206,8 @@ class Document  extends MY_Controller
         }
     }
 
-    function delete($id = NULL){
+    function delete($id = NULL)
+    {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
             if ((!$get_permission['document-delete'])) {
@@ -218,11 +221,11 @@ class Document  extends MY_Controller
             $id = $this->input->get('id');
         }
 
-        $documents_details=$this->document_model->getDocumentById($id);
-        $delete_file=true;
-        if($documents_details->attachment_name){
+        $documents_details = $this->document_model->getDocumentById($id);
+        $delete_file = true;
+        if ($documents_details->attachment_name) {
             $this->load->helper("file");
-            $delete_file=unlink("./assets/uploads/document/".$documents_details->attachment_name);
+            $delete_file = unlink("./assets/uploads/document/" . $documents_details->attachment_name);
         }
 
         if ($this->document_model->deleteDocument($id) && $delete_file) {
@@ -262,7 +265,6 @@ class Document  extends MY_Controller
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
 
 
-
         if ($this->form_validation->run() == true) {
             $data = array(
                 'name' => $this->input->post('name'),
@@ -279,11 +281,11 @@ class Document  extends MY_Controller
 
 
             if ($_FILES['document']['size'] > 0) {
-                $t=true;
-                $document_details=$this->document_model->getDocumentById($id);
-                if($document_details->attachment_name){
+                $t = true;
+                $document_details = $this->document_model->getDocumentById($id);
+                if ($document_details->attachment_name) {
                     $this->load->helper("file");
-                    $t=unlink("./assets/uploads/document/".$document_details->attachment_name);
+                    $t = unlink("./assets/uploads/document/" . $document_details->attachment_name);
                 }
 
                 $this->load->library('upload');
@@ -297,7 +299,7 @@ class Document  extends MY_Controller
                     $this->session->set_flashdata('error', $error);
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
-                $doc_url=(($this->upload_path) ."/". ( $photo = $this->upload->file_name));
+                $doc_url = (($this->upload_path) . "/" . ($photo = $this->upload->file_name));
                 $data['url'] = $doc_url;
                 $data['attachment_name'] = $this->upload->file_name;
 
@@ -320,7 +322,6 @@ class Document  extends MY_Controller
             $this->page_construct('document/edit_document', $meta, $this->data);
         }
     }
-
 
 
     public function add_movement()
@@ -347,9 +348,9 @@ class Document  extends MY_Controller
 
         if ($this->form_validation->run() == true) {
 
-            $doc_url="";
-            if($this->input->post('notification_date')) $notification_date=$this->sma->fld($this->input->post('notification_date'));
-            if($this->input->post('expire_date')) $expire_date=$this->sma->fld($this->input->post('expire_date'));
+            $doc_url = "";
+            if ($this->input->post('notification_date')) $notification_date = $this->sma->fld($this->input->post('notification_date'));
+            if ($this->input->post('expire_date')) $expire_date = $this->sma->fld($this->input->post('expire_date'));
 
             $data = array(
                 'name' => $this->input->post('name'),
@@ -377,7 +378,7 @@ class Document  extends MY_Controller
                     $this->session->set_flashdata('error', $error);
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
-                $doc_url=(($this->upload_path_movement) ."/". ( $photo = $this->upload->file_name));
+                $doc_url = (($this->upload_path_movement) . "/" . ($photo = $this->upload->file_name));
                 $data['url'] = $doc_url;
                 $data['attachment_name'] = $this->upload->file_name;
 
@@ -403,8 +404,8 @@ class Document  extends MY_Controller
     }
 
 
-
-    public function doc_movement_list(){
+    public function doc_movement_list()
+    {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
             if ((!$get_permission['document-doc_movement_list'])) {
@@ -430,10 +431,10 @@ class Document  extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $edit_link="";
-        $delete_link="";
-        if($get_permission['document-edit_movement'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit_movement/$1', '<i class="fa fa-edit"></i> ' . lang('edit_movement'), 'class="sledit"');
-        if($get_permission['document-delete_movement'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete_movement") . "</b>' data-content=\"<p>"
+        $edit_link = "";
+        $delete_link = "";
+        if ($get_permission['document-edit_movement'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit_movement/$1', '<i class="fa fa-edit"></i> ' . lang('edit_movement'), 'class="sledit"');
+        if ($get_permission['document-delete_movement'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete_movement") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('document/delete_movement/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('delete_movement') . "</a>";
@@ -448,7 +449,7 @@ class Document  extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('document_movement') . ".id as id, " . $this->db->dbprefix('document_movement') . ".name as nam," . $this->db->dbprefix('documents') . ".name as ref,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('document_movement') . ".application_type) as status," . $this->db->dbprefix('document_movement') . ".processing_fees as p_name, " . $this->db->dbprefix('document_movement') . ".expire_date as e_date," . $this->db->dbprefix('document_movement') . ".notification_date as n_date, concat(" . $this->db->dbprefix('document_movement') . ".url,'#351#',"  . $this->db->dbprefix('document_movement') . ".attachment_name) as url")
+            ->select($this->db->dbprefix('document_movement') . ".id as id, " . $this->db->dbprefix('document_movement') . ".name as nam," . $this->db->dbprefix('documents') . ".name as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('document_movement') . ".application_type) as status," . $this->db->dbprefix('document_movement') . ".processing_fees as p_name, " . $this->db->dbprefix('document_movement') . ".expire_date as e_date," . $this->db->dbprefix('document_movement') . ".notification_date as n_date, concat(" . $this->db->dbprefix('document_movement') . ".url,'#351#'," . $this->db->dbprefix('document_movement') . ".attachment_name) as url")
             ->from("document_movement")
             ->join('documents', 'document_movement.document_id=documents.id', 'left')
             ->join('company', 'documents.company_id=company.id', 'left')
@@ -459,8 +460,8 @@ class Document  extends MY_Controller
     }
 
 
-
-    function delete_movement($id = NULL){
+    function delete_movement($id = NULL)
+    {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
             if ((!$get_permission['document-delete_movement'])) {
@@ -474,11 +475,11 @@ class Document  extends MY_Controller
             $id = $this->input->get('id');
         }
 
-        $documents_details=$this->document_model->getDocumentMovementById($id);
-        $delete_file=true;
-        if($documents_details->attachment_name){
+        $documents_details = $this->document_model->getDocumentMovementById($id);
+        $delete_file = true;
+        if ($documents_details->attachment_name) {
             $this->load->helper("file");
-            $delete_file=unlink("./assets/uploads/document/movement/".$documents_details->attachment_name);
+            $delete_file = unlink("./assets/uploads/document/movement/" . $documents_details->attachment_name);
         }
 
         if ($this->document_model->deleteDocumentMovement($id) && $delete_file) {
@@ -519,12 +520,11 @@ class Document  extends MY_Controller
         $this->form_validation->set_rules('processing_fees', lang("processing_fees"), 'trim');
 
 
-
         if ($this->form_validation->run() == true) {
 
-            $doc_url="";
-            if($this->input->post('notification_date')) $notification_date=$this->sma->fld($this->input->post('notification_date'));
-            if($this->input->post('expire_date')) $expire_date=$this->sma->fld($this->input->post('expire_date'));
+            $doc_url = "";
+            if ($this->input->post('notification_date')) $notification_date = $this->sma->fld($this->input->post('notification_date'));
+            if ($this->input->post('expire_date')) $expire_date = $this->sma->fld($this->input->post('expire_date'));
 
             $data = array(
                 'name' => $this->input->post('name'),
@@ -541,11 +541,11 @@ class Document  extends MY_Controller
             );
 
             if ($_FILES['document']['size'] > 0) {
-                $t=true;
-                $document_details=$this->document_model->getMovementById($id);
-                if($document_details->attachment_name){
+                $t = true;
+                $document_details = $this->document_model->getMovementById($id);
+                if ($document_details->attachment_name) {
                     $this->load->helper("file");
-                    $t=unlink("./assets/uploads/document/movement/".$document_details->attachment_name);
+                    $t = unlink("./assets/uploads/document/movement/" . $document_details->attachment_name);
                 }
 
 
@@ -560,7 +560,7 @@ class Document  extends MY_Controller
                     $this->session->set_flashdata('error', $error);
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
-                $doc_url=(($this->upload_path_movement) ."/". ( $photo = $this->upload->file_name));
+                $doc_url = (($this->upload_path_movement) . "/" . ($photo = $this->upload->file_name));
                 $data['url'] = $doc_url;
                 $data['attachment_name'] = $this->upload->file_name;
 
@@ -581,15 +581,15 @@ class Document  extends MY_Controller
             $this->page_construct('document/edit_movement', $meta, $this->data);
         }
 
-   }
+    }
 
     function listFolder()
     {
         $segment_array = $this->uri->segment_array();
 
         // first and second segments are our controller and the 'virtual root'
-        $controller = array_shift( $segment_array );
-        $virtual_root = array_shift( $segment_array );
+        $controller = array_shift($segment_array);
+        $virtual_root = array_shift($segment_array);
 
 //        if( empty( $this->roots )) exit( 'no roots defined' );
 
@@ -602,43 +602,36 @@ class Document  extends MY_Controller
 
         // build absolute path
         $path_in_url = '';
-        foreach ( $segment_array as $segment ) $path_in_url.= $segment.'/';
-        $absolute_path = $this->path.'/'.$path_in_url;
+        foreach ($segment_array as $segment) $path_in_url .= $segment . '/';
+        $absolute_path = $this->path . '/' . $path_in_url;
         $absolute_path = rtrim($absolute_path);
 
         // is it a directory or a file ?
-        if ( is_dir( $absolute_path ))
-        {
+        if (is_dir($absolute_path)) {
             // we'll need this to build links
             $this->load->helper('url');
 
             $dirs = array();
             $files = array();
             // let's traverse the directory
-            if ( $handle = @opendir( $absolute_path ))
-            {
-                while ( false !== ($file = readdir( $handle )))
-                {
-                    if (( $file != "." AND $file != ".." ))
-                    {
-                        if ( is_dir( $absolute_path.'/'.$file ))
-                        {
+            if ($handle = @opendir($absolute_path)) {
+                while (false !== ($file = readdir($handle))) {
+                    if (($file != "." AND $file != "..")) {
+                        if (is_dir($absolute_path . '/' . $file)) {
                             $dirs[]['name'] = $file;
-                        }
-                        else
-                        {
+                        } else {
                             $files[]['name'] = $file;
                         }
                     }
                 }
-                closedir( $handle );
-                sort( $dirs );
-                sort( $files );
+                closedir($handle);
+                sort($dirs);
+                sort($files);
             }
             // parent directory
             // here to ensure it's available and the first in the array
-            if ( $path_in_url != '' )
-                array_unshift ( $dirs, array( 'name' => '..' ));
+            if ($path_in_url != '')
+                array_unshift($dirs, array('name' => '..'));
 
             // send the view
             $data = array(
@@ -648,27 +641,29 @@ class Document  extends MY_Controller
                 'dirs' => $dirs,
                 'files' => $files,
             );
-           return $data ;
+            return $data;
         }
     }
 
 //https://github.com/bcit-ci/CodeIgniter/wiki/simple-file-browser
 
 
- function checkAndMakeDirectory($path){
-     if (file_exists($path)) {
-         if (!is_dir($path)) { //if file is already present, but it's not a dir
-             //do something with file - delete, rename, etc.
-             //unlink($path); //for example
-             mkdir($path, 0777);
-         }
-     } else { //no file exists with this name
-         mkdir($path, 0777);
-     }
-     return true;
-     }
+    function checkAndMakeDirectory($path)
+    {
+        if (file_exists($path)) {
+            if (!is_dir($path)) { //if file is already present, but it's not a dir
+                //do something with file - delete, rename, etc.
+                //unlink($path); //for example
+                mkdir($path, 0777);
+            }
+        } else { //no file exists with this name
+            mkdir($path, 0777);
+        }
+        return true;
+    }
 
-    function getSubCategories($category_id = NULL) {
+    function getSubCategories($category_id = NULL)
+    {
         if ($rows = $this->document_model->getSubCategories($category_id)) {
             $data = json_encode($rows);
         } else {
@@ -677,7 +672,129 @@ class Document  extends MY_Controller
         echo $data;
     }
 
+    public function file_manager()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-file_manager'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('File_Manager')));
+        $meta = array('page_title' => lang('File_Manager'), 'bc' => $bc);
+        $this->page_construct('filemanager/filemanager', $meta, $this->data);
+    }
 
+    public function elfinder_init()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-file_manager'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $this->load->helper('path');
+        $_allowed_files = explode('|', $this->digital_file_types);
+        $config_allowed_files = array();
+        if (is_array($_allowed_files)) {
+            foreach ($_allowed_files as $v_extension) {
+                array_push($config_allowed_files, '.' . $v_extension);
+            }
+        }
+        $allowed_files = array();
+        if (is_array($config_allowed_files)) {
+            foreach ($config_allowed_files as $extension) {
+                $_mime = get_mime_by_extension($extension);
 
+                if ($_mime == 'application/x-zip') {
+                    array_push($allowed_files, 'application/zip');
+                }
+                if ($extension == '.exe') {
+                    array_push($allowed_files, 'application/x-executable');
+                    array_push($allowed_files, 'application/x-msdownload');
+                    array_push($allowed_files, 'application/x-ms-dos-executable');
+                }
+                array_push($allowed_files, $_mime);
+            }
+        }
+        if ($this->Owner || $this->Admin) {
+            $root_options = array(
+                'driver' => 'LocalFileSystem',
+                'path' => set_realpath('assets/uploads/document'),
+                'URL' => site_url('assets/uploads/document/'),
+                'uploadMaxSize' => $this->allowed_file_size . 'M',
+                'accessControl' => 'access',
+                'uploadAllow' => $allowed_files,
+                'uploadOrder' => array(
+                    'allow',
+                    'deny'
+                ),
+                'attributes' => array(
+                    array(
+                        'pattern' => '/.tmb/',
+                        'hidden' => true
+                    ),
+                    array(
+                        'pattern' => '/.quarantine/',
+                        'hidden' => true
+                    ),
+                    array(
+                        'read' => true,
+                        'write' => true,
+                    )
+                )
+            );
 
+        } else {
+            $disabled = array();
+            $upload = array('all');
+            $get_permission = $this->permission_details[0];
+            if (!($get_permission['document-folder_download'])) array_push($disabled, "zipdl");
+            if (!($get_permission['document-folder_create'])) array_push($disabled, 'extract', 'archive', 'mkdir');
+            if (!($get_permission['document-file_delete'])) array_push($disabled, 'rename', 'rm','cut');
+
+            $root_options = array(
+                'driver' => 'LocalFileSystem',
+                'path' => set_realpath('assets/uploads/document'),
+                'URL' => site_url('assets/uploads/document/'),
+                'uploadMaxSize' => $this->allowed_file_size_new . 'M',
+                'accessControl' => 'access',
+                'uploadAllow' => $allowed_files,
+                'disabled' => $disabled,
+                'uploadDeny' => $upload,
+                'uploadOrder' => array(
+                    'allow',
+                    'deny'
+                ),
+                'attributes' => array(
+                    array(
+                        'pattern' => '/.tmb/',
+                        'hidden' => true
+                    ),
+                    array(
+                        'pattern' => '/.quarantine/',
+                        'hidden' => true
+                    ),
+                    array(
+//                    'pattern' => '/^\/TEST$/',
+                        'read' => true,
+                        'write' => true,
+//                    'locked'  => true
+                    )
+                )
+            );
+        }
+        $opts = array(
+            'roots' => array(
+                $root_options
+            )
+        );
+        $this->load->library('elfinder_lib', $opts);
+    }
 }
