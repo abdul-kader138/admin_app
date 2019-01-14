@@ -24,7 +24,6 @@ class Document extends MY_Controller
         $this->lang->load('document', $this->Settings->user_language);
         $this->digital_upload_path = 'files/';
         $this->upload_path = 'assets/uploads/document';
-        $this->path = 'assets/uploads/document';
         $this->upload_path_movement = 'assets/uploads/document/movement';
         $this->thumbs_path = 'assets/uploads/thumbs/';
         $this->image_types = 'gif|jpg|jpeg|png|tif';
@@ -131,8 +130,6 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
-        $this->form_validation->set_rules('category', lang("File_Directory"), 'trim|required');
-        $this->form_validation->set_rules('subcategory', lang("File_Sub_Directory"), 'trim');
 
         if ($this->form_validation->run() == true) {
 
@@ -146,33 +143,12 @@ class Document extends MY_Controller
                 'doctype_id' => $this->input->post('doctype_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info'),
-                'category_id' => $this->input->post('category'),
-                'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL
+                'other_info' => $this->input->post('other_info')
             );
-            $directory_path = "";
-            if ($this->input->post('category')) {
-                $get_category = $this->document_model->getCategoryByID($this->input->post('category'));
-                $directory_path = $this->upload_path . "/" . $get_category->name . "/";
-                if (!($this->checkAndMakeDirectory($directory_path))) {
-                    $this->session->set_flashdata('error', "Failed to create directory");
-                    redirect($_SERVER["HTTP_REFERER"]);
-                }
-            }
-            if ($this->input->post('subcategory')) {
-                $get_sub_category = $this->document_model->getCategoryByID($this->input->post('subcategory'));
-                $directory_path = $this->upload_path . "/" . $get_category->name . "/" . $get_sub_category->name . "/";
-                if (!($this->checkAndMakeDirectory($directory_path))) {
-                    $this->session->set_flashdata('error', "Failed to create directory");
-                    redirect($_SERVER["HTTP_REFERER"]);
-                }
-            }
-
-            // check for sub directory
 
             if ($_FILES['document']['size'] > 0) {
                 $this->load->library('upload');
-                $config['upload_path'] = $directory_path;
+                $config['upload_path'] = $this->upload_path;
                 $config['allowed_types'] = $this->digital_file_types;
                 $config['max_size'] = $this->allowed_file_size;
                 $config['overwrite'] = true;
@@ -182,7 +158,7 @@ class Document extends MY_Controller
                     $this->session->set_flashdata('error', $error);
                     redirect($_SERVER["HTTP_REFERER"]);
                 }
-                $doc_url = ($directory_path . "/" . ($photo = $this->upload->file_name));
+                $doc_url = (($this->upload_path) . "/" . ($photo = $this->upload->file_name));
                 $data['url'] = $doc_url;
                 $data['attachment_name'] = $this->upload->file_name;
 
@@ -199,7 +175,7 @@ class Document extends MY_Controller
 
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['doctypes'] = $this->site->getAllDocType();
-            $this->data['categories'] = $this->site->getAllCategories();
+
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('document'), 'page' => lang('document')), array('link' => '#', 'page' => lang('add_document')));
             $meta = array('page_title' => lang('add_document'), 'bc' => $bc);
             $this->page_construct('document/add_document', $meta, $this->data);
@@ -260,8 +236,6 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
-        $this->form_validation->set_rules('category', lang("File_Directory"), 'trim|required');
-        $this->form_validation->set_rules('subcategory', lang("File_Sub_Directory"), 'trim');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
 
 
@@ -274,9 +248,7 @@ class Document extends MY_Controller
                 'doctype_id' => $this->input->post('doctype_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info'),
-//                'category_id' => $this->input->post('category'),
-//                'subcategory_id' => $this->input->post('subcategory') ? $this->input->post('subcategory') : NULL
+                'other_info' => $this->input->post('other_info')
             );
 
 
@@ -315,8 +287,6 @@ class Document extends MY_Controller
             $this->data['document'] = $this->document_model->getDocumentById($id);
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['doctypes'] = $this->site->getAllDocType();
-            $this->data['categories'] = $this->site->getAllCategories();
-            $this->data['subcategories'] = $this->document_model->getAllSubCategory($this->data['document']->category_id);
             $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/edit'), 'page' => lang('document')), array('link' => '#', 'page' => lang('doc_edit')));
             $meta = array('page_title' => lang('edit_document'), 'bc' => $bc);
             $this->page_construct('document/edit_document', $meta, $this->data);
@@ -548,7 +518,6 @@ class Document extends MY_Controller
                     $t = unlink("./assets/uploads/document/movement/" . $document_details->attachment_name);
                 }
 
-
                 $this->load->library('upload');
                 $config['upload_path'] = $this->upload_path_movement;
                 $config['allowed_types'] = $this->digital_file_types;
@@ -730,7 +699,10 @@ class Document extends MY_Controller
                 'URL' => site_url('assets/uploads/document/'),
                 'uploadMaxSize' => $this->allowed_file_size . 'M',
                 'accessControl' => 'access',
-                'uploadAllow' => $allowed_files,
+                'uploadAllow' => array('application/pdf',
+                    'application/force-download',
+                    'application/x-download',
+                    'binary/octet-stream'),
                 'uploadOrder' => array(
                     'allow',
                     'deny'
@@ -757,7 +729,7 @@ class Document extends MY_Controller
             $get_permission = $this->permission_details[0];
             if (!($get_permission['document-folder_download'])) array_push($disabled, "zipdl");
             if (!($get_permission['document-folder_create'])) array_push($disabled, 'extract', 'archive', 'mkdir');
-            if (!($get_permission['document-file_delete'])) array_push($disabled, 'rename', 'rm','cut');
+            if (!($get_permission['document-file_delete'])) array_push($disabled, 'rename', 'rm', 'cut');
 
             $root_options = array(
                 'driver' => 'LocalFileSystem',
@@ -765,7 +737,10 @@ class Document extends MY_Controller
                 'URL' => site_url('assets/uploads/document/'),
                 'uploadMaxSize' => $this->allowed_file_size_new . 'M',
                 'accessControl' => 'access',
-                'uploadAllow' => $allowed_files,
+                'uploadAllow' => array('application/pdf',
+                    'application/force-download',
+                    'application/x-download',
+                    'binary/octet-stream'),
                 'disabled' => $disabled,
                 'uploadDeny' => $upload,
                 'uploadOrder' => array(

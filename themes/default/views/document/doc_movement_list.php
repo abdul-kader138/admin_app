@@ -54,7 +54,7 @@
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li><a href="<?= site_url('document/add_movement'); ?>"><i
-                                    class="fa fa-plus-circle"></i> <?= lang("add_movement"); ?></a></li>
+                                        class="fa fa-plus-circle"></i> <?= lang("add_movement"); ?></a></li>
                     </ul>
                 </li>
             </ul>

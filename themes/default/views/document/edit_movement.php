@@ -1,47 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<script type="text/javascript">
-    var count = 1, an = 1, product_variant = 0, DT = <?= $Settings->default_tax_rate ?>,
-        product_tax = 0, invoice_tax = 0, total_discount = 0, total = 0,
-        tax_rates = <?php echo json_encode($tax_rates); ?>;
-    //var audio_success = new Audio('<?=$assets?>sounds/sound2.mp3');
-    //var audio_error = new Audio('<?=$assets?>sounds/sound3.mp3');
-    $(document).ready(function () {
-
-        <?php if ($Owner || $Admin) { ?>
-        if (!localStorage.getItem('sldate')) {
-            $("#sldate").datetimepicker({
-                format: site.dateFormats.js_ldate,
-                fontAwesome: true,
-                language: 'sma',
-                weekStart: 1,
-                todayBtn: 1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 2,
-                forceParse: 0
-            }).datetimepicker('update', new Date());
-        }
-        $(document).on('change', '#sldate', function (e) {
-            localStorage.setItem('sldate', $(this).val());
-        });
-        if (sldate = localStorage.getItem('sldate')) {
-            $('#sldate').val(sldate);
-        }
-        $(document).on('change', '#slbiller', function (e) {
-            localStorage.setItem('slbiller', $(this).val());
-        });
-        if (slbiller = localStorage.getItem('slbiller')) {
-            $('#slbiller').val(slbiller);
-        }
-        <?php } ?>
-        if (!localStorage.getItem('slref')) {
-            localStorage.setItem('slref', '<?=$slnumber?>');
-        }
-
-    });
-</script>
-
-
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-plus"></i><?= lang('edit_movement'); ?></h2>
@@ -87,7 +44,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("Application_Type", "Application_Type"); ?>
-                                <?php $sst = array('New' => lang('New_Application'),'Renew Application' => lang('Renew_Application'), 'Amend' => lang('Amend'));
+                                <?php $sst = array('New' => lang('New_Application'),'Renew Application' => lang('Renew_Application'), 'Amend' => lang('Amend'),'Updated' => lang('Updated'));
                                 echo form_dropdown('application_type', $sst, $document->application_type, 'class="form-control input-tip" required="required" id="application_type"'); ?>
 
                             </div>
@@ -153,7 +110,7 @@
                         </div>
                         <div class="col-md-12">
                             <div
-                                class="fprom-group"><?php echo form_submit('add_sale', $this->lang->line("submit"), 'id="add_sale" class="btn btn-primary" style="padding: 6px 15px; margin:15px 0;"'); ?>
+                                    class="fprom-group"><?php echo form_submit('add_sale', $this->lang->line("submit"), 'id="add_sale" class="btn btn-primary" style="padding: 6px 15px; margin:15px 0;"'); ?>
                                 <button type="button" class="btn btn-danger" id="reset"><?= lang('reset') ?></div>
                         </div>
                     </div>
