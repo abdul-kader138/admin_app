@@ -47,23 +47,6 @@
                             ['extract', 'archive'],
                             ['search'],
                             ['view'],
-
-
-
-                            // ['open'],
-                            // ['back', 'forward'],
-                            // ['reload'],
-                            // ['home', 'up'],
-                            // ['mkdir', 'mkfile', 'upload'],
-                            // ['info'],
-                            // ['quicklook'],
-                            // ['copy', 'cut', 'paste'],
-                            // ['rm'],
-                            // ['duplicate', 'rename', 'edit'],
-                            // ['extract', 'archive'],
-                            // ['search'],
-                            // ['view'],
-                            // ['help']
                         ],
                     }
 
@@ -79,7 +62,6 @@
     </div>
     <div>
         <div id="elfinder" style="background-color:ghostwhite"></div>
-<!--        <div id="elfinder"></div>-->
     </div>
 
 </div>
