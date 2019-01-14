@@ -77,8 +77,9 @@
     <div class="panel-heading">
         <div class="panel-title"><?= lang('File_Manager') ?></div>
     </div>
-    <div class="">
-        <div id="elfinder"></div>
+    <div>
+        <div id="elfinder" style="background-color:ghostwhite"></div>
+<!--        <div id="elfinder"></div>-->
     </div>
 
 </div>
