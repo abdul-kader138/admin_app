@@ -725,7 +725,9 @@ class Document extends MY_Controller
 
         } else {
             $disabled = array();
-            $upload = array('all');
+
+            $upload = array('');
+            if (!($get_permission['document-upload'])) array_push($upload, "all");
             $get_permission = $this->permission_details[0];
             if (!($get_permission['document-folder_download'])) array_push($disabled, "zipdl");
             if (!($get_permission['document-folder_create'])) array_push($disabled, 'extract', 'archive', 'mkdir');

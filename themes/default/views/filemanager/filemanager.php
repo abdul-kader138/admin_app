@@ -37,33 +37,33 @@
                             // ['mkdir', 'mkfile', 'upload'],
                             // ['open', 'download', 'getfile'],
 
-                            // ['back', 'forward'],
-                            // ['mkdir', 'upload'],
-                            // ['info'],
-                            // ['quicklook'],
-                            // ['copy','paste'],
-                            // ['rm'],
-                            // ['duplicate', 'rename', 'edit', 'resize'],
-                            // ['extract', 'archive'],
-                            // ['search'],
-                            // ['view'],
-
-
-
-                            ['open'],
                             ['back', 'forward'],
-                            ['reload'],
-                            ['home', 'up'],
-                            ['mkdir', 'mkfile', 'upload'],
+                            ['mkdir', 'upload'],
                             ['info'],
                             ['quicklook'],
-                            ['copy', 'cut', 'paste'],
+                            ['copy','paste'],
                             ['rm'],
-                            ['duplicate', 'rename', 'edit'],
+                            ['duplicate', 'rename', 'edit', 'resize'],
                             ['extract', 'archive'],
                             ['search'],
                             ['view'],
-                            ['help']
+
+
+
+                            // ['open'],
+                            // ['back', 'forward'],
+                            // ['reload'],
+                            // ['home', 'up'],
+                            // ['mkdir', 'mkfile', 'upload'],
+                            // ['info'],
+                            // ['quicklook'],
+                            // ['copy', 'cut', 'paste'],
+                            // ['rm'],
+                            // ['duplicate', 'rename', 'edit'],
+                            // ['extract', 'archive'],
+                            // ['search'],
+                            // ['view'],
+                            // ['help']
                         ],
                     }
 
