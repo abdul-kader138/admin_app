@@ -51,7 +51,6 @@
 
 <!-- Element where elFinder will be created (REQUIRED) -->
 <div class="panel panel-custom">
-        <div>
         <div id="elfinder" style="background-color:ghostwhite"></div>
     </div>
 
