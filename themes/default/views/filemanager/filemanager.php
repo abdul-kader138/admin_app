@@ -51,10 +51,7 @@
 
 <!-- Element where elFinder will be created (REQUIRED) -->
 <div class="panel panel-custom">
-    <div class="panel-heading">
-<!--        <div class="panel-title">--><?//= lang('File_Manager') ?><!--</div>-->
-    </div>
-    <div>
+        <div>
         <div id="elfinder" style="background-color:ghostwhite"></div>
     </div>
 
