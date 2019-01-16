@@ -3,7 +3,7 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <link href="<?= $assets ?>elFinder/css/elfinder.min.css" rel="stylesheet"/>
-<link href="<?= $assets ?>elFinder/themes/windows-10/css/theme.css" rel="stylesheet"/>
+<link href="<?= $assets ?>elFinder/themes/windows-10/css/theme-gray.css" rel="stylesheet"/>
 
 <script type="text/javascript" src="<?= $assets ?>elFinder/js/elfinder.min.js"></script>
 <?php
@@ -31,12 +31,6 @@
                         // toolbar configuration
 
                         toolbar: [
-
-//                     ['mkdir'],
-                            // ['copy', 'cut', 'paste'],
-                            // ['mkdir', 'mkfile', 'upload'],
-                            // ['open', 'download', 'getfile'],
-
                             ['back', 'forward'],
                             ['mkdir', 'upload'],
                             ['info'],
@@ -58,7 +52,7 @@
 <!-- Element where elFinder will be created (REQUIRED) -->
 <div class="panel panel-custom">
     <div class="panel-heading">
-        <div class="panel-title"><?= lang('File_Manager') ?></div>
+<!--        <div class="panel-title">--><?//= lang('File_Manager') ?><!--</div>-->
     </div>
     <div>
         <div id="elfinder" style="background-color:ghostwhite"></div>
