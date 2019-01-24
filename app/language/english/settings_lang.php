@@ -444,3 +444,7 @@ $lang['delete_movement']                       = "Delete Document Movement";
 
 $lang['salary_process']                        = "Salary Process";
 $lang['list_month_salary']                     = "List Month Salary";
+
+$lang['approver_added']                 = "Approver successfully added";
+$lang['approver_edited']                = "Approver successfully updated";
+$lang['approver_deleted']               = "Approver successfully deleted";

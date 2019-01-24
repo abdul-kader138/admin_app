@@ -665,6 +665,34 @@ if ($Owner || $Admin) {
         </ul>
     </li>
 
+    <li class="mm_hrms">
+        <a class="dropmenu" href="#">
+            <i class="fa fa-dashboard"></i>
+            <span class="text"> <?= lang('HR'); ?> </span>
+            <span class="chevron closed"></span>
+        </a>
+        <ul>
+            <li id="guard_index">
+                <a class="submenu" href="<?= site_url('hrms/manpower_requisition'); ?>">
+                    <i class="fa fa-user"></i><span
+                            class="text"> <?= lang('List_Manpower_Requisition'); ?></span>
+                </a>
+            </li>
+            <li id="hrms_add_manpower_requisition">
+                <a class="submenu" href="<?= site_url('hrms/add_manpower_requisition'); ?>">
+                    <i class="fa fa-user-plus"></i><span
+                            class="text"> <?= lang('Add_Manpower_Requisition'); ?></span>
+                </a>
+            </li>
+            <li id="guard_bill_add">
+                <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
+                    <i class="fa fa-upload"></i><span
+                            class="text"> <?= lang('weight_upload'); ?></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="mm_auth mm_customers mm_suppliers mm_billers">
         <a class="dropmenu" href="#">
             <i class="fa fa-users"></i>
@@ -890,9 +918,18 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('updates'); ?></span>
                     </a>
                 </li>
+<!--                a.kader-->
+                <li id="system_settings_approveres">
+                    <a href="<?= site_url('system_settings/approveres') ?>">
+                        <i class="fa fa-user"></i><span
+                                class="text"> <?= lang('Approver_Setup'); ?></span>
+                    </a>
+                </li>
             </ul>
         </li>
     <?php } ?>
+
+
     <li class="mm_reports">
         <a class="dropmenu" href="#">
             <i class="fa fa-bar-chart-o"></i>

@@ -940,4 +940,35 @@ class Settings_model extends CI_Model
         return false;
     }
 
+    public function addApprover($data)
+    {
+        if ($this->db->insert("approver_list", $data)) {
+            return true;
+        }
+        return false;
+    }
+    public function updateApprover($id, $data)
+    {
+        if ($this->db->update("approver_list", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getApproverByID($id)
+    {
+        $q = $this->db->get_where("approver_list", array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function deleteApprover($id)
+    {
+        if ($this->db->delete("approver_list", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
 }
