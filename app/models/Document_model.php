@@ -25,6 +25,7 @@ class Document_model extends CI_Model
         return false;
     }
 
+
     public function getDocumentById($id)
     {
         $q = $this->db->get_where('documents', array('id' => $id), 1);

@@ -1079,6 +1079,11 @@ $(document).ready(function() {
         $('#myModal').modal({remote: site.base_url + 'products/view_adjustment/' + $(this).attr('id')});
         $('#myModal').modal('show');
     });
+    $('body').on('click', '.manpower_requisition_link td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'hrms/modal_manpower_requisition/' + $(this).parent('.manpower_requisition_link').attr('id')});
+        $('#myModal').modal('show');
+        //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
+    });
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {
             if(result == true) {

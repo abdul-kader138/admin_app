@@ -49,6 +49,7 @@ class MY_Controller extends CI_Controller {
                     'mysq_sdate' => $sd->sql,
                     'js_ldate' => $sd->js . ' hh:ii',
                     'php_ldate' => $sd->php . ' H:i',
+                    'php_ldate_d' => $sd->php,
                     'mysql_ldate' => $sd->sql . ' %H:%i'
                     );
             } else {

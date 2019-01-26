@@ -595,4 +595,14 @@ class Sma
         exit;
     }
 
+    public function hrld_date($ldate)
+    {
+        if ($ldate) {
+            return date($this->dateFormats['php_ldate_d'], strtotime($ldate));
+
+        } else {
+            return '';
+        }
+    }
+
 }

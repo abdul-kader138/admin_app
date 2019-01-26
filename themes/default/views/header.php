@@ -672,7 +672,7 @@ if ($Owner || $Admin) {
             <span class="chevron closed"></span>
         </a>
         <ul>
-            <li id="guard_index">
+            <li id="hrms_manpower_requisition">
                 <a class="submenu" href="<?= site_url('hrms/manpower_requisition'); ?>">
                     <i class="fa fa-user"></i><span
                             class="text"> <?= lang('List_Manpower_Requisition'); ?></span>
