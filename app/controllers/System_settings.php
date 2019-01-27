@@ -5294,7 +5294,7 @@ class system_settings extends MY_Controller
             ->join("company", 'company.id=approver_list.company_id', 'left')
             ->join("users", 'users.id=approver_list.approver_id', 'left')
             ->join("categories", 'categories.id=approver_list.category_id', 'left')
-            ->group_by('categories.id')
+            ->group_by('approver_list.id')
             ->add_column("Actions", "<div class=\"text-center\">".$edit_link.$delete_link."</div>", "id");
 
         echo $this->datatables->generate();

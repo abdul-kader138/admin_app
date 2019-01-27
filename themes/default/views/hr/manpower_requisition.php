@@ -49,7 +49,7 @@
             {column_number: 8, filter_default_label: "[<?=lang('Eduction');?>]", filter_type: "text", data: []},
             {column_number: 9, filter_default_label: "[<?=lang('Minimum_Experience');?>]", filter_type: "text", data: []},
             {column_number: 10, filter_default_label: "[<?=lang('Reporting_To');?>]", filter_type: "text", data: []},
-            {column_number: 11, filter_default_label: "[<?=lang('Reportee_No');?>]", filter_type: "text", data: []},
+            {column_number: 11, filter_default_label: "[<?=lang('No_Of_Reportees');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -102,7 +102,7 @@
                             <th><?php echo lang('Eduction'); ?></th>
                             <th><?php echo lang('Minimum_Experience'); ?></th>
                             <th><?php echo lang('Reporting_To'); ?></th>
-                            <th><?php echo lang('Reportee_No'); ?></th>
+                            <th><?php echo lang('No_Of_Reportees'); ?></th>
                             <th></th>
                         </tr>
                         </thead>

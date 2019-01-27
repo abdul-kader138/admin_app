@@ -91,8 +91,7 @@
                         <div class="col-sm-4" id="business_name_div" style="display:none">
                             <div class="form-group">
                                 <?= lang("Business_Name", "Business_Name") . " <b> *</b>"; ?>
-                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'));
-                                echo form_dropdown('business_name', $sst, (isset($_POST['business_name']) ? $_POST['business_name'] : ""), 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
+                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'));      echo form_dropdown('business_name', $sst, (isset($_POST['business_name']) ? $_POST['business_name'] : ""), 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -274,8 +273,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Mobile_No", "Mobile_No") . " <b> *</b>"; ?>
-                                <?php echo form_input('mobile_no', (isset($_POST['mobile_no']) ? $_POST['mobile_no'] : ""), 'class="form-control input-tip" id="mobile_no" required="required" '); ?>
+                                <?= lang("No_of_Reportees", "No_of_Reportees") . " <b> *</b>"; ?>
+                                <?php echo form_input('no_of_reportees', (isset($_POST['no_of_reportees']) ? $_POST['no_of_reportees'] : ""), 'class="form-control input-tip" id="no_of_reportees" required="required" '); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>

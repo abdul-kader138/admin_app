@@ -72,7 +72,7 @@ class Hrms extends  MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref,". $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') .".organization_type,". $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".education," . $this->db->dbprefix('manpower_requisition') . ".minimum_experience," . $this->db->dbprefix('manpower_requisition') . ".reporting_to,". $this->db->dbprefix('manpower_requisition') . ".mobile_no")
+            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref,". $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') .".organization_type,". $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".education," . $this->db->dbprefix('manpower_requisition') . ".minimum_experience," . $this->db->dbprefix('manpower_requisition') . ".reporting_to,". $this->db->dbprefix('manpower_requisition') . ".no_of_reportees")
             ->from("manpower_requisition")
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')
@@ -112,7 +112,7 @@ class Hrms extends  MY_Controller
         $this->form_validation->set_rules('nature_experience', lang("nature_experience"), 'trim|required');
         $this->form_validation->set_rules('areas_of_responsibility', lang("areas_of_responsibility"), 'trim|required');
         $this->form_validation->set_rules('reporting_to', lang("reporting_to"), 'trim|required');
-        $this->form_validation->set_rules('mobile_no', lang("mobile_no"), 'trim|required');
+        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required');
         if ($this->form_validation->run() == true) {
             $reason=$this->input->post('requirement');
             $data = array(
@@ -144,12 +144,11 @@ class Hrms extends  MY_Controller
                 'nature_experience' => $this->input->post('nature_experience'),
                 'areas_of_responsibility' => $this->input->post('areas_of_responsibility'),
                 'reporting_to' => $this->input->post('reporting_to'),
-                'mobile_no' => $this->input->post('mobile_no'),
+                'no_of_reportees' => $this->input->post('no_of_reportees'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
                 'other_info' => $this->input->post('other_info')
             );
-
         }
 
         if ($this->form_validation->run() == true && $this->hr_model->addMR($data)) {
@@ -205,7 +204,7 @@ class Hrms extends  MY_Controller
         $this->form_validation->set_rules('nature_experience', lang("nature_experience"), 'trim|required');
         $this->form_validation->set_rules('areas_of_responsibility', lang("areas_of_responsibility"), 'trim|required');
         $this->form_validation->set_rules('reporting_to', lang("reporting_to"), 'trim|required');
-        $this->form_validation->set_rules('mobile_no', lang("mobile_no"), 'trim|required');
+        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required');
 
         if ($this->form_validation->run() == true) {
             $reason=$this->input->post('requirement');
@@ -239,7 +238,7 @@ class Hrms extends  MY_Controller
                 'nature_experience' => $this->input->post('nature_experience'),
                 'areas_of_responsibility' => $this->input->post('areas_of_responsibility'),
                 'reporting_to' => $this->input->post('reporting_to'),
-                'mobile_no' => $this->input->post('mobile_no'),
+                'no_of_reportees' => $this->input->post('no_of_reportees'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
                 'other_info' => $this->input->post('other_info')

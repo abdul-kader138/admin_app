@@ -68,8 +68,8 @@
                                 </tr>
 
                                 <tr>
-                                    <td style="width: 30%"><b><?= lang("Reportees_No"); ?>:</b></td>
-                                    <td style="width: 70%"><?= $document->mobile_no;?></td>
+                                    <td style="width: 30%"><b><?= lang("No_Of_Reportees"); ?>:</b></td>
+                                    <td style="width: 70%"><?= $document->no_of_reportees;?></td>
                                 </tr>
                                 </tbody>
                             </table>

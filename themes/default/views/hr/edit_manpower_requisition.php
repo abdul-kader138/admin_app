@@ -51,7 +51,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("Department", "Department") . " <b> *</b>"; ?>
-                                <?php echo form_input('department',$document->department,'class="form-control input-tip" required="required" id="department" '); ?>
+                                <?php echo form_input('department', $document->department, 'class="form-control input-tip" required="required" id="department" '); ?>
                             </div>
                         </div>
 
@@ -82,16 +82,18 @@
 
                             </div>
                         </div>
-                        <div class="col-sm-4" id="corporate_name_div" <?php echo ((!$document->corporate_name =="") ? "" : 'style="display:none"');?>>
+                        <div class="col-sm-4"
+                             id="corporate_name_div" <?php echo((!$document->corporate_name == "") ? "" : 'style="display:none"'); ?>>
                             <div class="form-group">
                                 <?= lang("Corporate_Name", "Corporate_Name") . " <b> *</b>"; ?>
-                                <?php echo form_input('corporate_name', $document->corporate_name,  'class="form-control input-tip" id="corporate_name" '); ?>
+                                <?php echo form_input('corporate_name', $document->corporate_name, 'class="form-control input-tip" id="corporate_name" '); ?>
                             </div>
                         </div>
-                        <div class="col-sm-4" id="business_name_div" <?php echo ((!$document->business_name =="") ? "" : 'style="display:none"');?>>
+                        <div class="col-sm-4"
+                             id="business_name_div" <?php echo((!$document->business_name == "") ? "" : 'style="display:none"'); ?>>
                             <div class="form-group">
                                 <?= lang("Business_Name", "Business_Name") . " <b> *</b>"; ?>
-                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'));
+                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'));
                                 echo form_dropdown('business_name', $sst, $document->business_name, 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
                             </div>
                         </div>
@@ -167,38 +169,43 @@
                                 for="combo"><b>Please choose the appropriate option for requirement:</b></H3>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="ap" value="ap"
-                                       name="requirement" <?php echo (($document->ap == '1') ? "checked" : "");?>>
+                                       name="requirement" <?php echo(($document->ap == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="ap"><?= lang('Additional_Position') ?></label>
+
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="rr" value="rr"
-                                       name="requirement" <?php echo (($document->rr == '1') ? "checked" : "");?>>
+                                       name="requirement" <?php echo(($document->rr == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Resignation') ?></label>
+<!--                                <div class="form-group"><label>Additional Note:</label>-->
+<!--                                    --><?php //echo form_input('rr_note', $document->rr_note, 'class="form-control input-tip" id="rr_note" required="required"'); ?>
+<!--                                </div>-->
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="rt" value="rt"
-                                       name="requirement" <?php echo (($document->rt == '1') ? "checked" : "");?>>
+                                       name="requirement" <?php echo(($document->rt == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Termination') ?></label>
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="rp" value="rp"
-                                       name="requirement" <?php echo (($document->rp == '1') ? "checked" : "");?>>
+                                       name="requirement" <?php echo(($document->rp == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Promotion') ?></label>
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="rtr" value="rtr"
-                                       name="requirement" <?php (($document->rtr == '1') ? "checked" : "");?>>
+                                       name="requirement" <?php (($document->rtr == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Transfer') ?></label>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <b>Is the position as per the approved manpower budget & approved manpower plan fot the year</b>
+                                <b>Is the position as per the approved manpower budget & approved manpower plan fot the
+                                    year</b>
                                 <?php
                                 $opt = array(2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
                                 echo form_dropdown('mb_year', $opt, $document->mb_year, 'id="mb_year" required="required" class="form-control input-tip select" style="width:100%;"');
@@ -212,7 +219,7 @@
                             </div>
                             <div class="form-group">
                                 <b>Time limit within which the position is to be held</b>
-                                <?php echo form_input('time_limit', $document->time_limit,'class="form-control input-tip" id="time_limit" required="required"'); ?>
+                                <?php echo form_input('time_limit', $document->time_limit, 'class="form-control input-tip" id="time_limit" required="required"'); ?>
 
                             </div>
                         </div>
@@ -274,8 +281,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Mobile_No", "Mobile_No") . " <b> *</b>"; ?>
-                                <?php echo form_input('mobile_no', $document->mobile_no, 'class="form-control input-tip" id="mobile_no" required="required" '); ?>
+                                <?= lang("No_oF_Reportees", "No_oF_Reportees") . " <b> *</b>"; ?>
+                                <?php echo form_input('no_of_reportees', $document->no_of_reportees, 'class="form-control input-tip" id="no_of_reportees" required="required" '); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -295,7 +302,7 @@
 
                         <div class="col-md-12">
                             <div
-                                class="fprom-group"><?php echo form_submit('add_sale', $this->lang->line("submit"), 'id="add_sale" class="btn btn-primary" style="padding: 6px 15px; margin:15px 0;"'); ?>
+                                    class="fprom-group"><?php echo form_submit('add_sale', $this->lang->line("submit"), 'id="add_sale" class="btn btn-primary" style="padding: 6px 15px; margin:15px 0;"'); ?>
                                 <button type="button" class="btn btn-danger" id="reset"><?= lang('reset') ?></div>
                         </div>
                     </div>
@@ -316,5 +323,4 @@
             $('#business_name_div').show();
         }
     });
-
 </script>
