@@ -115,7 +115,10 @@
                                     <td style="width: 30%"><b><?= lang("Time_Limit_For_Filling_Position"); ?>:</b></td>
                                     <td style="width: 70%"><?= $document->case_no;?></td>
                                 </tr>
-
+                                <tr>
+                                    <td style="width: 30%"><b><?= lang("Status"); ?>:</b></td>
+                                    <td style="width: 70%"><?= $document->status;?></td>
+                                </tr>
 
                                 </tbody>
                             </table>

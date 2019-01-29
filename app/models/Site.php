@@ -1096,6 +1096,39 @@ class Site extends CI_Model
         return FALSE;
     }
 
+    public function getUsers($id)
+    {
+        $q = $this->db->get_where('users', array('username' => 'owner'), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getAllUserById($id)
+    {
+        $q = $this->db->get("users");
+        $this->db->where('id',3);
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getApproverList($name)
+    {
+        $q = $this->db->get_where('approver_list', array('interface_name' => $name), 1);
+        $this->db->order_by('approver_seq', 'asc');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+
     public function getAllDocType()
     {
         $q = $this->db->get("doctype");
@@ -1140,6 +1173,16 @@ class Site extends CI_Model
                 $data[] = $row;
             }
             return $data;
+        }
+        return FALSE;
+    }
+
+    public function getApproveInfoMR($name)
+    {
+        $q = $this->db->get_where('approver_list', array('interface_name' => $name), 1);
+        $this->db->order_by('approver_seq', 'asc');
+        if ($q->num_rows() > 0) {
+            return $q->row();
         }
         return FALSE;
     }

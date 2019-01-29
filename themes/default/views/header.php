@@ -203,77 +203,6 @@
             </li>
         </ul>
     </li>
-    <?php if ($Owner && $Settings->update) { ?>
-        <li class="dropdown hidden-sm">
-            <a class="btn blightOrange tip" title="<?= lang('update_available') ?>"
-               data-placement="bottom" data-container="body"
-               href="<?= site_url('system_settings/updates') ?>">
-                <i class="fa fa-download"></i>
-            </a>
-        </li>
-    <?php } ?>
-    <?php if (($Owner || $Admin || $GP['reports-quantity_alerts'] || $GP['reports-expiry_alerts']) && ($qty_alert_num > 0 || $exp_alert_num > 0)) { ?>
-        <li class="dropdown hidden-sm">
-            <a class="btn blightOrange tip" title="<?= lang('alerts') ?>"
-               data-placement="left" data-toggle="dropdown" href="#">
-                <i class="fa fa-exclamation-triangle"></i>
-            </a>
-            <ul class="dropdown-menu pull-right">
-                <li>
-                    <a href="<?= site_url('reports/quantity_alerts') ?>" class="">
-                        <span class="label label-danger pull-right"
-                              style="margin-top:3px;"><?= $qty_alert_num; ?></span>
-                        <span style="padding-right: 35px;"><?= lang('quantity_alerts') ?></span>
-                    </a>
-                </li>
-                <?php if ($Settings->product_expiry) { ?>
-                    <li>
-                        <a href="<?= site_url('reports/expiry_alerts') ?>" class="">
-                            <span class="label label-danger pull-right"
-                                  style="margin-top:3px;"><?= $exp_alert_num; ?></span>
-                            <span style="padding-right: 35px;"><?= lang('expiry_alerts') ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-    <?php if (POS && $GP['pos-index']) { ?>
-        <li class="dropdown hidden-xs">
-            <a class="btn bdarkGreen tip" title="<?= lang('pos') ?>" data-placement="bottom"
-               href="<?= site_url('pos') ?>">
-                <i class="fa fa-th-large"></i> <span class="padding05"><?= lang('pos') ?></span>
-            </a>
-        </li>
-    <?php } ?>
-    <?php if ($Owner) { ?>
-        <li class="dropdown">
-            <a class="btn bdarkGreen tip" id="today_profit"
-               title="<span><?= lang('today_profit') ?></span>"
-               data-placement="bottom" data-html="true" href="<?= site_url('reports/profit') ?>"
-               data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-hourglass-2"></i>
-            </a>
-        </li>
-    <?php } ?>
-    <?php if ($Owner || $Admin) { ?>
-        <?php if (POS) { ?>
-            <li class="dropdown hidden-xs">
-                <a class="btn bblue tip" title="<?= lang('list_open_registers') ?>"
-                   data-placement="bottom"
-                   href="<?= site_url('pos/registers') ?>">
-                    <i class="fa fa-list"></i>
-                </a>
-            </li>
-        <?php } ?>
-        <li class="dropdown hidden-xs">
-            <a class="btn bred tip" title="<?= lang('clear_ls') ?>" data-placement="bottom" id="clearLS"
-               href="#">
-                <i class="fa fa-eraser"></i>
-            </a>
-        </li>
-    <?php } ?>
-
 </ul>
 </div>
 </div>
@@ -334,12 +263,6 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_employee_payment'); ?></span>
                 </a>
             </li>
-<!--            <li id="employees_employee_payment_by_csv">-->
-<!--                <a class="submenu" href="--><?//= site_url('employees/employee_payment_by_csv'); ?><!--">-->
-<!--                    <i class="fa fa-upload"></i>-->
-<!--                    <span class="text"> --><?//= lang('add_employee_payment_by_csv'); ?><!--</span>-->
-<!--                </a>-->
-<!--            </li>-->
             <li id="employees_salary_process">
                 <a class="submenu" href="<?= site_url('employees/salary_process'); ?>">
                     <i class="fa fa-upload"></i>
@@ -437,229 +360,6 @@ if ($Owner || $Admin) {
                 <a class="submenu" href="<?= site_url('document/file_manager'); ?>">
                     <i class="fa fa-search"></i><span
                             class="text"> <?= lang('File_Manager_New'); ?></span>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="mm_products">
-        <a class="dropmenu" href="#">
-            <i class="fa fa-barcode"></i>
-            <span class="text"> <?= lang('products'); ?> </span>
-            <span class="chevron closed"></span>
-        </a>
-        <ul>
-            <li id="products_index">
-                <a class="submenu" href="<?= site_url('products'); ?>">
-                    <i class="fa fa-barcode"></i>
-                    <span class="text"> <?= lang('list_products'); ?></span>
-                </a>
-            </li>
-            <li id="products_add">
-                <a class="submenu" href="<?= site_url('products/add'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_product'); ?></span>
-                </a>
-            </li>
-            <li id="products_import_csv">
-                <a class="submenu" href="<?= site_url('products/import_csv'); ?>">
-                    <i class="fa fa-file-text"></i>
-                    <span class="text"> <?= lang('import_products'); ?></span>
-                </a>
-            </li>
-            <li id="products_print_barcodes">
-                <a class="submenu"
-                   href="<?= site_url('products/print_barcodes'); ?>">
-                    <i class="fa fa-tags"></i>
-                    <span class="text"> <?= lang('print_barcode_label'); ?></span>
-                </a>
-            </li>
-            <li id="products_quantity_adjustments">
-                <a class="submenu"
-                   href="<?= site_url('products/quantity_adjustments'); ?>">
-                    <i class="fa fa-filter"></i>
-                    <span class="text"> <?= lang('quantity_adjustments'); ?></span>
-                </a>
-            </li>
-            <li id="products_add_adjustment">
-                <a class="submenu"
-                   href="<?= site_url('products/add_adjustment'); ?>">
-                    <i class="fa fa-filter"></i>
-                    <span class="text"> <?= lang('add_adjustment'); ?></span>
-                </a>
-            </li>
-            <li id="products_stock_counts">
-                <a class="submenu" href="<?= site_url('products/stock_counts'); ?>">
-                    <i class="fa fa-list-ol"></i>
-                    <span class="text"> <?= lang('stock_counts'); ?></span>
-                </a>
-            </li>
-            <li id="products_count_stock">
-                <a class="submenu" href="<?= site_url('products/count_stock'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('count_stock'); ?></span>
-                </a>
-            </li>
-            <li id="products_details_search">
-                <a class="submenu"
-                   href="<?= site_url('products/details_search') ?>">
-                    <i class="fa fa-filter"></i><span
-                        class="text"> <?= lang('product_details_search'); ?></span>
-                </a>
-            </li>
-            <li id="products_reorder_details">
-                <a class="submenu"
-                   href="<?= site_url('products/reorder_details') ?>">
-                    <i class="fa fa-filter"></i><span
-                        class="text"> <?= lang('product_reorder_report'); ?></span>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="mm_sales <?= strtolower($this->router->fetch_method()) == 'sales' ? 'mm_pos' : '' ?>">
-        <a class="dropmenu" href="#">
-            <i class="fa fa-heart"></i>
-                                                <span class="text"> <?= lang('sales'); ?>
-                                                        </span> <span class="chevron closed"></span>
-        </a>
-        <ul>
-            <li id="sales_index">
-                <a class="submenu" href="<?= site_url('sales'); ?>">
-                    <i class="fa fa-heart"></i>
-                    <span class="text"> <?= lang('list_sales'); ?></span>
-                </a>
-            </li>
-            <?php if (POS) { ?>
-                <li id="pos_sales">
-                    <a class="submenu" href="<?= site_url('pos/sales'); ?>">
-                        <i class="fa fa-heart"></i>
-                        <span class="text"> <?= lang('pos_sales'); ?></span>
-                    </a>
-                </li>
-            <?php } ?>
-            <li id="sales_add">
-                <a class="submenu" href="<?= site_url('sales/add'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_sale'); ?></span>
-                </a>
-            </li>
-            <li id="sales_sale_by_csv">
-                <a class="submenu" href="<?= site_url('sales/sale_by_csv'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_sale_by_csv'); ?></span>
-                </a>
-            </li>
-            <li id="sales_deliveries">
-                <a class="submenu" href="<?= site_url('sales/deliveries'); ?>">
-                    <i class="fa fa-truck"></i>
-                    <span class="text"> <?= lang('deliveries'); ?></span>
-                </a>
-            </li>
-            <li id="sales_gift_cards">
-                <a class="submenu" href="<?= site_url('sales/gift_cards'); ?>">
-                    <i class="fa fa-gift"></i>
-                    <span class="text"> <?= lang('list_gift_cards'); ?></span>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="mm_quotes">
-        <a class="dropmenu" href="#">
-            <i class="fa fa-heart-o"></i>
-            <span class="text"> <?= lang('quotes'); ?> </span>
-            <span class="chevron closed"></span>
-        </a>
-        <ul>
-            <li id="quotes_index">
-                <a class="submenu" href="<?= site_url('quotes'); ?>">
-                    <i class="fa fa-heart-o"></i>
-                    <span class="text"> <?= lang('list_quotes'); ?></span>
-                </a>
-            </li>
-            <li id="quotes_add">
-                <a class="submenu" href="<?= site_url('quotes/add'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_quote'); ?></span>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="mm_purchases">
-        <a class="dropmenu" href="#">
-            <i class="fa fa-star"></i>
-                                                <span class="text"> <?= lang('purchases'); ?>
-                                                        </span> <span class="chevron closed"></span>
-        </a>
-        <ul>
-            <li id="purchases_index">
-                <a class="submenu" href="<?= site_url('purchases'); ?>">
-                    <i class="fa fa-star"></i>
-                    <span class="text"> <?= lang('list_purchases'); ?></span>
-                </a>
-            </li>
-            <li id="purchases_add">
-                <a class="submenu" href="<?= site_url('purchases/add'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_purchase'); ?></span>
-                </a>
-            </li>
-            <li id="purchases_purchase_by_csv">
-                <a class="submenu"
-                   href="<?= site_url('purchases/purchase_by_csv'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_purchase_by_csv'); ?></span>
-                </a>
-            </li>
-            <li id="inter_company_purchase_by_csv">
-                <a class="submenu"
-                   href="<?= site_url('purchases/inter_company_purchase_by_csv'); ?>">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('company_add_purchase_by_csv'); ?></span>
-                </a>
-            </li>
-            <li id="purchases_expenses">
-                <a class="submenu" href="<?= site_url('purchases/expenses'); ?>">
-                    <i class="fa fa-dollar"></i>
-                    <span class="text"> <?= lang('list_expenses'); ?></span>
-                </a>
-            </li>
-            <li id="purchases_add_expense">
-                <a class="submenu" href="<?= site_url('purchases/add_expense'); ?>"
-                   data-toggle="modal"
-                   data-target="#myModal">
-                    <i class="fa fa-plus-circle"></i>
-                    <span class="text"> <?= lang('add_expense'); ?></span>
-                </a>
-            </li>
-        </ul>
-    </li>
-
-    <li class="mm_transfers">
-        <a class="dropmenu" href="#">
-            <i class="fa fa-star-o"></i>
-            <span class="text"> <?= lang('transfers'); ?> </span>
-            <span class="chevron closed"></span>
-        </a>
-        <ul>
-            <li id="transfers_index">
-                <a class="submenu" href="<?= site_url('transfers'); ?>">
-                    <i class="fa fa-star-o"></i><span
-                        class="text"> <?= lang('list_transfers'); ?></span>
-                </a>
-            </li>
-            <li id="transfers_add">
-                <a class="submenu" href="<?= site_url('transfers/add'); ?>">
-                    <i class="fa fa-plus-circle"></i><span
-                        class="text"> <?= lang('add_transfer'); ?></span>
-                </a>
-            </li>
-            <li id="transfers_purchase_by_csv">
-                <a class="submenu"
-                   href="<?= site_url('transfers/transfer_by_csv'); ?>">
-                    <i class="fa fa-plus-circle"></i><span
-                        class="text"> <?= lang('add_transfer_by_csv'); ?></span>
                 </a>
             </li>
         </ul>
@@ -777,26 +477,6 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('system_settings'); ?></span>
                     </a>
                 </li>
-                <?php if (POS) { ?>
-                    <li id="pos_settings">
-                        <a href="<?= site_url('pos/settings') ?>">
-                            <i class="fa fa-th-large"></i><span
-                                class="text"> <?= lang('pos_settings'); ?></span>
-                        </a>
-                    </li>
-                    <li id="pos_printers">
-                        <a href="<?= site_url('pos/printers') ?>">
-                            <i class="fa fa-print"></i><span
-                                class="text"> <?= lang('list_printers'); ?></span>
-                        </a>
-                    </li>
-                    <li id="pos_add_printer">
-                        <a href="<?= site_url('pos/add_printer') ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_printer'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
                 <li id="system_settings_change_logo">
                     <a href="<?= site_url('system_settings/change_logo') ?>"
                        data-toggle="modal" data-target="#myModal">
@@ -810,28 +490,10 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('currencies'); ?></span>
                     </a>
                 </li>
-                <li id="system_settings_customer_groups">
-                    <a href="<?= site_url('system_settings/customer_groups') ?>">
-                        <i class="fa fa-chain"></i><span
-                            class="text"> <?= lang('customer_groups'); ?></span>
-                    </a>
-                </li>
-                <li id="system_settings_price_groups">
-                    <a href="<?= site_url('system_settings/price_groups') ?>">
-                        <i class="fa fa-dollar"></i><span
-                            class="text"> <?= lang('price_groups'); ?></span>
-                    </a>
-                </li>
                 <li id="system_settings_categories">
                     <a href="<?= site_url('system_settings/categories') ?>">
                         <i class="fa fa-folder-open"></i><span
                             class="text"> <?= lang('categories'); ?></span>
-                    </a>
-                </li>
-                <li id="system_settings_expense_categories">
-                    <a href="<?= site_url('system_settings/expense_categories') ?>">
-                        <i class="fa fa-folder-open"></i><span
-                            class="text"> <?= lang('expense_categories'); ?></span>
                     </a>
                 </li>
                 <li id="system_settings_units">
@@ -874,24 +536,6 @@ if ($Owner || $Admin) {
                     <a href="<?= site_url('system_settings/package') ?>">
                         <i class="fa fa-th-list"></i><span
                             class="text"> <?= lang('package'); ?></span>
-                    </a>
-                </li>
-                <li id="system_settings_variants">
-                    <a href="<?= site_url('system_settings/variants') ?>">
-                        <i class="fa fa-tags"></i><span
-                            class="text"> <?= lang('variants'); ?></span>
-                    </a>
-                </li>
-                <li id="system_settings_tax_rates">
-                    <a href="<?= site_url('system_settings/tax_rates') ?>">
-                        <i class="fa fa-plus-circle"></i><span
-                            class="text"> <?= lang('tax_rates'); ?></span>
-                    </a>
-                </li>
-                <li id="system_settings_warehouses">
-                    <a href="<?= site_url('system_settings/warehouses') ?>">
-                        <i class="fa fa-building-o"></i><span
-                            class="text"> <?= lang('warehouses'); ?></span>
                     </a>
                 </li>
                 <li id="system_settings_email_templates">
@@ -1103,193 +747,6 @@ if ($Owner || $Admin) {
 <?php
 } else { // not owner and not admin
     ?>
-    <?php if ($GP['products-index'] || $GP['products-add'] || $GP['products-barcode'] || $GP['products-adjustments'] || $GP['products-stock_count']) { ?>
-        <li class="mm_products">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-barcode"></i>
-                                                    <span class="text"> <?= lang('products'); ?>
-                                                            </span> <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <li id="products_index">
-                    <a class="submenu" href="<?= site_url('products'); ?>">
-                        <i class="fa fa-barcode"></i><span
-                            class="text"> <?= lang('list_products'); ?></span>
-                    </a>
-                </li>
-                <?php if ($GP['products-add']) { ?>
-                    <li id="products_add">
-                        <a class="submenu" href="<?= site_url('products/add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_product'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['products-barcode']) { ?>
-                    <li id="products_sheet">
-                        <a class="submenu"
-                           href="<?= site_url('products/print_barcodes'); ?>">
-                            <i class="fa fa-tags"></i><span
-                                class="text"> <?= lang('print_barcode_label'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['products-adjustments']) { ?>
-                    <li id="products_quantity_adjustments">
-                        <a class="submenu"
-                           href="<?= site_url('products/quantity_adjustments'); ?>">
-                            <i class="fa fa-filter"></i><span
-                                class="text"> <?= lang('quantity_adjustments'); ?></span>
-                        </a>
-                    </li>
-                    <li id="products_add_adjustment">
-                        <a class="submenu"
-                           href="<?= site_url('products/add_adjustment'); ?>">
-                            <i class="fa fa-filter"></i>
-                            <span class="text"> <?= lang('add_adjustment'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['products-stock_count']) { ?>
-                    <li id="products_stock_counts">
-                        <a class="submenu"
-                           href="<?= site_url('products/stock_counts'); ?>">
-                            <i class="fa fa-list-ol"></i>
-                            <span class="text"> <?= lang('stock_counts'); ?></span>
-                        </a>
-                    </li>
-                    <li id="products_count_stock">
-                        <a class="submenu"
-                           href="<?= site_url('products/count_stock'); ?>">
-                            <i class="fa fa-plus-circle"></i>
-                            <span class="text"> <?= lang('count_stock'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['brand-index']) { ?>
-                    <li id="products_sheet">
-                        <a class="submenu"
-                           href="<?= site_url('system_settings/brands'); ?>">
-                            <i class="fa fa-tags"></i><span
-                                class="text"> <?= lang('brands'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['category-index']) { ?>
-                    <li id="system_settings_categories">
-                        <a class="submenu"
-                           href="<?= site_url('system_settings/categories') ?>">
-                            <i class="fa fa-folder-open"></i><span
-                                class="text"> <?= lang('categories'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-
-                <?php if ($GP['products-details_search']) { ?>
-                    <li id="products-detail_search">
-                        <a class="submenu"
-                           href="<?= site_url('products/details_search') ?>">
-                            <i class="fa fa-folder-open"></i><span
-                                class="text"> <?= lang('product_details_search'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-
-                <?php if ($GP['products-reorder_details']) { ?>
-                    <li id="products-reorder_details">
-                        <a class="submenu"
-                           href="<?= site_url('products/reorder_details') ?>">
-                            <i class="fa fa-folder-open"></i><span
-                                class="text"> <?= lang('product_reorder_report'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
-    <?php if ($GP['sales-index'] || $GP['sales-add'] || $GP['sales-deliveries'] || $GP['sales-gift_cards']) { ?>
-        <li class="mm_sales <?= strtolower($this->router->fetch_method()) == 'sales' ? 'mm_pos' : '' ?>">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-heart"></i>
-                                                    <span class="text"> <?= lang('sales'); ?>
-                                                            </span> <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <li id="sales_index">
-                    <a class="submenu" href="<?= site_url('sales'); ?>">
-                        <i class="fa fa-heart"></i><span
-                            class="text"> <?= lang('list_sales'); ?></span>
-                    </a>
-                </li>
-                <?php if (POS && $GP['pos-index']) { ?>
-                    <li id="pos_sales">
-                        <a class="submenu" href="<?= site_url('pos/sales'); ?>">
-                            <i class="fa fa-heart"></i><span
-                                class="text"> <?= lang('pos_sales'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['sales-add']) { ?>
-                    <li id="sales_add">
-                        <a class="submenu" href="<?= site_url('sales/add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_sale'); ?></span>
-                        </a>
-                    </li>
-                <?php
-                }
-                if ($GP['sales-deliveries']) {
-                    ?>
-                    <li id="sales_deliveries">
-                        <a class="submenu"
-                           href="<?= site_url('sales/deliveries'); ?>">
-                            <i class="fa fa-truck"></i><span
-                                class="text"> <?= lang('deliveries'); ?></span>
-                        </a>
-                    </li>
-                <?php
-                }
-                if ($GP['sales-gift_cards']) {
-                    ?>
-                    <li id="sales_gift_cards">
-                        <a class="submenu"
-                           href="<?= site_url('sales/gift_cards'); ?>">
-                            <i class="fa fa-gift"></i><span
-                                class="text"> <?= lang('gift_cards'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
-    <?php if ($GP['quotes-index'] || $GP['quotes-add']) { ?>
-        <li class="mm_quotes">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-heart-o"></i>
-                <span class="text"> <?= lang('quotes'); ?> </span>
-                <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <li id="sales_index">
-                    <a class="submenu" href="<?= site_url('quotes'); ?>">
-                        <i class="fa fa-heart-o"></i><span
-                            class="text"> <?= lang('list_quotes'); ?></span>
-                    </a>
-                </li>
-                <?php if ($GP['quotes-add']) { ?>
-                    <li id="sales_add">
-                        <a class="submenu" href="<?= site_url('quotes/add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_quote'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
     <?php if ($GP['employees-index'] || $GP['employees-add'] || $GP['employees-edit'] ||
         $GP['employees-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
          || $GP['employees-index_payment'] || $GP['employees-add_employee_payment'] || $GP['employees-edit_employee_payment'] ||
@@ -1375,7 +832,7 @@ if ($Owner || $Admin) {
 
 
                 <?php if ($GP['employees-bill_index']) { ?>
-                    <li id="employee-bill_index">
+                    <li id="employee-bills">
                         <a class="submenu" href="<?= site_url('employees/bills'); ?>">
                             <i class="fa fa-certificate"></i><span
                                 class="text"> <?= lang('bills'); ?></span>
@@ -1400,7 +857,7 @@ if ($Owner || $Admin) {
         ?>
         <li class="mm_guard">
             <a class="dropmenu" href="#">
-                <i class="fa fa-lock"></i>
+                <i class="fa fa-dashboard"></i>
                 <span class="text"> <?= lang('guard'); ?> </span>
                 <span class="chevron closed"></span>
             </a>
@@ -1414,7 +871,7 @@ if ($Owner || $Admin) {
                     </li>
                 <?php } ?>
                 <?php if ($GP['guard-add']) { ?>
-                    <li id="guard_add">
+                    <li id="guard-add">
                         <a class="submenu" href="<?= site_url('guard/add_guard'); ?>">
                             <i class="fa fa-plus-circle"></i><span
                                 class="text"> <?= lang('add_guard'); ?></span>
@@ -1431,10 +888,44 @@ if ($Owner || $Admin) {
                 <?php } ?>
             </ul>
         </li>
+    <?php }
+    ?>
+
+    <?php if ($GP['hrms-manpower_requisition'] || $GP['hrms-add_manpower_requisition']
+    ) {
+        ?>
+        <li class="mm_hrms">
+            <a class="dropmenu" href="#">
+                <i class="fa fa-dashboard"></i>
+                <span class="text"> <?= lang('HR'); ?> </span>
+                <span class="chevron closed"></span>
+            </a>
+            <ul>
+                <?php if ($GP['hrms-manpower_requisition']) { ?>
+                    <li id="hrms_manpower_requisition">
+                        <a class="submenu" href="<?= site_url('hrms/manpower_requisition'); ?>">
+                            <i class="fa fa-user"></i><span
+                                    class="text"> <?= lang('List_Manpower_Requisition'); ?></span>
+                        </a>
+                    </li>
+                <?php }
+
+
+
+                ?>
+                <?php if ($GP['hrms-add_manpower_requisition']) { ?>
+                    <li id="hrms_add_manpower_requisition">
+                        <a class="submenu" href="<?= site_url('hrms/add_manpower_requisition'); ?>">
+                            <i class="fa fa-plus"></i><span
+                                    class="text"> <?= lang('Add_Manpower_Requisition'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
     <?php } ?>
 
     <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] ||
-//        $GP['document-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
         $GP['document-delete']
     ) {
         ?>
@@ -1449,7 +940,7 @@ if ($Owner || $Admin) {
                     <li id="document_index">
                         <a class="submenu" href="<?= site_url('document'); ?>">
                             <i class="fa fa-list-alt"></i><span
-                                class="text"> <?= lang('list_document'); ?></span>
+                                    class="text"> <?= lang('list_document'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -1457,7 +948,7 @@ if ($Owner || $Admin) {
                     <li id="document_add">
                         <a class="submenu" href="<?= site_url('document/add'); ?>">
                             <i class="fa fa-plus"></i><span
-                                class="text"> <?= lang('add_document'); ?></span>
+                                    class="text"> <?= lang('add_document'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -1465,7 +956,7 @@ if ($Owner || $Admin) {
                     <li id="document_doc_movement_list">
                         <a class="submenu" href="<?= site_url('document/doc_movement_list'); ?>">
                             <i class="fa fa-list-alt"></i><span
-                                class="text"> <?= lang('doc_movement_list'); ?></span>
+                                    class="text"> <?= lang('doc_movement_list'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -1473,7 +964,7 @@ if ($Owner || $Admin) {
                     <li id="document_add_movement">
                         <a class="submenu" href="<?= site_url('document/add_movement'); ?>">
                             <i class="fa fa-plus"></i><span
-                                class="text"> <?= lang('add_movement'); ?></span>
+                                    class="text"> <?= lang('add_movement'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -1482,130 +973,6 @@ if ($Owner || $Admin) {
                         <a class="submenu" href="<?= site_url('document/file_manager'); ?>">
                             <i class="fa fa-search"></i><span
                                     class="text"> <?= lang('File_Manager'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
-
-    <?php if ($GP['purchases-index'] || $GP['purchases-add'] || $GP['purchases-expenses']) { ?>
-        <li class="mm_purchases">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-star"></i>
-                                                    <span class="text"> <?= lang('purchases'); ?>
-                                                            </span> <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <li id="purchases_index">
-                    <a class="submenu" href="<?= site_url('purchases'); ?>">
-                        <i class="fa fa-star"></i><span
-                            class="text"> <?= lang('list_purchases'); ?></span>
-                    </a>
-                </li>
-                <?php if ($GP['purchases-add']) { ?>
-                    <li id="purchases_add">
-                        <a class="submenu" href="<?= site_url('purchases/add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_purchase'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if ($GP['purchases-expenses']) { ?>
-                    <li id="purchases_expenses">
-                        <a class="submenu"
-                           href="<?= site_url('purchases/expenses'); ?>">
-                            <i class="fa fa-dollar"></i><span
-                                class="text"> <?= lang('list_expenses'); ?></span>
-                        </a>
-                    </li>
-                    <li id="purchases_add_expense">
-                        <a class="submenu"
-                           href="<?= site_url('purchases/add_expense'); ?>"
-                           data-toggle="modal" data-target="#myModal">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_expense'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
-    <?php if ($GP['transfers-index'] || $GP['transfers-add']) { ?>
-        <li class="mm_transfers">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-star-o"></i>
-                <span class="text"> <?= lang('transfers'); ?> </span>
-                <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <li id="transfers_index">
-                    <a class="submenu" href="<?= site_url('transfers'); ?>">
-                        <i class="fa fa-star-o"></i><span
-                            class="text"> <?= lang('list_transfers'); ?></span>
-                    </a>
-                </li>
-                <?php if ($GP['transfers-add']) { ?>
-                    <li id="transfers_add">
-                        <a class="submenu" href="<?= site_url('transfers/add'); ?>">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_transfer'); ?></span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </li>
-    <?php } ?>
-
-    <?php if ($GP['customers-index'] || $GP['customers-add'] || $GP['suppliers-index'] || $GP['suppliers-add']) { ?>
-        <li class="mm_auth mm_customers mm_suppliers mm_billers">
-            <a class="dropmenu" href="#">
-                <i class="fa fa-users"></i>
-                <span class="text"> <?= lang('people'); ?> </span>
-                <span class="chevron closed"></span>
-            </a>
-            <ul>
-                <?php if ($GP['customers-index']) { ?>
-                    <li id="customers_index">
-                        <a class="submenu" href="<?= site_url('customers'); ?>">
-                            <i class="fa fa-users"></i><span
-                                class="text"> <?= lang('list_customers'); ?></span>
-                        </a>
-                    </li>
-                <?php
-                }
-                if ($GP['customers-add']) {
-                    ?>
-                    <li id="customers_index">
-                        <a class="submenu" href="<?= site_url('customers/add'); ?>"
-                           data-toggle="modal"
-                           data-target="#myModal">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_customer'); ?></span>
-                        </a>
-                    </li>
-                <?php
-                }
-                if ($GP['suppliers-index']) {
-                    ?>
-                    <li id="suppliers_index">
-                        <a class="submenu" href="<?= site_url('suppliers'); ?>">
-                            <i class="fa fa-users"></i><span
-                                class="text"> <?= lang('list_suppliers'); ?></span>
-                        </a>
-                    </li>
-                <?php
-                }
-                if ($GP['suppliers-add']) {
-                    ?>
-                    <li id="suppliers_index">
-                        <a class="submenu" href="<?= site_url('suppliers/add'); ?>"
-                           data-toggle="modal"
-                           data-target="#myModal">
-                            <i class="fa fa-plus-circle"></i><span
-                                class="text"> <?= lang('add_supplier'); ?></span>
                         </a>
                     </li>
                 <?php } ?>

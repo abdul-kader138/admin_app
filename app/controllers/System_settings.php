@@ -805,84 +805,24 @@ class system_settings extends MY_Controller
         if ($this->form_validation->run() == true) {
 
             $data = array(
-                'products-index' => $this->input->post('products-index'),
-                'products-edit' => $this->input->post('products-edit'),
-                'products-add' => $this->input->post('products-add'),
-                'products-delete' => $this->input->post('products-delete'),
-                'products-cost' => $this->input->post('products-cost'),
-                'products-price' => $this->input->post('products-price'),
-                'products-reorder_details' => $this->input->post('products-reorder-details'),
-                'products-details_search' => $this->input->post('products-details-search'),
-                'customers-index' => $this->input->post('customers-index'),
-                'customers-edit' => $this->input->post('customers-edit'),
-                'customers-add' => $this->input->post('customers-add'),
-                'customers-delete' => $this->input->post('customers-delete'),
-                'suppliers-index' => $this->input->post('suppliers-index'),
-                'suppliers-edit' => $this->input->post('suppliers-edit'),
-                'suppliers-add' => $this->input->post('suppliers-add'),
-                'suppliers-delete' => $this->input->post('suppliers-delete'),
-                'sales-index' => $this->input->post('sales-index'),
-                'sales-edit' => $this->input->post('sales-edit'),
-                'sales-add' => $this->input->post('sales-add'),
-                'sales-delete' => $this->input->post('sales-delete'),
-                'sales-email' => $this->input->post('sales-email'),
-                'sales-pdf' => $this->input->post('sales-pdf'),
-                'sales-deliveries' => $this->input->post('sales-deliveries'),
-                'sales-edit_delivery' => $this->input->post('sales-edit_delivery'),
-                'sales-add_delivery' => $this->input->post('sales-add_delivery'),
-                'sales-delete_delivery' => $this->input->post('sales-delete_delivery'),
-                'sales-email_delivery' => $this->input->post('sales-email_delivery'),
-                'sales-pdf_delivery' => $this->input->post('sales-pdf_delivery'),
-                'sales-gift_cards' => $this->input->post('sales-gift_cards'),
-                'sales-edit_gift_card' => $this->input->post('sales-edit_gift_card'),
-                'sales-add_gift_card' => $this->input->post('sales-add_gift_card'),
-                'sales-delete_gift_card' => $this->input->post('sales-delete_gift_card'),
-                'quotes-index' => $this->input->post('quotes-index'),
-                'quotes-edit' => $this->input->post('quotes-edit'),
-                'quotes-add' => $this->input->post('quotes-add'),
-                'quotes-delete' => $this->input->post('quotes-delete'),
-                'quotes-email' => $this->input->post('quotes-email'),
-                'quotes-pdf' => $this->input->post('quotes-pdf'),
-                'purchases-index' => $this->input->post('purchases-index'),
-                'purchases-edit' => $this->input->post('purchases-edit'),
-                'purchases-add' => $this->input->post('purchases-add'),
-                'purchases-delete' => $this->input->post('purchases-delete'),
-                'purchases-email' => $this->input->post('purchases-email'),
-                'purchases-pdf' => $this->input->post('purchases-pdf'),
-                'transfers-index' => $this->input->post('transfers-index'),
-                'transfers-edit' => $this->input->post('transfers-edit'),
-                'transfers-add' => $this->input->post('transfers-add'),
-                'transfers-delete' => $this->input->post('transfers-delete'),
-                'transfers-email' => $this->input->post('transfers-email'),
-                'transfers-pdf' => $this->input->post('transfers-pdf'),
-                'sales-return_sales' => $this->input->post('sales-return_sales'),
-                'reports-quantity_alerts' => $this->input->post('reports-quantity_alerts'),
-                'reports-expiry_alerts' => $this->input->post('reports-expiry_alerts'),
-                'reports-products' => $this->input->post('reports-products'),
-                'reports-daily_sales' => $this->input->post('reports-daily_sales'),
-                'reports-monthly_sales' => $this->input->post('reports-monthly_sales'),
-                'reports-payments' => $this->input->post('reports-payments'),
-                'reports-sales' => $this->input->post('reports-sales'),
-                'reports-sales-margin' => $this->input->post('reports-sales-margin'),
-                'reports-purchases' => $this->input->post('reports-purchases'),
-                'reports-customers' => $this->input->post('reports-customers'),
-                'reports-suppliers' => $this->input->post('reports-suppliers'),
-                'sales-payments' => $this->input->post('sales-payments'),
-                'purchases-payments' => $this->input->post('purchases-payments'),
-                'purchases-expenses' => $this->input->post('purchases-expenses'),
-                'products-adjustments' => $this->input->post('products-adjustments'),
-                'bulk_actions' => $this->input->post('bulk_actions'),
-                'customers-deposits' => $this->input->post('customers-deposits'),
-                'customers-delete_deposit' => $this->input->post('customers-delete_deposit'),
-                'products-barcode' => $this->input->post('products-barcode'),
-                'purchases-return_purchases' => $this->input->post('purchases-return_purchases'),
-                'reports-expenses' => $this->input->post('reports-expenses'),
-                'reports-daily_purchases' => $this->input->post('reports-daily_purchases'),
-                'reports-monthly_purchases' => $this->input->post('reports-monthly_purchases'),
+
+//                'reports-quantity_alerts' => $this->input->post('reports-quantity_alerts'),
+//                'reports-expiry_alerts' => $this->input->post('reports-expiry_alerts'),
+//                'reports-products' => $this->input->post('reports-products'),
+//                'reports-daily_sales' => $this->input->post('reports-daily_sales'),
+//                'reports-monthly_sales' => $this->input->post('reports-monthly_sales'),
+//                'reports-payments' => $this->input->post('reports-payments'),
+//                'reports-sales' => $this->input->post('reports-sales'),
+//                'reports-sales-margin' => $this->input->post('reports-sales-margin'),
+//                'reports-purchases' => $this->input->post('reports-purchases'),
+//                'reports-customers' => $this->input->post('reports-customers'),
+//                'reports-suppliers' => $this->input->post('reports-suppliers'),
+//                'bulk_actions' => $this->input->post('bulk_actions'),
+//                'reports-expenses' => $this->input->post('reports-expenses'),
+//                'reports-daily_purchases' => $this->input->post('reports-daily_purchases'),
+//                'reports-monthly_purchases' => $this->input->post('reports-monthly_purchases'),
                 'reports-company_bill_details' => $this->input->post('reports-company_bill_details'),
                 'reports-company_wise_bill' => $this->input->post('reports-company_wise_bill'),
-                'products-stock_count' => $this->input->post('products-stock_count'),
-                'edit_price' => $this->input->post('edit_price'),
                 'backups_index' => $this->input->post('backups_index'),
 //                a.kader
                 'category-index' => $this->input->post('category-index'),
@@ -962,14 +902,17 @@ class system_settings extends MY_Controller
                 'document-file_delete' => $this->input->post('document-file_delete'),
                 'document-folder_create' => $this->input->post('document-folder_create'),
 
+                'hrms-manpower_requisition' => $this->input->post('hrms-manpower_requisition'),
+                'hrms-add_manpower_requisition' => $this->input->post('hrms-add_manpower_requisition'),
+                'hrms-edit_manpower_requisition' => $this->input->post('hrms-edit_manpower_requisition'),
+                'hrms-delete_manpower_requisition' => $this->input->post('hrms-delete_manpower_requisition'),
+
+
+                'approval_manpower_requisition' => $this->input->post('approval_manpower_requisition'),
+
 
             );
 
-            if (POS) {
-                $data['pos-index'] = $this->input->post('pos-index');
-            }
-
-            //$this->sma->print_arrays($data);
         }
 
         $tt=$this->form_validation->run();
@@ -5313,6 +5256,7 @@ class system_settings extends MY_Controller
         $this->load->helper('security');
         $this->form_validation->set_rules('approver_id', lang("approver_id"), 'required');
         $this->form_validation->set_rules('approver_seq', lang("approver_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_seq_name', lang("approver_seq_name"), 'required');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
         $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
         $this->form_validation->set_rules('interface_name', lang("interface_name"), 'required');
@@ -5321,6 +5265,7 @@ class system_settings extends MY_Controller
             $data = array(
                 'approver_id' => $this->input->post('approver_id'),
                 'approver_seq' => $this->input->post('approver_seq'),
+                'approver_seq_name' => $this->input->post('approver_seq_name'),
                 'company_id' => $this->input->post('company_id'),
                 'category_id' => $this->input->post('category_id'),
                 'interface_name' => $this->input->post('interface_name'),
@@ -5363,12 +5308,14 @@ class system_settings extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
         $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
         $this->form_validation->set_rules('interface_name', lang("interface_name"), 'required');
+        $this->form_validation->set_rules('approver_seq_name', lang("approver_seq_name"), 'required');
 
 
         if ($this->form_validation->run() == true) {
             $data = array(
                 'approver_id' => $this->input->post('approver_id'),
                 'approver_seq' => $this->input->post('approver_seq'),
+                'approver_seq_name' => $this->input->post('approver_seq_name'),
                 'company_id' => $this->input->post('company_id'),
                 'category_id' => $this->input->post('category_id'),
                 'interface_name' => $this->input->post('interface_name'),

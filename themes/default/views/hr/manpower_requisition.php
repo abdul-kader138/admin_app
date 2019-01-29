@@ -37,7 +37,7 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null,null, null,null,null,null,null,null,null]
+            }, null, null, null, null,null, null,null,null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Requisition_date');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('Position');?>]", filter_type: "text", data: []},
@@ -46,10 +46,9 @@
             {column_number: 5, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('Organization_Type');?>]", filter_type: "text", data: []},
             {column_number: 7, filter_default_label: "[<?=lang('Number_Required');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('Eduction');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('Minimum_Experience');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('Reporting_To');?>]", filter_type: "text", data: []},
-            {column_number: 11, filter_default_label: "[<?=lang('No_Of_Reportees');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Reporting_To');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('No_Of_Reportees');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -99,10 +98,9 @@
                             <th><?php echo lang('Company'); ?></th>
                             <th><?php echo lang('Organization_Type'); ?></th>
                             <th><?php echo lang('Number_Required'); ?></th>
-                            <th><?php echo lang('Eduction'); ?></th>
-                            <th><?php echo lang('Minimum_Experience'); ?></th>
                             <th><?php echo lang('Reporting_To'); ?></th>
                             <th><?php echo lang('No_Of_Reportees'); ?></th>
+                            <th><?php echo lang('Status'); ?></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -124,7 +122,6 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th ></th>
                             <th ></th>
                             <th ></th>
                             <th style="width:85px;"><?= lang("actions"); ?></th>

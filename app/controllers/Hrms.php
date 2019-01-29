@@ -1,11 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: a.kader
- * Date: 24-Jan-19
- * Time: 3:40 PM
- */
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 class Hrms extends  MY_Controller
 {
 
@@ -17,10 +10,7 @@ class Hrms extends  MY_Controller
             $this->session->set_userdata('requested_page', $this->uri->uri_string());
             $this->sma->md('login');
         }
-        if (!$this->Owner) {
-            $this->session->set_flashdata('warning', lang('access_denied'));
-            redirect($_SERVER["HTTP_REFERER"]);
-        }
+        $this->permission_details = $this->site->checkPermissions();
         $this->lang->load('billers', $this->Settings->user_language);
         $this->load->library('form_validation');
         $this->load->model('hr_model');
@@ -31,7 +21,7 @@ class Hrms extends  MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['document-index'])) {
+            if ((!$get_permission['hrms-manpower_requisition'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -48,7 +38,7 @@ class Hrms extends  MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['document-index'])) {
+            if ((!$get_permission['hrms-manpower_requisition'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -56,8 +46,8 @@ class Hrms extends  MY_Controller
         }
         $edit_link = "";
         $delete_link = "";
-        if ($get_permission['document-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('hrms/edit_manpower_requisition/$1', '<i class="fa fa-edit"></i> ' . lang('edit'), 'class="sledit"');
-        if ($get_permission['document-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>"
+        if ($get_permission['hrms-edit_manpower_requisition'] || $this->Owner || $this->Admin) $edit_link = anchor('hrms/edit_manpower_requisition/$1', '<i class="fa fa-edit"></i> ' . lang('edit'), 'class="sledit"');
+        if ($get_permission['hrms-delete_manpower_requisition'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('hrms/delete_manpower_requisition/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('delete') . "</a>";
@@ -72,7 +62,7 @@ class Hrms extends  MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref,". $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') .".organization_type,". $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".education," . $this->db->dbprefix('manpower_requisition') . ".minimum_experience," . $this->db->dbprefix('manpower_requisition') . ".reporting_to,". $this->db->dbprefix('manpower_requisition') . ".no_of_reportees")
+            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref,". $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') .".organization_type,". $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".reporting_to,". $this->db->dbprefix('manpower_requisition') . ".no_of_reportees,". $this->db->dbprefix('manpower_requisition') . ".status")
             ->from("manpower_requisition")
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')
@@ -85,7 +75,7 @@ class Hrms extends  MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['document-add'])) {
+            if ((!$get_permission['hrms-add_manpower_requisition'])) {
             $this->session->set_flashdata('warning', lang('access_denied'));
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
             redirect($_SERVER["HTTP_REFERER"]);
@@ -114,9 +104,23 @@ class Hrms extends  MY_Controller
         $this->form_validation->set_rules('reporting_to', lang("reporting_to"), 'trim|required');
         $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required');
         if ($this->form_validation->run() == true) {
+
+            $userLists = $this->site->getAllUser();
+            $approver_details = $this->site->getApproverList('add_manpower_requisition');
+            $user_details = $this->getApproveCustomer($userLists,$approver_details->approver_id);
             $reason=$this->input->post('requirement');
+            $approve_data = array(
+                'aprrover_id' => $approver_details->approver_id,
+                'status' => 'Waiting For Approval-' . $user_details->username,
+                'table_name' => 'manpower_requisition',
+                'approver_seq' => $approver_details->approver_seq,
+                'approver_seq_name' => $approver_details->approver_seq_name,
+                'created_by' => $this->session->userdata('user_id'),
+                'created_date' => date("Y-m-d H:i:s")
+            );
+
             $data = array(
-                'workstation' => requirement,
+                'workstation' => $this->input->post('workstation'),
                 'requisition_date' => $this->sma->fld($this->input->post('requisition_date')),
                 'company_id' => $this->input->post('company_id'),
                 'department' => $this->input->post('department'),
@@ -147,12 +151,13 @@ class Hrms extends  MY_Controller
                 'no_of_reportees' => $this->input->post('no_of_reportees'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
+                'status' => 'Waiting For Approval-' . $user_details->username,
+                'next_approve_by' => $approver_details->approver_id,
                 'other_info' => $this->input->post('other_info')
             );
         }
 
-        if ($this->form_validation->run() == true && $this->hr_model->addMR($data)) {
-//        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run() == true && $this->hr_model->addMR($data,$approve_data)) {
             $this->session->set_flashdata('message', "Information Successfully added.");
             redirect("hrms/manpower_requisition");
 
@@ -174,7 +179,7 @@ class Hrms extends  MY_Controller
 
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['document-edit'])) {
+            if ((!$get_permission['hrms-edit_manpower_requisition'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -263,7 +268,7 @@ class Hrms extends  MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['document-delete_movement'])) {
+            if ((!$get_permission['hrms-delete_manpower_requisition'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -285,7 +290,7 @@ class Hrms extends  MY_Controller
     }
 
     function modal_manpower_requisition($id = NULL) {
-        $this->sma->checkPermissions('index', TRUE);
+        $this->sma->checkPermissions('manpower_requisition', TRUE);
 
         $pr_details = $this->hr_model->getMRById($id);
         if (!$id || !$pr_details) {
@@ -297,6 +302,17 @@ class Hrms extends  MY_Controller
         $this->data['companies'] = $this->hr_model->getCompanyById($pr_details->company_id);
         $this->data['designations'] = $this->hr_model->getDesignationById($pr_details->designation_id);
         $this->load->view($this->theme . 'hr/modal_manpower_requisition', $this->data);
+    }
+
+    function getApproveCustomer($userList,$approveId){
+        $userDetails=null;
+        foreach ($userList as $user){
+            if($approveId == $user->id) {
+                $userDetails=$user;
+                break;
+            }
+        }
+        return $userDetails;
     }
 
 }
