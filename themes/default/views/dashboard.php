@@ -34,8 +34,8 @@ function row_status($x)
                                     <div class="small-box padding1010 bpurple">
                                         <h4 class="bold"><?= lang('Manpower_Requisition') ?></h4>
                                         <i class="fa fa-star"></i>
-                                        <div>
-                                        <a href="#" style="text-align: center;font-size: 20px;"><?= $total_mr->total;?></a></div>
+                                        <div style="cursor: pointer;">
+                                        <a href="#" style="text-align: center;font-size: 20px;"><?php echo ($total_mr->total < 10 ? '0'.$total_mr->total : $total_mr->total);?></a></div>
                                     </div>
                                 </div>
                             <?php } ?>
