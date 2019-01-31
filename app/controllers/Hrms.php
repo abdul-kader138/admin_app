@@ -116,6 +116,8 @@ class Hrms extends  MY_Controller
                 'approver_seq' => $approver_details->approver_seq,
                 'approver_seq_name' => $approver_details->approver_seq_name,
                 'created_by' => $this->session->userdata('user_id'),
+                'interface_name' => $approver_details->interface_name,
+                'next_approve_seq' => $approver_details->approver_next_seq,
                 'created_date' => date("Y-m-d H:i:s")
             );
 
@@ -152,7 +154,7 @@ class Hrms extends  MY_Controller
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
                 'status' => 'Waiting For Approval-' . $user_details->username,
-                'next_approve_by' => $approver_details->approver_id,
+                'next_approve_seq' => $approver_details->approver_next_seq,
                 'other_info' => $this->input->post('other_info')
             );
         }

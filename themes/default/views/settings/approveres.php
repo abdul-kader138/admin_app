@@ -14,13 +14,14 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"bSortable": false, "mRender": checkbox}, null,{"mRender": interface_name},null, null,null, {"bSortable": false}]
+            "aoColumns": [{"bSortable": false, "mRender": checkbox}, null,{"mRender": interface_name},null, null,null, null,{"bSortable": false}]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Approver_Name');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('Interface_name');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('Approver_SL');?>]", filter_type: "text", data: []},
             {column_number: 4, filter_default_label: "[<?=lang('Company_Name');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('category_name');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Category_name');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('Approver_Type');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 
@@ -79,7 +80,8 @@
                             <th><?= lang("Interface_name"); ?></th>
                             <th><?= lang("Approver_SL"); ?></th>
                             <th><?= lang("Company_Name"); ?></th>
-                            <th><?= lang("category_name"); ?></th>
+                            <th><?= lang("Category_name"); ?></th>
+                            <th><?= lang("Approver_Type"); ?></th>
                             <th style="width:100px;"><?= lang("actions"); ?></th>
                         </tr>
                         </thead>
@@ -96,6 +98,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th ></th>
                             <th ></th>
                             <th ></th>
                             <th style="width:85px;"><?= lang("actions"); ?></th>

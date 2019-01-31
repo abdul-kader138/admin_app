@@ -5232,7 +5232,7 @@ class system_settings extends MY_Controller
 
         $this->load->library('datatables');
         $this->datatables
-            ->select("{$this->db->dbprefix('approver_list')}.id as id, {$this->db->dbprefix('users')}.username, {$this->db->dbprefix('approver_list')}.interface_name,{$this->db->dbprefix('approver_list')}.approver_seq, {$this->db->dbprefix('company')}.name as c_name,{$this->db->dbprefix('categories')}.name", FALSE)
+            ->select("{$this->db->dbprefix('approver_list')}.id as id, {$this->db->dbprefix('users')}.username, {$this->db->dbprefix('approver_list')}.interface_name,{$this->db->dbprefix('approver_list')}.approver_seq, {$this->db->dbprefix('company')}.name as c_name,{$this->db->dbprefix('categories')}.name,{$this->db->dbprefix('approver_list')}.approver_seq_name", FALSE)
             ->from("approver_list")
             ->join("company", 'company.id=approver_list.company_id', 'left')
             ->join("users", 'users.id=approver_list.approver_id', 'left')
@@ -5256,6 +5256,7 @@ class system_settings extends MY_Controller
         $this->load->helper('security');
         $this->form_validation->set_rules('approver_id', lang("approver_id"), 'required');
         $this->form_validation->set_rules('approver_seq', lang("approver_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_next_seq', lang("approver_next_seq"), 'required|numeric');
         $this->form_validation->set_rules('approver_seq_name', lang("approver_seq_name"), 'required');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
         $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
@@ -5268,6 +5269,7 @@ class system_settings extends MY_Controller
                 'approver_seq_name' => $this->input->post('approver_seq_name'),
                 'company_id' => $this->input->post('company_id'),
                 'category_id' => $this->input->post('category_id'),
+                'approver_next_seq' => $this->input->post('approver_next_seq'),
                 'interface_name' => $this->input->post('interface_name'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
@@ -5305,6 +5307,7 @@ class system_settings extends MY_Controller
         $this->load->helper('security');
         $this->form_validation->set_rules('approver_id', lang("approver_id"), 'required');
         $this->form_validation->set_rules('approver_seq', lang("approver_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_next_seq', lang("approver_next_seq"), 'required|numeric');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
         $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
         $this->form_validation->set_rules('interface_name', lang("interface_name"), 'required');
@@ -5315,6 +5318,7 @@ class system_settings extends MY_Controller
             $data = array(
                 'approver_id' => $this->input->post('approver_id'),
                 'approver_seq' => $this->input->post('approver_seq'),
+                'approver_next_seq' => $this->input->post('approver_next_seq'),
                 'approver_seq_name' => $this->input->post('approver_seq_name'),
                 'company_id' => $this->input->post('company_id'),
                 'category_id' => $this->input->post('category_id'),

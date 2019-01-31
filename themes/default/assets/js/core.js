@@ -1084,6 +1084,12 @@ $(document).ready(function() {
         $('#myModal').modal('show');
         //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
+    // $('body').on('click', '.manpower_requisition_approval td:not(:first-child)', function() {
+    $('body').on('click', '.manpower_requisition_approval td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'hrms/modal_manpower_requisition/' + $(this).closest('tr').attr('id')});
+        $('#myModal').modal('show');
+    });
+
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {
             if(result == true) {
@@ -1162,6 +1168,14 @@ if(site.settings.auto_detect_barcode == 1) {
         });
     });
 }
+
+$(document).on('click', '.row_approve_status', function (e) {
+    e.preventDefault;
+    var id = $(this).attr('id');
+    $('#myModal').modal({remote: site.base_url + 'approval/update_status/' + id});
+    $('#myModal').modal('show');
+    return false;
+});
 $('.sortable_table tbody').sortable({
     containerSelector: 'tr'
 });

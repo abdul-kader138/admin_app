@@ -162,12 +162,12 @@
                     <div class="col-xs-12">
                         <div class="table-responsive">
                             <table class="table table-bordered">
+                                <thead>
+                                <th style="text-align: center;font-weight: bold;">Area Of Responsibilities</th>
+                                </thead>
                                 <tbody>
                                 <tr>
-                                    <td style="text-align: center;font-weight: bold;">Area Of Responsibilities</td>
-                                </tr>
-                                <tr>
-                                    <td><?= $document->areas_of_responsibility;?></td>
+                                    <td colspan="2"><?= $document->areas_of_responsibility;?></td>
                                 </tr>
                                 </tbody>
                             </table></div>
@@ -178,12 +178,12 @@
                     <div class="col-xs-12">
                         <div class="table-responsive">
                             <table class="table table-bordered">
+                                <thead>
+                                <th style="text-align: center;font-weight: bold;">Other Information</th>
+                                </thead>
                                 <tbody>
                                 <tr>
-                                    <td style="text-align: center; font-weight: bold;">Other Information</td>
-                                </tr>
-                                <tr>
-                                    <td><?= $document->other_info;?></td>
+                                    <td colspan="2"><?= $document->other_info;?></td>
                                 </tr>
                                 </tbody>
                             </table></div>
@@ -201,25 +201,27 @@
             <div class="buttons">
                 <div class="btn-group btn-group-justified">
                     <div class="btn-group">
-                        <a href="<?= site_url('document/pdf/' . $document->id) ?>" class="tip btn btn-primary" title="<?= lang('pdf') ?>">
+                        <a href="#" class="tip btn btn-info" title="<?= lang('pdf') ?>">
                             <i class="fa fa-download"></i>
                             <span class="hidden-sm hidden-xs"><?= lang('pdf') ?></span>
                         </a>
                     </div>
+                    <?php if($this->Owner || $this->Admin || $GP['hrms-edit_manpower_requisition']) { ?>
                     <div class="btn-group">
-                        <a href="<?= site_url('document/edit/' . $document->id) ?>" class="tip btn btn-warning tip" title="<?= lang('Edit_Document') ?>">
+                        <a href="<?= site_url('hrms/edit_manpower_requisition/' . $document->id) ?>" class="tip btn btn-warning tip" title="<?= lang('Edit_Manpower_Requisition') ?>">
                             <i class="fa fa-edit"></i>
                             <span class="hidden-sm hidden-xs"><?= lang('edit') ?></span>
                         </a>
-                    </div>
+                    </div><?php }?>
+                    <?php if($this->Owner || $this->Admin || $GP['hrms-delete_manpower_requisition']) { ?>
                     <div class="btn-group">
-                        <a href="#" class="tip btn btn-danger bpo" title="<b><?= lang("Delete_Document") ?></b>"
-                           data-content="<div style='width:150px;'><p><?= lang('r_u_sure') ?></p><a class='btn btn-danger' href='<?= site_url('document/delete/' . $document->id) ?>'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button></div>"
+                        <a href="#" class="tip btn btn-danger bpo" title="<b><?= lang("Delete_Manpower_Requisition") ?></b>"
+                           data-content="<div style='width:150px;'><p><?= lang('r_u_sure') ?></p><a class='btn btn-danger' href='<?= site_url('hrms/delete_manpower_requisition/' . $document->id) ?>'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button></div>"
                            data-html="true" data-placement="top">
                             <i class="fa fa-trash-o"></i>
                             <span class="hidden-sm hidden-xs"><?= lang('delete') ?></span>
                         </a>
-                    </div>
+                    </div><?php }?>
                 </div>
             </div>
             <script type="text/javascript">
@@ -230,13 +232,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.change_img').click(function(event) {
-            event.preventDefault();
-            var img_src = $(this).attr('href');
-            $('#pr-image').attr('src', img_src);
-            return false;
-        });
-    });
-</script>

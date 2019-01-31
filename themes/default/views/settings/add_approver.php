@@ -66,6 +66,11 @@
                     <?= form_input('approver_seq_name', set_value('approver_seq_name'), 'class="form-control" id="approver_seq_name" required="required"'); ?>
                 </div>
 
+                <div class="form-group">
+                    <?= lang('Next_Approver_SL', 'Next_Approver_SL'); ?>
+                    <?= form_input('approver_next_seq', set_value('approver_next_seq'), 'class="form-control" id="approver_next_seq" required="required"'); ?>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <?php echo form_submit('add_approver', lang('Add_Approver'), 'class="btn btn-primary"'); ?>

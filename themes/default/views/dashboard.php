@@ -35,7 +35,7 @@ function row_status($x)
                                         <h4 class="bold"><?= lang('Manpower_Requisition') ?></h4>
                                         <i class="fa fa-star"></i>
                                         <div style="cursor: pointer;">
-                                        <a href="#" style="text-align: center;font-size: 20px;"><?php echo ($total_mr->total < 10 ? '0'.$total_mr->total : $total_mr->total);?></a></div>
+                                        <a href="<?= site_url('approval/approval_list/manpower_requisition'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_mr->total < 10 && $total_mr->total > 0 ) ? '0'.$total_mr->total : $total_mr->total);?></a></div>
                                     </div>
                                 </div>
                             <?php } ?>
