@@ -199,7 +199,7 @@ class Employees_model extends CI_Model
             ->join('company', 'employees.company_id=company.id', 'left')
             ->join('operators', 'employees.operator_id=operators.id', 'left')
             ->join('packages', 'employees.package_id=packages.id', 'left')
-            ->join('designations', 'employees.id=designations.id', 'left')
+            ->join('designations', 'employees.designation_id=designations.id', 'left')
             ->group_by('employees.id')
             ->order_by('id', 'asc');
 

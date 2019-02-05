@@ -117,7 +117,8 @@ class Approval extends MY_Controller
                 'approve_status' => 1,
                 'updated_by' => $this->session->userdata('user_id'),
                 'status' => 'Approved',
-                'updated_date' => date("Y-m-d H:i:s")
+                'updated_date' => date("Y-m-d H:i:s"),
+                'comments'=>$note
             );
             // update requisition
             $info_update = array(
@@ -138,13 +139,14 @@ class Approval extends MY_Controller
                 // if fount next level
                 $approve_details_new = $getNextApproval['approve_data']; // insert
                 $info_update['status'] = $getNextApproval['status'];
-                $info_update['next_approve_seq'] = $getNextApproval['approve_data']->aprrove_id;
+                $info_update['next_approve_seq'] = $approve_details_new['next_approve_seq'];
                 $info_new = $info_update;                                       // update
 
             } else {
                 // if not fount next level
                 $approve_details_new = null;
                 $info_close['next_approve_seq'] =0;
+                $info_close['status'] ='Approved';
                 $info_new = $info_close;
             }
 
