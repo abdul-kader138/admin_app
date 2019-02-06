@@ -99,8 +99,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
+                                <?php $attributes = array ('class' => 'form-control input-tip','name' => 'number_required', 'id' => 'number_required','type'=>'number','required'=>'required');?>
                                 <?= lang("Number_Required", "Number_Required") . " <b> *</b>"; ?>
-                                <?php echo form_input('number_required', $document->number_required, 'class="form-control input-tip" id="number_required" required="required"'); ?>
+                                <?php echo form_input($attributes, $document->number_required); ?>
                             </div>
                         </div>
 
@@ -122,9 +123,15 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <th> <?php echo form_input('exp_min', $document->exp_min, 'class="form-control input-tip" id="exp_min" required="required"'); ?>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'exp_min', 'id' => 'exp_min','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes,  $document->exp_min); ?>
                                                 </th>
-                                                <th><?php echo form_input('exp_max', $document->exp_max, 'class="form-control input-tip" id="exp_max" required="required"'); ?></th>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'exp_max', 'id' => 'exp_max','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, $document->exp_max); ?>
+                                                </th>
+
                                             </tr>
 
                                             </tbody>
@@ -145,15 +152,20 @@
                                                class="table items table-striped table-bordered table-condensed table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Minimum'); ?></th>
-                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Maximum"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Minimum(Years)'); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Maximum(Years)"); ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <th> <?php echo form_input('age_min', $document->age_min, 'class="form-control input-tip" id="age_min" required="required"'); ?>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'age_min', 'id' => 'age_min','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, $document->age_min); ?>
                                                 </th>
-                                                <th><?php echo form_input('age_max', $document->age_max, 'class="form-control input-tip" id="age_max" required="required"'); ?></th>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'age_max', 'id' => 'age_max','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, $document->age_max); ?>
+                                                </th>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -179,9 +191,6 @@
                                        name="requirement" <?php echo(($document->rr == '1') ? "checked" : ""); ?>>
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Resignation') ?></label>
-<!--                                <div class="form-group"><label>Additional Note:</label>-->
-<!--                                    --><?php //echo form_input('rr_note', $document->rr_note, 'class="form-control input-tip" id="rr_note" required="required"'); ?>
-<!--                                </div>-->
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="rt" value="rt"
@@ -237,10 +246,9 @@
                                                class="table items table-striped table-bordered table-condensed table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang('Education'); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Skill"); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Minimum_Experience"); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Nature_Of_Experience"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Education'); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Skill"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Nature_Of_Experience"); ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -248,7 +256,6 @@
                                                 <th> <?php echo form_input('education', $document->education, 'class="form-control input-tip" id="education"'); ?>
                                                 </th>
                                                 <th><?php echo form_input('skill', $document->skill, 'class="form-control input-tip" id="skill"'); ?></th>
-                                                <th><?php echo form_input('minimum_experience', $document->minimum_experience, 'class="form-control input-tip" id="minimum_experience"'); ?></th>
                                                 <th><?php echo form_input('nature_experience', $document->nature_experience, 'class="form-control input-tip" id="nature_experience"'); ?></th>
                                             </tr>
                                             </tbody>
@@ -282,7 +289,17 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("No_oF_Reportees", "No_oF_Reportees") . " <b> *</b>"; ?>
-                                <?php echo form_input('no_of_reportees', $document->no_of_reportees, 'class="form-control input-tip" id="no_of_reportees" required="required" '); ?>
+                                <?php $attributes = array ('class' => 'form-control input-tip','name' => 'no_of_reportees', 'id' => 'no_of_reportees','type'=>'number','required'=>'required');?>
+                                <?php echo form_input($attributes, $document->no_of_reportees); ?>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Gender", "Gender") . "<b> *</b>"; ?>
+                                <?php $sst = array('Male' => lang('Male'), 'Female' => lang('Female'));
+                                echo form_dropdown('gender', $sst,$document->gender, 'class="form-control input-tip" required="required" id="gender" style="width:100%"'); ?>
+
                             </div>
                         </div>
                         <div class="clearfix"></div>

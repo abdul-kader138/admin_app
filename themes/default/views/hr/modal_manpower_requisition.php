@@ -71,6 +71,10 @@
                                     <td style="width: 30%"><b><?= lang("No_Of_Reportees"); ?>:</b></td>
                                     <td style="width: 70%"><?= $document->no_of_reportees;?></td>
                                 </tr>
+                                <tr>
+                                    <td style="width: 30%"><b><?= lang("Gender"); ?>:</b></td>
+                                    <td style="width: 70%"><?= $document->gender; ?></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -80,19 +84,19 @@
                             <table class="table table-borderless table-striped">
                                 <tbody>
                                 <tr>
-                                    <td style="width: 50%"><b><?= lang("Required_Experience_(Min)"); ?>:</b></td>
+                                    <td style="width: 50%"><b><?= lang("Required_Experience_(Min Years)"); ?>:</b></td>
                                     <td style="width: 50%"><?=$document->exp_min; ?></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 50%" ><b><?= lang("Required_Experience_(Max)"); ?>:</b></td>
+                                    <td style="width: 50%" ><b><?= lang("Required_Experience_(Max Years)"); ?>:</b></td>
                                     <td style="width: 50%" ><?= $document->exp_max; ?></td>
                                 </tr>
                                 <tr>
-                                    <td style="5width: 50%"><b><?= lang("Age_Limit_(Min)"); ?>:</b></td>
+                                    <td style="5width: 50%"><b><?= lang("Age_Limit_(Min Years)"); ?>:</b></td>
                                     <td style="width: 50%"><?= $document->age_min; ?></td>
                                 </tr>
                                 <tr>
-                                    <td ><b><?= lang("Age_Limit_(Max)"); ?>:</b></td>
+                                    <td ><b><?= lang("Age_Limit_(Max Years)"); ?>:</b></td>
                                     <td ><?= $document->age_max;?></td>
                                 </tr>
                                 <tr>
@@ -113,7 +117,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Time_Limit_For_Filling_Position"); ?>:</b></td>
-                                    <td style="width: 70%"><?= $document->case_no;?></td>
+                                    <td style="width: 70%"><?= $document->time_limit;?></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Status"); ?>:</b></td>
@@ -137,17 +141,15 @@
                                        class="table items table-striped table-bordered table-condensed table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="col-md-3 col-sm-3 col-xs-3"><?= lang('Education'); ?></th>
-                                        <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Skill"); ?></th>
-                                        <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Minimum_Experience"); ?></th>
-                                        <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Nature_Of_Experience"); ?></th>
+                                        <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Education'); ?></th>
+                                        <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Skill"); ?></th>
+                                        <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Nature_Of_Experience"); ?></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <th style="font-weight: normal;"> <?php echo $document->education;?> </th>
                                         <th style="font-weight: normal;"> <?php echo $document->skill;?> </th>
-                                        <th style="font-weight: normal;"> <?php echo $document->minimum_experience;?> </th>
                                         <th style="font-weight: normal;"> <?php echo $document->nature_experience;?> </th>
                                     </tr>
                                     </tbody>
@@ -190,18 +192,11 @@
                     </div>
                     <div class="clearfix"></div>
                 <?php }?>
-
-                <div class="col-xs-12">
-
-                    <?= $product->details ? '<div class="panel panel-success"><div class="panel-heading">' . lang('product_details_for_invoice') . '</div><div class="panel-body">' . $product->details . '</div></div>' : ''; ?>
-                    <?= $product->product_details ? '<div class="panel panel-primary"><div class="panel-heading">' . lang('product_details') . '</div><div class="panel-body">' . $product->product_details . '</div></div>' : ''; ?>
-
-                </div>
             </div>
             <div class="buttons">
                 <div class="btn-group btn-group-justified">
                     <div class="btn-group">
-                        <a href="#" class="tip btn btn-info" title="<?= lang('pdf') ?>">
+                        <a href="<?= site_url('hrms/pdf/' . $document->id) ?>" class="tip btn btn-info" title="<?= lang('pdf') ?>">
                             <i class="fa fa-download"></i>
                             <span class="hidden-sm hidden-xs"><?= lang('pdf') ?></span>
                         </a>

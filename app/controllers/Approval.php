@@ -111,7 +111,7 @@ class Approval extends MY_Controller
             $approve_details_previous = null;
             $info_new = null;
 //        if ($this->form_validation->run() == true && $this->sales_model->updateStatus($id, $status, $note)) {
-            $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date);
+            $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date,$info->application_id);
             // update current approval details
             $previous_approve_data = array(
                 'approve_status' => 1,
@@ -164,7 +164,7 @@ class Approval extends MY_Controller
     }
 
 
-    function getNextApproval($next_id, $table_naame,$created_by,$created_date)
+    function getNextApproval($next_id, $table_naame,$created_by,$created_date,$application_id)
     {
         $userLists = $this->site->getAllUser();
         $info_details= $this->approval_model->getNextApprovals($next_id, $table_naame);
@@ -179,6 +179,7 @@ class Approval extends MY_Controller
             'created_by' => $created_by,
             'interface_name' => $info_details->interface_name,
             'next_approve_seq' => $info_details->approver_next_seq,
+            'application_id' => $application_id,
             'created_date' => $created_date
         );
 

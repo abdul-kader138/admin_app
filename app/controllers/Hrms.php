@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-class Hrms extends  MY_Controller
+
+class Hrms extends MY_Controller
 {
 
     function __construct()
@@ -62,7 +63,7 @@ class Hrms extends  MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref,". $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') .".organization_type,". $this->db->dbprefix('manpower_requisition') . ".number_required,". $this->db->dbprefix('manpower_requisition') . ".status")
+            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref," . $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') . ".organization_type," . $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".status")
             ->from("manpower_requisition")
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')
@@ -76,9 +77,9 @@ class Hrms extends  MY_Controller
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
             if ((!$get_permission['hrms-add_manpower_requisition'])) {
-            $this->session->set_flashdata('warning', lang('access_denied'));
-            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
-            redirect($_SERVER["HTTP_REFERER"]);
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
             }
         }
 
@@ -90,25 +91,25 @@ class Hrms extends  MY_Controller
         $this->form_validation->set_rules('designation_id', lang("designation_id"), 'trim|required');
         $this->form_validation->set_rules('position', lang("position"), 'trim|required');
         $this->form_validation->set_rules('organization_type', lang("organization_type"), 'trim|required');
-        $this->form_validation->set_rules('number_required', lang("number_required"), 'trim|required');
-        $this->form_validation->set_rules('exp_min', lang("exp_min"), 'trim|required');
-        $this->form_validation->set_rules('exp_max', lang("exp_max"), 'trim|required');
-        $this->form_validation->set_rules('age_min', lang("age_min"), 'trim|required');
-        $this->form_validation->set_rules('age_max', lang("age_max"), 'trim|required');
+        $this->form_validation->set_rules('number_required', lang("number_required"), 'trim|required|numeric');
+        $this->form_validation->set_rules('exp_min', lang("exp_min"), 'trim|required|numeric');
+        $this->form_validation->set_rules('exp_max', lang("exp_max"), 'trim|required|numeric');
+        $this->form_validation->set_rules('age_min', lang("age_min"), 'trim|required|numeric');
+        $this->form_validation->set_rules('age_max', lang("age_max"), 'trim|required|numeric');
         $this->form_validation->set_rules('mb_year', lang("mb_year"), 'trim|required');
+        $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
+//        $this->form_validation->set_rules('requisition_reason', lang("requisition_reason"), 'trim');
         $this->form_validation->set_rules('education', lang("education"), 'trim|required');
         $this->form_validation->set_rules('skill', lang("skill"), 'trim|required');
-        $this->form_validation->set_rules('minimum_experience', lang("minimum_experience"), 'trim|required');
         $this->form_validation->set_rules('nature_experience', lang("nature_experience"), 'trim|required');
         $this->form_validation->set_rules('areas_of_responsibility', lang("areas_of_responsibility"), 'trim|required');
         $this->form_validation->set_rules('reporting_to', lang("reporting_to"), 'trim|required');
-        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required');
+        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required|numeric');
         if ($this->form_validation->run() == true) {
-
             $userLists = $this->site->getAllUser();
             $approver_details = $this->site->getApproverList('add_manpower_requisition');
-            $user_details = $this->getApproveCustomer($userLists,$approver_details->approver_id);
-            $reason=$this->input->post('requirement');
+            $reason = $this->input->post('requirement');
+            $user_details = $this->getApproveCustomer($userLists, $approver_details->approver_id);
             $approve_data = array(
                 'aprrover_id' => $approver_details->approver_id,
                 'status' => 'Waiting For Approval-' . $user_details->username,
@@ -136,17 +137,16 @@ class Hrms extends  MY_Controller
                 'exp_max' => $this->input->post('exp_max'),
                 'age_min' => $this->input->post('age_min'),
                 'age_max' => $this->input->post('age_max'),
-                'ap' => (($reason =='ap') ? 1 :0),
-                'rr' => (($reason =='rr') ? 1 :0),
-                'rt' => (($reason =='rt') ? 1 :0),
-                'rp' => (($reason =='rp') ? 1 :0),
-                'rtr' => (($reason =='rtr') ? 1 :0),
+                'ap' => (($reason == 'ap') ? 1 : 0),
+                'rr' => (($reason == 'rr') ? 1 : 0),
+                'rt' => (($reason == 'rt') ? 1 : 0),
+                'rp' => (($reason == 'rp') ? 1 : 0),
+                'rtr' => (($reason == 'rtr') ? 1 : 0),
                 'mb_year' => $this->input->post('mb_year'),
                 'reason_ap' => $this->input->post('reason_ap'),
                 'time_limit' => $this->input->post('time_limit'),
                 'education' => $this->input->post('education'),
                 'skill' => $this->input->post('skill'),
-                'minimum_experience' => $this->input->post('minimum_experience'),
                 'nature_experience' => $this->input->post('nature_experience'),
                 'areas_of_responsibility' => $this->input->post('areas_of_responsibility'),
                 'reporting_to' => $this->input->post('reporting_to'),
@@ -155,20 +155,19 @@ class Hrms extends  MY_Controller
                 'created_date' => date("Y-m-d H:i:s"),
                 'status' => 'Waiting For Approval-' . $user_details->username,
                 'next_approve_seq' => $approver_details->approver_next_seq,
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+                'gender' => $this->input->post('gender')
+//                'requisition_reason' => $this->input->post('requisition_reason')
             );
         }
 
-        if ($this->form_validation->run() == true && $this->hr_model->addMR($data,$approve_data)) {
+        if ($this->form_validation->run() == true && $this->hr_model->addMR($data, $approve_data)) {
             $this->session->set_flashdata('message', "Information Successfully added.");
             redirect("hrms/manpower_requisition");
-
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
-
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['designations'] = $this->site->getAllDesignation();
-
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('hrms'), 'page' => lang('HR')), array('link' => '#', 'page' => lang('Add_Manpower_Requisition')));
             $meta = array('page_title' => lang('Add_Manpower_Requisition'), 'bc' => $bc);
             $this->page_construct('hr/add_manpower_requisition', $meta, $this->data);
@@ -199,23 +198,24 @@ class Hrms extends  MY_Controller
         $this->form_validation->set_rules('designation_id', lang("designation_id"), 'trim|required');
         $this->form_validation->set_rules('position', lang("position"), 'trim|required');
         $this->form_validation->set_rules('organization_type', lang("organization_type"), 'trim|required');
-        $this->form_validation->set_rules('number_required', lang("number_required"), 'trim|required');
-        $this->form_validation->set_rules('exp_min', lang("exp_min"), 'trim|required');
-        $this->form_validation->set_rules('exp_max', lang("exp_max"), 'trim|required');
-        $this->form_validation->set_rules('age_min', lang("age_min"), 'trim|required');
-        $this->form_validation->set_rules('age_max', lang("age_max"), 'trim|required');
-        $this->form_validation->set_rules('mb_year', lang("mb_year"), 'trim|required');
+        $this->form_validation->set_rules('number_required', lang("number_required"), 'trim|required|numeric');
+        $this->form_validation->set_rules('exp_min', lang("exp_min"), 'trim|required|numeric');
+        $this->form_validation->set_rules('exp_max', lang("exp_max"), 'trim|required|numeric');
+        $this->form_validation->set_rules('age_min', lang("age_min"), 'trim|required|numeric');
+        $this->form_validation->set_rules('age_max', lang("age_max"), 'trim|required|numeric');
+        $this->form_validation->set_rules('mb_year', lang("mb_year"), 'trim|required|numeric');
         $this->form_validation->set_rules('education', lang("education"), 'trim|required');
+        $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
+//        $this->form_validation->set_rules('requisition_reason', lang("gender"), 'trim');
         $this->form_validation->set_rules('skill', lang("skill"), 'trim|required');
-        $this->form_validation->set_rules('minimum_experience', lang("minimum_experience"), 'trim|required');
         $this->form_validation->set_rules('nature_experience', lang("nature_experience"), 'trim|required');
         $this->form_validation->set_rules('areas_of_responsibility', lang("areas_of_responsibility"), 'trim|required');
         $this->form_validation->set_rules('reporting_to', lang("reporting_to"), 'trim|required');
-        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required');
+        $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required|numeric');
 
         if ($this->form_validation->run() == true) {
-            $reason=$this->input->post('requirement');
-            $reason1=$this->input->post('requirement');
+            $reason = $this->input->post('requirement');
+            $reason1 = $this->input->post('requirement');
             $data = array(
                 'workstation' => requirement,
                 'requisition_date' => $this->sma->fld($this->input->post('requisition_date')),
@@ -231,24 +231,25 @@ class Hrms extends  MY_Controller
                 'exp_max' => $this->input->post('exp_max'),
                 'age_min' => $this->input->post('age_min'),
                 'age_max' => $this->input->post('age_max'),
-                'ap' => (($reason =='ap') ? 1 :0),
-                'rr' => (($reason =='rr') ? 1 :0),
-                'rt' => (($reason =='rt') ? 1 :0),
-                'rp' => (($reason =='rp') ? 1 :0),
-                'rtr' => (($reason =='rtr') ? 1 :0),
+                'ap' => (($reason == 'ap') ? 1 : 0),
+                'rr' => (($reason == 'rr') ? 1 : 0),
+                'rt' => (($reason == 'rt') ? 1 : 0),
+                'rp' => (($reason == 'rp') ? 1 : 0),
+                'rtr' => (($reason == 'rtr') ? 1 : 0),
                 'mb_year' => $this->input->post('mb_year'),
                 'reason_ap' => $this->input->post('reason_ap'),
                 'time_limit' => $this->input->post('time_limit'),
                 'education' => $this->input->post('education'),
                 'skill' => $this->input->post('skill'),
-                'minimum_experience' => $this->input->post('minimum_experience'),
                 'nature_experience' => $this->input->post('nature_experience'),
                 'areas_of_responsibility' => $this->input->post('areas_of_responsibility'),
                 'reporting_to' => $this->input->post('reporting_to'),
                 'no_of_reportees' => $this->input->post('no_of_reportees'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+                'gender' => $this->input->post('gender')
+//                'requisition_reason' => $this->input->post('requisition_reason')
             );
         }
 
@@ -291,7 +292,8 @@ class Hrms extends  MY_Controller
         }
     }
 
-    function modal_manpower_requisition($id = NULL) {
+    function modal_manpower_requisition($id = NULL)
+    {
         $this->sma->checkPermissions('manpower_requisition', TRUE);
 
         $pr_details = $this->hr_model->getMRById($id);
@@ -300,21 +302,74 @@ class Hrms extends  MY_Controller
             $this->sma->md();
         }
         $this->data['document'] = $pr_details;
-        $this->data['unit'] = "Decimal";
         $this->data['companies'] = $this->hr_model->getCompanyById($pr_details->company_id);
         $this->data['designations'] = $this->hr_model->getDesignationById($pr_details->designation_id);
         $this->load->view($this->theme . 'hr/modal_manpower_requisition', $this->data);
     }
 
-    function getApproveCustomer($userList,$approveId){
-        $userDetails=null;
-        foreach ($userList as $user){
-            if($approveId == $user->id) {
-                $userDetails=$user;
+    function getApproveCustomer($userList, $approveId)
+    {
+        $userDetails = null;
+        foreach ($userList as $user) {
+            if ($approveId == $user->id) {
+                $userDetails = $user;
                 break;
             }
         }
         return $userDetails;
+    }
+
+
+    function pdf($id = NULL, $view = NULL)
+    {
+        $this->sma->checkPermissions('manpower_requisition', TRUE);
+
+        $mr_details = $this->hr_model->getMRById($id);
+        if (!$id || !$mr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+
+        $approversList = $this->hr_model->getApproversList('add_manpower_requisition');
+        $approversListDetails = $this->bulidApproverHistory($approversList, $mr_details->id, $mr_details->created_by);
+        $name = "Manpower_Requisition_" . $mr_details->name . ".pdf";
+        $this->data['document'] = $mr_details;
+        $this->data['companies'] = $this->hr_model->getCompanyById($mr_details->company_id);
+        $this->data['designations'] = $this->hr_model->getDesignationById($mr_details->designation_id);
+        $this->data['footer'] = $approversListDetails;
+        if ($view) {
+            $this->load->view($this->theme . 'hr/pdf', $this->data);
+        } else {
+            $html = $this->load->view($this->theme . 'hr/pdf', $this->data, TRUE);
+            $this->sma->generate_pdf($html, $name);
+        }
+    }
+
+    function bulidApproverHistory($approver_list, $application_id, $created_id)
+    {
+        $infoArray = array();
+        $created_history_c = $this->hr_model->getUsersByID($created_id);
+        $user_info = array(
+            'approver_type' => 'Created By',
+            'username' => $created_history_c->username
+        );
+        $infoArray[] = $user_info;
+        foreach ($approver_list as $approver) {
+            $username = "";
+            $approver_details = $this->hr_model->getApproverDetails($approver->approver_id, $application_id);
+
+            if ($approver_details)
+            {
+                $created_history = $this->hr_model->getUsersByID($approver_details->aprrover_id);
+                $username = $created_history->username;
+            }
+            $info = array(
+                'approver_type' => $approver->approver_seq_name,
+                'username' => $username
+            );
+            $infoArray[] = $info;
+        }
+        return $infoArray;
     }
 
 }

@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <?= lang('status', 'status'); ?>
                     <?php
-                    $opts = array('Completed' => lang('Completed'), 'Decline' => lang('Decline'));
+                    $opts = array('Completed' => lang('Completed'));
                     ?>
                     <?= form_dropdown('status', $opts, (isset($_POST['status']) ? $_POST['status'] : ""), 'class="form-control" id="status" required="required" style="width:100%;"'); ?>
                 </div>

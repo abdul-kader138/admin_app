@@ -36,10 +36,9 @@ class Approval_model extends CI_Model
     public function updateStatus($approve_details_new, $approve_details_previous, $info_new, $id,$application_id,$table_name)
     {
         $this->db->trans_strict(TRUE);
-        //$approve_details_new
         $this->db->trans_start();
         $this->db->where('id',$application_id);
-        $this->db->update('manpower_requisition', $info_new);
+        $this->db->update($table_name, $info_new);
         $this->db->where('id',$id);
         $this->db->update('approve_details', $approve_details_previous);
         if($approve_details_new) $this->db->insert('approve_details',$approve_details_new);

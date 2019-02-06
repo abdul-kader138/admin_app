@@ -72,7 +72,7 @@ class HR_model extends CI_Model
 
     public function getApproverList($name)
     {
-        $q = $this->db->get_where('approver_list', array('interface_name' => $name), 1);
+        $q = $this->db->get_where('approver_list', array('interface_name' => $name,'status'=>0), 1);
         $this->db->order_by('approver_seq', 'asc');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -90,5 +90,26 @@ class HR_model extends CI_Model
         return FALSE;
     }
 
+    public function getApproversList($interface_name) {
+        $this->db->where(array('interface_name' =>$interface_name,'status'=>0));
+        $q = $this->db->get("approver_list");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getApproverDetails($id,$application_id) {
+        $this->db->select('approve_details.*,users.username')
+            ->join('users', 'users.id=approve_details.aprrover_id', 'left');
+        $q = $this->db->get_where('approve_details', array('aprrover_id' =>$id,'application_id' =>$application_id,'approve_status'=>1));
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
 
 }

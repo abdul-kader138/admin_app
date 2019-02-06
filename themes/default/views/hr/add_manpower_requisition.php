@@ -3,6 +3,7 @@
     hr.line {
         border-top: 1px solid darkslategray;
     }
+
 </style>
 <div class="box">
     <div class="box-header">
@@ -96,8 +97,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
+                                <?php $attributes = array ('class' => 'form-control input-tip','name' => 'number_required', 'id' => 'number_required','type'=>'number','required'=>'required');?>
                                 <?= lang("Number_Required", "Number_Required") . " <b> *</b>"; ?>
-                                <?php echo form_input('number_required', (isset($_POST['number_required']) ? $_POST['number_required'] : ""), 'class="form-control input-tip" id="number_required" required="required"'); ?>
+                                <?php echo form_input($attributes, (isset($_POST['number_required']) ? $_POST['number_required'] : "")); ?>
                             </div>
                         </div>
 
@@ -119,9 +121,14 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <th> <?php echo form_input('exp_min', (isset($_POST['exp_min']) ? $_POST['exp_min'] : ""), 'class="form-control input-tip" id="exp_min" required="required"'); ?>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'exp_min', 'id' => 'exp_min','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, (isset($_POST['exp_min']) ? $_POST['exp_min'] : "")); ?>
                                                 </th>
-                                                <th><?php echo form_input('exp_max', (isset($_POST['exp_max']) ? $_POST['exp_max'] : ""), 'class="form-control input-tip" id="exp_max" required="required"'); ?></th>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'exp_max', 'id' => 'exp_max','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, (isset($_POST['exp_max']) ? $_POST['exp_max'] : "")); ?>
+                                                </th>
                                             </tr>
 
                                             </tbody>
@@ -142,15 +149,20 @@
                                                class="table items table-striped table-bordered table-condensed table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Minimum'); ?></th>
-                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Maximum"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Minimum(Years)'); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Maximum(Years)"); ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <th> <?php echo form_input('age_min', (isset($_POST['age_min']) ? $_POST['age_min'] : ""), 'class="form-control input-tip" id="age_min" required="required"'); ?>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'age_min', 'id' => 'age_min','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, (isset($_POST['age_min']) ? $_POST['age_min'] : "")); ?>
                                                 </th>
-                                                <th><?php echo form_input('age_max', (isset($_POST['age_max']) ? $_POST['age_max'] : ""), 'class="form-control input-tip" id="age_max" required="required"'); ?></th>
+                                                <th>
+                                                    <?php $attributes = array ('class' => 'form-control input-tip','name' => 'age_max', 'id' => 'age_max','type'=>'number','required'=>'required');?>
+                                                    <?php echo form_input($attributes, (isset($_POST['age_max']) ? $_POST['age_max'] : "")); ?>
+                                                </th>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -166,30 +178,30 @@
                                 for="combo"><b>Please choose the appropriate option for requirement:</b></H3>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="ap"
-                                       name="requirement" checked>
+                                       name="requirement" value="ap" checked>
                                 <label class="form-check-label"
                                        for="ap"><?= lang('Additional_Position') ?></label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="rr"
+                                <input type="radio" class="form-check-input" id="rr" value="rr"
                                        name="requirement">
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Resignation') ?></label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="rt"
+                                <input type="radio" class="form-check-input" id="rt" value="rt"
                                        name="requirement" >
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Termination') ?></label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="rp"
+                                <input type="radio" class="form-check-input" id="rp" value="rp"
                                        name="requirement">
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Promotion') ?></label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="rtr"
+                                <input type="radio" class="form-check-input" id="rtr" value="rtr"
                                        name="requirement">
                                 <label class="form-check-label"
                                        for="materialChecked"><?= lang('Replacement_Due_To_Transfer') ?></label>
@@ -229,10 +241,9 @@
                                                class="table items table-striped table-bordered table-condensed table-hover">
                                             <thead>
                                             <tr>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang('Education'); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Skill"); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Minimum_Experience"); ?></th>
-                                                <th class="col-md-3 col-sm-3 col-xs-3"><?= lang("Nature_Of_Experience"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang('Education'); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Skill"); ?></th>
+                                                <th class="col-md-4 col-sm-4 col-xs-4"><?= lang("Nature_Of_Experience"); ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -240,7 +251,6 @@
                                                 <th> <?php echo form_input('education', (isset($_POST['education']) ? $_POST['education'] : ""), 'class="form-control input-tip" id="education"'); ?>
                                                 </th>
                                                 <th><?php echo form_input('skill', (isset($_POST['skill']) ? $_POST['skill'] : ""), 'class="form-control input-tip" id="skill"'); ?></th>
-                                                <th><?php echo form_input('minimum_experience', (isset($_POST['minimum_experience']) ? $_POST['minimum_experience'] : ""), 'class="form-control input-tip" id="minimum_experience"'); ?></th>
                                                 <th><?php echo form_input('nature_experience', (isset($_POST['nature_experience']) ? $_POST['nature_experience'] : ""), 'class="form-control input-tip" id="nature_experience"'); ?></th>
                                             </tr>
                                             </tbody>
@@ -255,7 +265,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <?= lang("Areas_Of_Responsibility", "Areas_Of_Responsibility"); ?>
+                                        <?= lang("Areas_Of_Responsibility", "Areas_Of_Responsibility") . " <b> *</b>"; ?>
                                         <?php echo form_textarea('areas_of_responsibility', (isset($_POST['areas_of_responsibility']) ? $_POST['areas_of_responsibility'] : ""), 'class="form-control" id="areas_of_responsibility" required="required" style="margin-top: 10px; height: 100px;"'); ?>
                                     </div>
                                 </div>
@@ -274,7 +284,17 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("No_of_Reportees", "No_of_Reportees") . " <b> *</b>"; ?>
-                                <?php echo form_input('no_of_reportees', (isset($_POST['no_of_reportees']) ? $_POST['no_of_reportees'] : ""), 'class="form-control input-tip" id="no_of_reportees" required="required" '); ?>
+                                <?php $attributes = array ('class' => 'form-control input-tip','name' => 'no_of_reportees', 'id' => 'no_of_reportees','type'=>'number','required'=>'required');?>
+                                <?php echo form_input($attributes, (isset($_POST['no_of_reportees']) ? $_POST['no_of_reportees'] : "")); ?>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Gender", "Gender") . "<b> *</b>"; ?>
+                                <?php $sst = array('Male' => lang('Male'), 'Female' => lang('Female'));
+                                echo form_dropdown('gender', $sst, (isset($_POST['gender']) ? $_POST['gender'] : ""), 'class="form-control input-tip" required="required" id="gender" style="width:100%"'); ?>
+
                             </div>
                         </div>
                         <div class="clearfix"></div>
