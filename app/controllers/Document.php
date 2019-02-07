@@ -694,7 +694,7 @@ class Document extends MY_Controller
                 array_push($allowed_files, $_mime);
             }
         }
-        if ($this->Owner || $this->Admin || $current_users->document_path=='All') {
+        if ($this->Owner || $this->Admin || $current_users->document_path=='all') {
             $root_options = array(
                 'driver' => 'LocalFileSystem',
                 'path' => set_realpath('assets/uploads/docs'),
