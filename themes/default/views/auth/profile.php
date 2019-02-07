@@ -103,6 +103,12 @@
                                                     <input type="email" name="email" class="form-control" id="email"
                                                            value="<?= $user->email ?>" required="required"/>
                                                 </div>
+                                                <div class="form-group">
+                                                    <?php echo lang('Document_Path', 'Document_Path'); ?>
+
+                                                    <input type="document_path" name="document_path" class="form-control" id="document_path"
+                                                           value="<?= $user->document_path ?>" required="required"/>
+                                                </div>
                                                 <div class="row">
                                                     <div class="panel panel-warning">
                                                         <div

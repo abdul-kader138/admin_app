@@ -668,6 +668,8 @@ class Document extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
+        $current_users=$this->document_model->getUsersByID($this->session->userdata('user_id'));
+
         $this->load->helper('path');
         $_allowed_files = explode('|', $this->digital_file_types);
         $config_allowed_files = array();
@@ -692,11 +694,11 @@ class Document extends MY_Controller
                 array_push($allowed_files, $_mime);
             }
         }
-        if ($this->Owner || $this->Admin) {
+        if ($this->Owner || $this->Admin || $current_users->document_path=='All') {
             $root_options = array(
                 'driver' => 'LocalFileSystem',
-                'path' => set_realpath('assets/uploads/document'),
-                'URL' => site_url('assets/uploads/document/'),
+                'path' => set_realpath('assets/uploads/docs'),
+                'URL' => site_url('assets/uploads/docs/'),
                 'uploadMaxSize' => $this->allowed_file_size . 'M',
                 'accessControl' => 'access',
                 'uploadAllow' => array('application/pdf',
@@ -735,8 +737,8 @@ class Document extends MY_Controller
 
             $root_options = array(
                 'driver' => 'LocalFileSystem',
-                'path' => set_realpath('assets/uploads/document'),
-                'URL' => site_url('assets/uploads/document/'),
+                'path' => set_realpath('assets/uploads/docs/'.$current_users->document_path),
+                'URL' => site_url('assets/uploads/docs/'.$current_users->document_path.'/'),
                 'uploadMaxSize' => $this->allowed_file_size_new . 'M',
                 'accessControl' => 'access',
                 'uploadAllow' => array('application/pdf',

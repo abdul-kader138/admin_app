@@ -1,17 +1,2 @@
-CREATE TABLE `sma_approver_list` (
- `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
- `approver_id` int(11) NOT NULL,
- `approver_seq` tinyint(3) NOT NULL,
- `company_id` int(11) NOT NULL,
- `category_id` int(11) NOT NULL,
- `status` tinyint(1) DEFAULT NULL,
- `interface_name` varchar(150) NOT NULL,
- `created_by` int(11) unsigned DEFAULT NULL,
- `created_date` datetime DEFAULT NULL,
- `updated_by` int(11) unsigned DEFAULT NULL,
- `updated_date` datetime DEFAULT NULL,
- PRIMARY KEY (`id`),
- UNIQUE KEY `approver_id` (`approver_id`,`approver_seq`,`company_id`,`category_id`,`interface_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2338 DEFAULT CHARSET=utf8
 
-
+ALTER TABLE `sma_users` ADD `document_path` VARCHAR(100) NULL DEFAULT NULL AFTER `allow_discount`;

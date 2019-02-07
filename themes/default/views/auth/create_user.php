@@ -81,7 +81,13 @@
 
                         </div>
                         <div class="col-md-5 col-md-offset-1">
-
+                            <div class="form-group">
+                                <?php echo lang('Document_Path', 'Document_Path'); ?>
+                                <div class="controls">
+                                    <input type="text" id="document_path" name="document_path" class="form-control"
+                                           required="required"/>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <?= lang('status', 'status'); ?>
                                 <?php

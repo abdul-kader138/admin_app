@@ -103,7 +103,7 @@ class HR_model extends CI_Model
     }
 
     public function getApproverDetails($id,$application_id) {
-        $this->db->select('approve_details.*,users.username')
+        $this->db->select("approve_details.*,CONCAT({$this->db->dbprefix('users')}.first_name, ' ', {$this->db->dbprefix('users')}.last_name) as username", false)
             ->join('users', 'users.id=approve_details.aprrover_id', 'left');
         $q = $this->db->get_where('approve_details', array('aprrover_id' =>$id,'application_id' =>$application_id,'approve_status'=>1));
         if ($q->num_rows() > 0) {

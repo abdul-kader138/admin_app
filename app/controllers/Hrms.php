@@ -28,6 +28,8 @@ class Hrms extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
+
+
         $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('HR')));
@@ -45,6 +47,8 @@ class Hrms extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
+        $current_users=$this->hr_model->getUsersByID($this->session->userdata('user_id'));
+
         $edit_link = "";
         $delete_link = "";
         if ($get_permission['hrms-edit_manpower_requisition'] || $this->Owner || $this->Admin) $edit_link = anchor('hrms/edit_manpower_requisition/$1', '<i class="fa fa-edit"></i> ' . lang('edit'), 'class="sledit"');
@@ -67,8 +71,12 @@ class Hrms extends MY_Controller
             ->from("manpower_requisition")
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')
-            ->group_by('manpower_requisition.id')
-            ->add_column("Actions", $action, "id");
+            ->group_by('manpower_requisition.id');
+        if (!$this->Owner && !$this->Admin && $current_users->view_right=='0')
+        {
+            $this->datatables->where('manpower_requisition.created_by',$this->session->userdata('user_id'));
+        }
+            $this->datatables->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
     }
 
@@ -245,8 +253,8 @@ class Hrms extends MY_Controller
                 'areas_of_responsibility' => $this->input->post('areas_of_responsibility'),
                 'reporting_to' => $this->input->post('reporting_to'),
                 'no_of_reportees' => $this->input->post('no_of_reportees'),
-                'created_by' => $this->session->userdata('user_id'),
-                'created_date' => date("Y-m-d H:i:s"),
+                'updated_by' => $this->session->userdata('user_id'),
+                'updated_date' => date("Y-m-d H:i:s"),
                 'other_info' => $this->input->post('other_info'),
                 'gender' => $this->input->post('gender')
 //                'requisition_reason' => $this->input->post('requisition_reason')
@@ -351,7 +359,7 @@ class Hrms extends MY_Controller
         $created_history_c = $this->hr_model->getUsersByID($created_id);
         $user_info = array(
             'approver_type' => 'Created By',
-            'username' => $created_history_c->username
+            'username' => $created_history_c->first_name." ".$created_history_c->last_name
         );
         $infoArray[] = $user_info;
         foreach ($approver_list as $approver) {
@@ -361,7 +369,7 @@ class Hrms extends MY_Controller
             if ($approver_details)
             {
                 $created_history = $this->hr_model->getUsersByID($approver_details->aprrover_id);
-                $username = $created_history->username;
+                $username = $created_history->first_name." ".$created_history->last_name;
             }
             $info = array(
                 'approver_type' => $approver->approver_seq_name,

@@ -126,4 +126,14 @@ class Document_model extends CI_Model
         }
         return FALSE;
     }
+
+    public function getUsersByID($id)
+    {
+        $q = $this->db->get_where('users', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
 } 

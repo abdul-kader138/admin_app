@@ -169,7 +169,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td colspan="2"><?= $document->areas_of_responsibility;?></td>
+                                    <td colspan="2"><?= $this->sma->decode_html($document->areas_of_responsibility);?></td>
                                 </tr>
                                 </tbody>
                             </table></div>

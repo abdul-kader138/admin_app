@@ -542,6 +542,7 @@ class Auth extends MY_Controller
                 'warehouse_id' => $this->input->post('warehouse'),
                 'view_right' => $this->input->post('view_right'),
                 'edit_right' => $this->input->post('edit_right'),
+                'document_path' => $this->input->post('document_path'),
                 'allow_discount' => $this->input->post('allow_discount'),
             );
             $active = $this->input->post('status');
@@ -620,6 +621,7 @@ class Auth extends MY_Controller
                         'award_points' => $this->input->post('award_points'),
                         'view_right' => $this->input->post('view_right'),
                         'edit_right' => $this->input->post('edit_right'),
+                        'document_path' => $this->input->post('document_path'),
                         'allow_discount' => $this->input->post('allow_discount'),
                     );
                 }

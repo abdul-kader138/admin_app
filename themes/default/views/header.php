@@ -925,7 +925,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] ||
+    <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] || $GP['document-file_manager'] ||
         $GP['document-delete']
     ) {
         ?>
