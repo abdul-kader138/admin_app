@@ -384,12 +384,6 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('Add_Manpower_Requisition'); ?></span>
                 </a>
             </li>
-            <li id="guard_bill_add">
-                <a class="submenu" href="<?= site_url('guard/weight_upload'); ?>">
-                    <i class="fa fa-upload"></i><span
-                            class="text"> <?= lang('weight_upload'); ?></span>
-                </a>
-            </li>
         </ul>
     </li>
 
@@ -413,48 +407,7 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('new_user'); ?></span>
                     </a>
                 </li>
-
-                <li id="billers_index">
-                    <a class="submenu" href="<?= site_url('billers'); ?>">
-                        <i class="fa fa-users"></i><span
-                            class="text"> <?= lang('list_billers'); ?></span>
-                    </a>
-                </li>
-                <li id="billers_index">
-                    <a class="submenu" href="<?= site_url('billers/add'); ?>"
-                       data-toggle="modal"
-                       data-target="#myModal">
-                        <i class="fa fa-plus-circle"></i><span
-                            class="text"> <?= lang('add_biller'); ?></span>
-                    </a>
-                </li>
             <?php } ?>
-            <li id="customers_index">
-                <a class="submenu" href="<?= site_url('customers'); ?>">
-                    <i class="fa fa-users"></i><span
-                        class="text"> <?= lang('list_customers'); ?></span>
-                </a>
-            </li>
-            <li id="customers_index">
-                <a class="submenu" href="<?= site_url('customers/add'); ?>"
-                   data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-plus-circle"></i><span
-                        class="text"> <?= lang('add_customer'); ?></span>
-                </a>
-            </li>
-            <li id="suppliers_index">
-                <a class="submenu" href="<?= site_url('suppliers'); ?>">
-                    <i class="fa fa-users"></i><span
-                        class="text"> <?= lang('list_suppliers'); ?></span>
-                </a>
-            </li>
-            <li id="suppliers_index">
-                <a class="submenu" href="<?= site_url('suppliers/add'); ?>"
-                   data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-plus-circle"></i><span
-                        class="text"> <?= lang('add_supplier'); ?></span>
-                </a>
-            </li>
         </ul>
     </li>
     <li class="mm_notifications">
@@ -581,154 +534,6 @@ if ($Owner || $Admin) {
             <span class="chevron closed"></span>
         </a>
         <ul>
-            <li id="reports_index">
-                <a href="<?= site_url('reports') ?>">
-                    <i class="fa fa-bars"></i><span
-                        class="text"> <?= lang('overview_chart'); ?></span>
-                </a>
-            </li>
-            <li id="reports_warehouse_stock">
-                <a href="<?= site_url('reports/warehouse_stock') ?>">
-                    <i class="fa fa-building"></i><span
-                        class="text"> <?= lang('warehouse_stock'); ?></span>
-                </a>
-            </li>
-            <li id="reports_best_sellers">
-                <a href="<?= site_url('reports/best_sellers') ?>">
-                    <i class="fa fa-line-chart"></i><span
-                        class="text"> <?= lang('best_sellers'); ?></span>
-                </a>
-            </li>
-            <?php if (POS) { ?>
-                <li id="reports_register">
-                    <a href="<?= site_url('reports/register') ?>">
-                        <i class="fa fa-th-large"></i><span
-                            class="text"> <?= lang('register_report'); ?></span>
-                    </a>
-                </li>
-            <?php } ?>
-            <li id="reports_quantity_alerts">
-                <a href="<?= site_url('reports/quantity_alerts') ?>">
-                    <i class="fa fa-bar-chart-o"></i><span
-                        class="text"> <?= lang('product_quantity_alerts'); ?></span>
-                </a>
-            </li>
-            <?php if ($Settings->product_expiry) { ?>
-                <li id="reports_expiry_alerts">
-                    <a href="<?= site_url('reports/expiry_alerts') ?>">
-                        <i class="fa fa-bar-chart-o"></i><span
-                            class="text"> <?= lang('product_expiry_alerts'); ?></span>
-                    </a>
-                </li>
-            <?php } ?>
-            <li id="reports_products">
-                <a href="<?= site_url('reports/products') ?>">
-                    <i class="fa fa-barcode"></i><span
-                        class="text"> <?= lang('products_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_adjustments">
-                <a href="<?= site_url('reports/adjustments') ?>">
-                    <i class="fa fa-filter"></i><span
-                        class="text"> <?= lang('adjustments_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_categories">
-                <a href="<?= site_url('reports/categories') ?>">
-                    <i class="fa fa-folder-open"></i><span
-                        class="text"> <?= lang('categories_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_brands">
-                <a href="<?= site_url('reports/brands') ?>">
-                    <i class="fa fa-cubes"></i><span
-                        class="text"> <?= lang('brands_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_daily_sales">
-                <a href="<?= site_url('reports/daily_sales') ?>">
-                    <i class="fa fa-calendar"></i><span
-                        class="text"> <?= lang('daily_sales'); ?></span>
-                </a>
-            </li>
-            <li id="reports_monthly_sales">
-                <a href="<?= site_url('reports/monthly_sales') ?>">
-                    <i class="fa fa-calendar"></i><span
-                        class="text"> <?= lang('monthly_sales'); ?></span>
-                </a>
-            </li>
-            <li id="reports_sales">
-                <a href="<?= site_url('reports/sales') ?>">
-                    <i class="fa fa-heart"></i><span
-                        class="text"> <?= lang('sales_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_sales_margin">
-                <a href="<?= site_url('reports/sales_margin') ?>">
-                    <i class="fa fa-heart"></i><span
-                        class="text"> <?= lang('sales_margin_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_payments">
-                <a href="<?= site_url('reports/payments') ?>">
-                    <i class="fa fa-money"></i><span
-                        class="text"> <?= lang('payments_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_profit_loss">
-                <a href="<?= site_url('reports/profit_loss') ?>">
-                    <i class="fa fa-money"></i><span
-                        class="text"> <?= lang('profit_and_loss'); ?></span>
-                </a>
-            </li>
-            <li id="reports_daily_purchases">
-                <a href="<?= site_url('reports/daily_purchases') ?>">
-                    <i class="fa fa-calendar"></i><span
-                        class="text"> <?= lang('daily_purchases'); ?></span>
-                </a>
-            </li>
-            <li id="reports_monthly_purchases">
-                <a href="<?= site_url('reports/monthly_purchases') ?>">
-                    <i class="fa fa-calendar"></i><span
-                        class="text"> <?= lang('monthly_purchases'); ?></span>
-                </a>
-            </li>
-            <li id="reports_purchases">
-                <a href="<?= site_url('reports/purchases') ?>">
-                    <i class="fa fa-star"></i><span
-                        class="text"> <?= lang('purchases_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_expenses">
-                <a href="<?= site_url('reports/expenses') ?>">
-                    <i class="fa fa-star"></i><span
-                        class="text"> <?= lang('expenses_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_customer_report">
-                <a href="<?= site_url('reports/customers') ?>">
-                    <i class="fa fa-users"></i><span
-                        class="text"> <?= lang('customers_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_supplier_report">
-                <a href="<?= site_url('reports/suppliers') ?>">
-                    <i class="fa fa-users"></i><span
-                        class="text"> <?= lang('suppliers_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_staff_report">
-                <a href="<?= site_url('reports/users') ?>">
-                    <i class="fa fa-users"></i><span
-                        class="text"> <?= lang('staff_report'); ?></span>
-                </a>
-            </li>
-            <li id="reports_time_schedule_report">
-                <a href="<?= site_url('reports/time_schedule') ?>">
-                    <i class="fa fa-clock-o"></i><span
-                        class="text"> <?= lang('Time Schedule Report'); ?></span>
-                </a>
-            </li>
             <li id="reports_company_bill_details">
                 <a href="<?= site_url('reports/company_bill_details') ?>">
                     <i class="fa fa-tasks"></i><span

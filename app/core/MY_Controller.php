@@ -77,8 +77,6 @@ class MY_Controller extends CI_Controller {
             $this->dateFormats = $dateFormats;
             $this->data['dateFormats'] = $dateFormats;
             $this->load->language('calendar');
-            //$this->default_currency = $this->Settings->currency_code;
-            //$this->data['default_currency'] = $this->default_currency;
             $this->m = strtolower($this->router->fetch_class());
             $this->v = strtolower($this->router->fetch_method());
             $this->data['m']= $this->m;
@@ -104,8 +102,6 @@ class MY_Controller extends CI_Controller {
         $meta['dateFormats'] = $data['dateFormats'];
         $meta['assets'] = $data['assets'];
         $meta['GP'] = $data['GP'];
-        $meta['qty_alert_num'] = $this->site->get_total_qty_alerts();
-        $meta['exp_alert_num'] = $this->site->get_expiring_qty_alerts();
         $this->load->view($this->theme . 'header', $meta);
         $this->load->view($this->theme . $page, $data);
         $this->load->view($this->theme . 'footer');
