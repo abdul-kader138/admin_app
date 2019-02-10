@@ -14,7 +14,19 @@ class Db_model extends CI_Model
         $this->db->select('count(id) as total', FALSE)
             ->where('aprrover_id ', $id)
             ->where('approve_status ', 0);
-        $q = $this->db->get('approve_details');
+        $q = $this->db->get_where('approve_details',array('interface_name'=>'add_manpower_requisition'));
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getTotalRAApproval($id = NULL)
+    {
+        $this->db->select('count(id) as total', FALSE)
+            ->where('aprrover_id ', $id)
+            ->where('approve_status ', 0);
+        $q = $this->db->get_where('approve_details',array('interface_name'=>'add_recruitment_approval'));
         if ($q->num_rows() > 0) {
             return $q->row();
         }

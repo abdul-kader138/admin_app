@@ -839,8 +839,14 @@ class system_settings extends MY_Controller
                 'hrms-edit_manpower_requisition' => $this->input->post('hrms-edit_manpower_requisition'),
                 'hrms-delete_manpower_requisition' => $this->input->post('hrms-delete_manpower_requisition'),
 
+                'hrms-recruitment_approval' => $this->input->post('hrms-manpower_requisition'),
+                'hrms-add_recruitment_approval' => $this->input->post('hrms-add_recruitment_approval'),
+                'hrms-edit_recruitment_approval' => $this->input->post('hrms-edit_recruitment_approval'),
+                'hrms-delete_recruitment_approval' => $this->input->post('hrms-delete_recruitment_approval'),
+
 
                 'approval_manpower_requisition' => $this->input->post('approval_manpower_requisition'),
+                'approval_recruitment_approval' => $this->input->post('approval_recruitment_approval'),
 
 
             );

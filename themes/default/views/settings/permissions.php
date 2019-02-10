@@ -176,6 +176,23 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td><?= lang("Recruitment_Approval"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="hrms-recruitment_approval" <?php echo $p->{'hrms-recruitment_approval'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="hrms-add_recruitment_approval" <?php echo $p->{'hrms-add_recruitment_approval'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="hrms-edit_recruitment_approval" <?php echo $p->{'hrms-edit_recruitment_approval'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="hrms-delete_recruitment_approval" <?php echo $p->{'hrms-delete_recruitment_approval'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td><?= lang("package"); ?></td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="package-index" <?php echo $p->{'package-index'} ? "checked" : ''; ?>>
@@ -341,6 +358,11 @@
                                             <input type="checkbox" value="1" class="checkbox" id="approval_manpower_requisition"
                                                    name="approval_manpower_requisition" <?php echo $p->approval_manpower_requisition ? "checked" : ''; ?>>
                                             <label for="approval_manpower_requisition" class="padding05"><?= lang('Manpower_Requisition') ?></label>
+                                        </span>
+                                        <span style="inline-block">
+                                            <input type="checkbox" value="1" class="checkbox" id="approval_recruitment_approval"
+                                                   name="approval_recruitment_approval" <?php echo $p->approval_recruitment_approval ? "checked" : ''; ?>>
+                                            <label for="approval_recruitment_approval" class="padding05"><?= lang('Recruitment_Approval') ?></label>
                                         </span>
                                     </td>
                                 </tr>

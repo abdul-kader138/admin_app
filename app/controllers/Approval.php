@@ -27,7 +27,7 @@ class Approval extends MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['approval_manpower_requisition'])) {
+            if ((!$get_permission['approval_'.$ids])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -42,7 +42,7 @@ class Approval extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['id'] = $ids;
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('Approval')));
-        $meta = array('page_title' => lang('Manpower_Requisition'), 'bc' => $bc);
+        $meta = array('page_title' => lang($ids), 'bc' => $bc);
         $this->page_construct('approval/approval_list', $meta, $this->data);
     }
 
@@ -50,7 +50,7 @@ class Approval extends MY_Controller
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
-            if ((!$get_permission['approval_manpower_requisition'])) {
+            if ((!$get_permission['approval_'.$ids])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
@@ -62,7 +62,7 @@ class Approval extends MY_Controller
         }
 
         $approve_link = "";
-        if ($get_permission['approval_manpower_requisition'] || $this->Owner || $this->Admin)
+        if ($get_permission['approval_'.$ids] || $this->Owner || $this->Admin)
             $approve_link = '<div class="row_approve_status" id="$2">&nbsp;&nbsp;<i class="fa fa-edit"></i> Approve</div>';
         $action = '<div class="text-center"><div class="btn-group text-left">'
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
@@ -93,7 +93,7 @@ class Approval extends MY_Controller
     {
 
         $this->form_validation->set_rules('status', lang("status"), 'trim|required');
-        $this->form_validation->set_rules('note', lang("note"), 'trim|required');
+        $this->form_validation->set_rules('note', lang("note"), 'trim');
         if ($this->input->post('id')) {
             $ids = $this->input->post('id');
         }

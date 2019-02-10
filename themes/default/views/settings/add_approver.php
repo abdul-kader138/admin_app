@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <?= lang("Interface_Name", "Interface_Name")."<b> *</b>"; ?>
-                    <?php $sst = array('add_manpower_requisition' => lang('Manpower_Requisition'), 'Stock Adjustment' => lang('Stock_Adjustment'), 'Purchase Order Change' => lang('Purchase_Order_Change'), 'Sales Order Change' => lang('Sales_Order_Change'), 'Supplier Adjustment' => lang('Supplier_Adjustment'), 'Customer Adjustment' => lang('Customer_Adjustment'));
+                    <?php $sst = array('add_manpower_requisition' => lang('Manpower_Requisition'), 'add_recruitment_approval' => lang('Recruitment_Approval'), 'Purchase Order Change' => lang('Purchase_Order_Change'), 'Sales Order Change' => lang('Sales_Order_Change'), 'Supplier Adjustment' => lang('Supplier_Adjustment'), 'Customer Adjustment' => lang('Customer_Adjustment'));
                     echo form_dropdown('interface_name', $sst, (isset($_POST['interface_name']) ? $_POST['interface_name'] : ''), 'class="form-control input-tip" required="required" id="interface_name" style="width:100%"'); ?>
                 </div>
 

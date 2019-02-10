@@ -23,6 +23,8 @@ class HR_model extends CI_Model
         return true;
     }
 
+
+
     public function getMRById($id)
     {
         $q = $this->db->get_where('manpower_requisition', array('id' => $id), 1);
@@ -112,4 +114,45 @@ class HR_model extends CI_Model
         return FALSE;
     }
 
+    public function addRA($data = array(),$approve_data = array())
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->insert('recruitment_approval', $data);
+        $cid = $this->db->insert_id();
+        $approve_data['application_id'] = $cid;
+        $this->db->insert('approve_details', $approve_data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
+
+    public function getRAById($id)
+    {
+        $q = $this->db->get_where('recruitment_approval', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateRA($id, $data = array())
+    {
+        $this->db->where('id', $id);
+        if ($this->db->update('recruitment_approval', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteRA($id)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->delete('recruitment_approval', array('id' => $id));
+        $this->db->delete('recruitment_approval', array('application_id' => $id));
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
 }

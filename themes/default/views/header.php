@@ -384,6 +384,18 @@ if ($Owner || $Admin) {
                             class="text"> <?= lang('Add_Manpower_Requisition'); ?></span>
                 </a>
             </li>
+            <li id="hrms_manpower_requisition">
+                <a class="submenu" href="<?= site_url('hrms/recruitment_approval'); ?>">
+                    <i class="fa fa-random"></i><span
+                            class="text"> <?= lang('List_Recruitment_Approval'); ?></span>
+                </a>
+            </li>
+            <li id="hrms_add_manpower_requisition">
+                <a class="submenu" href="<?= site_url('hrms/add_recruitment_approval'); ?>">
+                    <i class="fa fa-user-plus"></i><span
+                            class="text"> <?= lang('Add_Recruitment_Approval'); ?></span>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -696,7 +708,8 @@ if ($Owner || $Admin) {
     <?php }
     ?>
 
-    <?php if ($GP['hrms-manpower_requisition'] || $GP['hrms-add_manpower_requisition']
+    <?php if ($GP['hrms-manpower_requisition'] || $GP['hrms-add_manpower_requisition'] || $GP['hrms-recruitment_approval']
+        || $GP['hrms-add_recruitment_approval']
     ) {
         ?>
         <li class="mm_hrms">
@@ -714,9 +727,6 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php }
-
-
-
                 ?>
                 <?php if ($GP['hrms-add_manpower_requisition']) { ?>
                     <li id="hrms_add_manpower_requisition">
@@ -726,6 +736,24 @@ if ($Owner || $Admin) {
                         </a>
                     </li>
                 <?php } ?>
+                <?php if ($GP['hrms-recruitment_approval']) { ?>
+                <li id="hrms_recruitment_approval">
+                    <a class="submenu" href="<?= site_url('hrms/recruitment_approval'); ?>">
+                        <i class="fa fa-user"></i><span
+                                class="text"> <?= lang('List_Recruitment_Approval'); ?></span>
+                    </a>
+                </li>
+                <?php }?>
+                <?php if ($GP['hrms-add_recruitment_approval']) { ?>
+                    <li id="hrms_add_recruitment_approval">
+                        <a class="submenu" href="<?= site_url('hrms/add_recruitment_approval'); ?>">
+                            <i class="fa fa-plus"></i><span
+                                    class="text"> <?= lang('Add_Recruitment_Approval'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+
             </ul>
         </li>
     <?php } ?>

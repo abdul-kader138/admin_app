@@ -45,12 +45,6 @@ $s2_file_date = $this->parser->parse_string($s2_lang_file, $s2_data, true);
 <script type="text/javascript" src="<?= $assets ?>js/jquery.calculator.min.js"></script>
 <script type="text/javascript" src="<?= $assets ?>js/core.js"></script>
 <script type="text/javascript" src="<?= $assets ?>js/perfect-scrollbar.min.js"></script>
-<?= ($m == 'purchases' && ($v == 'add' || $v == 'edit' || $v == 'purchase_by_csv' || $v == 'inter_company_purchase_by_csv')) ? '<script type="text/javascript" src="' . $assets . 'js/purchases.js"></script>' : ''; ?>
-<?= ($m == 'transfers' && ($v == 'add' || $v == 'edit')) ? '<script type="text/javascript" src="' . $assets . 'js/transfers.js"></script>' : ''; ?>
-<?= ($m == 'sales' && ($v == 'add' || $v == 'edit')) ? '<script type="text/javascript" src="' . $assets . 'js/sales.js"></script>' : ''; ?>
-<?= ($m == 'quotes' && ($v == 'add' || $v == 'edit')) ? '<script type="text/javascript" src="' . $assets . 'js/quotes.js"></script>' : ''; ?>
-<?= ($m == 'products' && ($v == 'add_adjustment' || $v == 'edit_adjustment')) ? '<script type="text/javascript" src="' . $assets . 'js/adjustments.js"></script>' : ''; ?>
-
 <script type="text/javascript" charset="UTF-8">var oTable = '', r_u_sure = "<?=lang('r_u_sure')?>";
     <?=$s2_file_date?>
     $.extend(true, $.fn.dataTable.defaults, {"oLanguage":<?=$dt_lang?>});

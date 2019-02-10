@@ -1,2 +1,6 @@
 
-ALTER TABLE `sma_users` ADD `document_path` VARCHAR(100) NULL DEFAULT NULL AFTER `allow_discount`;
+ALTER TABLE `sma_permissions` ADD `hrms-delete_recruitment_approval` TINYINT(1) NOT NULL DEFAULT '0' AFTER `approval_manpower_requisition`;
+ALTER TABLE `sma_permissions` ADD `hrms-add_recruitment_approval` TINYINT(1) NOT NULL DEFAULT '0' AFTER `approval_manpower_requisition`;
+ALTER TABLE `sma_permissions` ADD `hrms-edit_recruitment_approval` TINYINT(1) NOT NULL DEFAULT '0' AFTER `approval_manpower_requisition`;
+ALTER TABLE `sma_permissions` ADD `hrms-recruitment_approval` TINYINT(1) NOT NULL DEFAULT '0' AFTER `approval_manpower_requisition`;
+ALTER TABLE `sma_permissions` ADD `approval_recruitment_approval` TINYINT(1) NOT NULL DEFAULT '0' AFTER `approval_manpower_requisition`;

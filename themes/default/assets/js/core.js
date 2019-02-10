@@ -1084,6 +1084,12 @@ $(document).ready(function() {
         $('#myModal').modal('show');
         //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
+
+    $('body').on('click', '.recruitment_approval_link td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'hrms/modal_recruitment_approval/' + $(this).parent('.recruitment_approval_link').attr('id')});
+        $('#myModal').modal('show');
+        //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
+    });
     // $('body').on('click', '.manpower_requisition_approval td:not(:first-child)', function() {
     $('body').on('click', '.manpower_requisition_approval td:not(:first-child, :nth-child(2), :last-child)', function() {
         $('#myModal').modal({remote: site.base_url + 'hrms/modal_manpower_requisition/' + $(this).closest('tr').attr('id')});
