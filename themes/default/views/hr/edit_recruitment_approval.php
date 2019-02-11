@@ -98,6 +98,12 @@
                                 ?>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <?= lang("Department", "Department") . " <b> *</b>"; ?>
+                                <?php echo form_input('department', (isset($_POST['department']) ? $_POST['department'] : $document->department), 'class="form-control input-tip" required="required" id="department"'); ?>
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
                         <hr class="line">
                         <div class="row" id="bt">

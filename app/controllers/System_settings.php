@@ -847,6 +847,7 @@ class system_settings extends MY_Controller
 
                 'approval_manpower_requisition' => $this->input->post('approval_manpower_requisition'),
                 'approval_recruitment_approval' => $this->input->post('approval_recruitment_approval'),
+                'bulk_actions' => $this->input->post('bulk_actions'),
 
 
             );

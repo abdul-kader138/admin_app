@@ -47,6 +47,31 @@ class Approval_model extends CI_Model
         return true;
 
     }
+
+    public function updateStatusChunk($approve_details_new, $approve_details_previous, $info_new,$table_name)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+//        $this->db->update_batch($table_name, $info_new, 'id');
+        if(!empty($approve_details_new)) $this->db->insert_batch('approve_details',$approve_details_new);
+        $this->db->query($approve_details_previous);
+        $this->db->query($info_new);
+//        $this->db->update_batch('approve_details', $approve_details_previous, 'id');
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+
+    }
+
+    public function getApprovalBluk($id)
+    {
+        $q = $this->db->get_where('approve_details', array('application_id' => $id, 'approve_status' => 0));
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
 }
 
 // need to add next_approve_seq at requisition table

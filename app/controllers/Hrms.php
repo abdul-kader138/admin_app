@@ -400,6 +400,7 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('designation_id', lang("designation_id"), 'trim|required');
         $this->form_validation->set_rules('salary', lang("salary"), 'trim|required|numeric');
         $this->form_validation->set_rules('division', lang("division"), 'trim|required');
+        $this->form_validation->set_rules('department', lang("department"), 'trim|required');
         $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         if ($this->form_validation->run() == true) {
@@ -428,6 +429,7 @@ class Hrms extends MY_Controller
                 'designation_id' => $this->input->post('designation_id'),
                 'salary' => $this->input->post('salary'),
                 'division' => $this->input->post('division'),
+                'department' => $this->input->post('department'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
                 'status' => 'Waiting For Approval-' . $user_details->username,
@@ -574,6 +576,7 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('emp_id', lang("emp_id"), 'trim|required');
         $this->form_validation->set_rules('designation_id', lang("designation_id"), 'trim|required');
+        $this->form_validation->set_rules('department', lang("department"), 'trim|required');
         $this->form_validation->set_rules('salary', lang("salary"), 'trim|required|numeric');
         $this->form_validation->set_rules('division', lang("division"), 'trim|required');
         $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
@@ -589,6 +592,7 @@ class Hrms extends MY_Controller
                 'designation_id' => $this->input->post('designation_id'),
                 'salary' => $this->input->post('salary'),
                 'division' => $this->input->post('division'),
+                'department' => $this->input->post('department'),
                 'updated_by' => $this->session->userdata('user_id'),
                 'updated_date' => date("Y-m-d H:i:s"),
                 'other_info' => $this->input->post('other_info'),

@@ -1096,6 +1096,11 @@ $(document).ready(function() {
         $('#myModal').modal('show');
     });
 
+    $('body').on('click', '.recruitment_approval td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'hrms/modal_recruitment_approval/' + $(this).closest('tr').attr('id')});
+        $('#myModal').modal('show');
+    });
+
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {
             if(result == true) {

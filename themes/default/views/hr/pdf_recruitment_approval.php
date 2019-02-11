@@ -97,6 +97,10 @@
                                         <td style="width: 30%"><b><?= lang("Status"); ?>:</b></td>
                                         <td style="width: 70%"><?= $document->status; ?></td>
                                     </tr>
+                                    <tr>
+                                        <td style="width: 30%"><b><?= lang("Department"); ?>:</b></td>
+                                        <td style="width: 70%"><?= $document->department; ?></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

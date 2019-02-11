@@ -1,5 +1,9 @@
 <style>
-    .manpower_requisition_approval{
+    .manpower_requisition_approval {
+        cursor: pointer;
+    }
+
+    .recruitment_approval {
         cursor: pointer;
     }
 </style>
@@ -12,27 +16,29 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('approval/getApproval/'.$id) ?>',
+            'sAjaxSource': '<?= site_url('approval/getApproval/' . $id) ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
                     "value": "<?= $this->security->get_csrf_hash() ?>"
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
-            },'fnRowCallback': function (nRow, aData, iDisplayIndex) {
+            }, 'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 var oSettings = oTable.fnSettings();
                 nRow.id = aData[0];
-                if(aData[1] === 'manpower_requisition') nRow.className = "manpower_requisition_approval";
-                else nRow.className='';
+                console.log(aData);
+                if (aData[1] === 'manpower_requisition') nRow.className = "manpower_requisition_approval";
+                else if (aData[1] === 'recruitment_approval') nRow.className = "recruitment_approval";
+                else nRow.className = '';
                 return nRow;
             },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            },{
+            }, {
                 "bSortable": false,
-                "mRender":approval_name
-            }, null, null,null,null,null,null]
+                "mRender": approval_name
+            }, null, null, null, null, null, null]
             // }, null, null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Approve_For');?>]", filter_type: "text", data: []},
@@ -46,11 +52,12 @@
 
     function approval_name(x) {
         var y = x.split("_");
-        var status =y[0].toUpperCase()+' '+y[1].toUpperCase();
+        var status = y[0].toUpperCase() + ' ' + y[1].toUpperCase();
         return status;
 
     }
 </script>
+<?php echo form_open('approval/approval_actions', 'id="action-form"'); ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-user"></i><?= lang('Waiting_For_Approval'); ?></h2>
@@ -63,7 +70,9 @@
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li><a href="<?= site_url('hrms/add_manpower_requisition'); ?>"><i
-                                    class="fa fa-plus-circle"></i> <?= lang("Add_Manpower_Requisition"); ?></a></li>
+                                        class="fa fa-plus-circle"></i> <?= lang("Add_Manpower_Requisition"); ?></a></li>
+                        <li><a href="#" id="chuk_approval" data-action="chuk_approval"><i
+                                        class="fa fa-hand-o-right"></i> <?= lang('Bulk_Approval') ?></a></li>
                     </ul>
                 </li>
             </ul>
@@ -118,6 +127,20 @@
         </div>
     </div>
 </div>
-
-
+<div style="display: none;">
+    <input type="hidden" name="form_action" value="" id="form_action"/>
+    <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
+</div>
+<?= form_close() ?>
 <div class="row_approve_status" id="">Approve</div>
+<script language="javascript">
+    $(document).ready(function () {
+
+            $('#chuk_approval').click(function (e) {
+            e.preventDefault();
+            $('#form_action').val($(this).attr('data-action'));
+            $('#action-form-submit').trigger('click');
+        });
+
+    });
+</script>
