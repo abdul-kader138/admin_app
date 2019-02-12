@@ -132,7 +132,6 @@
     <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
 </div>
 <?= form_close() ?>
-<div class="row_approve_status" id="">Approve</div>
 <script language="javascript">
     $(document).ready(function () {
 

@@ -52,11 +52,13 @@ class Approval_model extends CI_Model
     {
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
-//        $this->db->update_batch($table_name, $info_new, 'id');
         if(!empty($approve_details_new)) $this->db->insert_batch('approve_details',$approve_details_new);
-        $this->db->query($approve_details_previous);
-        $this->db->query($info_new);
-//        $this->db->update_batch('approve_details', $approve_details_previous, 'id');
+        if(!empty($info_new)){
+            foreach ($info_new as $item)  $this->db->query($item);
+        }
+        if(!empty($approve_details_previous)){
+            foreach ($approve_details_previous as $item_next)  $this->db->query($item_next);
+        }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
         return true;

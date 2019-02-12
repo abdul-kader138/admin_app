@@ -194,8 +194,17 @@ class Hrms extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
+
+
         if ($this->input->post('id')) {
             $id = $this->input->post('id');
+        }
+
+        $info=$this->hr_model->getMRById($id);
+        if($info->approved == '1'){
+            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved' ));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
         }
 
         $this->data['title'] = "Edit Manpower Requisition";
@@ -565,6 +574,13 @@ class Hrms extends MY_Controller
         }
         if ($this->input->post('id')) {
             $id = $this->input->post('id');
+        }
+
+        $info=$this->hr_model->getRAById($id);
+        if($info->approved == '1'){
+            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved' ));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
         }
 
         $this->data['title'] = "Edit Recruitment Approval";

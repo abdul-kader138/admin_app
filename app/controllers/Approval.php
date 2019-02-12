@@ -212,6 +212,11 @@ class Approval extends MY_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
 
+        if($this->Owner || $this->Admin || $this->GP['approval_manpower_requisition'] || $this->GP['approval_recruitment_approval']){
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
         $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
 
         $approve_details_new = array();
@@ -219,26 +224,26 @@ class Approval extends MY_Controller
         if ($this->form_validation->run() == true) {
             if (!empty($_POST['val'])) {
                 if ($this->input->post('form_action') == 'chuk_approval') {
-                    $previous_approve_data="";
-                    $query_info_close="";
+                    $previous_approve_data=array();
+                    $query_info_close=array();
                     foreach ($_POST['val'] as $id) {
                         $info = $this->approval_model->getApprovalBluk($id);
                         $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id);
 
-                        $previous_approve_data .="update ".$this->db->dbprefix('approve_details')." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
-                            "', approve_status=1, status='approved' where id=".(int)$info->id.";";
+                        $previous_approve_data[]="update ".$this->db->dbprefix('approve_details')." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                            "', approve_status=1, status='approved' where id=".(int)$info->id."; ";
 
                         $approve_details_previous[] = $previous_approve_data;       // update
                         if ($getNextApproval) {
                             $approve_details_new[] = $getNextApproval['approve_data']; // insert
                             $status= $getNextApproval['status'];
                             $seq = (($approve_details_new['next_approve_seq']) ? $approve_details_new['next_approve_seq'] :0);
-                            $query_info_close .="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
-                                "', status='".$status."', next_approve_seq=".$seq." where id=".(int)$info->application_id.";";
+                            $query_info_close[]="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                                "', status='".$status."', next_approve_seq=".$seq." where id=".(int)$info->application_id."; ";
 
                         } else {
-                            $query_info_close .="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
-                                "', approved=1, status='approved', next_approve_seq=0 where id=".(int)$info->application_id.";";
+                            $query_info_close[]="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                                "', approved=1, status='approved', next_approve_seq=0 where id=".(int)$info->application_id."; ";
                         }
                     }
                 }
