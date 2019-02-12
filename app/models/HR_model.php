@@ -150,7 +150,7 @@ class HR_model extends CI_Model
         $this->db->trans_strict(TRUE);
         $this->db->trans_start();
         $this->db->delete('recruitment_approval', array('id' => $id));
-        $this->db->delete('recruitment_approval', array('application_id' => $id));
+        $this->db->delete('approve_details', array('application_id' => $id));
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
         return true;

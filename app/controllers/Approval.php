@@ -11,7 +11,7 @@ class Approval extends MY_Controller
             $this->session->set_userdata('requested_page', $this->uri->uri_string());
             $this->sma->md('login');
         }
-        if (!$this->Admin && !$this->Owner && !$this->GP['approval_manpower_requisition']) {
+        if (!$this->Admin && !$this->Owner && !$this->GP['approval_manpower_requisition'] && !$this->GP['approval_recruitment_approval']) {
             $this->session->set_flashdata('warning', lang('access_denied'));
             redirect($_SERVER["HTTP_REFERER"]);
         }
@@ -208,11 +208,6 @@ class Approval extends MY_Controller
     function approval_actions()
     {
         if (!$this->Owner && !$this->GP['bulk_actions']) {
-            $this->session->set_flashdata('warning', lang('access_denied'));
-            redirect($_SERVER["HTTP_REFERER"]);
-        }
-
-        if($this->Owner || $this->Admin || $this->GP['approval_manpower_requisition'] || $this->GP['approval_recruitment_approval']){
             $this->session->set_flashdata('warning', lang('access_denied'));
             redirect($_SERVER["HTTP_REFERER"]);
         }

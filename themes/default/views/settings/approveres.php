@@ -27,6 +27,7 @@
 
     function interface_name(x) {
         if(x ==='add_manpower_requisition') return 'Manpower Requisition';
+        if(x ==='add_recruitment_approval') return 'Recruitment Approval';
         else return x;
     }
 </script>
