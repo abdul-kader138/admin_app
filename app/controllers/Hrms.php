@@ -450,7 +450,7 @@ class Hrms extends MY_Controller
 
         if ($this->form_validation->run() == true && $this->hr_model->addRA($data, $approve_data)) {
             $this->session->set_flashdata('message', "Information Successfully added.");
-            redirect("hrms/manpower_requisition");
+            redirect("hrms/recruitment_approval");
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $this->data['companies'] = $this->site->getAllCompany();
