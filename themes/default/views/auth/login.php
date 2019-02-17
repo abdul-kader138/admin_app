@@ -123,24 +123,24 @@
                         <?php echo form_close(); ?>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="login-form-links link2">
-                        <h4 class="text-danger"><?= lang('forgot_your_password') ?></h4>
-                        <span><?= lang('dont_worry') ?></span>
-                        <a href="#forgot_password" class="text-danger forgot_password_link"><?= lang('click_here') ?></a>
-                        <span><?= lang('to_rest') ?></span>
-                    </div>
-                    <?php 
-                    if ($Settings->allow_reg) { 
-                        ?>
-                        <div class="login-form-links link1">
-                            <h4 class="text-info"><?= lang('dont_have_account') ?></h4>
-                            <span><?= lang('no_worry') ?></span>
-                            <a href="#register" class="text-info register_link"><?= lang('click_here') ?></a>
-                            <span><?= lang('to_register') ?></span>
-                        </div>
-                        <?php 
-                    } 
-                    ?>
+<!--                    <div class="login-form-links link2">-->
+<!--                        <h4 class="text-danger">--><?//= lang('forgot_your_password') ?><!--</h4>-->
+<!--                        <span>--><?//= lang('dont_worry') ?><!--</span>-->
+<!--                        <a href="#forgot_password" class="text-danger forgot_password_link">--><?//= lang('click_here') ?><!--</a>-->
+<!--                        <span>--><?//= lang('to_rest') ?><!--</span>-->
+<!--                    </div>-->
+<!--                    --><?php //
+//                    if ($Settings->allow_reg) {
+//                        ?>
+<!--                        <div class="login-form-links link1">-->
+<!--                            <h4 class="text-info">--><?//= lang('dont_have_account') ?><!--</h4>-->
+<!--                            <span>--><?//= lang('no_worry') ?><!--</span>-->
+<!--                            <a href="#register" class="text-info register_link">--><?//= lang('click_here') ?><!--</a>-->
+<!--                            <span>--><?//= lang('to_register') ?><!--</span>-->
+<!--                        </div>-->
+<!--                        --><?php //
+//                    }
+//                    ?>
                 </div>
             </div>
         </div>

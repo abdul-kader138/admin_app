@@ -61,10 +61,9 @@
                                 <!--                        <div class="col-xs-2"><i class="fa fa-3x fa-th"></i></div>-->
                                 <div class="col-xs-10">
                                     <h2 class=""><?= $Settings->site_name; ?></h2>
-                                    <?= $warehouse->name ?>
-                                    <?php
-                                    echo $warehouse->address;
-                                    echo ($warehouse->phone ? lang("tel") . ": " . $warehouse->phone . "<br>" : '') . ($warehouse->email ? lang("email") . ": " . $warehouse->email : '');
+                                    <?php echo '5,Mohakhali C/A' . "<br>";
+                                    echo 'Dhaka,Bangladesh' . "<br>";
+                                    echo lang("Phone") . ": ".'8802 9882107-08' . "<br>" . ($warehouse->email ? lang("email") . ": " . $warehouse->email : '');
                                     ?>
                                 </div>
                             </div>

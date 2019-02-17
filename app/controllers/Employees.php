@@ -695,7 +695,7 @@ class Employees extends MY_Controller
         $this->data['id'] = $bill_id;
         $this->data['rows'] = $info;
         $this->data['supplier'] = $this->employees_model->getOperatorByID($info[0]->operator_id);
-        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+//        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('employees'), 'page' => lang('bill_details')), array('link' => '#', 'page' => lang('view')));
         $meta = array('page_title' => lang('view_purchase_details'), 'bc' => $bc);
         $this->page_construct('employees/view', $meta, $this->data);
@@ -760,7 +760,7 @@ class Employees extends MY_Controller
         $this->data['id'] = $bill_id;
         $this->data['rows'] = $info;
         $this->data['supplier'] = $this->employees_model->getOperatorByID($info[0]->operator_id);
-        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+//        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
         $name = $this->lang->line("bills") . "_" . str_replace('/', '_', $bill_id) . ".pdf";
         $html = $this->load->view($this->theme . 'employees/pdf', $this->data, true);
         if (!$this->Settings->barcode_img) {
@@ -932,7 +932,7 @@ class Employees extends MY_Controller
         $this->data['id'] = $bill_id;
         $this->data['rows'] = $info;
         $this->data['supplier'] = $this->employees_model->getOperatorByID($info[0]->operator_id);
-        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
+//        $this->data['warehouse'] = $this->site->getWarehouseByID(1);
         $name = $this->lang->line("bills") . "_" . str_replace('/', '_', $bill_id) . ".pdf";
         $html = $this->load->view($this->theme . 'employees/pdf', $this->data, true);
         if (!$this->Settings->barcode_img) {

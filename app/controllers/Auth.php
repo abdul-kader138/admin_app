@@ -117,7 +117,7 @@ class Auth extends MY_Controller
         $this->data['user'] = $user;
         $this->data['groups'] = $groups;
         $this->data['billers'] = $this->site->getAllCompanies('biller');
-        $this->data['warehouses'] = $this->site->getAllWarehouses();
+//        $this->data['warehouses'] = $this->site->getAllWarehouses();
 
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['password'] = array(

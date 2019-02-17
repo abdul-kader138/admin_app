@@ -26,8 +26,9 @@
                             <?= $warehouse->name ?>
 
                             <?php
-                            echo $warehouse->address . "<br>";
-                            echo ($warehouse->phone ? lang("tel") . ": " . $warehouse->phone . "<br>" : '') . ($warehouse->email ? lang("email") . ": " . $warehouse->email : '');
+                            echo '5,Mohakhali C/A' . "<br>";
+                            echo 'Dhaka,Bangladesh' . "<br>";
+                            echo lang("Phone") . ": ".'8802 9882107-08' . "<br>" . ($warehouse->email ? lang("email") . ": " . $warehouse->email : '');
                             ?>
                         </div>
                         <div class="clearfix"></div>
