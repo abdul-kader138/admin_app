@@ -8,7 +8,7 @@
         var oTable;
         'use strict';
         oTable = $('#UsrTable').dataTable({
-            "aaSorting": [[2, "asc"], [3, "asc"]],
+            "aaSorting": [[2, "desc"]],
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
@@ -40,7 +40,7 @@
             }, null, null, null, null,null, null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Requisition_date');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('Position');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('Designation');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('Workstation');?>]", filter_type: "text", data: []},
             {column_number: 4, filter_default_label: "[<?=lang('Department');?>]", filter_type: "text", data: []},
             {column_number: 5, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
@@ -90,7 +90,7 @@
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
                             <th><?php echo lang('Requisition_date'); ?></th>
-                            <th><?php echo lang('Position'); ?></th>
+                            <th><?php echo lang('Designation'); ?></th>
                             <th><?php echo lang('Workstation'); ?></th>
                             <th><?php echo lang('Department'); ?></th>
                             <th><?php echo lang('Company'); ?></th>

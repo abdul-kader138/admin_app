@@ -67,7 +67,7 @@ class Hrms extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('manpower_requisition') . ".position as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref," . $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') . ".organization_type," . $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".status")
+            ->select($this->db->dbprefix('manpower_requisition') . ".id as id, " . $this->db->dbprefix('manpower_requisition') . ".requisition_date," . $this->db->dbprefix('designations') . ".name as nam," . $this->db->dbprefix('manpower_requisition') . ".workstation as ref," . $this->db->dbprefix('manpower_requisition') . ".department," . $this->db->dbprefix('company') . ".name as d_name," . $this->db->dbprefix('manpower_requisition') . ".organization_type," . $this->db->dbprefix('manpower_requisition') . ".number_required," . $this->db->dbprefix('manpower_requisition') . ".status")
             ->from("manpower_requisition")
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')

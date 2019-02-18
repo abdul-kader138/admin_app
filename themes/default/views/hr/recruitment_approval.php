@@ -8,7 +8,7 @@
         var oTable;
         'use strict';
         oTable = $('#UsrTable').dataTable({
-            "aaSorting": [[2, "asc"], [3, "asc"]],
+            "aaSorting": [[1, "desc"]],
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
