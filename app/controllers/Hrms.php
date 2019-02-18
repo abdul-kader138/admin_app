@@ -234,7 +234,7 @@ class Hrms extends MY_Controller
             $reason = $this->input->post('requirement');
             $reason1 = $this->input->post('requirement');
             $data = array(
-                'workstation' => requirement,
+                'workstation' => $this->input->post('workstation'),
                 'requisition_date' => $this->sma->fld($this->input->post('requisition_date')),
                 'company_id' => $this->input->post('company_id'),
                 'department' => $this->input->post('department'),
