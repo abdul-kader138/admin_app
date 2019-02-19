@@ -136,6 +136,7 @@ echo form_open('hrms/hrms_recruitment_actions', 'id="action-form"');
         </div>
     </div>
 </div>
+
 <?php //if ($Owner) { ?>
 <div style="display: none;">
     <input type="hidden" name="form_action" value="5" id="form_action"/>
