@@ -26,7 +26,7 @@
                                     <td style="width: 70%"><?= $document->name; ?></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 30%"><b><?= lang("Desingnation"); ?>:</b></td>
+                                    <td style="width: 30%"><b><?= lang("Designation"); ?>:</b></td>
                                     <td style="width: 70%"><?= $designations->name;?></td>
                                 </tr>
                                 <tr>

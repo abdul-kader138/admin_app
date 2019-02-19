@@ -58,6 +58,10 @@
     .table td:nth-child(6) {
         text-align: center;
     }</style>
+
+<?php //if ($Owner) {
+echo form_open('hrms/hrms_recruitment_actions', 'id="action-form"');
+//} ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-user"></i><?= lang('Recruitment_Approval'); ?></h2>
@@ -70,7 +74,10 @@
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li><a href="<?= site_url('hrms/add_recruitment_approval'); ?>"><i
-                                    class="fa fa-plus-circle"></i> <?= lang("Add_Recruitment_Approval"); ?></a></li>
+                                        class="fa fa-plus-circle"></i> <?= lang("Add_Recruitment_Approval"); ?></a></li>
+                        <li><a href="#" id="excel" data-action="export_excel_recruitment"><i
+                                        class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?></a></li>
+
                     </ul>
                 </li>
             </ul>
@@ -129,3 +136,11 @@
         </div>
     </div>
 </div>
+<?php //if ($Owner) { ?>
+<div style="display: none;">
+    <input type="hidden" name="form_action" value="5" id="form_action"/>
+    <?= form_submit('performAction', 'performAction', 'id="action-form-submit"') ?>
+</div>
+<?= form_close() ?>
+
+<?php// } ?>

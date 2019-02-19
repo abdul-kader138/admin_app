@@ -47,7 +47,7 @@ class Hrms extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $current_users=$this->hr_model->getUsersByID($this->session->userdata('user_id'));
+        $current_users = $this->hr_model->getUsersByID($this->session->userdata('user_id'));
 
         $edit_link = "";
         $delete_link = "";
@@ -72,11 +72,10 @@ class Hrms extends MY_Controller
             ->join('company', 'manpower_requisition.company_id=company.id', 'left')
             ->join('designations', 'manpower_requisition.designation_id=designations.id', 'left')
             ->group_by('manpower_requisition.id');
-        if (!$this->Owner && !$this->Admin && $current_users->view_right=='0')
-        {
-            $this->datatables->where('manpower_requisition.created_by',$this->session->userdata('user_id'));
+        if (!$this->Owner && !$this->Admin && $current_users->view_right == '0') {
+            $this->datatables->where('manpower_requisition.created_by', $this->session->userdata('user_id'));
         }
-            $this->datatables->add_column("Actions", $action, "id");
+        $this->datatables->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
     }
 
@@ -200,9 +199,9 @@ class Hrms extends MY_Controller
             $id = $this->input->post('id');
         }
 
-        $info=$this->hr_model->getMRById($id);
-        if($info->approved == '1'){
-            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved' ));
+        $info = $this->hr_model->getMRById($id);
+        if ($info->approved == '1') {
+            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved'));
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
             redirect($_SERVER["HTTP_REFERER"]);
         }
@@ -368,17 +367,16 @@ class Hrms extends MY_Controller
         $created_history_c = $this->hr_model->getUsersByID($created_id);
         $user_info = array(
             'approver_type' => 'Created By',
-            'username' => $created_history_c->first_name." ".$created_history_c->last_name
+            'username' => $created_history_c->first_name . " " . $created_history_c->last_name
         );
         $infoArray[] = $user_info;
         foreach ($approver_list as $approver) {
             $username = "";
             $approver_details = $this->hr_model->getApproverDetails($approver->approver_id, $application_id);
 
-            if ($approver_details)
-            {
+            if ($approver_details) {
                 $created_history = $this->hr_model->getUsersByID($approver_details->aprrover_id);
-                $username = $created_history->first_name." ".$created_history->last_name;
+                $username = $created_history->first_name . " " . $created_history->last_name;
             }
             $info = array(
                 'approver_type' => $approver->approver_seq_name,
@@ -390,7 +388,8 @@ class Hrms extends MY_Controller
     }
 
 
-    public function add_recruitment_approval(){
+    public function add_recruitment_approval()
+    {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
             if ((!$get_permission['hrms-add_recruitment_approval'])) {
@@ -490,7 +489,7 @@ class Hrms extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $current_users=$this->hr_model->getUsersByID($this->session->userdata('user_id'));
+        $current_users = $this->hr_model->getUsersByID($this->session->userdata('user_id'));
 
         $edit_link = "";
         $delete_link = "";
@@ -510,13 +509,12 @@ class Hrms extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('recruitment_approval') . ".id as id, " .$this->db->dbprefix('recruitment_approval') . ".emp_id," . $this->db->dbprefix('recruitment_approval') . ".name as ref," . $this->db->dbprefix('designations') . ".name," . $this->db->dbprefix('recruitment_approval') . ".workstation as d_name," . $this->db->dbprefix('recruitment_approval') . ".division," . $this->db->dbprefix('recruitment_approval') . ".date_of_interview," . $this->db->dbprefix('recruitment_approval') . ".date_of_join,date_of_interview," . $this->db->dbprefix('recruitment_approval') . ".status")
+            ->select($this->db->dbprefix('recruitment_approval') . ".id as id, " . $this->db->dbprefix('recruitment_approval') . ".emp_id," . $this->db->dbprefix('recruitment_approval') . ".name as ref," . $this->db->dbprefix('designations') . ".name," . $this->db->dbprefix('recruitment_approval') . ".workstation as d_name," . $this->db->dbprefix('recruitment_approval') . ".division," . $this->db->dbprefix('recruitment_approval') . ".date_of_interview," . $this->db->dbprefix('recruitment_approval') . ".date_of_join,date_of_interview," . $this->db->dbprefix('recruitment_approval') . ".status")
             ->from("recruitment_approval")
             ->join('designations', 'recruitment_approval.designation_id=designations.id', 'left')
             ->group_by('recruitment_approval.id');
-        if (!$this->Owner && !$this->Admin && $current_users->view_right=='0')
-        {
-            $this->datatables->where('recruitment_approval.created_by',$this->session->userdata('user_id'));
+        if (!$this->Owner && !$this->Admin && $current_users->view_right == '0') {
+            $this->datatables->where('recruitment_approval.created_by', $this->session->userdata('user_id'));
         }
         $this->datatables->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
@@ -537,7 +535,8 @@ class Hrms extends MY_Controller
         $this->load->view($this->theme . 'hr/modal_recruitment_approval', $this->data);
     }
 
-    function pdf_recruitment_approval($id = NULL, $view = NULL){
+    function pdf_recruitment_approval($id = NULL, $view = NULL)
+    {
         $this->sma->checkPermissions('recruitment_approval', TRUE);
 
         $mr_details = $this->hr_model->getRAById($id);
@@ -576,9 +575,9 @@ class Hrms extends MY_Controller
             $id = $this->input->post('id');
         }
 
-        $info=$this->hr_model->getRAById($id);
-        if($info->approved == '1'){
-            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved' ));
+        $info = $this->hr_model->getRAById($id);
+        if ($info->approved == '1') {
+            $this->session->set_flashdata('warning', lang('Edit not possible,data already approved'));
             die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
             redirect($_SERVER["HTTP_REFERER"]);
         }
@@ -652,6 +651,225 @@ class Hrms extends MY_Controller
             }
             $this->session->set_flashdata('message', lang('doc_mov_deleted'));
             redirect('hrms/recruitment_approval');
+        }
+    }
+
+
+    function hrms_actions()
+    {
+        if (!$this->Owner && !$this->GP['bulk_actions']) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'export_excel') {
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle('Manpower_Requisition');
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('Requisition_date'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('Position'));
+                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('Corporate/Business'));
+                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('Company_Name'));
+                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('Business_Name'));
+                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('Department'));
+                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('Company'));
+                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('Workstation'));
+                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('Designation'));
+                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('Number_Required'));
+                    $this->excel->getActiveSheet()->SetCellValue('K1', lang('Reporting_to'));
+                    $this->excel->getActiveSheet()->SetCellValue('L1', lang('No_Of_Reportees'));
+                    $this->excel->getActiveSheet()->SetCellValue('M1', lang('Gender'));
+                    $this->excel->getActiveSheet()->SetCellValue('N1', lang('Required_Experience_(Min Years)'));
+                    $this->excel->getActiveSheet()->SetCellValue('O1', lang('Required_Experience_(Max Years)'));
+                    $this->excel->getActiveSheet()->SetCellValue('P1', lang('Age_Limit_(Min Years)'));
+                    $this->excel->getActiveSheet()->SetCellValue('Q1', lang('Age_Limit_(Max Years)'));
+                    $this->excel->getActiveSheet()->SetCellValue('R1', lang('Approved_Manpower_Budget_&_Plan_Year'));
+                    $this->excel->getActiveSheet()->SetCellValue('S1', lang('Reason_For_Additional_Position_Requisition'));
+                    $this->excel->getActiveSheet()->SetCellValue('T1', lang('Time_Limit_For_Filling_Position'));
+                    $this->excel->getActiveSheet()->SetCellValue('U1', lang('Status'));
+                    $this->excel->getActiveSheet()->SetCellValue('V1', lang('Education'));
+                    $this->excel->getActiveSheet()->SetCellValue('W1', lang('Skill'));
+                    $this->excel->getActiveSheet()->SetCellValue('X1', lang('Nature_Of_Experience'));
+                    $this->excel->getActiveSheet()->SetCellValue('Y1', lang('Area Of Responsibilities'));
+                    $this->excel->getActiveSheet()->SetCellValue('Z1', lang('Other Information'));
+//
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $document = $this->hr_model->getMRById($id);
+                        $designations = $this->hr_model->getDesignationById($document->designation_id);
+                        $companies = $this->hr_model->getCompanyById($document->company_id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $document->requisition_date);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $document->position);
+                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $document->organization_type);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $document->corporate_name);
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $document->business_name);
+                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $document->department);
+                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $companies->name);
+                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $document->workstation);
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $designations->name);
+                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $document->number_required);
+                        $this->excel->getActiveSheet()->SetCellValue('K' . $row, $document->reporting_to);
+                        $this->excel->getActiveSheet()->SetCellValue('L' . $row, $document->no_of_reportees);
+                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $document->gender);
+                        $this->excel->getActiveSheet()->SetCellValue('N' . $row, $document->exp_min);
+                        $this->excel->getActiveSheet()->SetCellValue('O' . $row, $document->exp_max);
+                        $this->excel->getActiveSheet()->SetCellValue('P' . $row, $document->age_min);
+                        $this->excel->getActiveSheet()->SetCellValue('Q' . $row, $document->age_max);
+                        $this->excel->getActiveSheet()->SetCellValue('R' . $row, $document->mb_year);
+                        $this->excel->getActiveSheet()->SetCellValue('S' . $row, $document->reason_ap);
+                        $this->excel->getActiveSheet()->SetCellValue('T' . $row, $document->time_limit);
+                        $this->excel->getActiveSheet()->SetCellValue('U' . $row, $document->status);
+                        $this->excel->getActiveSheet()->SetCellValue('V' . $row, $document->education);
+                        $this->excel->getActiveSheet()->SetCellValue('W' . $row, $document->skill);
+                        $this->excel->getActiveSheet()->SetCellValue('X' . $row, $document->nature_experience);
+                        $this->excel->getActiveSheet()->SetCellValue('Y' . $row, $this->sma->decode_html($document->areas_of_responsibility));
+                        $this->excel->getActiveSheet()->SetCellValue('Z' . $row, $this->sma->decode_html($document->other_info));
+                        $row++;
+                    }
+
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'manpower_requisition_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+                        set_time_limit(120);
+                        ini_set('memory_limit', '256M');
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        ob_end_clean();
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line("No_Employee_Selected."));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+    function hrms_recruitment_actions()
+    {
+        if (!$this->Owner && !$this->GP['bulk_actions']) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        if ($this->form_validation->run() == true) {
+
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'export_excel_recruitment') {
+                    $this->load->library('excel');
+                    $this->excel->setActiveSheetIndex(0);
+                    $this->excel->getActiveSheet()->setTitle('Manpower_Requisition');
+                    $this->excel->getActiveSheet()->SetCellValue('A1', lang('Emp_Id'));
+                    $this->excel->getActiveSheet()->SetCellValue('B1', lang('Name'));
+                    $this->excel->getActiveSheet()->SetCellValue('C1', lang('Designation'));
+                    $this->excel->getActiveSheet()->SetCellValue('D1', lang('Date_Of_Interview'));
+                    $this->excel->getActiveSheet()->SetCellValue('E1', lang('Gender'));
+                    $this->excel->getActiveSheet()->SetCellValue('F1', lang('Company'));
+                    $this->excel->getActiveSheet()->SetCellValue('G1', lang('Division'));
+                    $this->excel->getActiveSheet()->SetCellValue('H1', lang('Workstation'));
+                    $this->excel->getActiveSheet()->SetCellValue('I1', lang('Salary'));
+                    $this->excel->getActiveSheet()->SetCellValue('J1', lang('Date_Of_Joining'));
+                    $this->excel->getActiveSheet()->SetCellValue('K1', lang('Status'));
+                    $this->excel->getActiveSheet()->SetCellValue('L1', lang('Department'));
+                    $this->excel->getActiveSheet()->SetCellValue('M1', lang('Other Information'));
+//
+                    $row = 2;
+                    foreach ($_POST['val'] as $id) {
+                        $document = $this->hr_model->getRAById($id);
+                        $designations = $this->hr_model->getDesignationById($document->designation_id);
+                        $companies = $this->hr_model->getCompanyById($document->company_id);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $document->emp_id);
+                        $this->excel->getActiveSheet()->SetCellValue('B' . $row, $document->name);
+                        $this->excel->getActiveSheet()->SetCellValue('C' . $row, $designations->name);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $document->date_of_interview);
+                        $this->excel->getActiveSheet()->SetCellValue('E' . $row, $document->gender);
+                        $this->excel->getActiveSheet()->SetCellValue('F' . $row, $companies->name);
+                        $this->excel->getActiveSheet()->SetCellValue('G' . $row, $document->division);
+                        $this->excel->getActiveSheet()->SetCellValue('H' . $row, $document->workstation);
+                        $this->excel->getActiveSheet()->SetCellValue('I' . $row, $document->salary);
+                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $document->date_of_join);
+                        $this->excel->getActiveSheet()->SetCellValue('K' . $row, $document->status);
+                        $this->excel->getActiveSheet()->SetCellValue('L' . $row, $document->department);
+                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $this->sma->decode_html($document->other_info));
+                        $row++;
+                    }
+
+                    $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                    $filename = 'recruitment_approval_' . date('Y_m_d_H_i_s');
+                    if ($this->input->post('form_action') == 'export_pdf') {
+                        $styleArray = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)));
+                        $this->excel->getDefaultStyle()->applyFromArray($styleArray);
+                        $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+                        require_once(APPPATH . "third_party" . DIRECTORY_SEPARATOR . "MPDF" . DIRECTORY_SEPARATOR . "mpdf.php");
+                        $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+                        $rendererLibrary = 'MPDF';
+                        $rendererLibraryPath = APPPATH . 'third_party' . DIRECTORY_SEPARATOR . $rendererLibrary;
+                        if (!PHPExcel_Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+                            die('Please set the $rendererName: ' . $rendererName . ' and $rendererLibraryPath: ' . $rendererLibraryPath . ' values' .
+                                PHP_EOL . ' as appropriate for your directory structure');
+                        }
+
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.pdf"');
+                        header('Cache-Control: max-age=0');
+
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'PDF');
+                        return $objWriter->save('php://output');
+                    }
+                    if ($this->input->post('form_action') == 'export_excel_recruitment') {
+                        header('Content-Type: application/vnd.ms-excel');
+                        header('Content-Disposition: attachment;filename="' . $filename . '.xls"');
+                        header('Cache-Control: max-age=0');
+                        set_time_limit(120);
+                        ini_set('memory_limit', '256M');
+                        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+                        ob_end_clean();
+                        return $objWriter->save('php://output');
+                    }
+
+                    redirect($_SERVER["HTTP_REFERER"]);
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line("No_Employee_Selected."));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        } else {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER["HTTP_REFERER"]);
         }
     }
 
