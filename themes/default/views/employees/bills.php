@@ -15,6 +15,16 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
+            "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
+                var gtotal = 0, paid = 0, balance = 0;
+                for (var i = 0; i < aaData.length; i++) {
+                    balance += parseFloat(aaData[aiDisplay[i]][3]);
+                    paid += parseFloat(aaData[aiDisplay[i]][4]);
+                }
+                var nCells = nRow.getElementsByTagName('th');
+                nCells[3].innerHTML = currencyFormat(parseFloat(balance));
+                nCells[4].innerHTML = currencyFormat(parseFloat(paid));
+            },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
