@@ -48,7 +48,7 @@
                                     <tbody>
                                     <tr>
                                         <td style="width: 30%"><b><?= lang("Requisition_date"); ?>:</b></td>
-                                        <td style="width: 70%"><?= $document->requisition_date ?></td>
+                                        <td style="width: 70%"><?= $this->sma->hrsd($document->requisition_date); ?></td>
                                     </tr>
                                     <tr>
                                         <td style="width: 30%"><b><?= lang("Position"); ?>:</b></td>

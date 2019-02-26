@@ -37,7 +37,9 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null,null, null,null,null,null]
+            }, {
+                "mRender": fsd
+            }, null, null, null,null, null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Requisition_date');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('Designation');?>]", filter_type: "text", data: []},

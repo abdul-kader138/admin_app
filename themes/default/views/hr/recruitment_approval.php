@@ -37,7 +37,11 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null,null, null,null,null,null]
+            }, null, null, null, null,null, {
+                "mRender": fsd
+            },{
+                "mRender": fsd
+            },null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Emp_ID');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('Name');?>]", filter_type: "text", data: []},
@@ -132,6 +136,7 @@ echo form_open('hrms/hrms_recruitment_actions', 'id="action-form"');
                 </div>
 
             </div>
+
 
         </div>
     </div>

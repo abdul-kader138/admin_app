@@ -683,7 +683,7 @@ class Hrms extends MY_Controller
                     $this->excel->getActiveSheet()->SetCellValue('J1', lang('Number_Required'));
                     $this->excel->getActiveSheet()->SetCellValue('K1', lang('Reporting_to'));
                     $this->excel->getActiveSheet()->SetCellValue('L1', lang('No_Of_Reportees'));
-                    $this->excel->getActiveSheet()->SetCellValue('M1', lang('Gender'));
+                    $this->excel->getActiveSheet()->SetCellValue('M1', lang('Requirement_Reason'));
                     $this->excel->getActiveSheet()->SetCellValue('N1', lang('Required_Experience_(Min Years)'));
                     $this->excel->getActiveSheet()->SetCellValue('O1', lang('Required_Experience_(Max Years)'));
                     $this->excel->getActiveSheet()->SetCellValue('P1', lang('Age_Limit_(Min Years)'));
@@ -703,7 +703,7 @@ class Hrms extends MY_Controller
                         $document = $this->hr_model->getMRById($id);
                         $designations = $this->hr_model->getDesignationById($document->designation_id);
                         $companies = $this->hr_model->getCompanyById($document->company_id);
-                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $document->requisition_date);
+                        $this->excel->getActiveSheet()->SetCellValue('A' . $row, $this->sma->hrsd($document->requisition_date));
                         $this->excel->getActiveSheet()->SetCellValue('B' . $row, $document->position);
                         $this->excel->getActiveSheet()->SetCellValue('C' . $row, $document->organization_type);
                         $this->excel->getActiveSheet()->SetCellValue('D' . $row, $document->corporate_name);
@@ -715,7 +715,12 @@ class Hrms extends MY_Controller
                         $this->excel->getActiveSheet()->SetCellValue('J' . $row, $document->number_required);
                         $this->excel->getActiveSheet()->SetCellValue('K' . $row, $document->reporting_to);
                         $this->excel->getActiveSheet()->SetCellValue('L' . $row, $document->no_of_reportees);
-                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $document->gender);
+                        if ($document->ap == '1') $rr='Additional Position';
+                        if ($document->rr == '1') $rr='Replacement Due To Resignation';
+                        if ($document->rt == '1') $rr='Replacement Due To Termination';
+                        if ($document->rp == '1') $rr='Replacement Due To Promotion';
+                        if ($document->rtr == '1') $rr='Replacement Due To Transfer';
+                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $rr);
                         $this->excel->getActiveSheet()->SetCellValue('N' . $row, $document->exp_min);
                         $this->excel->getActiveSheet()->SetCellValue('O' . $row, $document->exp_max);
                         $this->excel->getActiveSheet()->SetCellValue('P' . $row, $document->age_min);
@@ -815,13 +820,13 @@ class Hrms extends MY_Controller
                         $this->excel->getActiveSheet()->SetCellValue('A' . $row, $document->emp_id);
                         $this->excel->getActiveSheet()->SetCellValue('B' . $row, $document->name);
                         $this->excel->getActiveSheet()->SetCellValue('C' . $row, $designations->name);
-                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $document->date_of_interview);
+                        $this->excel->getActiveSheet()->SetCellValue('D' . $row, $this->sma->hrsd($document->date_of_interview));
                         $this->excel->getActiveSheet()->SetCellValue('E' . $row, $document->gender);
                         $this->excel->getActiveSheet()->SetCellValue('F' . $row, $companies->name);
                         $this->excel->getActiveSheet()->SetCellValue('G' . $row, $document->division);
                         $this->excel->getActiveSheet()->SetCellValue('H' . $row, $document->workstation);
                         $this->excel->getActiveSheet()->SetCellValue('I' . $row, $document->salary);
-                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $document->date_of_join);
+                        $this->excel->getActiveSheet()->SetCellValue('J' . $row, $this->sma->hrsd($document->date_of_join));
                         $this->excel->getActiveSheet()->SetCellValue('K' . $row, $document->status);
                         $this->excel->getActiveSheet()->SetCellValue('L' . $row, $document->department);
                         $this->excel->getActiveSheet()->SetCellValue('M' . $row, $this->sma->decode_html($document->other_info));

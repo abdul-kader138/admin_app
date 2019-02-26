@@ -31,7 +31,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Date_Of_Interview"); ?>:</b></td>
-                                    <td style="width: 70%"><?= $document->date_of_interview;?></td>
+                                    <td style="width: 70%"><?= $this->sma->hrsd($document->date_of_interview);?></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Gender"); ?>:</b></td>
@@ -63,7 +63,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Date_Of_Joining"); ?>:</b></td>
-                                    <td style="width: 70%"><?= $document->date_of_join;?></td>
+                                    <td style="width: 70%"><?= $this->sma->hrsd($document->date_of_join);?></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%"><b><?= lang("Status"); ?>:</b></td>

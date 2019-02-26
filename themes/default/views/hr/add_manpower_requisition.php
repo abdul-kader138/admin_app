@@ -92,7 +92,7 @@
                         <div class="col-sm-4" id="business_name_div" style="display:none">
                             <div class="form-group">
                                 <?= lang("Business_Name", "Business_Name") . " <b> *</b>"; ?>
-                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'));      echo form_dropdown('business_name', $sst, (isset($_POST['business_name']) ? $_POST['business_name'] : ""), 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
+                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'),'Horticulture' => lang('Horticulture'));      echo form_dropdown('business_name', $sst, (isset($_POST['business_name']) ? $_POST['business_name'] : ""), 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
                             </div>
                         </div>
                         <div class="col-sm-4">
