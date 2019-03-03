@@ -685,7 +685,14 @@ class Employees extends MY_Controller
 
     public function view_bills($bill_id = null)
     {
-        $this->sma->checkPermissions('index');
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['employees-bill_index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
 
         if ($this->input->get('id')) {
             $bill_id = $this->input->get('id');
