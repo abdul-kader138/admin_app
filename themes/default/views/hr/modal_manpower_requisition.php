@@ -192,6 +192,29 @@
                     </div>
                     <div class="clearfix"></div>
                 <?php }?>
+
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <?php for($i = 0, $l = count($footer); $i < $l; ++$i){
+                                    $divi=((12/$l)*20);
+                                    ?>
+                                    <td><div>
+                                            <p>&nbsp;</p>
+                                            <p><?php echo ((!empty($footer[$i]['username'])) ? ucwords($footer[$i]['username']) : "-------------");?></p>
+                                            <p style="border-top: 1px solid #000;"><?php echo $footer[$i]['approver_type']?></p>
+                                        </div></td>
+                                    <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
+                                    <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
+                                <?php }?>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="buttons">
                 <div class="btn-group btn-group-justified">

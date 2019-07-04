@@ -15,6 +15,7 @@ class Hrms extends MY_Controller
         $this->lang->load('billers', $this->Settings->user_language);
         $this->load->library('form_validation');
         $this->load->model('hr_model');
+        $this->load->model('auth_model');
     }
 
 
@@ -96,6 +97,7 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('department', lang("department"), 'trim|required');
         $this->form_validation->set_rules('designation_id', lang("designation_id"), 'trim|required');
+        $this->form_validation->set_rules('category_id', lang("category_id"), 'trim|required');
         $this->form_validation->set_rules('position', lang("position"), 'trim|required');
         $this->form_validation->set_rules('organization_type', lang("organization_type"), 'trim|required');
         $this->form_validation->set_rules('number_required', lang("number_required"), 'trim|required|numeric');
@@ -114,7 +116,8 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('no_of_reportees', lang("no_of_reportees"), 'trim|required|numeric');
         if ($this->form_validation->run() == true) {
             $userLists = $this->site->getAllUser();
-            $approver_details = $this->site->getApproverList('add_manpower_requisition');
+//            $approver_details = $this->site->getApproverList('add_manpower_requisition');
+            $approver_details = $this->site->getApproverListByCategory('add_manpower_requisition',$this->input->post('category_id'));
             $reason = $this->input->post('requirement');
             $user_details = $this->getApproveCustomer($userLists, $approver_details->approver_id);
             $approve_data = array(
@@ -126,6 +129,7 @@ class Hrms extends MY_Controller
                 'created_by' => $this->session->userdata('user_id'),
                 'interface_name' => $approver_details->interface_name,
                 'next_approve_seq' => $approver_details->approver_next_seq,
+                'category_id' => $this->input->post('category_id'),
                 'created_date' => date("Y-m-d H:i:s")
             );
 
@@ -163,17 +167,20 @@ class Hrms extends MY_Controller
                 'status' => 'Waiting For Approval-' . $user_details->username,
                 'next_approve_seq' => $approver_details->approver_next_seq,
                 'other_info' => $this->input->post('other_info'),
-                'gender' => $this->input->post('gender')
+                'gender' => $this->input->post('gender'),
+                'category_id' => $this->input->post('category_id')
 //                'requisition_reason' => $this->input->post('requisition_reason')
             );
         }
 
         if ($this->form_validation->run() == true && $this->hr_model->addMR($data, $approve_data)) {
+           // $this->sendMail($data);
             $this->session->set_flashdata('message', "Information Successfully added.");
             redirect("hrms/manpower_requisition");
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['categories'] = $this->site->getAllCategories();
             $this->data['designations'] = $this->site->getAllDesignation();
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('hrms'), 'page' => lang('HR')), array('link' => '#', 'page' => lang('Add_Manpower_Requisition')));
             $meta = array('page_title' => lang('Add_Manpower_Requisition'), 'bc' => $bc);
@@ -317,9 +324,14 @@ class Hrms extends MY_Controller
             $this->session->set_flashdata('error', lang('doc_not_found'));
             $this->sma->md();
         }
+
+
         $this->data['document'] = $pr_details;
         $this->data['companies'] = $this->hr_model->getCompanyById($pr_details->company_id);
         $this->data['designations'] = $this->hr_model->getDesignationById($pr_details->designation_id);
+        $approversList = $this->hr_model->getApproversList('add_manpower_requisition',$pr_details->category_id);
+        $approversListDetails = $this->bulidApproverHistory($approversList, $pr_details->id, $pr_details->created_by);
+        $this->data['footer'] = $approversListDetails;
         $this->load->view($this->theme . 'hr/modal_manpower_requisition', $this->data);
     }
 
@@ -346,7 +358,7 @@ class Hrms extends MY_Controller
             $this->sma->md();
         }
 
-        $approversList = $this->hr_model->getApproversList('add_manpower_requisition');
+        $approversList = $this->hr_model->getApproversList('add_manpower_requisition',$mr_details->category_id);
         $approversListDetails = $this->bulidApproverHistory($approversList, $mr_details->id, $mr_details->created_by);
         $name = "Manpower_Requisition_" . $mr_details->name . ".pdf";
         $this->data['document'] = $mr_details;
@@ -372,11 +384,14 @@ class Hrms extends MY_Controller
         $infoArray[] = $user_info;
         foreach ($approver_list as $approver) {
             $username = "";
-            $approver_details = $this->hr_model->getApproverDetails($approver->approver_id, $application_id);
+            $approver_details = $this->hr_model->getApproverDetails($approver->approver_id, $application_id,$approver->category_id,$approver->interface_name);
 
             if ($approver_details) {
                 $created_history = $this->hr_model->getUsersByID($approver_details->aprrover_id);
                 $username = $created_history->first_name . " " . $created_history->last_name;
+            }else{
+                $created_history=null;
+                $username=null;
             }
             $info = array(
                 'approver_type' => $approver->approver_seq_name,
@@ -411,6 +426,7 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('department', lang("department"), 'trim|required');
         $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
+//        $this->form_validation->set_rules('category_id', lang("category_id"), 'trim|required');
         if ($this->form_validation->run() == true) {
             $userLists = $this->site->getAllUser();
             $approver_details = $this->site->getApproverList('add_recruitment_approval');
@@ -420,6 +436,7 @@ class Hrms extends MY_Controller
                 'status' => 'Waiting For Approval-' . $user_details->username,
                 'table_name' => 'recruitment_approval',
                 'approver_seq' => $approver_details->approver_seq,
+                'category_id' =>  665,
                 'approver_seq_name' => $approver_details->approver_seq_name,
                 'created_by' => $this->session->userdata('user_id'),
                 'interface_name' => $approver_details->interface_name,
@@ -435,6 +452,7 @@ class Hrms extends MY_Controller
                 'company_id' => $this->input->post('company_id'),
                 'emp_id' => $this->input->post('emp_id'),
                 'designation_id' => $this->input->post('designation_id'),
+                'category_id' =>  665,
                 'salary' => $this->input->post('salary'),
                 'division' => $this->input->post('division'),
                 'department' => $this->input->post('department'),
@@ -454,6 +472,7 @@ class Hrms extends MY_Controller
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['designations'] = $this->site->getAllDesignation();
+//            $this->data['categories'] = $this->site->getAllCategories();
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('hrms'), 'page' => lang('HR')), array('link' => '#', 'page' => lang('Add_Recruitment_Approval')));
             $meta = array('page_title' => lang('Add_Manpower_Requisition'), 'bc' => $bc);
             $this->page_construct('hr/add_recruitment_approval', $meta, $this->data);
@@ -875,6 +894,29 @@ class Hrms extends MY_Controller
         } else {
             $this->session->set_flashdata('error', validation_errors());
             redirect($_SERVER["HTTP_REFERER"]);
+        }
+    }
+
+
+    function  sendMail($data){
+        $this->load->library('parser');
+        $parse_data = array(
+            'position' => $data['position'],
+            'requisition_date' => $data['requisition_date'],
+            'created_by' => $data['created_by'],
+            'site_link' => site_url(),
+            'site_name' => $this->Settings->site_name,
+            'logo' => '<img src="' . base_url() . 'assets/uploads/logos/' . $this->Settings->logo . '" alt="' . $this->Settings->site_name . '"/>'
+        );
+
+        $msg = file_get_contents('./themes/' . $this->theme . 'email_templates/manpower_requisition.html');
+        $message = $this->parser->parse_string($msg, $parse_data);
+        $subject = "Manpower Requisition Generated into System". ' - ' . $this->Settings->site_name;
+        $this->sma->send_email('a.kader@paragon.com.bd', $subject, $message);
+
+        if ($this->sma->send_email('a.kader@paragon.com.bd', $subject, $message)) {
+            $this->auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
+            $this->set_message('Mail_Send_Successfully');
         }
     }
 

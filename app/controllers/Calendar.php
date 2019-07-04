@@ -11,10 +11,7 @@ class Calendar extends MY_Controller
             $this->session->set_userdata('requested_page', $this->uri->uri_string());
             $this->sma->md('login');
         }
-        if ($this->Customer || $this->Supplier) {
-            $this->session->set_flashdata('warning', lang('access_denied'));
-            redirect($_SERVER["HTTP_REFERER"]);
-        }
+        $this->permission_details = $this->site->checkPermissions();
 
         $this->load->library('form_validation');
         $this->load->model('calendar_model');
@@ -22,6 +19,16 @@ class Calendar extends MY_Controller
 
     public function index()
     {
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['calendar-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
         $this->data['cal_lang'] = $this->get_cal_lang();
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('calendar')));
         $meta = array('page_title' => lang('calendar'), 'bc' => $bc);
@@ -30,6 +37,17 @@ class Calendar extends MY_Controller
 
     public function get_events()
     {
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['calendar-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+
         $cal_lang = $this->get_cal_lang();
         $this->load->library('fc', array('lang' => $cal_lang));
 
@@ -41,8 +59,8 @@ class Calendar extends MY_Controller
             $start = $this->fc->convert2($this->input->get('start', true));
             $end = $this->fc->convert2($this->input->get('end', true));
         } else {
-            $start = $this->input->get('start', true); 
-            $end = $this->input->get('end', true); 
+            $start = $this->input->get('start', true);
+            $end = $this->input->get('end', true);
         }
 
         $input_arrays = $this->calendar_model->getEvents($start, $end);
@@ -63,6 +81,15 @@ class Calendar extends MY_Controller
     public function add_event()
     {
 
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['calendar-add'])) {
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                $res = array('error' => 1, 'msg' => lang('action_failed'));
+                $this->sma->send_json($res);
+            }
+        }
+
         $this->form_validation->set_rules('title', lang("title"), 'trim|required');
         $this->form_validation->set_rules('start', lang("start"), 'required');
 
@@ -74,11 +101,11 @@ class Calendar extends MY_Controller
                 'description' => $this->input->post('description'),
                 'color' => $this->input->post('color') ? $this->input->post('color') : '#000000',
                 'user_id' => $this->session->userdata('user_id')
-                );
-
+            );
             if ($this->calendar_model->addEvent($data)) {
                 $res = array('error' => 0, 'msg' => lang('event_added'));
                 $this->sma->send_json($res);
+
             } else {
                 $res = array('error' => 1, 'msg' => lang('action_failed'));
                 $this->sma->send_json($res);
@@ -95,10 +122,16 @@ class Calendar extends MY_Controller
 
         if ($this->form_validation->run() == true) {
             $id = $this->input->post('id');
-            if($event = $this->calendar_model->getEventByID($id)) {
-                if(!$this->Owner && $event->user_id != $this->session->userdata('user_id')) {
-                    $res = array('error' => 1, 'msg' => lang('access_denied'));
-                    $this->sma->send_json($res);
+            if ($event = $this->calendar_model->getEventByID($id)) {
+
+                if (!$this->Owner && !$this->Admin) {
+                    $get_permission = $this->permission_details[0];
+                    if ((!$get_permission['calendar-edit'])) {
+                        die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                        $res = array('error' => 1, 'msg' => lang('action_failed'));
+                        $this->sma->send_json($res);
+
+                    }
                 }
             }
             $data = array(
@@ -108,7 +141,7 @@ class Calendar extends MY_Controller
                 'description' => $this->input->post('description'),
                 'color' => $this->input->post('color') ? $this->input->post('color') : '#000000',
                 'user_id' => $this->session->userdata('user_id')
-                );
+            );
 
             if ($this->calendar_model->updateEvent($id, $data)) {
                 $res = array('error' => 0, 'msg' => lang('event_updated'));
@@ -123,11 +156,15 @@ class Calendar extends MY_Controller
 
     public function delete_event($id)
     {
-        if($this->input->is_ajax_request()) {
-            if($event = $this->calendar_model->getEventByID($id)) {
-                if(!$this->Owner && $event->user_id != $this->session->userdata('user_id')) {
-                    $res = array('error' => 1, 'msg' => lang('access_denied'));
-                    $this->sma->send_json($res);
+        if ($this->input->is_ajax_request()) {
+            if ($event = $this->calendar_model->getEventByID($id)) {
+                if (!$this->Owner && !$this->Admin) {
+                    $get_permission = $this->permission_details[0];
+                    if ((!$get_permission['calendar-delete'])) {
+                        die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                        $res = array('error' => 1, 'msg' => lang('action_failed'));
+                        $this->sma->send_json($res);
+                    }
                 }
                 $this->db->delete('calendar', array('id' => $id));
                 $res = array('error' => 0, 'msg' => lang('event_deleted'));
@@ -136,38 +173,39 @@ class Calendar extends MY_Controller
         }
     }
 
-    public function get_cal_lang() {
+    public function get_cal_lang()
+    {
         switch ($this->Settings->user_language) {
             case 'arabic':
                 $cal_lang = 'ar-ma';
                 break;
             case 'spanish':
-            $cal_lang = 'es';
-            break;
+                $cal_lang = 'es';
+                break;
             case 'german':
-            $cal_lang = 'de';
-            break;
+                $cal_lang = 'de';
+                break;
             case 'thai':
-            $cal_lang = 'th';
-            break;
+                $cal_lang = 'th';
+                break;
             case 'vietnamese':
-            $cal_lang = 'vi';
-            break;
+                $cal_lang = 'vi';
+                break;
             case 'italian':
-            $cal_lang = 'it';
-            break;
+                $cal_lang = 'it';
+                break;
             case 'simplified-chinese':
-            $cal_lang = 'zh-tw';
-            break;
+                $cal_lang = 'zh-tw';
+                break;
             case 'traditional-chinese':
-            $cal_lang = 'zh-cn';
-            break;
+                $cal_lang = 'zh-cn';
+                break;
             case 'turkish':
-            $cal_lang = 'tr';
-            break;
+                $cal_lang = 'tr';
+                break;
             default:
-            $cal_lang = 'en';
-            break;
+                $cal_lang = 'en';
+                break;
         }
         return $cal_lang;
     }

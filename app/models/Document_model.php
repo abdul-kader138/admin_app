@@ -135,5 +135,33 @@ class Document_model extends CI_Model
         }
         return FALSE;
     }
+    public function getBankById($id)
+    {
+        $q = $this->db->get_where('banks', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getCommissionById($id)
+    {
+        $q = $this->db->get_where('brands', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function updateStatus($inv, $update_status)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->update('documents', $update_status, array('id' => $inv));
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
+
 
 } 

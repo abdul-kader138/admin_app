@@ -257,8 +257,6 @@
                                         </div></td>
                                     <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
                                     <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
-                                    <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
-                                    <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
                                 <?php }?>
 
                             </tr>

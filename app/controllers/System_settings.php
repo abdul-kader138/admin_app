@@ -817,6 +817,7 @@ class system_settings extends MY_Controller
                 'document-edit' => $this->input->post('document-edit'),
                 'document-add' => $this->input->post('document-add'),
                 'document-delete' => $this->input->post('document-delete'),
+                'document-update_status' => $this->input->post('document-update_status'),
                 'doctype-index' => $this->input->post('doctype-index'),
                 'doctype-edit' => $this->input->post('doctype-edit'),
                 'doctype-add' => $this->input->post('doctype-add'),
@@ -825,6 +826,11 @@ class system_settings extends MY_Controller
                 'document-add_movement' => $this->input->post('document-add_movement'),
                 'document-edit_movement' => $this->input->post('document-edit_movement'),
                 'document-delete_movement' => $this->input->post('document-delete_movement'),
+
+                'calendar-index' => $this->input->post('calendar-index'),
+                'calendar-add' => $this->input->post('calendar-add'),
+                'calendar-edit' => $this->input->post('calendar-edit'),
+                'calendar-delete' => $this->input->post('calendar-delete'),
 
 
                 // a.KADER
@@ -3373,7 +3379,7 @@ class system_settings extends MY_Controller
             }
         }
 
-        $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required|is_unique[brands.name]|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required|is_unique[brands.name]');
 
         if ($this->form_validation->run() == true) {
 
@@ -3442,7 +3448,7 @@ class system_settings extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('name', lang("brand_name"), 'trim|required');
         $brand_details = $this->site->getBrandByID($id);
         if ($this->input->post('name') != $brand_details->name) {
             $this->form_validation->set_rules('name', lang("brand_name"), 'is_unique[brands.name]');

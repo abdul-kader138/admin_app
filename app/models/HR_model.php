@@ -17,6 +17,7 @@ class HR_model extends CI_Model
         $this->db->insert('manpower_requisition', $data);
         $cid = $this->db->insert_id();
         $approve_data['application_id'] = $cid;
+//        $approve_data['application_id'] = 1000;
         $this->db->insert('approve_details', $approve_data);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
@@ -92,8 +93,9 @@ class HR_model extends CI_Model
         return FALSE;
     }
 
-    public function getApproversList($interface_name) {
-        $this->db->where(array('interface_name' =>$interface_name,'status'=>0));
+    public function getApproversList($interface_name,$category_id) {
+        if(empty($category_id)) $category_id=665;
+        $this->db->where(array('interface_name' =>$interface_name,'status'=>0,'category_id'=>$category_id))->order_by('approver_seq','asc');
         $q = $this->db->get("approver_list");
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
@@ -104,10 +106,10 @@ class HR_model extends CI_Model
         return FALSE;
     }
 
-    public function getApproverDetails($id,$application_id) {
+    public function getApproverDetails($id,$application_id,$category_id,$interface_name) {
         $this->db->select("approve_details.*,CONCAT({$this->db->dbprefix('users')}.first_name, ' ', {$this->db->dbprefix('users')}.last_name) as username", false)
-            ->join('users', 'users.id=approve_details.aprrover_id', 'left');
-        $q = $this->db->get_where('approve_details', array('aprrover_id' =>$id,'application_id' =>$application_id,'approve_status'=>1));
+            ->join('users', 'users.id=approve_details.aprrover_id', 'inner');
+        $q = $this->db->get_where('approve_details', array('aprrover_id' =>$id,'category_id'=>$category_id,'interface_name'=>$interface_name,'application_id' =>$application_id,'approve_status'=>1));
         if ($q->num_rows() > 0) {
             return $q->row();
         }

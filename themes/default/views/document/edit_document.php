@@ -18,34 +18,104 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("name", "name"); ?>
+                                <?= lang("Name", "Name") . '<b> *</b>'; ?>
                                 <?php echo form_input('name', $document->name, 'class="form-control input-tip" id="name" required="required"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("reference_no", "slref"); ?>
-                                <?php echo form_input('reference_no', $document->reference_no, 'class="form-control input-tip" required="required" id="reference_no"'); ?>
+                                <?= lang("Address", "Address") . '<b> *</b>'; ?>
+                                <?php echo form_input('address', (isset($_POST['address']) ? $_POST['address'] : $document->address), 'class="form-control input-tip" id="address" required="required"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("company", "company"); ?>
+                                <?= lang("reference_no", "slref"); ?>
+                                <?php echo form_input('reference_no', $document->reference_no, 'class="form-control input-tip" readonly required="required" id="reference_no"'); ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Agreement_Start_Date", "Agreement_Start_Date") . '<b> *</b>'; ?>
+                                <?php echo form_input('agreement_start_date', (isset($_POST['agreement_start_date']) ? $_POST['agreement_start_date'] : $this->sma->hrld_date($document->agreement_start_date)), 'class="form-control input-tip date" readonly="readonly" id="agreement_start_date" required="required"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Agreement_Expire_Date", "Agreement_Expire_Date") . '<b> *</b>'; ?>
+                                <?php echo form_input('agreement_expire_date', (isset($_POST['agreement_expire_date']) ? $_POST['agreement_expire_date'] : $this->sma->hrld_date($document->agreement_expire_date)), 'class="form-control input-tip date" readonly="readonly" id="agreement_expire_date" required="required"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("year", "year"); ?>
+                                <?php
+                                $opt = array(2016 => "2016", 2017 => "2017", 2018 => "2018", 2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
+                                echo form_dropdown('year', $opt, (isset($_POST['year']) ? $_POST['year'] : $document->year), 'id="year" required="required" class="form-control input-tip select" style="width:100%;"');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Commission_Type", "Commission_Type"); ?>
                                 <?php
                                 $bl[""] = "";
-                                foreach ($companies as $company) {
-                                    $bl[$company->id] =  $company->name;
+                                foreach ($brands as $brand) {
+                                    $bl[$brand->id] = $brand->name;
                                 }
-                                echo form_dropdown('company_id', $bl, $document->company_id, 'id="company_id" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("company") . '" required="required" class="form-control input-tip select" style="width:100%;"');
+                                echo form_dropdown('commission_id', $bl, (isset($_POST['commission_id']) ? $_POST['commission_id'] : $document->commission_id), 'id="company_id" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("Commission_Type") . '" required="required" class="form-control input-tip select" style="width:100%;"');
                                 ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Target_Qty_(TON)", "Target_Qty_(TON)") . '<b> *</b>'; ?>
+                                <?php
+                                $att = array('name' => 'target_qty', 'type' => 'number');
+                                echo form_input($att, (isset($_POST['target_qty']) ? $_POST['target_qty'] : $document->target_qty), 'class="form-control input-tip" required="required" id="target_qty"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("1st_Target", "1st_Target") . '<b> *</b>'; ?>
+                                <?php
+                                $att = array('name' => '1_target', 'type' => 'number');
+                                echo form_input($att, (isset($_POST['1_target']) ? $_POST['1_target'] : $document->c1_target), 'class="form-control input-tip" required="required" id="1_target"'); ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("1st_Target_Commission", "1st_Target_Commission") . '<b> *</b>'; ?>
+                                <?php
+                                $att = array('name' => '1_target_commission', 'type' => 'number');
+                                echo form_input($att, (isset($_POST['1_target_commission']) ? $_POST['1_target_commission'] : $document->c1_target_commission), 'class="form-control input-tip" required="required" id="1_target_commission"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("2nd_Target", "2nd_Target") . '<b> *</b>'; ?>
+                                <?php
+                                $att = array('name' => '2_target', 'type' => 'number');
+                                echo form_input($att, (isset($_POST['2_target']) ? $_POST['2_target'] : $document->c2_target), 'class="form-control input-tip" required="required" id="2_target"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("2nd_Target_Commission", "2nd_Target_Commission") . '<b> *</b>'; ?>
+                                <?php
+                                $att = array('name' => '2_target_commission', 'type' => 'number');
+                                echo form_input($att, (isset($_POST['2_target_commission']) ? $_POST['2_target_commission'] : $document->c2_target_commission), 'class="form-control input-tip" required="required" id="2_target_commission"'); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("document_status", "document_status"); ?>
-                                <?php $sst = array('new' => lang('new'),'updated' => lang('updated'), 'pending' => lang('pending'));
-                                echo form_dropdown('status_id', $sst, $document->status_id, 'class="form-control input-tip" required="required" id="status_id"'); ?>
+                                <?= lang("Instruments", "Instruments") . '<b> *</b>'; ?>
+                                <?php $sst = array('Bank Guarantee' => lang('Bank_Guarantee'), 'Cheque' => lang('Cheque'));
+                                echo form_dropdown('instrument', $sst, $document->instrument, 'class="form-control input-tip" required="required" id="Instrument"'); ?>
 
                             </div>
                         </div>
@@ -53,23 +123,45 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("doc_type", "doc_type"); ?>
+                                <?= lang("Instrument_No", "Instrument_No") . '<b> *</b>'; ?>
+                                <?php echo form_input('instrument_no', (isset($_POST['instrument_no']) ? $_POST['instrument_no'] : $document->instrument_no), 'class="form-control input-tip"  id="instrument_no" required="required"'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Bank_Name", "Bank_Name") . '<b> *</b>'; ?>
                                 <?php
-                                $wh[''] = '';
-                                foreach ($doctypes as $doctype) {
-                                    $wh[$doctype->id] = $doctype->description;
+                                $b2[""] = "";
+                                foreach ($banks as $bank) {
+                                    $b2[$bank->id] = $bank->name;
                                 }
-                                echo form_dropdown('doctype_id', $wh, $document->doctype_id, 'id="doctype_id" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("doc_type") . '" required="required" style="width:100%;" ');
+                                echo form_dropdown('instrument_bank', $b2, (isset($_POST['instrument_bank']) ? $_POST['instrument_bank'] : $document->instrument_bank), 'id="company_id" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("Bank_Name") . '" required="required" class="form-control input-tip select" style="width:100%;"');
                                 ?>
                             </div>
                         </div>
-
                         <div class="clearfix"></div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("document", "document") ?>
-                                <input id="document" type="file" data-browse-label="<?= lang('browse'); ?>" name="document" data-show-upload="false"
-                                       data-show-preview="false" class="form-control file">
+                                <?= lang("Branch_Name", "Branch_Name") . '<b> *</b>'; ?>
+                                <?php echo form_input('instrument_branch', (isset($_POST['instrument_branch']) ? $_POST['instrument_branch'] : $document->instrument_branch), 'class="form-control input-tip" id="name" required="required"'); ?>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Total_Cheque", "Total_Cheque") . '<b> *</b>'; ?>
+                                <?php
+                                $attbs = array('name' => 'total_cheque', 'type' => 'number');
+                                echo form_input($attbs, (isset($_POST['total_cheque']) ? $_POST['total_cheque'] : $document->total_cheque), 'class="form-control input-tip" required="required" id="total_cheque"'); ?>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <?= lang("Credit_Limit", "Credit_Limit") . '<b> *</b>'; ?>
+                                <?php
+                                $attbs = array('name' => 'credit_limit', 'type' => 'number');
+                                echo form_input($attbs, (isset($_POST['credit_limit']) ? $_POST['credit_limit'] : $document->credit_limit), 'class="form-control input-tip" required="required" id="credit_limit"'); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>

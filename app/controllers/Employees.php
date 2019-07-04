@@ -539,7 +539,7 @@ class Employees extends MY_Controller
         }
         $this->load->helper('security');
         $this->form_validation->set_rules('userfile', lang("upload_file"), 'xss_clean');
-        $this->form_validation->set_message('is_natural_no_zero', lang("no_zero_required"));
+//        $this->form_validation->set_message('is_natural_no_zero', lang("no_zero_required"));
         $this->form_validation->set_rules('year', lang("year"), 'trim|required');
         $this->form_validation->set_rules('month', lang("month"), 'trim|required');
         $this->form_validation->set_rules('operator_id', lang("operator_id"), 'trim|required');

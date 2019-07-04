@@ -110,64 +110,105 @@ class Approval extends MY_Controller
             $approve_details_new = null;
             $approve_details_previous = null;
             $info_new = null;
-//        if ($this->form_validation->run() == true && $this->sales_model->updateStatus($id, $status, $note)) {
-            $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id);
-            // update current approval details
-            $previous_approve_data = array(
-                'approve_status' => 1,
-                'updated_by' => $this->session->userdata('user_id'),
-                'status' => 'Approved',
-                'updated_date' => date("Y-m-d H:i:s"),
-                'comments' => $note
-            );
-            // update requisition
-            $info_update = array(
-                'updated_by' => $this->session->userdata('user_id'),
-                'updated_date' => date("Y-m-d H:i:s")
 
-            );
-            // close requisition
-            $info_close = array(
-                'updated_by' => $this->session->userdata('user_id'),
-                'status' => 'Approved',
-                'approved' => 1,
-                'updated_date' => date("Y-m-d H:i:s")
+            if ($this->input->post('status') == 'Completed') {
+                //        if ($this->form_validation->run() == true && $this->sales_model->updateStatus($id, $status, $note)) {
+                $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id,$info->category_id);
+                // update current approval details
+                $previous_approve_data = array(
+                    'approve_status' => 1,
+                    'updated_by' => $this->session->userdata('user_id'),
+                    'status' => 'Approved',
+                    'updated_date' => date("Y-m-d H:i:s"),
+                    'comments' => $note
+                );
+                // update requisition
+                $info_update = array(
+                    'updated_by' => $this->session->userdata('user_id'),
+                    'category_id'=>$info->category_id,
+                    'updated_date' => date("Y-m-d H:i:s")
 
-            );
-            $approve_details_previous = $previous_approve_data;        // update
-            if ($getNextApproval) {
-                // if fount next level
-                $approve_details_new = $getNextApproval['approve_data']; // insert
-                $info_update['status'] = $getNextApproval['status'];
-                $info_update['next_approve_seq'] = $approve_details_new['next_approve_seq'];
-                $info_new = $info_update;                                       // update
+                );
+                // close requisition
+                $info_close = array(
+                    'updated_by' => $this->session->userdata('user_id'),
+                    'category_id'=>$info->category_id,
+                    'status' => 'Approved',
+                    'approved' => 1,
+                    'updated_date' => date("Y-m-d H:i:s")
 
-            } else {
-                // if not fount next level
-                $approve_details_new = null;
-                $info_close['next_approve_seq'] = 0;
-                $info_close['status'] = 'Approved';
-                $info_new = $info_close;
+                );
+                $approve_details_previous = $previous_approve_data;        // update
+                if ($getNextApproval) {
+                    // if fount next level
+                    $approve_details_new = $getNextApproval['approve_data']; // insert
+                    $info_update['status'] = $getNextApproval['status'];
+                    $info_update['category_id'] = $getNextApproval['category_id'];
+                    $info_update['next_approve_seq'] = $approve_details_new['next_approve_seq'];
+                    $info_new = $info_update;                                       // update
+                    $info_new['category_id']= $info->category_id;
+
+                } else {
+                    // if not fount next level
+                    $approve_details_new = null;
+                    $info_close['next_approve_seq'] = 0;
+                    $info_close['status'] = 'Approved';
+                    $info_new = $info_close;
+                    $info_new['category_id']= $info->category_id;
+                }
             }
+            if ($this->input->post('status') == 'Rejected') {
+                $previous_approve_data = array(
+                    'approve_status' => 1,
+                    'next_approve_seq' => 0,
+                    'updated_by' => $this->session->userdata('user_id'),
+                    'status' => 'Rejected',
+                    'category_id'=>$info->category_id,
+                    'updated_date' => date("Y-m-d H:i:s"),
+                    'comments' => $note
+                );
 
+                $info_data = array(
+                    'next_approve_seq' => 0,
+                    'updated_by' => $this->session->userdata('user_id'),
+                    'status' => 'Rejected',
+                    'approved' => 1,
+                    'category_id'=>$info->category_id,
+                    'updated_date' => date("Y-m-d H:i:s")
+                );
+            }
         }
-        if ($this->form_validation->run() == true && $this->approval_model->updateStatus($approve_details_new, $approve_details_previous, $info_new, $id, $info->application_id, $info->table_name)) {
-            $this->session->set_flashdata('message', lang('status_updated'));
-            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'approval/approval_list/' . $info->table_name);
-        } else {
-            $this->data['approve'] = $info;
-            $this->data['id'] = $id;
-            $this->data['modal_js'] = $this->site->modal_js();
-            $this->load->view($this->theme . 'approval/update_status', $this->data);
 
+        if ($this->input->post('status') == 'Completed') {
+            if ($this->form_validation->run() == true && $this->approval_model->updateStatus($approve_details_new, $approve_details_previous, $info_new, $id, $info->application_id, $info->table_name)) {
+                $this->session->set_flashdata('message', lang('status_updated'));
+                redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'approval/approval_list/' . $info->table_name);
+            } else {
+                $this->data['approve'] = $info;
+                $this->data['id'] = $id;
+                $this->data['modal_js'] = $this->site->modal_js();
+                $this->load->view($this->theme . 'approval/update_status', $this->data);
+
+            }
+        } else {
+            if ($this->form_validation->run() == true && $this->approval_model->updateStatusReject($previous_approve_data, $info_data, $id, $info->application_id, $info->table_name)) {
+                $this->session->set_flashdata('message', lang('status_updated'));
+                redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'approval/approval_list/' . $info->table_name);
+            } else {
+                $this->data['approve'] = $info;
+                $this->data['id'] = $id;
+                $this->data['modal_js'] = $this->site->modal_js();
+                $this->load->view($this->theme . 'approval/update_status', $this->data);
+
+            }
         }
     }
 
 
-    function getNextApproval($next_id, $table_naame, $created_by, $created_date, $application_id)
+    function getNextApproval($next_id, $table_naame, $created_by, $created_date, $application_id,$category_id)
     {
         $userLists = $this->site->getAllUser();
-        $info_details = $this->approval_model->getNextApprovals($next_id, $table_naame);
+        $info_details = $this->approval_model->getNextApprovals($next_id, $table_naame,$category_id);
         $user_details = $this->getApproveCustomer($userLists, $info_details->approver_id);
         $details = array();
         $approve_data = array(
@@ -177,6 +218,7 @@ class Approval extends MY_Controller
             'approver_seq' => $info_details->approver_seq,
             'approver_seq_name' => $info_details->approver_seq_name,
             'created_by' => $created_by,
+            'category_id' => $info_details->category_id,
             'interface_name' => $info_details->interface_name,
             'next_approve_seq' => $info_details->approver_next_seq,
             'application_id' => $application_id,
@@ -223,7 +265,7 @@ class Approval extends MY_Controller
                     $query_info_close=array();
                     foreach ($_POST['val'] as $id) {
                         $info = $this->approval_model->getApprovalBluk($id);
-                        $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id);
+                        $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id,$info->category_id);
 
                         $previous_approve_data[]="update ".$this->db->dbprefix('approve_details')." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
                             "', approve_status=1, status='approved' where id=".(int)$info->id."; ";

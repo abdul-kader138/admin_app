@@ -108,9 +108,9 @@ $(document).ready(function(){
         
         if (data.event) { $('#eid').val(data.event.id); }
         $('#start').val(start);
-        $('#end').val(end);
+        // $('#end').val(end);
         $('#description').val(data.event ? data.event.description : '');
-        $('#color').val(data.event ? data.event.color : '#3a87ad');
+        // $('#color').val(data.event ? data.event.color : '#3a87ad');
 
         $.each(data.buttons, function(index, button){
             $('.modal-footer').prepend('<button type="button" id="' + button.id  + '" class="btn ' + button.css + '">' + button.label + '</button>')
@@ -125,9 +125,9 @@ $(document).ready(function(){
             var edata = {
                 title: $('#title').val(),
                 description: $('#description').val(),
-                color: $('#color').val(),
+                // color: $('#color').val(),
                 start: $('#start').val(),
-                end: $('#end').val(),
+                // end: $('#end').val(),
             };
             edata[tkname] = tkvalue;
             $.post(site.base_url+'calendar/add_event', edata, function(result){
@@ -144,9 +144,9 @@ $(document).ready(function(){
                 id: $('#eid').val(),
                 title: $('#title').val(),
                 description: $('#description').val(),
-                color: $('#color').val(),
+                // color: $('#color').val(),
                 start: $('#start').val(),
-                end: $('#end').val(),
+                // end: $('#end').val(),
             };
             edata[tkname] = tkvalue;
             $.post(site.base_url+'calendar/update_event', edata, function(result){

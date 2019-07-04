@@ -24,7 +24,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("Requisition_Date", "Requisition_Date") . " <b> *</b>"; ?>
-                                <?php echo form_input('requisition_date', $this->sma->hrld_date($document->requisition_date), 'class="form-control input-tip date" required="required" id="requisition_date"'); ?>
+                                <?php echo form_input('requisition_date', $this->sma->hrld_date($document->requisition_date), 'class="form-control input-tip date" readonly required="required" id="requisition_date"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -213,10 +213,10 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <b>Is the position as per the approved manpower budget & approved manpower plan fot the
-                                    year</b>
+                                <b>Is the position as per the approved manpower budget & approved manpower plan </b>
                                 <?php
-                                $opt = array(2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
+//                                $opt = array(2019 => "2019", 2020 => "2020", 2021 => "2021", 2022 => "2022", 2023 => "2023", 2024 => "2024", 2025 => "2025", 2026 => "2026", 2027 => "2027", 2028 => "2028", 2029 => "2029", 2030 => "2030");
+                                $opt = array("Yes" => "Yes", "No" => "No");
                                 echo form_dropdown('mb_year', $opt, $document->mb_year, 'id="mb_year" required="required" class="form-control input-tip select" style="width:100%;"');
                                 ?>
                             </div>
@@ -228,7 +228,7 @@
                             </div>
                             <div class="form-group">
                                 <b>Time limit within which the position is to be held</b>
-                                <?php echo form_input('time_limit', $document->time_limit, 'class="form-control input-tip" id="time_limit" required="required"'); ?>
+                                <?php echo form_input('time_limit', $document->time_limit, 'class="date form-control input-tip" readonly id="time_limit" required="required"'); ?>
 
                             </div>
                         </div>

@@ -24,9 +24,10 @@ class Approval_model extends CI_Model
     }
 
 
-    public function getNextApprovals($id, $table_name)
+    public function getNextApprovals($id, $table_name,$category_id)
     {
-        $q = $this->db->get_where('approver_list', array('approver_seq' => $id, 'interface_name' => 'add_' . $table_name));
+//        if($category_id) $this->db->get_where('category_id',$category_id);
+        $q = $this->db->get_where('approver_list', array('approver_seq' => $id,  'category_id' => $category_id,'interface_name' => 'add_' . $table_name));
         if ($q->num_rows() > 0) {
             return $q->row();
         }
@@ -42,6 +43,21 @@ class Approval_model extends CI_Model
         $this->db->where('id',$id);
         $this->db->update('approve_details', $approve_details_previous);
         if($approve_details_new) $this->db->insert('approve_details',$approve_details_new);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+
+    }
+
+
+    public function updateStatusReject($approve_details_previous, $info_new, $id,$application_id,$table_name)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->where('id',$application_id);
+        $this->db->update($table_name, $info_new);
+        $this->db->where('id',$id);
+        $this->db->update('approve_details', $approve_details_previous);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) return false;
         return true;

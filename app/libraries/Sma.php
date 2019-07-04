@@ -211,59 +211,95 @@ class Sma
     public function send_email($to, $subject, $message, $from = null, $from_name = null, $attachment = null, $cc = null, $bcc = null)
     {
         $this->load->library('email');
-        $config['useragent'] = "Stock Manager Advance";
-        $config['protocol'] = $this->Settings->protocol;
-        $config['mailtype'] = "html";
-        $config['crlf'] = "\r\n";
-        $config['newline'] = "\r\n";
-        if ($this->Settings->protocol == 'sendmail') {
-            $config['mailpath'] = $this->Settings->mailpath;
-        } elseif ($this->Settings->protocol == 'smtp') {
-            $this->load->library('encrypt');
-            $config['smtp_host'] = $this->Settings->smtp_host;
-            $config['smtp_user'] = $this->Settings->smtp_user;
-            $config['smtp_pass'] = $this->encrypt->decode($this->Settings->smtp_pass);
-            $config['smtp_port'] = $this->Settings->smtp_port;
-            if (!empty($this->Settings->smtp_crypto)) {
-                $config['smtp_crypto'] = $this->Settings->smtp_crypto;
-            }
-        }
+//        $config['useragent'] = "Stock Manager Advance";
+//        $config['protocol'] = $this->Settings->protocol;
+//        $config['mailtype'] = "html";
+//        $config['crlf'] = "\r\n";
+//        $config['newline'] = "\r\n";
+//        if ($this->Settings->protocol == 'sendmail') {
+//            $config['mailpath'] = $this->Settings->mailpath;
+//        } elseif ($this->Settings->protocol == 'smtp') {
+//            $this->load->library('encrypt');
+//            $config['smtp_host'] = $this->Settings->smtp_host;
+//            $config['smtp_user'] = $this->Settings->smtp_user;
+//            $config['smtp_pass'] = $this->encrypt->decode($this->Settings->smtp_pass);
+//            $config['smtp_port'] = $this->Settings->smtp_port;
+//            if (!empty($this->Settings->smtp_crypto)) {
+//                $config['smtp_crypto'] = $this->Settings->smtp_crypto;
+//            }
+//        }
+//
+//        $this->email->initialize($config);
+//
+//        if ($from && $from_name) {
+//            $this->email->from($from, $from_name);
+//        } elseif ($from) {
+//            $this->email->from($from, $this->Settings->site_name);
+//        } else {
+//            $this->email->from($this->Settings->default_email, $this->Settings->site_name);
+//        }
+//
+//        $this->email->to($to);
+//        if ($cc) {
+//            $this->email->cc($cc);
+//        }
+//        if ($bcc) {
+//            $this->email->bcc($bcc);
+//        }
+//        $this->email->subject($subject);
+//        $this->email->message($message);
+//        if ($attachment) {
+//            if (is_array($attachment)) {
+//                foreach ($attachment as $file) {
+//                    $this->email->attach($file);
+//                }
+//            } else {
+//                $this->email->attach($attachment);
+//            }
+//        }
 
-        $this->email->initialize($config);
 
-        if ($from && $from_name) {
-            $this->email->from($from, $from_name);
-        } elseif ($from) {
-            $this->email->from($from, $this->Settings->site_name);
-        } else {
-            $this->email->from($this->Settings->default_email, $this->Settings->site_name);
-        }
+//        $config = Array(
+//            'protocol' => 'smtp',
+//            'smtp_host' => 'ssl://smtp.googlemail.com',
+//            'smtp_port' => 465,
+//            'smtp_user' => 'babu313137@gmail.com',
+//            'smtp_pass' => 'biTS1@34',
+//        );
 
-        $this->email->to($to);
-        if ($cc) {
-            $this->email->cc($cc);
-        }
-        if ($bcc) {
-            $this->email->bcc($bcc);
-        }
-        $this->email->subject($subject);
-        $this->email->message($message);
-        if ($attachment) {
-            if (is_array($attachment)) {
-                foreach ($attachment as $file) {
-                    $this->email->attach($file);
-                }
-            } else {
-                $this->email->attach($attachment);
-            }
-        }
+        $mail_config['smtp_host'] = 'smtp.gmail.com';
+        $mail_config['smtp_port'] = '587';
+        $mail_config['smtp_user'] = 'babu313137@gmail.com';
+        $mail_config['_smtp_auth'] = TRUE;
+        $mail_config['smtp_pass'] = 'biTS1@34';
+        $mail_config['smtp_crypto'] = 'tls';
+        $mail_config['protocol'] = 'smtp';
+        $mail_config['mailtype'] = 'html';
+        $mail_config['send_multipart'] = FALSE;
+        $mail_config['charset'] = 'utf-8';
+        $mail_config['wordwrap'] = TRUE;
+        $this->email->initialize($mail_config);
+
+        $this->email->set_newline("\r\n");
+
+        //load email library
+//        $this->load->library('email', $config);
+//        $this->email->set_newline("\r\n");
+
+        //set email information and content
+        $this->email->from('babu313136@gmail.com', 'Paragon Group');
+        $this->email->to('a.kader@paragon.com.bd');
+
+        $this->email->subject(' CodeIgniter Rocks Socks ');
+        $this->email->message('Hello World');
+
 
         if ($this->email->send()) {
-            //echo $this->email->print_debugger(); die();
-            return true;
+         //   echo $this->email->print_debugger(); die();
+//            return true;
         } else {
-            //echo $this->email->print_debugger(); die();
-            return false;
+            echo $this->email->print_debugger(); die();
+//            return false;
         }
     }
 

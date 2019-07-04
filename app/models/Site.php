@@ -404,6 +404,16 @@ class Site extends CI_Model
     }
 
 
+    public function getApproverListByCategory($name,$category_id)
+    {
+        $q = $this->db->get_where('approver_list', array('interface_name' => $name,'category_id'=>$category_id,'approver_seq'=>1), 1);
+        $this->db->order_by('approver_seq', 'asc');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
     public function getAllDocType()
     {
         $q = $this->db->get("doctype");
@@ -461,5 +471,31 @@ class Site extends CI_Model
         }
         return FALSE;
     }
+
+
+    public function getAllBands()
+    {
+        $q = $this->db->get("brands");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
+    public function getAllBanks()
+    {
+        $q = $this->db->get("banks");
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+
 
 }

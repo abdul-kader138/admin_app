@@ -74,7 +74,7 @@ $config = array(
         array(
             'field' => 'username',
             'label' => lang('username'),
-            'rules' => 'required|alpha_dash'
+            'rules' => 'required'
         ),
         array(
             'field' => 'email',

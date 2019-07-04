@@ -87,7 +87,9 @@ class Document extends MY_Controller
         }
         $edit_link = "";
         $delete_link = "";
+        $update_status = "";
         if ($get_permission['document-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit/$1', '<i class="fa fa-edit"></i> ' . lang('doc_edit'), 'class="sledit"');
+        if ($get_permission['document-update_status'] || $this->Owner || $this->Admin) $update_status = anchor('document/update_status/$1', '<i class="fa fa-plus"></i> ' . lang('Status_Update'),'data-toggle="modal" data-target="#myModal"');
         if ($get_permission['document-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("doc_delete") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('document/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
@@ -97,20 +99,22 @@ class Document extends MY_Controller
             . lang('actions') . ' <span class="caret"></span></button>
         <ul class="dropdown-menu pull-right" role="menu">
             <li>' . $edit_link . '</li>
+            <li>' . $update_status . '</li>
             <li>' . $delete_link . '</li>
         </ul>
     </div></div>';
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".description as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#'," . $this->db->dbprefix('documents') . ".attachment_name) as url,")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('documents') . ".address," . $this->db->dbprefix('documents') . ".instrument," . $this->db->dbprefix('documents') . ".instrument_no," . $this->db->dbprefix('banks') . ".name as c_name," . $this->db->dbprefix('brands') . ".name as b_name,," . $this->db->dbprefix('documents') . ".year as years," . $this->db->dbprefix('documents') . ".status,". $this->db->dbprefix('documents') . ".credit_limit,". $this->db->dbprefix('documents') . ".total_cheque" )
             ->from("documents")
-            ->join('company', 'documents.company_id=company.id', 'left')
-            ->join('doctype', 'documents.doctype_id=doctype.id', 'left')
+            ->join('brands', 'documents.commission_id=brands.id', 'left')
+            ->join('banks', 'documents.instrument_bank=banks.id', 'left')
             ->group_by('documents.id')
             ->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
     }
+
 
     public function add()
     {
@@ -125,45 +129,50 @@ class Document extends MY_Controller
 
         $this->data['title'] = "Add Document";
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
-        $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
-        $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
-        $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
-        $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
+        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim|required');
+//        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'is_unique[documents.reference_no]');
+        $this->form_validation->set_rules('target_qty', lang("target_qty"), 'trim|required');
+        $this->form_validation->set_rules('agreement_start_date', lang("agreement_start_date"), 'trim|required');
+        $this->form_validation->set_rules('agreement_expire_date', lang("agreement_expire_date"), 'trim|required');
+        $this->form_validation->set_rules('commission_id', lang("commission_id"), 'trim|required');
+        $this->form_validation->set_rules('instrument', lang("instrument"), 'trim|required');
+        $this->form_validation->set_rules('instrument_no', lang("instrument_no"), 'trim|required');
+        $this->form_validation->set_rules('instrument_bank', lang("instrument_bank"), 'trim|required');
+        $this->form_validation->set_rules('instrument_branch', lang("instrument_branch"), 'trim|required');
+        $this->form_validation->set_rules('1_target', lang("1_target"), 'trim|required');
+        $this->form_validation->set_rules('2_target', lang("2_target"), 'trim|required');
+        $this->form_validation->set_rules('1_target_commission', lang("1_target_commission"), 'trim|required');
+        $this->form_validation->set_rules('2_target_commission', lang("2_target_commission"), 'trim|required');
+        $this->form_validation->set_rules('address', lang("address"), 'trim|required');
+        $this->form_validation->set_rules('total_cheque', lang("total_cheque"), 'trim|required');
+        $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required');
+        $this->form_validation->set_rules('year', lang("year"), 'trim|required');
 
         if ($this->form_validation->run() == true) {
-
-            $doc_url = "";
-
             $data = array(
                 'name' => $this->input->post('name'),
                 'reference_no' => $this->input->post('reference_no'),
-                'company_id' => $this->input->post('company_id'),
-                'status_id' => $this->input->post('status_id'),
-                'doctype_id' => $this->input->post('doctype_id'),
+                'target_qty' => $this->input->post('target_qty'),
+                'agreement_start_date' => $this->sma->fld($this->input->post('agreement_start_date')),
+                'agreement_expire_date' => $this->sma->fld($this->input->post('agreement_expire_date')),
+                'commission_id' => $this->input->post('commission_id'),
+                'instrument' => $this->input->post('instrument'),
+                'instrument_no' => $this->input->post('instrument_no'),
+                'instrument_bank' => $this->input->post('instrument_bank'),
+                'instrument_branch' => $this->input->post('instrument_branch'),
+                'c1_target' => $this->input->post('1_target'),
+                'c2_target' => $this->input->post('2_target'),
+                'c1_target_commission' => $this->input->post('1_target_commission'),
+                'c2_target_commission' => $this->input->post('2_target_commission'),
+                'address' => $this->input->post('address'),
+                'year' => $this->input->post('year'),
+                'total_cheque' => $this->input->post('total_cheque'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+                'credit_limit' => $this->input->post('credit_limit'),
+                'status' => 'In Hand'
             );
-
-            if ($_FILES['document']['size'] > 0) {
-                $this->load->library('upload');
-                $config['upload_path'] = $this->upload_path;
-                $config['allowed_types'] = $this->digital_file_types;
-                $config['max_size'] = $this->allowed_file_size;
-                $config['overwrite'] = true;
-                $this->upload->initialize($config);
-                if (!$this->upload->do_upload('document')) {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect($_SERVER["HTTP_REFERER"]);
-                }
-                $doc_url = (($this->upload_path) . "/" . ($photo = $this->upload->file_name));
-                $data['url'] = $doc_url;
-                $data['attachment_name'] = $this->upload->file_name;
-
-            }
-
         }
 
         if ($this->form_validation->run() == true && $this->document_model->addDocument($data)) {
@@ -173,9 +182,8 @@ class Document extends MY_Controller
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 
-            $this->data['companies'] = $this->site->getAllCompany();
-            $this->data['doctypes'] = $this->site->getAllDocType();
-
+            $this->data['brands'] = $this->site->getAllBands();
+            $this->data['banks'] = $this->site->getAllBanks();
             $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('document'), 'page' => lang('document')), array('link' => '#', 'page' => lang('add_document')));
             $meta = array('page_title' => lang('add_document'), 'bc' => $bc);
             $this->page_construct('document/add_document', $meta, $this->data);
@@ -232,50 +240,46 @@ class Document extends MY_Controller
 
         $this->data['title'] = "Edit Document";
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
-        $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
-        $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
-        $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
-        $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
-
+        $this->form_validation->set_rules('target_qty', lang("target_qty"), 'trim|required');
+        $this->form_validation->set_rules('agreement_start_date', lang("agreement_start_date"), 'trim|required');
+        $this->form_validation->set_rules('agreement_expire_date', lang("agreement_expire_date"), 'trim|required');
+        $this->form_validation->set_rules('commission_id', lang("commission_id"), 'trim|required');
+        $this->form_validation->set_rules('instrument', lang("instrument"), 'trim|required');
+        $this->form_validation->set_rules('instrument_no', lang("instrument_no"), 'trim|required');
+        $this->form_validation->set_rules('instrument_bank', lang("instrument_bank"), 'trim|required');
+        $this->form_validation->set_rules('instrument_branch', lang("instrument_branch"), 'trim|required');
+        $this->form_validation->set_rules('1_target', lang("1_target"), 'trim|required');
+        $this->form_validation->set_rules('2_target', lang("2_target"), 'trim|required');
+        $this->form_validation->set_rules('1_target_commission', lang("1_target_commission"), 'trim|required');
+        $this->form_validation->set_rules('2_target_commission', lang("2_target_commission"), 'trim|required');
+        $this->form_validation->set_rules('address', lang("address"), 'trim|required');
+        $this->form_validation->set_rules('total_cheque', lang("total_cheque"), 'trim|required');
+        $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required');
+        $this->form_validation->set_rules('year', lang("year"), 'trim|required');
 
         if ($this->form_validation->run() == true) {
             $data = array(
                 'name' => $this->input->post('name'),
-                'reference_no' => $this->input->post('reference_no'),
-                'company_id' => $this->input->post('company_id'),
-                'status_id' => $this->input->post('status_id'),
-                'doctype_id' => $this->input->post('doctype_id'),
+                'target_qty' => $this->input->post('target_qty'),
+                'agreement_start_date' => $this->sma->fld($this->input->post('agreement_start_date')),
+                'agreement_expire_date' => $this->sma->fld($this->input->post('agreement_expire_date')),
+                'commission_id' => $this->input->post('commission_id'),
+                'instrument' => $this->input->post('instrument'),
+                'instrument_no' => $this->input->post('instrument_no'),
+                'instrument_bank' => $this->input->post('instrument_bank'),
+                'instrument_branch' => $this->input->post('instrument_branch'),
+                'c1_target' => $this->input->post('1_target'),
+                'c2_target' => $this->input->post('2_target'),
+                'c1_target_commission' => $this->input->post('1_target_commission'),
+                'c2_target_commission' => $this->input->post('2_target_commission'),
+                'address' => $this->input->post('address'),
+                'year' => $this->input->post('year'),
+                'total_cheque' => $this->input->post('total_cheque'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+                'credit_limit' => $this->input->post('credit_limit')
             );
-
-
-            if ($_FILES['document']['size'] > 0) {
-                $t = true;
-                $document_details = $this->document_model->getDocumentById($id);
-                if ($document_details->attachment_name) {
-                    $this->load->helper("file");
-                    $t = unlink("./assets/uploads/document/" . $document_details->attachment_name);
-                }
-
-                $this->load->library('upload');
-                $config['upload_path'] = $this->upload_path;
-                $config['allowed_types'] = $this->digital_file_types;
-                $config['max_size'] = $this->allowed_file_size;
-                $config['overwrite'] = true;
-                $this->upload->initialize($config);
-                if (!$this->upload->do_upload('document')) {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('error', $error);
-                    redirect($_SERVER["HTTP_REFERER"]);
-                }
-                $doc_url = (($this->upload_path) . "/" . ($photo = $this->upload->file_name));
-                $data['url'] = $doc_url;
-                $data['attachment_name'] = $this->upload->file_name;
-
-            }
 
         }
 
@@ -285,8 +289,8 @@ class Document extends MY_Controller
         } else {
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $this->data['document'] = $this->document_model->getDocumentById($id);
-            $this->data['companies'] = $this->site->getAllCompany();
-            $this->data['doctypes'] = $this->site->getAllDocType();
+            $this->data['brands'] = $this->site->getAllBands();
+            $this->data['banks'] = $this->site->getAllBanks();
             $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/edit'), 'page' => lang('document')), array('link' => '#', 'page' => lang('doc_edit')));
             $meta = array('page_title' => lang('edit_document'), 'bc' => $bc);
             $this->page_construct('document/edit_document', $meta, $this->data);
@@ -668,7 +672,7 @@ class Document extends MY_Controller
                 redirect($_SERVER["HTTP_REFERER"]);
             }
         }
-        $current_users=$this->document_model->getUsersByID($this->session->userdata('user_id'));
+        $current_users = $this->document_model->getUsersByID($this->session->userdata('user_id'));
 
         $this->load->helper('path');
         $_allowed_files = explode('|', $this->digital_file_types);
@@ -694,7 +698,7 @@ class Document extends MY_Controller
                 array_push($allowed_files, $_mime);
             }
         }
-        if ($this->Owner || $this->Admin || $current_users->document_path=='all') {
+        if ($this->Owner || $this->Admin || $current_users->document_path == 'all') {
             $root_options = array(
                 'driver' => 'LocalFileSystem',
                 'path' => set_realpath('assets/uploads/docs'),
@@ -737,8 +741,8 @@ class Document extends MY_Controller
 
             $root_options = array(
                 'driver' => 'LocalFileSystem',
-                'path' => set_realpath('assets/uploads/docs/'.$current_users->document_path),
-                'URL' => site_url('assets/uploads/docs/'.$current_users->document_path.'/'),
+                'path' => set_realpath('assets/uploads/docs/' . $current_users->document_path),
+                'URL' => site_url('assets/uploads/docs/' . $current_users->document_path . '/'),
                 'uploadMaxSize' => $this->allowed_file_size_new . 'M',
                 'accessControl' => 'access',
                 'uploadAllow' => array('application/pdf',
@@ -775,5 +779,56 @@ class Document extends MY_Controller
             )
         );
         $this->load->library('elfinder_lib', $opts);
+    }
+
+    function modal_view($id = NULL) {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-index'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $pr_details = $this->document_model->getDocumentById($id);
+        if (!$id || !$pr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+        $this->data['document'] = $pr_details;
+        $this->data['unit'] = "Ton";
+        $this->data['bank'] = $this->document_model->getBankById($pr_details->instrument_bank);
+        $this->data['commission'] = $this->document_model->getCommissionById($pr_details->commission_id);
+        $this->load->view($this->theme . 'document/modal_view', $this->data);
+    }
+
+
+    public function update_status($id)
+    {
+
+        $this->form_validation->set_rules('status', lang("status"), 'required');
+
+        $pr_details = $this->document_model->getDocumentById($id);
+        if ($this->form_validation->run() == true) {
+            $status = $this->input->post('status');
+            $update_status = array(
+                'status' => $status,
+                'updated_by' => $this->session->userdata('user_id'),
+                'updated_date' => date("Y-m-d H:i:s")
+            );
+        } elseif ($this->input->post('update')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'document');
+        }
+
+        if ($this->form_validation->run() == true && $this->document_model->updateStatus($pr_details->id, $update_status)) {
+            $this->session->set_flashdata('message', lang('status_updated'));
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'document');
+        } else {
+            $this->data['document'] = $pr_details;
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'document/update_status', $this->data);
+        }
     }
 }

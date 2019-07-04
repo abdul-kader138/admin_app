@@ -139,6 +139,9 @@
                                         <label for="document-upload" class="padding05"><?= lang('Upload') ?></label>
                                         <input type="checkbox" value="1" id="document-file_delete" class="checkbox" name="document-file_delete" <?php echo $p->{'document-file_delete'} ? "checked" : ''; ?>>
                                         <label for="document-file_delete" class="padding05"><?= lang('File_Delete') ?></label>
+                                        <input type="checkbox" value="1" id="document-update_status" class="checkbox" name="document-update_status" <?php echo $p->{'document-update_status'} ? "checked" : ''; ?>>
+                                        <label for="document-update_status" class="padding05"><?= lang('Status_Update') ?></label>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -282,6 +285,22 @@
                                     </td>
                                     <td class="text-center">
                                         <input type="checkbox" value="1" class="checkbox" name="employees-bill_delete" <?php echo $p->{'employees-bill_delete'} ? "checked" : ''; ?>>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><?= lang("Calender"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="calendar-index" <?php echo $p->{'calendar-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="calendar-add" <?php echo $p->{'calendar-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="calendar-edit" <?php echo $p->{'calendar-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="calendar-delete" <?php echo $p->{'calendar-delete'} ? "checked" : ''; ?>>
                                     </td>
                                 </tr>
                                 <tr>
