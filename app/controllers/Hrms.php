@@ -330,7 +330,7 @@ class Hrms extends MY_Controller
         $this->data['companies'] = $this->hr_model->getCompanyById($pr_details->company_id);
         $this->data['designations'] = $this->hr_model->getDesignationById($pr_details->designation_id);
         $approversList = $this->hr_model->getApproversList('add_manpower_requisition',$pr_details->category_id);
-        $approversListDetails = $this->bulidApproverHistory($approversList, $pr_details->id, $pr_details->created_by);
+        $approversListDetails = $this->bulidApproverHistory($approversList, $pr_details->id, $pr_details->created_by,$pr_details->created_date);
         $this->data['footer'] = $approversListDetails;
         $this->load->view($this->theme . 'hr/modal_manpower_requisition', $this->data);
     }
@@ -373,12 +373,13 @@ class Hrms extends MY_Controller
         }
     }
 
-    function bulidApproverHistory($approver_list, $application_id, $created_id)
+    function bulidApproverHistory($approver_list, $application_id, $created_id,$created_date=null)
     {
         $infoArray = array();
         $created_history_c = $this->hr_model->getUsersByID($created_id);
         $user_info = array(
             'approver_type' => 'Created By',
+            'created_date' => $created_date,
             'username' => $created_history_c->first_name . " " . $created_history_c->last_name
         );
         $infoArray[] = $user_info;
@@ -389,12 +390,15 @@ class Hrms extends MY_Controller
             if ($approver_details) {
                 $created_history = $this->hr_model->getUsersByID($approver_details->aprrover_id);
                 $username = $created_history->first_name . " " . $created_history->last_name;
+                $created_date = $approver_details->updated_date;
             }else{
                 $created_history=null;
                 $username=null;
+                $created_date = null;
             }
             $info = array(
                 'approver_type' => $approver->approver_seq_name,
+                'created_date'=>$created_date,
                 'username' => $username
             );
             $infoArray[] = $info;
