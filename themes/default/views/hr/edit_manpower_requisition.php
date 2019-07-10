@@ -93,7 +93,7 @@
                              id="business_name_div" <?php echo((!$document->business_name == "") ? "" : 'style="display:none"'); ?>>
                             <div class="form-group">
                                 <?= lang("Business_Name", "Business_Name") . " <b> *</b>"; ?>
-                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'),'Horticulture' => lang('Horticulture'));
+                                <?php $sst = array('Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'Consumer Food' => lang('Consumer_Food'),'Horticulture' => lang('Horticulture'),'Tea States' => lang('Tea_States'));
                                 echo form_dropdown('business_name', $sst, $document->business_name, 'class="form-control input-tip"  id="business_name" style="width:100%"'); ?>
                             </div>
                         </div>
