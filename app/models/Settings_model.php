@@ -971,4 +971,36 @@ class Settings_model extends CI_Model
         }
         return false;
     }
+
+    public function addApproverOthers($data)
+    {
+        if ($this->db->insert("approver_list_other", $data)) {
+            return true;
+        }
+        return false;
+    }
+    public function updateApproverOthers($id, $data)
+    {
+        if ($this->db->update("approver_list_other", $data, array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getApproverByOthersID($id)
+    {
+        $q = $this->db->get_where("approver_list_other", array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function deleteApproverOthers($id)
+    {
+        if ($this->db->delete("approver_list_other", array('id' => $id))) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -498,4 +498,16 @@ class Site extends CI_Model
     }
 
 
+    public function getApproverOthersList($name,$category_id,$company_id,$type)
+    {
+        $q = $this->db->get_where('approver_list_other', array('interface_name' => $name,'category_id'=>$category_id,'company_id'=>$company_id,'type'=>$type,'approver_seq'=>1), 1);
+        $this->db->order_by('approver_seq', 'asc');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+
+
 }

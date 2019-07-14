@@ -399,6 +399,28 @@ if ($Owner || $Admin) {
         </ul>
     </li>
 
+    <li class="mm_correction_request">
+        <a class="dropmenu" href="#">
+            <i class="fa fa-dashboard"></i>
+            <span class="text"> <?= lang('Correction_Request'); ?> </span>
+            <span class="chevron closed"></span>
+        </a>
+        <ul>
+            <li id="correction_request_index">
+                <a class="submenu" href="<?= site_url('correction_request/'); ?>">
+                    <i class="fa fa-th"></i><span
+                            class="text"> <?= lang('List_Correction_Request'); ?></span>
+                </a>
+            </li>
+            <li id="correction_request_add">
+                <a class="submenu" href="<?= site_url('correction_request/add'); ?>">
+                    <i class="fa fa-plus"></i><span
+                            class="text"> <?= lang('Add_Correction_Request'); ?></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="mm_auth mm_customers mm_suppliers mm_billers">
         <a class="dropmenu" href="#">
             <i class="fa fa-users"></i>
@@ -531,7 +553,15 @@ if ($Owner || $Admin) {
                 <li id="system_settings_approveres">
                     <a href="<?= site_url('system_settings/approveres') ?>">
                         <i class="fa fa-user"></i><span
-                                class="text"> <?= lang('Approver_Setup'); ?></span>
+                                class="text"> <?= lang('Approver_Setup_HR'); ?></span>
+                    </a>
+                </li>
+
+
+                <li id="system_settings_approveres_others">
+                    <a href="<?= site_url('system_settings/approveres_others') ?>">
+                        <i class="fa fa-user"></i><span
+                                class="text"> <?= lang('Approver_Setup_Others'); ?></span>
                     </a>
                 </li>
             </ul>
@@ -757,6 +787,37 @@ if ($Owner || $Admin) {
             </ul>
         </li>
     <?php } ?>
+
+    <?php if ($GP['correction_request-index'] || $GP['correction_request-add'] ){
+        ?>
+        <li class="mm_correction_request">
+            <a class="dropmenu" href="#">
+                <i class="fa fa-dashboard"></i>
+                <span class="text"> <?= lang('Correction_Request'); ?> </span>
+                <span class="chevron closed"></span>
+            </a>
+            <ul>
+                <?php if ($GP['correction_request-index']) { ?>
+                    <li id="correction_request_index">
+                        <a class="submenu" href="<?= site_url('correction_request'); ?>">
+                            <i class="fa fa-th"></i><span
+                                    class="text"> <?= lang('Correction_Request'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['correction_request-add']) { ?>
+                    <li id="correction_request_add">
+                        <a class="submenu" href="<?= site_url('correction_request/add'); ?>">
+                            <i class="fa fa-plus"></i><span
+                                    class="text"> <?= lang('Add_Correction_Request'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
+    <?php }
+    ?>
+
 
     <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] || $GP['document-file_manager'] ||
         $GP['document-delete']

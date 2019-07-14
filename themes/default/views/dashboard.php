@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<?php if ($Owner || $Admin || $GP['approval_manpower_requisition']) { ?>
+<?php if ($Owner || $Admin || $GP['approval_manpower_requisition'] || $GP['approval_recruitment_approval'] || $GP['correction_request_approval']) { ?>
     <div class="box" style="margin-bottom: 15px;">
         <div class="box-header">
             <h2 class="blue"><i class="fa-fw fa fa-bar-chart-o"></i><?= lang('Waiting_For_Approval'); ?></h2>
@@ -12,7 +12,7 @@
                             <?php if ($Owner || $Admin || $GP['approval_manpower_requisition']) { ?>
                                 <div class="col-sm-2">
                                     <div class="small-box padding1010 bpurple">
-                                        <h4 class="bold"><?= lang('Manpower_Requisition') ?></h4>
+                                        <h4 class="bold" style="color: #ffffff"><?= lang('Manpower_Requisition') ?></h4>
                                         <i class="fa fa-star"></i>
                                         <div style="cursor: pointer;">
                                         <a href="<?= site_url('approval/approval_list/manpower_requisition'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_mr->total < 10 && $total_mr->total > 0 ) ? '0'.$total_mr->total : $total_mr->total);?></a></div>
@@ -22,10 +22,21 @@
                             <?php if ($Owner || $Admin || $GP['approval_recruitment_approval']) { ?>
                                 <div class="col-sm-2">
                                     <div class="small-box padding1010 bblue">
-                                        <h4 class="bold"><?= lang('Recruitment_Approval') ?></h4>
+                                        <h4 class="bold" style="color: #ffffff"><?= lang('Recruitment_Approval') ?></h4>
                                         <i class="fa fa-star"></i>
                                         <div style="cursor: pointer;">
                                             <a href="<?= site_url('approval/approval_list/recruitment_approval'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_ar->total < 10 && $total_ar->total > 0 ) ? '0'.$total_ar->total : $total_ar->total);?></a></div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
+                            <?php if ($Owner || $Admin || $GP['correction_request_approval']) { ?>
+                                <div class="col-sm-2">
+                                    <div class="small-box padding1010 bred">
+                                        <h4 class="bold" style="color: #ffffff"><?= lang('Correction_Request') ?></h4>
+                                        <i class="fa fa-star"></i>
+                                        <div style="cursor: pointer;">
+                                            <a href="<?= site_url('correction_request/approval_list/cr'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_cr->total < 10 && $total_cr->total > 0 ) ? '0'.$total_cr->total : $total_cr->total);?></a></div>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -91,7 +102,13 @@
                             <p><?= lang('Man._Req.') ?></p>
                         </a>
                     </div>
+                    <div class="col-lg-1 col-md-2 col-xs-6">
+                        <a class="bred white quick-button small" href="<?= site_url('correction_Request') ?>">
+                            <i class="fa fa-unlock-alt"></i>
 
+                            <p><?= lang('Corr._Req.') ?></p>
+                        </a>
+                    </div>
 
                     <div class="col-lg-1 col-md-2 col-xs-6">
                         <a class="blightBlue white quick-button small" href="<?= site_url('notifications') ?>">
@@ -175,6 +192,15 @@
                             <a class="bgrey white quick-button small" href="<?= site_url('hrms/manpower_requisition') ?>">
                                 <i class="fa fa-user"></i>
                                 <p><?= lang('Man_Req.') ?></p>
+                            </a>
+                        </div>
+                    <?php }
+
+                    if ($GP['correction_request-index']) { ?>
+                        <div class="col-lg-1 col-md-2 col-xs-6">
+                            <a class="bred white quick-button small" href="<?= site_url('correction_request/index') ?>">
+                                <i class="fa fa-unlock-alt"></i>
+                                <p><?= lang('Corr._Req.') ?></p>
                             </a>
                         </div>
                     <?php }

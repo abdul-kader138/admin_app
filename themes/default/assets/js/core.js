@@ -1107,6 +1107,18 @@ $(document).ready(function() {
         //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
 
+    $('body').on('click', '.cr_link td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'correction_request/modal_cr/' + $(this).closest('tr').attr('id')});
+        $('#myModal').modal('show');
+    });
+
+
+    $('body').on('click', '.correction_request_approval td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'correction_request/modal_cr/' + $(this).closest('tr').attr('id')});
+        $('#myModal').modal('show');
+    });
+
+
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {
             if(result == true) {
@@ -1190,6 +1202,14 @@ $(document).on('click', '.row_approve_status', function (e) {
     e.preventDefault;
     var id = $(this).attr('id');
     $('#myModal').modal({remote: site.base_url + 'approval/update_status/' + id});
+    $('#myModal').modal('show');
+    return false;
+});
+
+$(document).on('click', '.row_cr_approve_status', function (e) {
+    e.preventDefault;
+    var id = $(this).attr('id');
+    $('#myModal').modal({remote: site.base_url + 'correction_request/update_status/' + id});
     $('#myModal').modal('show');
     return false;
 });

@@ -195,6 +195,25 @@
                                     <td>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td><?= lang("Correction_Request"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="correction_request-index" <?php echo $p->{'correction_request-index'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="correction_request-add" <?php echo $p->{'correction_request-add'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="correction_request-edit" <?php echo $p->{'correction_request-edit'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="correction_request-delete" <?php echo $p->{'correction_request-delete'} ? "checked" : ''; ?>>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td><?= lang("package"); ?></td>
                                     <td class="text-center">
@@ -382,6 +401,11 @@
                                             <input type="checkbox" value="1" class="checkbox" id="approval_recruitment_approval"
                                                    name="approval_recruitment_approval" <?php echo $p->approval_recruitment_approval ? "checked" : ''; ?>>
                                             <label for="approval_recruitment_approval" class="padding05"><?= lang('Recruitment_Approval') ?></label>
+                                        </span>
+                                        <span style="inline-block">
+                                            <input type="checkbox" value="1" class="checkbox" id="correction_request_approval"
+                                                   name="correction_request_approval" <?php echo $p->correction_request_approval ? "checked" : ''; ?>>
+                                            <label for="correction_request_approval" class="padding05"><?= lang('Correction_Request_Approval') ?></label>
                                         </span>
                                     </td>
                                 </tr>

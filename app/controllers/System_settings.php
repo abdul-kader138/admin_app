@@ -851,8 +851,14 @@ class system_settings extends MY_Controller
                 'hrms-delete_recruitment_approval' => $this->input->post('hrms-delete_recruitment_approval'),
 
 
+                'correction_request-add' => $this->input->post('correction_request-add'),
+                'correction_request-edit' => $this->input->post('correction_request-edit'),
+                'correction_request-delete' => $this->input->post('correction_request-delete'),
+                'correction_request-index' => $this->input->post('correction_request-index'),
+
                 'approval_manpower_requisition' => $this->input->post('approval_manpower_requisition'),
                 'approval_recruitment_approval' => $this->input->post('approval_recruitment_approval'),
+                'correction_request_approval' => $this->input->post('correction_request_approval'),
                 'bulk_actions' => $this->input->post('bulk_actions'),
 
 
@@ -5300,4 +5306,166 @@ class system_settings extends MY_Controller
             echo lang("approver_deleted");
         }
     }
+
+
+    function approveres_others()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('system_settings'), 'page' => lang('system_settings')), array('link' => '#', 'page' => lang('Approveres(Others)')));
+        $meta = array('page_title' => lang('Approveres(Others)'), 'bc' => $bc);
+        $this->page_construct('settings/approveres_others', $meta, $this->data);
+    }
+
+
+    function getApproverOthers()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        $edit_link= '&nbsp<a href="' . site_url("system_settings/edit_approver_others/$1") . '"data-toggle="modal" data-target="#myModal" class="tip" title="' .  lang("Edit_Approver_Others") . '"><i class="fa fa-edit"></i></a>';
+        $delete_link = "&nbsp<a href='#' class='po' title='<b>" . lang("Delete_Approver_Others") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('system_settings/delete_approver_others/$1') . "'>"
+            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> </a>";
+
+        $this->load->library('datatables');
+        $this->datatables
+            ->select("{$this->db->dbprefix('approver_list_other')}.id as id, {$this->db->dbprefix('users')}.username, {$this->db->dbprefix('approver_list_other')}.interface_name,{$this->db->dbprefix('approver_list_other')}.approver_seq, {$this->db->dbprefix('company')}.name as c_name,{$this->db->dbprefix('doctype')}.name,{$this->db->dbprefix('approver_list_other')}.type,{$this->db->dbprefix('approver_list_other')}.approver_seq_name", FALSE)
+            ->from("approver_list_other")
+            ->join("company", 'company.id=approver_list_other.company_id', 'left')
+            ->join("users", 'users.id=approver_list_other.approver_id', 'left')
+            ->join("doctype", 'doctype.id=approver_list_other.category_id', 'left')
+            ->group_by('approver_list_other.id')
+            ->add_column("Actions", "<div class=\"text-center\">".$edit_link.$delete_link."</div>", "id");
+
+        echo $this->datatables->generate();
+    }
+
+    function add_approver_others()
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+
+        $this->load->helper('security');
+        $this->form_validation->set_rules('approver_id', lang("approver_id"), 'required');
+        $this->form_validation->set_rules('approver_seq', lang("approver_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_next_seq', lang("approver_next_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_seq_name', lang("approver_seq_name"), 'required');
+        $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
+        $this->form_validation->set_rules('type', lang("type"), 'required');
+        $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
+        $this->form_validation->set_rules('interface_name', lang("interface_name"), 'required');
+
+        if ($this->form_validation->run() == true) {
+            $data = array(
+                'approver_id' => $this->input->post('approver_id'),
+                'approver_seq' => $this->input->post('approver_seq'),
+                'approver_seq_name' => $this->input->post('approver_seq_name'),
+                'company_id' => $this->input->post('company_id'),
+                'type' => $this->input->post('type'),
+                'category_id' => $this->input->post('category_id'),
+                'approver_next_seq' => $this->input->post('approver_next_seq'),
+                'interface_name' => $this->input->post('interface_name'),
+                'created_by' => $this->session->userdata('user_id'),
+                'created_date' => date("Y-m-d H:i:s"),
+            );
+        } elseif ($this->input->post('add_approver')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/approveres");
+        }
+        if ($this->form_validation->run() == true && $this->settings_model->addApproverOthers($data)) {
+            $this->session->set_flashdata('message', lang("approver_added"));
+            redirect("system_settings/approveres_others");
+        } else {
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['doctype'] = $this->site->getAllDocType();
+            $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['users'] = $this->site->getAllUser();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'settings/add_approver_others', $this->data);
+        }
+    }
+
+
+    function edit_approver_others($id = NULL)
+    {
+
+        if(! $this->Owner && ! $this->Admin) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+
+        $this->load->helper('security');
+        $this->form_validation->set_rules('approver_id', lang("approver_id"), 'required');
+        $this->form_validation->set_rules('approver_seq', lang("approver_seq"), 'required|numeric');
+        $this->form_validation->set_rules('approver_next_seq', lang("approver_next_seq"), 'required|numeric');
+        $this->form_validation->set_rules('company_id', lang("company_id"), 'required');
+        $this->form_validation->set_rules('category_id', lang("category_id"), 'required');
+        $this->form_validation->set_rules('type', lang("type"), 'required');
+        $this->form_validation->set_rules('interface_name', lang("interface_name"), 'required');
+        $this->form_validation->set_rules('approver_seq_name', lang("approver_seq_name"), 'required');
+
+
+        if ($this->form_validation->run() == true) {
+            $data = array(
+                'approver_id' => $this->input->post('approver_id'),
+                'approver_seq' => $this->input->post('approver_seq'),
+                'approver_next_seq' => $this->input->post('approver_next_seq'),
+                'approver_seq_name' => $this->input->post('approver_seq_name'),
+                'company_id' => $this->input->post('company_id'),
+                'category_id' => $this->input->post('category_id'),
+                'type' => $this->input->post('type'),
+                'interface_name' => $this->input->post('interface_name'),
+                'updated_by' => $this->session->userdata('user_id'),
+                'updated_date' => date("Y-m-d H:i:s"),
+            );
+        } elseif ($this->input->post('edit_approver')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect("system_settings/approveres_others");
+        }
+
+        if ($this->form_validation->run() == true && $this->settings_model->updateApproverOthers($id, $data)) {
+            $this->session->set_flashdata('message', lang("approver_edited"));
+            redirect("system_settings/approveres_others");
+        } else {
+            $pr_details = $this->settings_model->getApproverByOthersID($id);
+            $this->data['id'] = $id;
+            $this->data['error'] = validation_errors() ? validation_errors() : $this->session->flashdata('error');
+            $this->data['doctype'] = $this->site->getAllDocType();
+            $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['aprrover'] = $pr_details;
+            $this->data['users'] = $this->site->getAllUser();
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'settings/edit_approver_others', $this->data);
+
+        }
+    }
+
+    function delete_approver_others($id = NULL)
+    {
+        if(! $this->Owner && ! $this->Admin) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+        if ($this->settings_model->deleteApproverOthers($id)) {
+            echo lang("approver_deleted");
+        }
+    }
+
 }

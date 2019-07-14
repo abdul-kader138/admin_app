@@ -34,4 +34,16 @@ class Db_model extends CI_Model
     }
 
 
+    public function getTotalCRApproval($id = NULL)
+    {
+        $this->db->select('count(id) as total', FALSE)
+            ->where('aprrover_id ', $id)
+            ->where('approve_status ', 0);
+        $q = $this->db->get_where('approve_details_others',array('interface_name'=>'Correction Request'));
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
 }

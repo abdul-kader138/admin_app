@@ -60,7 +60,7 @@
                                     </tr>
                                     <?php if ($document->organization_type == 'Corporate') { ?>
                                         <tr>
-                                            <td style="width: 30%"><b><?= lang("Company_Name"); ?>:</b></td>
+                                            <td style="width: 30%"><b><?= lang("Corporate_Name"); ?>:</b></td>
                                             <td style="width: 70%"><?= $document->corporate_name; ?></td>
                                         </tr>
                                     <?php } ?>
