@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     <?= lang("Type", "Type")."<b> *</b>"; ?>
-                    <?php $ssty = array('Sales' => lang('Sales'),'Purchase' => lang('Purchase'));
+                    <?php $ssty = array('Sales(Farm/Factory)' => lang('Sales_(Farm/Factory)'),'Sales(HeadOffice)' => lang('Sales_(HeadOffice)'),'Purchase(Farm/Factory)-Local' => lang('Purchase(Farm/Factory)_Local'),'Purchase(HeadOffice)-Local' => lang('Purchase(HeadOffice)_Local'),'Purchase(HeadOffice)-Export/Import' => lang('Purchase(HeadOffice)_-Export/Import'),'Purchase(Farm/Factory)-Export/Import' => lang('Purchase(Farm/Factory)_-Export/Import'));
                     echo form_dropdown('type', $ssty, $aprrover->type,'class="form-control input-tip" required="required" id="type" style="width:100%"'); ?>
                 </div>
 

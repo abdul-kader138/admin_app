@@ -174,7 +174,7 @@ class Hrms extends MY_Controller
         }
 
         if ($this->form_validation->run() == true && $this->hr_model->addMR($data, $approve_data)) {
-           // $this->sendMail($data);
+//            $this->sendMail($data);
             $this->session->set_flashdata('message', "Information Successfully added.");
             redirect("hrms/manpower_requisition");
         } else {
@@ -226,7 +226,7 @@ class Hrms extends MY_Controller
         $this->form_validation->set_rules('exp_max', lang("exp_max"), 'trim|required|numeric');
         $this->form_validation->set_rules('age_min', lang("age_min"), 'trim|required|numeric');
         $this->form_validation->set_rules('age_max', lang("age_max"), 'trim|required|numeric');
-        $this->form_validation->set_rules('mb_year', lang("mb_year"), 'trim|required|numeric');
+        $this->form_validation->set_rules('mb_year', lang("mb_year"), 'trim|required');
         $this->form_validation->set_rules('education', lang("education"), 'trim|required');
         $this->form_validation->set_rules('gender', lang("gender"), 'trim|required');
 //        $this->form_validation->set_rules('requisition_reason', lang("gender"), 'trim');
@@ -347,7 +347,6 @@ class Hrms extends MY_Controller
         return $userDetails;
     }
 
-
     function pdf($id = NULL, $view = NULL)
     {
         $this->sma->checkPermissions('manpower_requisition', TRUE);
@@ -372,6 +371,7 @@ class Hrms extends MY_Controller
             $this->sma->generate_pdf($html, $name);
         }
     }
+
 
     function bulidApproverHistory($approver_list, $application_id, $created_id,$created_date=null)
     {
@@ -405,7 +405,6 @@ class Hrms extends MY_Controller
         }
         return $infoArray;
     }
-
 
     public function add_recruitment_approval()
     {
@@ -569,7 +568,7 @@ class Hrms extends MY_Controller
         }
 
         $approversList = $this->hr_model->getApproversList('add_recruitment_approval');
-        $approversListDetails = $this->bulidApproverHistory($approversList, $mr_details->id, $mr_details->created_by);
+        $approversListDetails = $this->bulidApproverHistory($approversList, $mr_details->id, $mr_details->created_by,$approver->category_id,$approver->interface_name);
         $name = "Recruitment_Approval_" . $mr_details->name . ".pdf";
         $this->data['document'] = $mr_details;
         $this->data['designations'] = $this->hr_model->getDesignationById($mr_details->designation_id);
