@@ -9,7 +9,7 @@
         'use strict';
         oTable = $('#UsrTable').dataTable({
             "aaSorting": [[2, "desc"]],
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
+            "aLengthMenu": [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
             'sAjaxSource': '<?= site_url('hrms/getMR') ?>',
