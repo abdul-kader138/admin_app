@@ -194,4 +194,15 @@ class CR_model extends CI_Model
         return true;
 
     }
+
+    public function updateCurrentStatus($inv, $cr_status, $status)
+    {
+        $this->db->trans_strict(TRUE);
+        $this->db->trans_start();
+        $this->db->update('cr', $status, array('id' => $inv));
+        $this->db->insert('cr_status', $cr_status);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) return false;
+        return true;
+    }
 }

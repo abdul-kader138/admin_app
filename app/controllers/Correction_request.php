@@ -66,24 +66,30 @@ class Correction_request extends MY_Controller
         $current_users = $this->cr_model->getUsersByID($this->session->userdata('user_id'));
 
         $edit_link = "";
+        $update_status_link = "";
         $delete_link = "";
         if ($get_permission['correction_request-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('correction_request/edit/$1', '<i class="fa fa-edit"></i> ' . lang('edit'), 'class="sledit"');
+        if ($get_permission['correction_request-status'] || $this->Owner || $this->Admin) $update_status_link = anchor('correction_request/current_status_update/$1', '<i class="fa fa-check-circle"></i> ' . lang('Status_Update'), 'data-toggle="modal" data-target="#myModal"');
         if ($get_permission['correction_request-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('correction_request/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
             . lang('delete') . "</a>";
-        $action = '<div class="text-center"><div class="btn-group text-left">'
-            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
-            . lang('actions') . ' <span class="caret"></span></button>
+        if ($edit_link || $update_status_link || $delete_link) {
+            $action = '<div class="text-center"><div class="btn-group text-left">'
+                . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+                . lang('actions') . ' <span class="caret"></span></button>
+                     
         <ul class="dropdown-menu pull-right" role="menu">
             <li>' . $edit_link . '</li>
+            <li>' . $update_status_link . '</li>
             <li>' . $delete_link . '</li>
         </ul>
     </div></div>';
+        }
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('cr') . ".id as ids, " . $this->db->dbprefix('cr') . ".reference_no," . $this->db->dbprefix('company') . ".name as cname," . $this->db->dbprefix('doctype') . ".name as dname," . $this->db->dbprefix('cr') . ".type as tname," . $this->db->dbprefix('cr') . ".name as c_name," . $this->db->dbprefix('cr') . ".description," . $this->db->dbprefix('cr') . ".status")
+            ->select($this->db->dbprefix('cr') . ".id as ids, " . $this->db->dbprefix('cr') . ".reference_no," . $this->db->dbprefix('company') . ".name as cname," . $this->db->dbprefix('doctype') . ".name as dname," . $this->db->dbprefix('cr') . ".type as tname," . $this->db->dbprefix('cr') . ".name as c_name," . $this->db->dbprefix('cr') . ".description," . $this->db->dbprefix('cr') . ".status," . $this->db->dbprefix('cr') . ".update_status")
             ->from("cr")
             ->join('company', 'cr.company_id=company.id', 'left')
             ->join('doctype', 'cr.category_id=doctype.id', 'left')
@@ -682,5 +688,41 @@ class Correction_request extends MY_Controller
         }
     }
 
+    public function current_status_update($id)
+    {
+
+        $this->form_validation->set_rules('status', lang("sale_status"), 'required');
+
+        $inv = $this->cr_model->getCRById($id);
+        if ($this->form_validation->run() == true) {
+            $status = $this->input->post('status');
+            $note = $this->sma->clear_tags($this->input->post('update_note'));
+            $cr_status = array(
+                'cr_id' => $inv->id,
+                'status' => $status,
+                'update_note' => $note,
+                'created_by' => $this->session->userdata('user_id'),
+                'created_date' => date("Y-m-d H:i:s")
+            );
+            $status = array(
+                'update_status' => $status,
+                'updated_by' => $this->session->userdata('user_id'),
+                'updated_date' => date("Y-m-d H:i:s"),
+            );
+        } elseif ($this->input->post('update')) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'correction_request');
+        }
+
+//        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run() == true && $this->cr_model->updateCurrentStatus($inv->id, $cr_status, $status)) {
+            $this->session->set_flashdata('message', lang('status_updated'));
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'cr/index');
+        } else {
+            $this->data['inv'] = $inv;
+            $this->data['modal_js'] = $this->site->modal_js();
+            $this->load->view($this->theme . 'cr/current_status_update', $this->data);
+        }
+    }
 
 }

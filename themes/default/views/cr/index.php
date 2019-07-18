@@ -37,7 +37,7 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            },null, null, null,null, null,null,null,null]
+            },null, null, null,null, null,null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Reference_No');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
@@ -45,7 +45,8 @@
             {column_number: 4, filter_default_label: "[<?=lang('Type');?>]", filter_type: "text", data: []},
             {column_number: 5, filter_default_label: "[<?=lang('Title');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('Description');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('Approve_Status');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -97,13 +98,14 @@ echo form_open('hrms/hrms_actions', 'id="action-form"');
                             <th class="col-xs-1"><?php echo lang('Type'); ?></th>
                             <th class="col-xs-2"><?php echo lang('Title'); ?></th>
                             <th class="col-xs-4"><?php echo lang('Description'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Status'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('Approve_Status'); ?></th>
+                            <th class="col-xs-1"><?php echo lang('Status'); ?></th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="9" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="10" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -111,6 +113,7 @@ echo form_open('hrms/hrms_actions', 'id="action-form"');
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

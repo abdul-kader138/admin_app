@@ -386,6 +386,11 @@
                                                    name="backups_index" <?php echo $p->backups_index ? "checked" : ''; ?>>
                                             <label for="backups_index" class="padding05"><?= lang('Backup_Database') ?></label>
                                         </span>
+                                        <span style="inline-block">
+                                            <input type="checkbox" value="1" class="checkbox" id="correction_request-status"
+                                                   name="correction_request-status" <?php echo $p->{'correction_request-status'} ? "checked" : ''; ?>>
+                                            <label for="bulk_actions" class="padding05"><?= lang('Correction_Request_Status') ?></label>
+                                        </span>
                                     </td>
                                 </tr>
 

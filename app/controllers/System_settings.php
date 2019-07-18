@@ -860,6 +860,7 @@ class system_settings extends MY_Controller
                 'approval_recruitment_approval' => $this->input->post('approval_recruitment_approval'),
                 'correction_request_approval' => $this->input->post('correction_request_approval'),
                 'bulk_actions' => $this->input->post('bulk_actions'),
+                'correction_request-status' => $this->input->post('correction_request-status'),
 
 
             );
