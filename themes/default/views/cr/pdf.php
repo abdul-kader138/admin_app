@@ -111,10 +111,9 @@
                                     ?>
                                     <td><div>
                                             <p>&nbsp;</p>
-                                            <p><?php echo ((!empty($footer[$i]['username'])) ? ucwords($footer[$i]['username']) : "-------------");?></p>
+                                            <p><?php echo ((!empty($footer[$i]['username'])) ? ucwords($footer[$i]['username']) : "-------------".'</br>');?></p>
                                             <p style="border-top: 1px solid #000;"><?php echo $footer[$i]['approver_type']?></p>
                                         </div></td>
-                                    <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
                                     <td colspan="<?php echo $divi; ?>">&nbsp;&nbsp;&nbsp;</td>
                                 <?php }?>
 

@@ -13,7 +13,7 @@
                                 <div class="col-sm-2">
                                     <div class="small-box padding1010 bpurple">
                                         <h4 class="bold" style="color: #ffffff"><?= lang('Manpower_Requisition') ?></h4>
-                                        <i class="fa fa-star"></i>
+<!--                                        <i class="fa fa-star"></i>-->
                                         <div style="cursor: pointer;">
                                         <a href="<?= site_url('approval/approval_list/manpower_requisition'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_mr->total < 10 && $total_mr->total > 0 ) ? '0'.$total_mr->total : $total_mr->total);?></a></div>
                                     </div>
@@ -23,7 +23,7 @@
                                 <div class="col-sm-2">
                                     <div class="small-box padding1010 bblue">
                                         <h4 class="bold" style="color: #ffffff"><?= lang('Recruitment_Approval') ?></h4>
-                                        <i class="fa fa-star"></i>
+<!--                                        <i class="fa fa-star"></i>-->
                                         <div style="cursor: pointer;">
                                             <a href="<?= site_url('approval/approval_list/recruitment_approval'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_ar->total < 10 && $total_ar->total > 0 ) ? '0'.$total_ar->total : $total_ar->total);?></a></div>
                                     </div>
@@ -34,7 +34,7 @@
                                 <div class="col-sm-2">
                                     <div class="small-box padding1010 bred">
                                         <h4 class="bold" style="color: #ffffff"><?= lang('Correction_Request') ?></h4>
-                                        <i class="fa fa-star"></i>
+<!--                                        <i class="fa fa-star"></i>-->
                                         <div style="cursor: pointer;">
                                             <a href="<?= site_url('correction_request/approval_list/cr'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_cr->total < 10 && $total_cr->total > 0 ) ? '0'.$total_cr->total : $total_cr->total);?></a></div>
                                     </div>

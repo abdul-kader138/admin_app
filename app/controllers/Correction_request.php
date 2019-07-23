@@ -201,12 +201,12 @@ class Correction_request extends MY_Controller
     {
 
         if (!$this->Owner && !$this->Admin) {
-            $get_permission = $this->permission_details[0];
-            if ((!$get_permission['correction_request-edit'])) {
+            //$get_permission = $this->permission_details[0];
+            //if ((!$get_permission['correction_request-edit'])) {
                 $this->session->set_flashdata('warning', lang('access_denied'));
                 die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
                 redirect($_SERVER["HTTP_REFERER"]);
-            }
+            //}
         }
 
 
