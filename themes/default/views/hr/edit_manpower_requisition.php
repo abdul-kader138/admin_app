@@ -30,7 +30,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <?= lang("Position", "Position") . "<b> *</b>"; ?>
-                                <?php $sst = array('Lead' => lang('Lead'), 'Process Owner' => lang('Process_Owner'), 'Associate' => lang('Associate'));
+                                <?php $sst = array('Lead' => lang('Lead'), 'Process Owner' => lang('Process_Owner'), 'Associate' => lang('Associate'),'Staff'=>lang('Staff'));
                                 echo form_dropdown('position', $sst, $document->position, 'class="form-control input-tip" required="required" id="position" style="width:100%"'); ?>
 
                             </div>
