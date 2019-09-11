@@ -100,8 +100,8 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('mobile_number', lang("mobile_number"), 'trim|required|is_unique[employees.mobile_number]|regex_match[/^[0-9]{10,14}$/]');
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
-        //$this->form_validation->set_rules('email', lang("email"), 'trim|valid_email|is_unique[employees.email]');
-//        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email|is_unique[employees.email]');
+        $this->form_validation->set_rules('nid', lang("NID"), 'trim|required');
+        $this->form_validation->set_rules('work_station', lang("Work_Station"), 'trim|required');
 //        $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim|required');
         $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
         $this->form_validation->set_rules('active', lang("active"), 'trim|required');
@@ -121,6 +121,9 @@ class Employees extends MY_Controller
                 'designation_id' => $this->input->post('designation_id'),
                 'company_id' => $this->input->post('company_id'),
                 'operator_id' => $this->input->post('operator_id'),
+                'nid' => $this->input->post('nid'),
+                'work_station' => $this->input->post('work_station'),
+                'blood' => $this->input->post('blood'),
                 'package_id' => $this->input->post('package_id'),
                 'email' => $email,
                 'mobile_number' => $this->input->post('mobile_number'),
@@ -174,6 +177,9 @@ class Employees extends MY_Controller
         $this->form_validation->set_rules('ceiling_amount', lang("ceiling_amount"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('credit_limit', lang("credit_limit"), 'trim|required|numeric|is_natural_no_zero');
         $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('nid', lang("NID"), 'trim|required');
+        $this->form_validation->set_rules('work_station', lang("Work_Station"), 'trim|required');
+
 //        $this->form_validation->set_rules('email', lang("email"), 'trim|required|valid_email');
         //    $this->form_validation->set_rules('email', lang("email"), 'trim');
         $this->form_validation->set_rules('service_start_date', lang("service_start_date"), 'trim');
@@ -197,6 +203,9 @@ class Employees extends MY_Controller
                 'operator_id' => $this->input->post('operator_id'),
                 'package_id' => $this->input->post('package_id'),
                 'email' => $email,
+                'nid' => $this->input->post('nid'),
+                'work_station' => $this->input->post('work_station'),
+                'blood' => $this->input->post('blood'),
                 'mobile_number' => $this->input->post('mobile_number'),
                 'ceiling_amount' => $this->input->post('ceiling_amount'),
                 'credit_limit' => $this->input->post('credit_limit'),
@@ -397,6 +406,9 @@ class Employees extends MY_Controller
                     $this->excel->getActiveSheet()->SetCellValue('I1', lang('credit_limit'));
                     $this->excel->getActiveSheet()->SetCellValue('J1', lang('service_start_date'));
                     $this->excel->getActiveSheet()->SetCellValue('K1', lang('status'));
+                    $this->excel->getActiveSheet()->SetCellValue('L1', lang('WorkStation'));
+                    $this->excel->getActiveSheet()->SetCellValue('M1', lang('Blood'));
+                    $this->excel->getActiveSheet()->SetCellValue('N1', lang('NID'));
 //
                     $row = 2;
                     foreach ($_POST['val'] as $id) {
@@ -412,6 +424,9 @@ class Employees extends MY_Controller
                         $this->excel->getActiveSheet()->SetCellValue('I' . $row, $employees->credit_limit);
                         $this->excel->getActiveSheet()->SetCellValue('J' . $row, $employees->service_start_date);
                         $this->excel->getActiveSheet()->SetCellValue('K' . $row, $employees->active = 1 ? 'Active' : 'Inactive');
+                        $this->excel->getActiveSheet()->SetCellValue('L' . $row, $employees->work_station );
+                        $this->excel->getActiveSheet()->SetCellValue('M' . $row, $employees->blood );
+                        $this->excel->getActiveSheet()->SetCellValue('N' . $row, $employees->nid);
                         $row++;
                     }
 

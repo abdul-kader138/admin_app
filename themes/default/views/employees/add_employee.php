@@ -55,7 +55,17 @@
                                     <?php echo form_input('credit_limit', (isset($_POST['credit_limit']) ? $_POST['credit_limit'] : ''), 'class="form-control tip" id="credit_limit" required="required" '); ?>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <?php echo lang('NID', 'NID'); ?>
+                                <div class="controls">
+                                    <?php echo form_input('nid', (isset($_POST['nid']) ? $_POST['nid'] : ''), 'class="form-control tip" id="nid" required="required" '); ?>
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                <?= lang("Blood", "Blood"); ?>
+                                <?php $sst23 = array('' => lang(''),'A+' => lang('A+'),'A-' => lang('A-'), 'B+' => lang('B+'), 'B-' => lang('B-'), 'AB+' => lang('AB+'),'AB-' => lang('AB-'),'O+' => lang('O+'),'O-' => lang('O-'));      echo form_dropdown('blood', $sst23, (isset($_POST['blood']) ? $_POST['blood'] : ""), 'class="form-control input-tip"  id="blood" style="width:100%"'); ?>
+                            </div>
 
                         </div>
                         <div class="col-md-5 col-md-offset-1">
@@ -106,6 +116,10 @@
                                     <?php echo form_input('service_start_date', (isset($_POST['service_start_date']) ? $_POST['service_start_date'] : ''), 'class="form-control date" id="service_start_date"'); ?>
                                 </div>
                             </div>
+                                <div class="form-group">
+                                    <?= lang("Work_Station", "Work_Station") . " <b> *</b>"; ?>
+                                    <?php $sst = array('HeadOffice' => lang('HeadOffice'),'Feed' => lang('Feed'), 'Poultry' => lang('Poultry'), 'Plast Fiber' => lang('Plast_Fiber'), 'Plastic' => lang('Plastic'),'FootWear' => lang('FootWear'),'Consumer Food' => lang('Consumer_Food'),'Horticulture' => lang('Horticulture'),'Tea States' => lang('Tea_States'));      echo form_dropdown('work_station', $sst, (isset($_POST['work_station']) ? $_POST['work_station'] : ""), 'class="form-control input-tip"  id="work_station" style="width:100%"'); ?>
+                                </div>
                             <div class="form-group">
                                 <?= lang('status', 'status'); ?>
                                 <?php
