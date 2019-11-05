@@ -25,7 +25,7 @@
                                         <h4 class="bold" style="color: #ffffff"><?= lang('Recruitment_Approval') ?></h4>
 <!--                                        <i class="fa fa-star"></i>-->
                                         <div style="cursor: pointer;">
-                                            <a href="<?= site_url('approval/approval_list/recruitment_approval'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_ar->total < 10 && $total_ar->total > 0 ) ? '0'.$total_ar->total : $total_ar->total);?></a></div>
+                                            <a href="<?= site_url('approval/approval_list_r/recruitment_approval'); ?>" style="text-align: center;font-size: 20px;"><?php echo (($total_ar->total < 10 && $total_ar->total > 0 ) ? '0'.$total_ar->total : $total_ar->total);?></a></div>
                                     </div>
                                 </div>
                             <?php } ?>

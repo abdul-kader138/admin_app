@@ -75,10 +75,11 @@ class Approval extends MY_Controller
         $this->load->library('datatables');
         $this->datatables
             ->select($this->db->dbprefix('approve_details') . ".application_id as id, " . $this->db->dbprefix('approve_details') . ".table_name," . $this->db->dbprefix('approve_details') . ".status as nam," . $this->db->dbprefix('approve_details') . ".approver_seq_name as ref,"
-                . $this->db->dbprefix($ids) . ".department as departments," . $this->db->dbprefix('company') . ".name as names," . $this->db->dbprefix('approve_details') . ".id as approves_id," . $this->db->dbprefix('approve_details') . ".created_date")
+                . $this->db->dbprefix($ids) . ".department as departments," . $this->db->dbprefix('company') . ".name as names," . $this->db->dbprefix('approve_details') . ".id as approves_id," . $this->db->dbprefix($ids). ".reason_ap,concat(". $this->db->dbprefix('users') . ".first_name,'',". $this->db->dbprefix('users') . ".last_name),". $this->db->dbprefix('approve_details') . ".created_date")
             ->from("approve_details")
             ->join($ids, $ids . '.id=approve_details.application_id', 'left')
             ->join('company', 'company.id=' . $ids . '.company_id', 'left')
+            ->join('users', 'users.id='.$ids.'.created_by', 'left')
             ->where('table_name', $ids)
             ->where('approve_status', 0)
             ->where('aprrover_id', $this->session->userdata('user_id'))
@@ -264,11 +265,11 @@ class Approval extends MY_Controller
                     $previous_approve_data=array();
                     $query_info_close=array();
                     foreach ($_POST['val'] as $id) {
-                        $info = $this->approval_model->getApprovalBluk($id);
+                        $info = $this->approval_model->getApprovalBluk($id,'manpower_requisition');
                         $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id,$info->category_id);
 
                         $previous_approve_data[]="update ".$this->db->dbprefix('approve_details')." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
-                            "', approve_status=1, status='approved' where id=".(int)$info->id."; ";
+                            "', approve_status=1, status='approved' where table_name='manpower_requisition' and id=".(int)$info->id."; ";
 
                         $approve_details_previous[] = $previous_approve_data;       // update
                         if ($getNextApproval) {
@@ -298,4 +299,127 @@ class Approval extends MY_Controller
 
         }
     }
+
+
+
+//    Recuirtment_approval
+
+    function approval_list_r($ids = null)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['approval_' . $ids])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->post('id')) {
+            $ids = $this->input->post('id');
+        }
+
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['id'] = $ids;
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('Approval')));
+        $meta = array('page_title' => lang($ids), 'bc' => $bc);
+        $this->page_construct('approval/approval_list_r', $meta, $this->data);
+    }
+
+    function getApprovalR($ids = null)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['approval_' . $ids])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->post('id')) {
+            $ids = $this->input->post('id');
+        }
+
+        $approve_link = "";
+        if ($get_permission['approval_' . $ids] || $this->Owner || $this->Admin)
+            $approve_link = '<div class="row_approve_status" id="$2">&nbsp;&nbsp;<i class="fa fa-edit"></i> Approve</div>';
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li>' . $approve_link . '</li>
+        </ul>
+    </div></div>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->load->library('datatables');
+        $this->datatables
+            ->select($this->db->dbprefix('approve_details') . ".application_id as id, " . $this->db->dbprefix('approve_details') . ".table_name," . $this->db->dbprefix('approve_details') . ".status as nam," . $this->db->dbprefix('approve_details') . ".approver_seq_name as ref,"
+                . $this->db->dbprefix($ids) . ".department as departments," . $this->db->dbprefix('company') . ".name as names," . $this->db->dbprefix('approve_details') . ".id as approves_id," . $this->db->dbprefix('approve_details') . ".created_date")
+            ->from("approve_details")
+            ->join($ids, $ids . '.id=approve_details.application_id', 'left')
+            ->join('company', 'company.id=' . $ids . '.company_id', 'left')
+            ->where('table_name', $ids)
+            ->where('approve_status', 0)
+            ->where('aprrover_id', $this->session->userdata('user_id'))
+            ->group_by('approve_details.id')
+            ->add_column("Actions", $action, "id,approves_id")
+            ->unset_column('approves_id');
+        echo $this->datatables->generate();
+    }
+
+
+    function approvalR_actions()
+    {
+        if (!$this->Owner && !$this->GP['bulk_actions']) {
+            $this->session->set_flashdata('warning', lang('access_denied'));
+            redirect($_SERVER["HTTP_REFERER"]);
+        }
+
+        $this->form_validation->set_rules('form_action', lang("form_action"), 'required');
+
+        $approve_details_new = array();
+        $approve_details_previous = array();
+        if ($this->form_validation->run() == true) {
+            if (!empty($_POST['val'])) {
+                if ($this->input->post('form_action') == 'chuk_approval_r') {
+                    $previous_approve_data=array();
+                    $query_info_close=array();
+                    foreach ($_POST['val'] as $id) {
+                        $info = $this->approval_model->getApprovalBluk($id,'recruitment_approval');
+                        $getNextApproval = $this->getNextApproval($info->next_approve_seq, $info->table_name, $info->created_by, $info->created_date, $info->application_id,$info->category_id);
+
+                        $previous_approve_data[]="update ".$this->db->dbprefix('approve_details')." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                            "', approve_status=1, status='approved' where table_name='recruitment_approval' and id=".(int)$info->id."; ";
+
+                        $approve_details_previous[] = $previous_approve_data;       // update
+                        if ($getNextApproval) {
+                            $approve_details_new[] = $getNextApproval['approve_data']; // insert
+                            $status= $getNextApproval['status'];
+                            $seq = (($approve_details_new['next_approve_seq']) ? $approve_details_new['next_approve_seq'] :0);
+                            $query_info_close[]="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                                "', status='".$status."', next_approve_seq=".$seq." where id=".(int)$info->application_id."; ";
+
+                        } else {
+                            $query_info_close[]="update ".$this->db->dbprefix($info->table_name)." set updated_by=".$this->session->userdata('user_id').", updated_date='".date("Y-m-d H:i:s").
+                                "', approved=1, status='approved', next_approve_seq=0 where id=".(int)$info->application_id."; ";
+                        }
+                    }
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line("No_Data_Selected."));
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        if ($this->form_validation->run() == true && $this->approval_model->updateStatusChunk($approve_details_new, $previous_approve_data, $query_info_close,$info->table_name)) {
+            $this->session->set_flashdata('message', lang('status_updated'));
+            redirect('approval/approval_list_r/' . $info->table_name);
+        } else {
+            $this->session->set_flashdata('error', "Error encountered, please contact with admin");
+            redirect(isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : 'approval/approval_list_r/' . $info->table_name);
+
+        }
+    }
+
 }

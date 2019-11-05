@@ -50,6 +50,10 @@ class Approval_model extends CI_Model
     }
 
 
+
+
+
+
     public function updateStatusReject($approve_details_previous, $info_new, $id,$application_id,$table_name)
     {
         $this->db->trans_strict(TRUE);
@@ -81,9 +85,9 @@ class Approval_model extends CI_Model
 
     }
 
-    public function getApprovalBluk($id)
+    public function getApprovalBluk($id,$table_name)
     {
-        $q = $this->db->get_where('approve_details', array('application_id' => $id, 'approve_status' => 0));
+        $q = $this->db->get_where('approve_details', array('application_id' => $id, 'approve_status' => 0,'table_name'=>$table_name));
         if ($q->num_rows() > 0) {
             return $q->row();
         }

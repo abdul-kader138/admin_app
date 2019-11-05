@@ -329,6 +329,7 @@ class Hrms extends MY_Controller
         $this->data['document'] = $pr_details;
         $this->data['companies'] = $this->hr_model->getCompanyById($pr_details->company_id);
         $this->data['designations'] = $this->hr_model->getDesignationById($pr_details->designation_id);
+        $this->data['categories'] = $this->site->getCategoryByID($pr_details->category_id);
         $approversList = $this->hr_model->getApproversList('add_manpower_requisition',$pr_details->category_id);
         $approversListDetails = $this->bulidApproverHistory($approversList, $pr_details->id, $pr_details->created_by,$pr_details->created_date);
         $this->data['footer'] = $approversListDetails;

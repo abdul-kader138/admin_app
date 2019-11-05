@@ -16,7 +16,7 @@
             "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('approval/getApproval/' . $id) ?>',
+            'sAjaxSource': '<?= site_url('approval/getApprovalR/' . $id) ?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -38,7 +38,7 @@
             }, {
                 "bSortable": false,
                 "mRender": approval_name
-            }, null, null, null, null, null, null,null,null]
+            }, null, null, null, null, null, null]
             // }, null, null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('Approve_For');?>]", filter_type: "text", data: []},
@@ -57,7 +57,7 @@
 
     }
 </script>
-<?php echo form_open('approval/approval_actions', 'id="action-form"'); ?>
+<?php echo form_open('approval/approvalR_actions', 'id="action-form"'); ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-user"></i><?= lang('Waiting_For_Approval'); ?></h2>
@@ -69,8 +69,7 @@
                                                                                   data-placement="left"
                                                                                   title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right tasks-menus" role="menu" aria-labelledby="dLabel">
-
-                        <li><a href="#" id="chuk_approval" data-action="chuk_approval"><i
+                        <li><a href="#" id="chuk_approval_r" data-action="chuk_approval_r"><i
                                         class="fa fa-hand-o-right"></i> <?= lang('Bulk_Approval') ?></a></li>
                     </ul>
                 </li>
@@ -95,8 +94,6 @@
                             <th style="width:15%"><?php echo lang('Approver_Type'); ?></th>
                             <th style="width:15%"><?php echo lang('Department'); ?></th>
                             <th style="width:15%"><?php echo lang('Company'); ?></th>
-                            <th style="width:15%"><?php echo lang('Replacement_Reason'); ?></th>
-                            <th style="width:15%"><?php echo lang('Created_By'); ?></th>
                             <th><?php echo lang('Created_Date'); ?></th>
                             <th></th>
                         </tr>
@@ -111,8 +108,6 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -138,7 +133,7 @@
 <script language="javascript">
     $(document).ready(function () {
 
-        $('#chuk_approval').click(function (e) {
+            $('#chuk_approval_r').click(function (e) {
             e.preventDefault();
             $('#form_action').val($(this).attr('data-action'));
             $('#action-form-submit').trigger('click');
