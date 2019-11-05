@@ -26,27 +26,32 @@
             }, 'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 var oSettings = oTable.fnSettings();
                 nRow.id = aData[0];
-                console.log(aData);
-                if (aData[1] === 'manpower_requisition') nRow.className = "manpower_requisition_approval";
-                else if (aData[1] === 'recruitment_approval') nRow.className = "recruitment_approval";
+                if (aData[9] === 'manpower_requisition') nRow.className = "manpower_requisition_approval";
+                else if (aData[9] === 'recruitment_approval') nRow.className = "recruitment_approval";
                 else nRow.className = '';
                 return nRow;
             },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, {
+            },{
+                "mRender": fld
+            }, null, null, null, null, null, null,null,{
                 "bSortable": false,
                 "mRender": approval_name
-            }, null, null, null, null, null, null]
+            },null]
             // }, null, null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('Approve_For');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('Approver_Type');?>]", filter_type: "text", data: []},
+            {column_number: 1, filter_default_label: "[<?=lang('Created_Date');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('Name');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('Designation');?>]", filter_type: "text", data: []},
             {column_number: 4, filter_default_label: "[<?=lang('Department');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('Created_Date');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Division');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('Workstation');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Salary');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('Approve_For');?>]", filter_type: "text", data: []},
+
         ], "footer");
     });
 
@@ -89,12 +94,15 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th><?php echo lang('Approve_For'); ?></th>
-                            <th><?php echo lang('Status'); ?></th>
-                            <th style="width:15%"><?php echo lang('Approver_Type'); ?></th>
-                            <th style="width:15%"><?php echo lang('Department'); ?></th>
-                            <th style="width:15%"><?php echo lang('Company'); ?></th>
                             <th><?php echo lang('Created_Date'); ?></th>
+                            <th><?php echo lang('Name'); ?></th>
+                            <th style="width:15%"><?php echo lang('Designation'); ?></th>
+                            <th style="width:15%"><?php echo lang('Department'); ?></th>
+                            <th style="width:15%"><?php echo lang('Division'); ?></th>
+                            <th><?php echo lang('Workstation'); ?></th>
+                            <th><?php echo lang('Company'); ?></th>
+                            <th><?php echo lang('Salary'); ?></th>
+                            <th><?php echo lang('Approve_For'); ?></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -108,6 +116,9 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

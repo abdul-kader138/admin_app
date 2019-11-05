@@ -355,11 +355,12 @@ class Approval extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('approve_details') . ".application_id as id, " . $this->db->dbprefix('approve_details') . ".table_name," . $this->db->dbprefix('approve_details') . ".status as nam," . $this->db->dbprefix('approve_details') . ".approver_seq_name as ref,"
-                . $this->db->dbprefix($ids) . ".department as departments," . $this->db->dbprefix('company') . ".name as names," . $this->db->dbprefix('approve_details') . ".id as approves_id," . $this->db->dbprefix('approve_details') . ".created_date")
+            ->select($this->db->dbprefix('approve_details') . ".application_id as id, " . $this->db->dbprefix($ids) . ".created_date," . $this->db->dbprefix($ids) . ".name as nam," . $this->db->dbprefix('designations') . ".name as ref,"
+                . $this->db->dbprefix($ids) . ".department as departments," . $this->db->dbprefix($ids) . ".division as names," . $this->db->dbprefix('approve_details') . ".id as approves_id," . $this->db->dbprefix($ids) . ".workstation,". $this->db->dbprefix('company') . ".name as cnames,". $this->db->dbprefix($ids) . ".salary,". $this->db->dbprefix('approve_details') . ".table_name")
             ->from("approve_details")
             ->join($ids, $ids . '.id=approve_details.application_id', 'left')
             ->join('company', 'company.id=' . $ids . '.company_id', 'left')
+            ->join('designations', 'designations.id=' . $ids . '.designation_id', 'left')
             ->where('table_name', $ids)
             ->where('approve_status', 0)
             ->where('aprrover_id', $this->session->userdata('user_id'))
